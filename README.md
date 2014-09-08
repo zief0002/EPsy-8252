@@ -1,4 +1,4 @@
-EPsy-8251
+EPsy 8252
 =========
 
 Course materials for EPsy 8252
