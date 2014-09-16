@@ -7,4 +7,4 @@ Due Dates
 -------
 
 - Assignment #1: Sept. 22
-- Assignment #2: TBD
+- Assignment #2: Sept. 29
