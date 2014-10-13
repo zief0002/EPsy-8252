@@ -10,3 +10,4 @@ Due Dates
 - Assignment #2: Sept. 29
 - Assignment #3: Oct. 6
 - Assignment #4: Oct. 13
+- Assignment #5: Oct. 20
