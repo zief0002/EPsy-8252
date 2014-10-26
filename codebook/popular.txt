@@ -1,0 +1,37 @@
+popularLevel1.csv and popularLevel2.csv
+Codebook
+
+-------------------------------
+
+BACKGROUND
+
+The main outcome variable is the pupil popularity, a popularity rating on a scale of 1-10 derived by a sociometric procedure. Typically, a sociometric procedure asks all pupils in a class to rate all the other pupils, and then assigns the average received popularity rating to each pupil. Because of the sociometric procedure, group effects as apparent from higher level variance components are rather strong. 
+
+Hox, J. (2002). Multilevel analysis techniques and applications. Mahwah, NJ: Lawrence Erlbaum Associates
+-------------------------------
+DATA
+
+The data in popularLevel1.csv are simulated sociological data for 2000 students in 100 classrooms. The data in popularLevel2.csv are simulated sociological data for 100 classrooms.
+
+-------------------------------
+
+VARIABLES
+
+student:        Student ID (within a school)
+
+class:          Classroom ID
+
+popularity:     Popularity rating of the student (0-10 scale; where 0 = very unpopular and 10 = very popular) based on having all 
+                other students in the student's class rate him/her and computing the average of those ratings.
+
+teachPop:       Student's popularity as rated by the teacher. Higher values are indicative of higher popularity
+
+extra:          Extraversion of the student (measured on a 10-point scale)
+
+female:         Sex of the student (Male = 0; Female = 1)
+
+teacherExp:     Experience of teacher in years
+
+
+-------------------------------
+
