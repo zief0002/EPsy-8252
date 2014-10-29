@@ -12,3 +12,4 @@ Due Dates
 - Assignment #4: Oct. 13
 - Assignment #5: Oct. 20
 - Assignment #6: Nov. 10
+- Assignment #7: Nov. 17
