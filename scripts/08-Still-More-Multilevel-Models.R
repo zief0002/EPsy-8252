@@ -4,8 +4,8 @@
 
 library(foreign)
 
-nbaL1 = read.spss(file = "http://www.tc.umn.edu/~zief0002/data/nbaLevel1.sav", to.data.frame = TRUE)
-nbaL2 = read.spss(file = "http://www.tc.umn.edu/~zief0002/data/nbaLevel2.sav", to.data.frame = TRUE)
+nbaL1 = read.spss(file = "/Users/andrewz/Documents/EPsy-8252/data/nbaLevel1.sav", to.data.frame = TRUE)
+nbaL2 = read.spss(file = "/Users/andrewz/Documents/EPsy-8252/data/nbaLevel2.sav", to.data.frame = TRUE)
 
 head(nbaL1)
 head(nbaL2)
