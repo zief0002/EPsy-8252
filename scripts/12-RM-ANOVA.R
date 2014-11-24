@@ -64,12 +64,20 @@ library(ggplot2)
 
 ggplot(data = mplsLong, aes(x = grade, y = read)) +
 	geom_point(alpha = 0.4) +
-	stat_summary(fun.y = "mean", geom = "line", aes(group = 1)) +
+	#stat_summary(fun.y = "mean", geom = "line", aes(group = 1)) +
 	stat_summary(fun.y = "mean", geom = "point", pch = 19, size = 3) +
 	theme_bw() +
 	xlab("Grade") +
 	ylab("Reading Score")
 
+
+ggplot(data = mplsLong, aes(x = grade, y = read)) +
+	geom_line(alpha = 0.4, aes(group = studentID)) +
+	#stat_summary(fun.y = "mean", geom = "line", aes(group = 1), lwd = 2) +
+	#stat_summary(fun.y = "mean", geom = "point", pch = 19, size = 3) +
+	theme_bw() +
+	xlab("Grade") +
+	ylab("Reading Score")
 
 
 
@@ -194,5 +202,32 @@ rm.aov = ezANOVA(data = mplsLong,
 	)
 
 rm.aov
+
+
+###################################################
+### Fit repeated measures ANOVA with feamle as a predictor as well
+###################################################
+
+
+mplsLong = melt(
+	mpls2, 
+	id = c("studentID", "female"),
+	measure = c("read.5", "read.6", "read.7", "read.8")
+	)
+
+# Rename the columns
+names(mplsLong)[3] = "grade"
+names(mplsLong)[4] = "read"
+
+library(ez)
+aov.2 = ezANOVA(
+	data = mplsLong, 
+	dv = read, 
+	wid = studentID, 
+	within = .(grade),
+	between = female, 
+	detailed = TRUE
+	)
+aov.2
 
 

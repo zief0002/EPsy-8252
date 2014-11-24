@@ -13,3 +13,15 @@ Due Dates
 - Assignment #5: Oct. 20
 - Assignment #6: Nov. 10
 - Assignment #7: Nov. 17
+- Assignment #8: Dec. 1
+- Assignment #9: Dec. 8
+- Assignment #10: Dec. 15 by 12:00 p.m.
+
+
+You need to complete nine assignments to receive a grade in this course. 
+
+However, I will use your eight best assignments (based on percentage) to compute your course grade. 
+
+
+
+
