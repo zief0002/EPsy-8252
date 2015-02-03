@@ -19,3 +19,27 @@ To download individual files, you may need to click the filename, then click the
 ### Automatic Download
 
 Set up a GitHub account and then download the [GitHub for Mac](https://mac.github.com/) or [GitHub for Windows](https://windows.github.com/) GUI. Next, read the online help to learn how to clone the repository for this site. (Note that at this point, you are not contributing material to the site, you only need to clone the site on your local computer---do not worry about forking.)
+
+## Reading and Resources
+
+Below is the reading you will need to do for the course. Some are traditional reading (e.g., books, papers). Others are online videos or webpages to "read".
+
+### Regression Review
+
+- Chapter 1 (Gelman & Hill)
+- Chapter 2 (Gelman & Hill)
+- Chapter 3 (Gelman & Hill)
+- Chapter 4 (Gelman & Hill)
+
+- [Tidy Data Video](http://vimeo.com/33727555)
+
+### Matrix Algebra/Vector Geometry
+
+- Fox, J. (2009). _A Mathematical Primer for Social Statistics_. Thousand Oaks, CA: Sage.
+- Vinod, H. D. (2011). _Hands-on matrix algebra using R: Active and motivated learning with applications_. Singapore: World Scientific.
+- Wickens, T. D. (1995). _The geometry of multivariate statistics_. Hillsdale, NJ: Lawrence Erlbaum.
+
+### Simulation
+
+- Chapter 7 (Gelman & Hill)
+
