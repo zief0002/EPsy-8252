@@ -43,3 +43,6 @@ Below is the reading you will need to do for the course. Some are traditional re
 
 - Chapter 7 (Gelman & Hill)
 
+### Information Criteria
+
+- Burnham, K. C., & Anderson, D. R. (2004). Multimodel inference: Understanding AIC and BIC in model selection. _Sociological Methods and Research, 33_, 261–304. [UMN Library](http://smr.sagepub.com.ezp2.lib.umn.edu/content/33/2/261.full.pdf+html)
