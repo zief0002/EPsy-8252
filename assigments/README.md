@@ -12,6 +12,7 @@ Due Dates
 - Assignment #4: Feb. 26
 - Assignment #5: Apr. 30
 - Assignment #6: Apr. 02
+- Assignment #7: Apr. 09
 
 
 
