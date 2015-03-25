@@ -49,4 +49,7 @@ Below is the reading you will need to do for the course. Some are traditional re
 - [BASP Journal Bans NHST](http://www.tandfonline.com/doi/full/10.1080/01973533.2015.1012991#abstract)
 
 
+### Multilevel Regression Models
 
+- Chapter 11 (Gelman & Hill)
+- Chapter 12 (Gelman & Hill)
