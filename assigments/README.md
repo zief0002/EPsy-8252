@@ -13,6 +13,8 @@ Due Dates
 - Assignment #5: Apr. 30
 - Assignment #6: Apr. 02
 - Assignment #7: Apr. 09
+- Assignment #8: Apr. 23
+- Assignment #9: Apr. 30
 
 
 
