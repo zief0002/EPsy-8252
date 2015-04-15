@@ -47,10 +47,22 @@ Below is the reading you will need to do for the course. Some are traditional re
 
 - Burnham, K. C., & Anderson, D. R. (2004). Multimodel inference: Understanding AIC and BIC in model selection. _Sociological Methods and Research, 33_, 261–304. [UMN Library](http://smr.sagepub.com.ezp2.lib.umn.edu/content/33/2/261.full.pdf+html)
 - [BASP Journal Bans NHST](http://www.tandfonline.com/doi/full/10.1080/01973533.2015.1012991#abstract)
-- Dayton, C. M. (2003). Information Criteria for Pairwise Comparisons. _Psychological Methods, 8_(1), 61–71.
+- Dayton, C. M. (2003). Information criteria for pairwise comparisons. _Psychological Methods, 8_(1), 61–71.
 
 
 ### Multilevel Regression Models
 
 - Chapter 11 (Gelman & Hill)
 - Chapter 12 (Gelman & Hill)
+- Woltman, H., Feldstain, A., MacKay, J. C., & Rocchi, M. (2012). An introduction to hierarchical linear modeling. _Tutorials in Quantitative Methods for Psychology, 8_(1), 52–69.
+
+
+### Longitudinal Models
+
+- Long, J. D. (2012). _Longitudinal data analysis for the behavioral sciences using R_. Thousand Oaks, CA: Sage. [Amazon](http://www.amazon.com/Longitudinal-Analysis-Behavioral-Sciences-Using/dp/1412982685)
+
+
+### Miscellany Regarding Multilevel Models
+
+- Hofmann, D. A., & Gavin, M. B. (1998). Centering decisions in hierarchical linear models: Implications for research in organizations. _Journal of Management, 24_(5), 623–641.
+- Scherbaum, C. A., & Ferreter, J. M. (2008). Estimating statistical power and required sample sizes for organizational research using multilevel modeling. _Organizational Research Methods, 12_(2), 347–367.
