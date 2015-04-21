@@ -66,3 +66,10 @@ Below is the reading you will need to do for the course. Some are traditional re
 
 - Hofmann, D. A., & Gavin, M. B. (1998). Centering decisions in hierarchical linear models: Implications for research in organizations. _Journal of Management, 24_(5), 623–641.
 - Scherbaum, C. A., & Ferreter, J. M. (2008). Estimating statistical power and required sample sizes for organizational research using multilevel modeling. _Organizational Research Methods, 12_(2), 347–367.
+
+### Estimation of Multilevel Models
+
+- [Stack Overflow](http://stackoverflow.com/questions/20980116/how-does-lmer-from-the-r-package-lme4-compute-log-likelihood)
+- [Linear mixed models and penalized least squares](http://pages.cs.wisc.edu/~bates/reports/MixedComp.pdf)
+- [lme4: Mixed-effects modeling with R](http://lme4.r-forge.r-project.org/lMMwR/lrgprt.pdf)
+ 
