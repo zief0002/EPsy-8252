@@ -1,44 +1,53 @@
 EPsy 8252
 =========
 
-Course materials for EPsy 8252
+Course materials for EPsy 8251
 
-
-This GitHub repository is the home for the course _EPsy 8252: Methods in Data Analysis for Educational Research II_. It includes many of the materials used in the course.
-
-## Downloading the Course Material
-
-There are several methods to download the material from the GitHub site.
-
-### Manual Download
+This GitHub repository is the home for the book _EPsy 8251: Methods in Data Analysis for Educational Research I_. It includes many of the materials used in the course.
 
 To download all of the materials at this site, click on the `Download ZIP` button. This will download a ZIP file of the entire site on your local computer. 
 
-To download individual files, you may need to click the filename, then click the ``View Raw`` link. At this point, the file may download, or you may need to right-click and do a "Save file as..." (If all else fails, re-download the entire folder using the `Download ZIP` button.)
 
-### Automatic Download
+---
 
-Set up a GitHub account and then download the [GitHub for Mac](https://mac.github.com/) or [GitHub for Windows](https://windows.github.com/) GUI. Next, read the online help to learn how to clone the repository for this site. (Note that at this point, you are not contributing material to the site, you only need to clone the site on your local computer---do not worry about forking.)
 
-## Reading and Resources
+### Instructor
 
-Below is the reading you will need to do for the course. Some are traditional reading (e.g., books, papers). Others are online videos or webpages to "read".
+Andrew Zieffler [zief0002@umn.edu](mailto://zief0002@umn.edu)
 
-### Regression Review
+**Office:** [Educational Sciences](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150) Building 163**Office Hours:** Tuesday 9:30 AM&ndash;10:30 AM; and by appointment
+### Teaching Assistant
 
-- Chapter 1 (Gelman & Hill)
-- Chapter 2 (Gelman & Hill)
-- Chapter 3 (Gelman & Hill)
-- Chapter 4 (Gelman & Hill)
+Jonathan Brown [brow3019@umn.edu](mailto://brow3019@umn.edu)
 
-- [Tidy Data Video](http://vimeo.com/33727555)
+**Office:** [Educational Sciences](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150) Building 192**Office Hours:** Tuesdays, Thursdays 1:00 PM&ndash;2:00 PM; and by appointment
 
-### Matrix Algebra/Vector Geometry
+---
+
 
-- Fox, J. (2009). _A Mathematical Primer for Social Statistics_. Thousand Oaks, CA: Sage.
-- Vinod, H. D. (2011). _Hands-on matrix algebra using R: Active and motivated learning with applications_. Singapore: World Scientific.
-- Wickens, T. D. (1995). _The geometry of multivariate statistics_. Hillsdale, NJ: Lawrence Erlbaum.
+## Student Resources
 
+- [ggplot2 Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/08/ggplot2-cheatsheet.pdf)
+- [dplyr Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+- [RStudio Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
+- [tidy data video](https://vimeo.com/33727555)---
+
+## Course Content and Readings
+
+Below is the required reading you will need to do for the course. Some are traditional reading (e.g., books, papers). Others are online videos or webpages to "read". For each topic, additional resources (and courses) are also provided for students interested in pursuing the topic further outside of this course.
+
+### Matrix Algebra
+
+- Chapter 1 (Fox)
+
+Additional resources for matrix algebra for statistics includes:
+
+- EPsy 8269: Matrix Algebra for Statistical Modeling
+- Vinod, H. D. (2011). [Hands-on matrix algebra using R: Active and motivated learning with applications](http://www.amazon.com/Hands--Matrix-Algebra-Using-Applications/dp/9814313696/ref=sr_1_1?ie=UTF8&qid=1452722943&sr=8-1&keywords=Hands-on+matrix+algebra+using+R%3A+Active+and+motivated+learning+with+applications). Singapore: World Scientific.
+- Wickens, T. D. (1995). [The geometry of multivariate statistics](http://www.amazon.com/Geometry-Multivariate-Statistics-Thomas-Wickens/dp/0805816569/ref=sr_1_1?ie=UTF8&qid=1452723011&sr=8-1&keywords=The+geometry+of+multivariate+statistics). Hillsdale, NJ: Lawrence Erlbaum.
+
+
+<!--
 ### Simulation
 
 - Chapter 7 (Gelman & Hill)
@@ -82,3 +91,4 @@ Below is the reading you will need to do for the course. Some are traditional re
 - [Linear mixed models and penalized least squares](http://pages.cs.wisc.edu/~bates/reports/MixedComp.pdf)
 - [lme4: Mixed-effects modeling with R](http://lme4.r-forge.r-project.org/lMMwR/lrgprt.pdf)
  
+ -->

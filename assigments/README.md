@@ -6,15 +6,15 @@ Any data needed for the homework assignments are in the `data` folder.
 Due Dates
 -------
 
-- Assignment #1: Jan. 29
-- Assignment #2: Feb. 05
-- Assignment #3: Feb. 12
-- Assignment #4: Feb. 26
-- Assignment #5: Apr. 30
-- Assignment #6: Apr. 02
-- Assignment #7: Apr. 09
-- Assignment #8: Apr. 23
-- Assignment #9: Apr. 30
+- Assignment #1: TBA
+- Assignment #2: TBA
+- Assignment #3: TBA
+- Assignment #4: TBA
+- Assignment #5: TBA
+- Assignment #6: TBA
+- Assignment #7: TBA
+- Assignment #8: TBA
+- Assignment #9: TBA
 
 
 
