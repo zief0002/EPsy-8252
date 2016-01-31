@@ -30,7 +30,8 @@ Jonathan Brown [brow3019@umn.edu](mailto://brow3019@umn.edu)
 - [ggplot2 Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/08/ggplot2-cheatsheet.pdf)
 - [dplyr Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 - [RStudio Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
-- [tidy data video](https://vimeo.com/33727555)---
+- [tidy data video](https://vimeo.com/33727555)
+- [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)---
 
 ## Course Content and Readings
 
@@ -46,6 +47,16 @@ Additional resources for matrix algebra for statistics includes:
 - Vinod, H. D. (2011). [Hands-on matrix algebra using R: Active and motivated learning with applications](http://www.amazon.com/Hands--Matrix-Algebra-Using-Applications/dp/9814313696/ref=sr_1_1?ie=UTF8&qid=1452722943&sr=8-1&keywords=Hands-on+matrix+algebra+using+R%3A+Active+and+motivated+learning+with+applications). Singapore: World Scientific.
 - Wickens, T. D. (1995). [The geometry of multivariate statistics](http://www.amazon.com/Geometry-Multivariate-Statistics-Thomas-Wickens/dp/0805816569/ref=sr_1_1?ie=UTF8&qid=1452723011&sr=8-1&keywords=The+geometry+of+multivariate+statistics). Hillsdale, NJ: Lawrence Erlbaum.
 
+### R Markdown
+
+- [R Markdown Documentation](http://rmarkdown.rstudio.com/)
+- [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+- [knitr](http://yihui.name/knitr/)
+
+Using Reveal.js to create a "sexier" presentation
+
+- [Reveal.js Presentations](http://rmarkdown.rstudio.com/revealjs_presentation_format.html)
+- [Customizing Reveal.js Presentations](https://logfc.wordpress.com/2015/06/24/presentations-in-rmarkdown/)
 
 <!--
 ### Simulation

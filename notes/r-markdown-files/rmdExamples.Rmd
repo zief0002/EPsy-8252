@@ -1,0 +1,65 @@
+---
+title: "R Markdown Example File"
+author: "Andrew Zieffler"
+date: "September 21, 2014"
+output: 
+  ioslides_presentation:
+    toc: true
+bibliography: myBibliography.bib
+csl: apa-single-spaced.csl
+---
+
+# Tables
+
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+
+
+# Example 1
+
+```{r}
+summary(cars)
+```
+
+# Example 2
+
+```{r myChunk, echo=FALSE}
+summary(cars)
+```
+
+# Example 3
+
+```{r fig1, out.width='600px', out.height='600px',fig.cap='Here is my figure caption.', fig.align='center'}
+library(ggplot2)
+ggplot(data=cars, aes(x=speed, y=dist)) +
+  geom_point() +
+  theme_bw()  
+```
+
+# Inline Code Chunks
+
+Here is an example of an inline code chunk. The mean speed is `r mean(cars$speed)`.  
+
+# Display Equation
+
+$$
+\hat{Y_{ij}} = \beta_{0} + \beta_{1}(X_{1}) + \epsilon_{ij}
+$$  
+
+# Citations
+
+Here is some text and a citation [@agresti; @algina].
+
+Here is some text and a citation [see @agresti; @algina, pp. 317].
+
+Agresti [-@agresti] says that this is cool stuff .
+
+# New Slide
+
+- Here is bullet 1
+- Here is bullet 2
+
+# References
+
