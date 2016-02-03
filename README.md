@@ -49,14 +49,31 @@ Additional resources for matrix algebra for statistics includes:
 
 ### R Markdown
 
-- [R Markdown Documentation](http://rmarkdown.rstudio.com/)
-- [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+- [R Markdown documentation](http://rmarkdown.rstudio.com/)
+- [R Markdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 - [knitr](http://yihui.name/knitr/)
+
+Equations
+
+- [Using LaTeX to write mathematical content](https://en.wikibooks.org/wiki/LaTeX/Mathematics)
+
+BibTeX and References
+
+- [Zotero CSL style repository](https://www.zotero.org/styles)
+- [Export a BibTeX file from Mendeley](http://blog.mendeley.com/2012/03/24/how-to-series-generate-bibtex-files-for-your-collections-for-use-in-latex-part-3-of-12/)
+- [Export a BibTeX file from Zotero](http://libguides.mit.edu/c.php?g=176000&p=1159208#3)
 
 Using Reveal.js to create a "sexier" presentation
 
-- [Reveal.js Presentations](http://rmarkdown.rstudio.com/revealjs_presentation_format.html)
-- [Customizing Reveal.js Presentations](https://logfc.wordpress.com/2015/06/24/presentations-in-rmarkdown/)
+- [Reveal.js presentations](http://rmarkdown.rstudio.com/revealjs_presentation_format.html)
+- [Customizing Reveal.js presentations](https://logfc.wordpress.com/2015/06/24/presentations-in-rmarkdown/)
+
+
+### Probability and Simulation
+
+- Chapter 3 (Fox; *Read 3.1&ndash;3.4*)
+
+
 
 <!--
 ### Simulation
