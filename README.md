@@ -73,6 +73,9 @@ Using Reveal.js to create a "sexier" presentation
 
 - Chapter 3 (Fox; *Read 3.1&ndash;3.4*)
 
+Additional resources for probability and simulation include:
+
+- [Kahn Academy: Random variables and probability distributions](https://www.khanacademy.org/math/probability/random-variables-topic)
 
 
 <!--
