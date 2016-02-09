@@ -27,11 +27,11 @@ Jonathan Brown [brow3019@umn.edu](mailto://brow3019@umn.edu)
 
 ## Student Resources
 
-- [ggplot2 Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/08/ggplot2-cheatsheet.pdf)
 - [dplyr Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
-- [RStudio Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
-- [tidy data video](https://vimeo.com/33727555)
-- [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)---
+- [ggplot2 Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/08/ggplot2-cheatsheet.pdf)
+- [ggplot2 Extensions](http://ggplot2-exts.github.io/index.html)
+- [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+- [RStudio Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)- [tidy data video](https://vimeo.com/33727555)---
 
 ## Course Content and Readings
 
