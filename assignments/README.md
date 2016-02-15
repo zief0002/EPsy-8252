@@ -8,7 +8,7 @@ Due Dates
 
 - Assignment #1: Wednesday February 10, 2016
 - Assignment #2: Wednesday February 17, 2016
-- Assignment #3: TBA
+- Assignment #3: Wednesday March 02, 2016
 - Assignment #4: TBA
 - Assignment #5: TBA
 - Assignment #6: TBA

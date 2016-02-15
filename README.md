@@ -69,7 +69,7 @@ Using Reveal.js to create a "sexier" presentation
 - [Customizing Reveal.js presentations](https://logfc.wordpress.com/2015/06/24/presentations-in-rmarkdown/)
 
 
-### Probability and Simulation
+### Probability Models
 
 - Chapter 3 (Fox; *Read 3.1&ndash;3.4*)
 
@@ -77,6 +77,12 @@ Additional resources for probability and simulation include:
 
 - [Kahn Academy: Random variables and probability distributions](https://www.khanacademy.org/math/probability/random-variables-topic)
 
+
+### Simulation
+
+- [Statistics Without the Agonizing Pain](https://www.youtube.com/watch?v=5Dnw46eC-0o) a keynote adress by Pinterest data scientist John Rauser at *Strata + Hadoop 2014*
+- Eckhardt, R. (1987). [Stan Ulan, John Von Neumann, and the Monte Carlo Method.](http://permalink.lanl.gov/object/tr?what=info:lanl-repo/lareport/LA-UR-88-9068) *Los Alamos Science,* 1&ndash;13.
+- Burton, A., Altman, D. G., Royston, P., &amp; Holder, R. L. (2006). The design of simulation studies in medical statistics. *Statistics in Medicine, 25,* 4279&ndash;4292. doi: 10.1002/sim.2673
 
 <!--
 ### Simulation
