@@ -66,7 +66,7 @@ b[1] + b[2] * 6 + rnorm(n = 1, mean = 0, sd = rmse)
 
 # Create function to generate a Y value
 yhat = function(x){
-  b[1] + b[2] * 6 + rnorm(n = 1, mean = 0, sd = rmse)
+  b[1] + b[2] * x + rnorm(n = 1, mean = 0, sd = rmse)
   }
 
 #Run the function
