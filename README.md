@@ -73,7 +73,7 @@ Using Reveal.js to create a "sexier" presentation
 
 - Chapter 3 (Fox; *Read 3.1&ndash;3.4*)
 
-Additional resources for probability and simulation include:
+Additional resources for probability models:
 
 - [Kahn Academy: Random variables and probability distributions](https://www.khanacademy.org/math/probability/random-variables-topic)
 
@@ -82,7 +82,24 @@ Additional resources for probability and simulation include:
 
 - [Statistics Without the Agonizing Pain](https://www.youtube.com/watch?v=5Dnw46eC-0o) a keynote adress by Pinterest data scientist John Rauser at *Strata + Hadoop 2014*
 - Eckhardt, R. (1987). [Stan Ulan, John Von Neumann, and the Monte Carlo Method.](http://permalink.lanl.gov/object/tr?what=info:lanl-repo/lareport/LA-UR-88-9068) *Los Alamos Science,* 1&ndash;13.
+
+Additional resources for simulation:
+
 - Burton, A., Altman, D. G., Royston, P., &amp; Holder, R. L. (2006). The design of simulation studies in medical statistics. *Statistics in Medicine, 25,* 4279&ndash;4292. doi: 10.1002/sim.2673
+
+
+### Likelihood Estimation
+
+- Chapter 3 (Fox; *Read 3.5&ndash;3.6*)
+- Chapter 2 (Fox)
+
+Additional resources for likelihood estimation:
+
+- [An Introduction to Gradient Descent and Linear Regression](http://spin.atomicobject.com/2014/06/24/gradient-descent-linear-regression/)
+- [Gradient Descent](http://www.onmyphd.com/?p=gradient.descent)
+- [Gradient Descent for Linear Regression Coursera Video](https://class.coursera.org/ml-003/lecture/9)
+
+
 
 <!--
 ### Simulation

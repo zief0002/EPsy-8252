@@ -144,13 +144,13 @@ sampled_b[1] + sampled_b[2] * 6
 
 yhat2 = function(x){
   sampled_b = mvrnorm(1, b, vc)
-  sampled_b[1] + sampled_b[2] * 6
+  sampled_b[1] + sampled_b[2] * x
   }
 
 
 # Use the function to randomly generate an average y value for x = 6
 yhat2(6)
-
+yhat(20)
 
 
 ###################################################
