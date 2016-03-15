@@ -81,7 +81,7 @@ Additional resources for probability models:
 ### Simulation
 
 - [Statistics Without the Agonizing Pain](https://www.youtube.com/watch?v=5Dnw46eC-0o) a keynote adress by Pinterest data scientist John Rauser at *Strata + Hadoop 2014*
-- Eckhardt, R. (1987). [Stan Ulan, John Von Neumann, and the Monte Carlo Method.](http://permalink.lanl.gov/object/tr?what=info:lanl-repo/lareport/LA-UR-88-9068) *Los Alamos Science,* 1&ndash;13.
+- Eckhardt, R. (1987). [Stan Ulan, John Von Neumann, and the Monte Carlo method](http://permalink.lanl.gov/object/tr?what=info:lanl-repo/lareport/LA-UR-88-9068). *Los Alamos Science,* 1&ndash;13.
 
 Additional resources for simulation:
 
@@ -100,33 +100,34 @@ Additional resources for likelihood estimation:
 - [Gradient Descent for Linear Regression Coursera Video](https://class.coursera.org/ml-003/lecture/9)
 
 
+### Information Criteria
+
+- Burnham, K. P., Anderson, D. R., &amp; Huyvaert, K. P. (2010). [AIC model selection and multimodel inference in behavioral ecology: Some background, observations, and comparisons](http://doi.org/10.1007/s00265-010-1029-6). *Behavioral Ecology and Sociobiology, 65*(1), 23&ndash;35.
+
+Additional resources for information crieria:
+
+- Burnham, K. C., &amp; Anderson, D. R. (2004). [Multimodel inference: Understanding AIC and BIC in model selection](http://smr.sagepub.com.ezp2.lib.umn.edu/content/33/2/261.full.pdf+html). _Sociological Methods and Research, 33_, 261&ndash;304.
+- Dayton, C. M. (2003). [Information criteria for pairwise comparisons](http://www.ncbi.nlm.nih.gov/pubmed/12741673). _Psychological Methods, 8_(1), 61–71.
+
+
+### Multilevel Regression Models
+
+
+- Woltman, H., Feldstain, A., MacKay, J. C., &amp; Rocchi, M. (2012). [An introduction to hierarchical linear modeling](http://www.tqmp.org/RegularArticles/vol08-1/p052/p052.pdf). _Tutorials in Quantitative Methods for Psychology, 8_(1), 52&ndash;69.
+
+Additional resources for multilevel regression models:
+
+- Hayes, A. F. (2006). [A primer on multilevel modeling](http://onlinelibrary.wiley.com/doi/10.1111/j.1468-2958.2006.00281.x/abstract). *Human Communication Research, 32*(4), 385&ndash;410.
+
+
 
 <!--
-### Simulation
-
-- Chapter 7 (Gelman & Hill)
-
 
 ### Gradient Descent
 
 - [Atomic Object Blog Post](http://spin.atomicobject.com/2014/06/24/gradient-descent-linear-regression/)
 - [OnMyPhD Blog Post](http://www.onmyphd.com/?p=gradient.descent)
 - [Cousera Video](https://class.coursera.org/ml-003/lecture/9)
-
-
-
-### Information Criteria
-
-- Burnham, K. C., & Anderson, D. R. (2004). Multimodel inference: Understanding AIC and BIC in model selection. _Sociological Methods and Research, 33_, 261–304. [UMN Library](http://smr.sagepub.com.ezp2.lib.umn.edu/content/33/2/261.full.pdf+html)
-- [BASP Journal Bans NHST](http://www.tandfonline.com/doi/full/10.1080/01973533.2015.1012991#abstract)
-- Dayton, C. M. (2003). Information criteria for pairwise comparisons. _Psychological Methods, 8_(1), 61–71.
-
-
-### Multilevel Regression Models
-
-- Chapter 11 (Gelman & Hill)
-- Chapter 12 (Gelman & Hill)
-- Woltman, H., Feldstain, A., MacKay, J. C., & Rocchi, M. (2012). An introduction to hierarchical linear modeling. _Tutorials in Quantitative Methods for Psychology, 8_(1), 52–69.
 
 
 ### Longitudinal Models
