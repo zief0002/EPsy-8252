@@ -11,7 +11,7 @@ Due Dates
 - Assignment #3: Wednesday March 02, 2016
 - Assignment #4: Monday March 21, 2016 
 - Assignment #5: Monday March 28, 2016
-- Assignment #6: TBA
+- Assignment #6: Wednesday April 06, 2016
 - Assignment #7: TBA
 - Assignment #8: TBA
 - Assignment #9: TBA
