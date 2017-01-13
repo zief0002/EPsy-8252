@@ -1,43 +1,56 @@
 EPsy 8252
 =========
 
-Course materials for EPsy 8251
+This GitHub repository is the home for the course _EPsy 8252: Methods in Data Analysis for Educational Research II_. It includes many of the materials used in the course.
 
-This GitHub repository is the home for the book _EPsy 8251: Methods in Data Analysis for Educational Research I_. It includes many of the materials used in the course.
 
-To download all of the materials at this site, click on the `Download ZIP` button. This will download a ZIP file of the entire site on your local computer. 
+### Downloading the Materials
 
+To download all of the materials simultaneously from this site, click on the `Clone or Download` button and select `Download ZIP`. This will download a ZIP file of the entire site on your local computer. 
+
+To download individual PDF files, open the file link and then click on the `Download` button. CSV files can be individually download by opening their links, clicking on the `Raw` button. This should display the text of the CSV in your browser window. If you right-click on this text, you should be able to `Save as` or `Save page as` ()or something along those lines). 
+
+<br />
 
 ---
 
 
 ### Instructor
 
-Andrew Zieffler [zief0002@umn.edu](mailto://zief0002@umn.edu)
-
-**Office:** [Educational Sciences](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150) Building 163**Office Hours:** Tuesday 9:30 AM&ndash;10:30 AM; and by appointment
+Andrew Zieffler ([zief0002@umn.edu](mailto://zief0002@umn.edu)) <br />
+**Office:** [Education Sciences Building 178](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />**Office Hours:** Tuesday 9:30 AM&ndash;10:30 AM; and by appointment
 ### Teaching Assistant
 
-Jonathan Brown [brow3019@umn.edu](mailto://brow3019@umn.edu)
+Jonathan Brown ([brow3019@umn.edu](mailto://brow3019@umn.edu))  <br />
+**Office:** [Education Sciences Building 192](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />**Office Hours:** Mondays, Wednesdays 1:00 PM&ndash;2:00 PM; and by appointment
 
-**Office:** [Educational Sciences](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150) Building 192**Office Hours:** Tuesdays, Thursdays 1:00 PM&ndash;2:00 PM; and by appointment
 
----
-
+### Textbooks
 
-## Student Resources
+All of the course textbooks (required and optional) are available via the University of Minnesota library.
+
+- [A mathematical primer for social statistics](http://methods.sagepub.com.ezp3.lib.umn.edu/book/a-mathematical-primer-for-social-statistics) [required]
+- [Model based inference in the life sciences: A primer on evidence](http://link.springer.com.ezp3.lib.umn.edu/book/10.1007%2F978-0-387-74075-1) [optional]
+- [Applied regression: An introduction](http://primo.lib.umn.edu/TWINCITIES:mncat_discovery:UMN_ALMA21533776460001701) [optional]
+
+<br />
+
+
+---
+
+### General Student Resources
 
 - [dplyr Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 - [ggplot2 Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/08/ggplot2-cheatsheet.pdf)
 - [ggplot2 Extensions](http://ggplot2-exts.github.io/index.html)
 - [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
-- [RStudio Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)- [tidy data video](https://vimeo.com/33727555)---
+- [RStudio Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)- [tidy data video](https://vimeo.com/33727555)<br />---
 
-## Course Content and Readings
+### Course Content and Readings
 
 Below is the required reading you will need to do for the course. Some are traditional reading (e.g., books, papers). Others are online videos or webpages to "read". For each topic, additional resources (and courses) are also provided for students interested in pursuing the topic further outside of this course.
 
-### Matrix Algebra
+<!--### Matrix Algebra
 
 - Chapter 1 (Fox)
 
@@ -45,9 +58,9 @@ Additional resources for matrix algebra for statistics includes:
 
 - EPsy 8269: Matrix Algebra for Statistical Modeling
 - Vinod, H. D. (2011). [Hands-on matrix algebra using R: Active and motivated learning with applications](http://www.amazon.com/Hands--Matrix-Algebra-Using-Applications/dp/9814313696/ref=sr_1_1?ie=UTF8&qid=1452722943&sr=8-1&keywords=Hands-on+matrix+algebra+using+R%3A+Active+and+motivated+learning+with+applications). Singapore: World Scientific.
-- Wickens, T. D. (1995). [The geometry of multivariate statistics](http://www.amazon.com/Geometry-Multivariate-Statistics-Thomas-Wickens/dp/0805816569/ref=sr_1_1?ie=UTF8&qid=1452723011&sr=8-1&keywords=The+geometry+of+multivariate+statistics). Hillsdale, NJ: Lawrence Erlbaum.
+- Wickens, T. D. (1995). [The geometry of multivariate statistics](http://www.amazon.com/Geometry-Multivariate-Statistics-Thomas-Wickens/dp/0805816569/ref=sr_1_1?ie=UTF8&qid=1452723011&sr=8-1&keywords=The+geometry+of+multivariate+statistics). Hillsdale, NJ: Lawrence Erlbaum. -->
 
-### R Markdown
+#### R Markdown
 
 - [R Markdown documentation](http://rmarkdown.rstudio.com/)
 - [R Markdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
@@ -68,8 +81,8 @@ Using Reveal.js to create a "sexier" presentation
 - [Reveal.js presentations](http://rmarkdown.rstudio.com/revealjs_presentation_format.html)
 - [Customizing Reveal.js presentations](https://logfc.wordpress.com/2015/06/24/presentations-in-rmarkdown/)
 
-
-### Probability Models
+<!--
+#### Probability Models
 
 - Chapter 3 (Fox; *Read 3.1&ndash;3.4*)
 
