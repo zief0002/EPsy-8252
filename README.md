@@ -24,6 +24,7 @@ Andrew Zieffler ([zief0002@umn.edu](mailto://zief0002@umn.edu)) <br />
 Jonathan Brown ([brow3019@umn.edu](mailto://brow3019@umn.edu))  <br />
 **Office:** [Education Sciences Building 192](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />**Office Hours:** Mondays, Wednesdays 1:00 PM&ndash;2:00 PM; and by appointment
 
+<br />
 
 ### Textbooks
 
@@ -49,6 +50,9 @@ All of the course textbooks (required and optional) are available via the Univer
 ### Course Content and Readings
 
 Below is the required reading you will need to do for the course. Some are traditional reading (e.g., books, papers). Others are online videos or webpages to "read". For each topic, additional resources (and courses) are also provided for students interested in pursuing the topic further outside of this course.
+
+<hr style="border-top: 1px solid #8c8b8b; width: 10%;" />
+
 
 <!--### Matrix Algebra
 
