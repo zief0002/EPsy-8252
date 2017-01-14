@@ -45,13 +45,14 @@ All of the course textbooks (required and optional) are available via the Univer
 - [ggplot2 Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/08/ggplot2-cheatsheet.pdf)
 - [ggplot2 Extensions](http://ggplot2-exts.github.io/index.html)
 - [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
-- [RStudio Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)- [tidy data video](https://vimeo.com/33727555)<br />---
+- [RStudio Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)- [tidy data video](https://vimeo.com/33727555)<br />
+---
 
 ### Course Content and Readings
 
 Below is the required reading you will need to do for the course. Some are traditional reading (e.g., books, papers). Others are online videos or webpages to "read". For each topic, additional resources (and courses) are also provided for students interested in pursuing the topic further outside of this course.
 
-<hr style="border-top: 1px solid #8c8b8b; width: 10%;" />
+***
 
 
 <!--### Matrix Algebra
