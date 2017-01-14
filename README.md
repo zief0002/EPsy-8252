@@ -26,6 +26,8 @@ Jonathan Brown ([brow3019@umn.edu](mailto://brow3019@umn.edu))  <br />
 
 <br />
 
+---
+
 ### Textbooks
 
 All of the course textbooks (required and optional) are available via the University of Minnesota library.
@@ -39,7 +41,13 @@ All of the course textbooks (required and optional) are available via the Univer
 
 ---
 
-### General Student Resources
+### Course Content and Resources
+
+Below is the required reading you will need to do for the course. Some are traditional reading (e.g., books, papers). Others are online videos or webpages to "read". For each topic, additional resources (and courses) are also provided for students interested in pursuing the topic further outside of this course.
+
+<br />
+
+#### General Student Resources
 
 - [dplyr Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 - [ggplot2 Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/08/ggplot2-cheatsheet.pdf)
@@ -47,23 +55,6 @@ All of the course textbooks (required and optional) are available via the Univer
 - [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 - [RStudio Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)- [tidy data video](https://vimeo.com/33727555)<br />
 ---
-
-### Course Content and Readings
-
-Below is the required reading you will need to do for the course. Some are traditional reading (e.g., books, papers). Others are online videos or webpages to "read". For each topic, additional resources (and courses) are also provided for students interested in pursuing the topic further outside of this course.
-
-<hr style="border-top:1px solid"/>
-
-
-<!--### Matrix Algebra
-
-- Chapter 1 (Fox)
-
-Additional resources for matrix algebra for statistics includes:
-
-- EPsy 8269: Matrix Algebra for Statistical Modeling
-- Vinod, H. D. (2011). [Hands-on matrix algebra using R: Active and motivated learning with applications](http://www.amazon.com/Hands--Matrix-Algebra-Using-Applications/dp/9814313696/ref=sr_1_1?ie=UTF8&qid=1452722943&sr=8-1&keywords=Hands-on+matrix+algebra+using+R%3A+Active+and+motivated+learning+with+applications). Singapore: World Scientific.
-- Wickens, T. D. (1995). [The geometry of multivariate statistics](http://www.amazon.com/Geometry-Multivariate-Statistics-Thomas-Wickens/dp/0805816569/ref=sr_1_1?ie=UTF8&qid=1452723011&sr=8-1&keywords=The+geometry+of+multivariate+statistics). Hillsdale, NJ: Lawrence Erlbaum. -->
 
 #### R Markdown
 
@@ -86,14 +77,50 @@ Using Reveal.js to create a "sexier" presentation
 - [Reveal.js presentations](http://rmarkdown.rstudio.com/revealjs_presentation_format.html)
 - [Customizing Reveal.js presentations](https://logfc.wordpress.com/2015/06/24/presentations-in-rmarkdown/)
 
+<br />
+
 <!--
-#### Probability Models
+___
+
+#### Probability Models and Likelihood Estimation
 
 - Chapter 3 (Fox; *Read 3.1&ndash;3.4*)
+- Chapter 3 (Fox; *Read 3.5&ndash;3.6*)
+- Chapter 2 (Fox)
 
 Additional resources for probability models:
 
 - [Kahn Academy: Random variables and probability distributions](https://www.khanacademy.org/math/probability/random-variables-topic)
+
+Additional resources for likelihood estimation:
+
+- [An Introduction to Gradient Descent and Linear Regression](http://spin.atomicobject.com/2014/06/24/gradient-descent-linear-regression/)
+- [Gradient Descent](http://www.onmyphd.com/?p=gradient.descent)
+- [Gradient Descent for Linear Regression Coursera Video](https://class.coursera.org/ml-003/lecture/9)
+
+
+#### Information Criteria
+
+- Burnham, K. P., Anderson, D. R., &amp; Huyvaert, K. P. (2010). [AIC model selection and multimodel inference in behavioral ecology: Some background, observations, and comparisons](http://doi.org/10.1007/s00265-010-1029-6). *Behavioral Ecology and Sociobiology, 65*(1), 23&ndash;35.
+
+Additional resources for information crieria:
+
+- Burnham, K. C., &amp; Anderson, D. R. (2004). [Multimodel inference: Understanding AIC and BIC in model selection](http://smr.sagepub.com.ezp2.lib.umn.edu/content/33/2/261.full.pdf+html). _Sociological Methods and Research, 33_, 261&ndash;304.
+- Dayton, C. M. (2003). [Information criteria for pairwise comparisons](http://www.ncbi.nlm.nih.gov/pubmed/12741673). _Psychological Methods, 8_(1), 61–71.
+
+
+<br />
+
+
+<!--### Matrix Algebra
+
+- Chapter 1 (Fox)
+
+Additional resources for matrix algebra for statistics includes:
+
+- EPsy 8269: Matrix Algebra for Statistical Modeling
+- Vinod, H. D. (2011). [Hands-on matrix algebra using R: Active and motivated learning with applications](http://www.amazon.com/Hands--Matrix-Algebra-Using-Applications/dp/9814313696/ref=sr_1_1?ie=UTF8&qid=1452722943&sr=8-1&keywords=Hands-on+matrix+algebra+using+R%3A+Active+and+motivated+learning+with+applications). Singapore: World Scientific.
+- Wickens, T. D. (1995). [The geometry of multivariate statistics](http://www.amazon.com/Geometry-Multivariate-Statistics-Thomas-Wickens/dp/0805816569/ref=sr_1_1?ie=UTF8&qid=1452723011&sr=8-1&keywords=The+geometry+of+multivariate+statistics). Hillsdale, NJ: Lawrence Erlbaum. 
 
 
 ### Simulation
@@ -106,26 +133,14 @@ Additional resources for simulation:
 - Burton, A., Altman, D. G., Royston, P., &amp; Holder, R. L. (2006). The design of simulation studies in medical statistics. *Statistics in Medicine, 25,* 4279&ndash;4292. doi: 10.1002/sim.2673
 
 
-### Likelihood Estimation
-
-- Chapter 3 (Fox; *Read 3.5&ndash;3.6*)
-- Chapter 2 (Fox)
-
-Additional resources for likelihood estimation:
-
-- [An Introduction to Gradient Descent and Linear Regression](http://spin.atomicobject.com/2014/06/24/gradient-descent-linear-regression/)
-- [Gradient Descent](http://www.onmyphd.com/?p=gradient.descent)
-- [Gradient Descent for Linear Regression Coursera Video](https://class.coursera.org/ml-003/lecture/9)
+### 
 
 
-### Information Criteria
 
-- Burnham, K. P., Anderson, D. R., &amp; Huyvaert, K. P. (2010). [AIC model selection and multimodel inference in behavioral ecology: Some background, observations, and comparisons](http://doi.org/10.1007/s00265-010-1029-6). *Behavioral Ecology and Sociobiology, 65*(1), 23&ndash;35.
 
-Additional resources for information crieria:
 
-- Burnham, K. C., &amp; Anderson, D. R. (2004). [Multimodel inference: Understanding AIC and BIC in model selection](http://smr.sagepub.com.ezp2.lib.umn.edu/content/33/2/261.full.pdf+html). _Sociological Methods and Research, 33_, 261&ndash;304.
-- Dayton, C. M. (2003). [Information criteria for pairwise comparisons](http://www.ncbi.nlm.nih.gov/pubmed/12741673). _Psychological Methods, 8_(1), 61–71.
+
+
 
 
 ### Multilevel Regression Models
