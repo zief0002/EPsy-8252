@@ -52,7 +52,7 @@ All of the course textbooks (required and optional) are available via the Univer
 
 Below is the required reading you will need to do for the course. Some are traditional reading (e.g., books, papers). Others are online videos or webpages to "read". For each topic, additional resources (and courses) are also provided for students interested in pursuing the topic further outside of this course.
 
-***
+<hr style="border-top:1px solid; width:30%"/>
 
 
 <!--### Matrix Algebra
