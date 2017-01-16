@@ -112,15 +112,7 @@ Additional resources for information crieria:
 <br />
 
 
-<!--### Matrix Algebra
-
-- Chapter 1 (Fox)
-
-Additional resources for matrix algebra for statistics includes:
-
-- EPsy 8269: Matrix Algebra for Statistical Modeling
-- Vinod, H. D. (2011). [Hands-on matrix algebra using R: Active and motivated learning with applications](http://www.amazon.com/Hands--Matrix-Algebra-Using-Applications/dp/9814313696/ref=sr_1_1?ie=UTF8&qid=1452722943&sr=8-1&keywords=Hands-on+matrix+algebra+using+R%3A+Active+and+motivated+learning+with+applications). Singapore: World Scientific.
-- Wickens, T. D. (1995). [The geometry of multivariate statistics](http://www.amazon.com/Geometry-Multivariate-Statistics-Thomas-Wickens/dp/0805816569/ref=sr_1_1?ie=UTF8&qid=1452723011&sr=8-1&keywords=The+geometry+of+multivariate+statistics). Hillsdale, NJ: Lawrence Erlbaum. 
+<!-- 
 
 
 ### Simulation
@@ -131,16 +123,6 @@ Additional resources for matrix algebra for statistics includes:
 Additional resources for simulation:
 
 - Burton, A., Altman, D. G., Royston, P., &amp; Holder, R. L. (2006). The design of simulation studies in medical statistics. *Statistics in Medicine, 25,* 4279&ndash;4292. doi: 10.1002/sim.2673
-
-
-### 
-
-
-
-
-
-
-
 
 
 ### Multilevel Regression Models
