@@ -41,6 +41,7 @@ Here are some resources that may help you in completing the optional assignment.
 - [A Matrix Formulation of the Multiple Regression Model](https://onlinecourses.science.psu.edu/stat501/node/382) [Penn State course notes]
 - [Matrix algebra and regression](http://www.stat.purdue.edu/~jennings/stat514/stat512notes/topic3.pdf) [Purdue course notes]
 
+I have also included two old sets of notes from previous semesters about matrix algebra and using it for regression. These are located in the `Notes` folder.
 
 ### Bootstrapping
 
