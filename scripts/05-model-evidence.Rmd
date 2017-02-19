@@ -1,0 +1,271 @@
+---
+title: "Model Evidence"
+date: "`r Sys.Date()`"
+header-includes:
+   - \usepackage{xcolor}
+   - \usepackage[framemethod=tikz]{mdframed}
+   - \usepackage{graphicx}
+   - \usepackage{rotating}
+   - \usepackage{booktabs}
+   - \definecolor{umn}{RGB}{153, 0, 85}
+   - \definecolor{umn2}{rgb}{0.1843137, 0.4509804, 0.5372549}
+   - \definecolor{myorange}{HTML}{EA6153}
+output: 
+  pdf_document:
+    highlight: tango
+    latex_engine: xelatex
+    fig_width: 6
+    fig_height: 6
+mainfont: "Bembo Std"
+sansfont: "Helvetica Neue UltraLight"
+monofont: Inconsolata
+urlcolor: "umn2"
+bibliography: epsy8252.bib
+csl: apa-single-spaced.csl
+always_allow_html: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(digits = 3, scipen = 99)
+library(printr)
+library(dplyr)
+```
+
+
+
+# Preparation
+
+
+We will use the data in the *mnSchools.csv* file. These data include institutional-level attributes for several Minnesota colleges and universities. The source of these data is: [http://www.collegeresults.org](http://www.collegeresults.org). The attributes include:
+
+- `id`: Institution ID number
+- `name`: Institution name
+- `gradRate`: Six-year graduation rate. This measure represents the proportion of first-time, full-time, bachelor's or equivalent degree-seeking students who started in Fall 2005 and graduated within 6 years.
+- `public`: Dummy variable indicating educational sector (0 = private institution; 1 = public institution)
+- `sat`: Estimated median SAT score for incoming freshmen at the institution
+- `tuition`: Cost of attendance for full-time, first-time degree/certificate-seeking in-state undergraduate students living on campus for academic year 2013-14. 
+
+
+```{r}
+mn = read.csv(file = "~/Google Drive/Documents/github/EPsy-8252/data/mnSchools.csv")
+head(mn)
+```
+
+
+
+
+## Fit Candidate Models
+
+```{r}
+lm.a = lm(gradRate ~ 1 + public, data = mn)
+lm.b = lm(gradRate ~ 1 + sat, data = mn)
+lm.c = lm(gradRate ~ 1 + tuition, data = mn)
+lm.d = lm(gradRate ~ 1 + public + sat, data = mn)
+lm.e = lm(gradRate ~ 1 + tuition + sat, data = mn)
+lm.f = lm(gradRate ~ 1 + public + tuition, data = mn)
+lm.g = lm(gradRate ~ 1 + public + sat + tuition, data = mn)
+```
+
+# Model Evidence: AICc
+
+In the last set of notes, we computed the AICc for the six models. Based on these values, we adopted Model E; it was the most likely model given the data and the six candidate models. It can be quite useful to put these values in a table to help organize the information. Here are the six models, and their AICc values.
+
+```{r echo=FALSE}
+library(AICcmodavg)
+
+# AICc Table for Model Selection
+myAIC = aictab(
+  cand.set = list(lm.a, lm.b, lm.c, lm.d, lm.e, lm.f, lm.g),
+  modnames = c("Model A", "Model B", "Model C", "Model D", "Model E", "Model F", "Model G")
+  )
+
+# View table
+myAIC1 = data.frame(myAIC)[1:3]
+names(myAIC1)[1] = "Model"
+names(myAIC1)[2] = "k"
+knitr::kable(myAIC1, row.names = FALSE)
+```
+
+
+
+# $\Delta$AICc
+
+It can be useful to compute the difference between each model's AICc value and the model with the minimum AICc (Model E). This gives us an indication of how much empirical support there is for each of the models. This is typically referred to as $\Delta$AICc. For example to compute the $\Delta$AICc value for Model G, 
+
+$$
+226 - 223 = 3
+$$
+
+
+
+```{r echo=FALSE}
+myAIC2 = data.frame(myAIC)[1:4]
+knitr::kable(myAIC2, row.names = FALSE, col.names = c("Model", "k", "AICc", "$\\Delta$AICc"))
+```
+
+Using the criteria in Figure 2 on p. 25 of @Burnham:2011:
+
+- Model E has a lot of empirical support.
+- Models G and D have less empirical support than Model A, but, nonetheless still some empirical support.
+- Model B has considerably less empirical support than Model A.
+- Models F, C, and A have essentially no empirical support.
+
+
+
+# Relative Likelihood
+
+The relative likelihood provides the likelihood of each of the candidate models, given the set of candidate models. We compute this as
+
+$$
+e^{-\frac{1}{2}\left(\Delta\mathrm{AICc}\right)}
+$$
+
+For example, to compute the relative likelihood of Model G,
+
+$$
+e^{-\frac{1}{2}\left(3\right)} = 0.223
+$$
+Using R,
+
+
+```{r}
+exp(-0.5 * 3)
+```
+
+Computing these for all six models we find
+
+```{r echo=FALSE}
+myAIC3 = data.frame(myAIC)[1:4]
+myAIC3$RelLik = exp(-0.5 * myAIC3$Delta_AICc)
+knitr::kable(myAIC3, row.names = FALSE, col.names = c("Model", "k", "AICc", "$\\Delta$AICc", "Rel. Lik."))
+```
+
+We can use these values to make relative statements among the models. For example, relative to the other five candidate models, Model E has the highest relative likelihood, making it the most likely model. Model G is relatively more likely than Model D. Models B, F, C, and A are all unlikey relative to the other models in the set.
+
+
+# Evidence Ratio
+
+By themselves, the relative likelihoods values do no give us really any more information than we already had by examining the $\Delta$AICc values. One way to make use of these values is to compute *evidence ratios*. An evidence ratio is simply the ratio of the relative likelihoods between any two models. For example, to compute the evidence ratio between Model G and Model D,
+
+$$
+\mathrm{Evidence~Ratio} = \frac{0.250}{0.134} = 1.87
+$$
+We can interpret this as, given the data and the set of candidate models, the empirical support for Model G is 1.87 times that for Model D.
+
+Typically the evidence ratios between the best candidate model and every other candidate model is computed and reported. 
+
+
+```{r echo = FALSE}
+myAIC4 = data.frame(myAIC)[1:4]
+myAIC4$RelLik = exp(-0.5 * myAIC4$Delta_AICc)
+myAIC4$ER = 1 / myAIC4$RelLik
+knitr::kable(myAIC4, row.names = FALSE, col.names = c("Model", "k", "AICc", "$\\Delta$AICc", "Rel. Lik.", "Evidence Ratio"))
+```
+
+- Given the data, and the set of candidate models, the empirical support for Model E is 4 times that for Model G.
+- Given the data, and the set of candidate models, the empirical support for Model E is 7.5 times that for Model D.
+- Given the data, and the set of candidate models, the empirical support for Model E is 235 times that for Model B.
+
+
+
+# Model Probabilities (Akaike Weights)
+
+Model probabilities, also referred to as Akaike Weights, provide a numerical measure of the probability of each model given the data and the candidate set of models. We can use them to actually make statements such as, *the probability of Model X is 0.1 given the data and candidate set of models*. We compute model probabilities using the relative likelihood values. In genral the model probability for a particular model is
+
+$$
+\mathrm{Model~Probability} = \frac{\mathrm{Relative~Likelihood~for~the~model}}{\mathrm{Sum~of~all~Relative~Likelihoods}}
+$$
+
+For example, to compute the model probability of Model G,
+
+$$
+\mathrm{Model~Probability} = \frac{0.25}{1 + 0.25 + 0.134 + 0.004 + 0 + 0 + 0} = 0.18
+$$
+
+We could interpret this as, given the data and the set of candidate models, the probability of Model G is 0.18. Below we add the model probabilities to our table. Here we refer to the model probabilities as AICc weights, which is common in the literature.
+
+```{r echo = FALSE}
+myAIC5 = data.frame(myAIC)[1:4]
+myAIC5$RelLik = exp(-0.5 * myAIC5$Delta_AICc)
+myAIC5$ER = 1 / myAIC5$RelLik
+myAIC5$AICcWt = myAIC[ , 5]
+knitr::kable(myAIC5, row.names = FALSE, col.names = c("Model", "k", "AICc", "$\\Delta$AICc", "Rel. Lik.", "Evidence Ratio", "Akaike Wt."))
+```
+
+\newpage
+
+# Using Built-In Functions in R to Compute Evidence Values
+
+We will use the `aictab()` function from the **AICcmodavg** package to compute these values directly from the `lm()` fitted models. This function takes a list of models in the candidate set (it actually has to be an R list). The optional argument `modnames=` is a vector of model names associated with the models in the candidate set.
+
+```{r}
+library(AICcmodavg)
+
+# AICc Table for Model Selection
+myAIC = aictab(
+  cand.set = list(lm.a, lm.b, lm.c, lm.d, lm.e, lm.f, lm.g),
+  modnames = c("Model A", "Model B", "Model C", "Model D", "Model E", "Model F", "Model G")
+  )
+
+# View table
+myAIC
+```
+
+Note the output includes the number of parameters ($k$) and AICc value for each candidate model, and prints them in order from most likely to least likely based on the AICc. Note that we have to compute the evidence ratios separately.
+
+```{r}
+# Evidence Ratios
+evidence(myAIC, model.high = "Model E", model.low = "Model G")
+evidence(myAIC, model.high = "Model E", model.low = "Model D")
+evidence(myAIC, model.high = "Model E", model.low = "Model B")
+evidence(myAIC, model.high = "Model E", model.low = "Model F")
+evidence(myAIC, model.high = "Model E", model.low = "Model C")
+evidence(myAIC, model.high = "Model E", model.low = "Model A")
+```
+
+
+
+```{r}
+# Examine object
+str(myAIC)
+```
+
+Since `myAIC` is a data frame, we can add columns, use indexing, submit results to `ggplot()`, etc. Here we compute the evidence ratios using information from the `myAIC` object, and add them as an additional column.
+
+```{r}
+# Create new column
+myAIC$ER = max(myAIC$AICcWt) / myAIC$AICcWt
+myAIC
+```
+
+We can also customize the output to only include information we are interested in. For example, we could remove columns, re-order columns, or change column names.
+
+```{r}
+# Get existing column names
+names(myAIC)
+
+# Select and order columns for better printing
+myAIC = myAIC[ , c("Modnames", "LL", "K", "AICc", "Delta_AICc", "ER", "AICcWt")]
+
+# Rename columns for better printing
+names(myAIC) = c("Model", "Log Lik.", "k", "AICc", "$\\Delta$AICc", "Evidence Ratio", "Akaike Wt.")
+```
+\newpage
+
+Table 1
+
+*Model Evidence for Six Candidate Models Predicting Graduation Rates for 32 Colleges and Universities in Minnesota. Evidence Ratios are Reported as a Comparison with the Model having the Highest Relative Likelihood (Model E).*
+
+```{r echo=FALSE}
+knitr::kable(myAIC, row.names = FALSE)
+```
+
+
+
+All of this evidence points to Model E as the best candidate model given the data. Models G and D have some tenability, but are not nearly as empirically supported as Model E. Finally, Models B, F, C, and A seem completely unsupported.
+
+
+
+# References
+
