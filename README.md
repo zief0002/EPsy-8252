@@ -112,7 +112,7 @@ Additional resources for information crieria:
 
 ___
 
-### Simulation
+### Simulation, Bootstrapping, and Quantifying Sampling Error
 
 - [The Bootstrap](https://www.youtube.com/watch?v=_nhgHjdLE-I) a YouTube video lecture by Jeff Leek (Johns Hopkins University)
 - [Statistics Without the Agonizing Pain](https://www.youtube.com/watch?v=5Dnw46eC-0o) a keynote adress by Pinterest data scientist John Rauser at *Strata + Hadoop 2014*
