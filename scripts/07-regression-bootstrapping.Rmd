@@ -1,0 +1,184 @@
+---
+title: "Bootstrapping Data: Regression"
+date: "`r Sys.Date()`"
+header-includes:
+   - \usepackage{xcolor}
+   - \usepackage[framemethod=tikz]{mdframed}
+   - \usepackage{graphicx}
+   - \usepackage{rotating}
+   - \usepackage{booktabs}
+   - \definecolor{umn}{RGB}{153, 0, 85}
+   - \definecolor{umn2}{rgb}{0.1843137, 0.4509804, 0.5372549}
+   - \definecolor{myorange}{HTML}{EA6153}
+output: 
+  pdf_document:
+    highlight: tango
+    latex_engine: xelatex
+    fig_width: 6
+    fig_height: 6
+mainfont: "Bembo Std"
+sansfont: "Helvetica Neue UltraLight"
+monofont: Inconsolata
+urlcolor: "umn2"
+bibliography: epsy8252.bib
+csl: apa-single-spaced.csl
+always_allow_html: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(digits = 3, scipen = 99)
+library(printr)
+library(dplyr)
+```
+
+# Preparation
+
+
+We will eventually use the data in the *mnSchools.csv* file. These data include institutional-level attributes for several Minnesota colleges and universities. The source of these data is: [http://www.collegeresults.org](http://www.collegeresults.org). The attributes include:
+
+- `id`: Institution ID number
+- `name`: Institution name
+- `gradRate`: Six-year graduation rate. This measure represents the proportion of first-time, full-time, bachelor's or equivalent degree-seeking students who started in Fall 2005 and graduated within 6 years.
+- `public`: Dummy variable indicating educational sector (0 = private institution; 1 = public institution)
+- `sat`: Estimated median SAT score for incoming freshmen at the institution
+- `tuition`: Cost of attendance for full-time, first-time degree/certificate-seeking in-state undergraduate students living on campus for academic year 2013-14. 
+
+
+```{r message=FALSE}
+mn = read.csv(file = "~/Google Drive/Documents/github/EPsy-8252/data/mnSchools.csv")
+head(mn)
+
+# Load libraries
+library(mosaic)
+library(sm)
+```
+
+
+# Bootstrapping Cases from a Data Frame
+
+The `resample()` function also can bootstrap an entire data frame. For example,
+
+```{r}
+resample(mn)
+```
+
+We can use this idea directly in the `lm()` function to fit a regression model on a bootstrapped data set. For example, to fit a regression model using `public` to predict `gradRate`, we can use
+
+```{r}
+lm(gradRate ~ 1 + public, data = resample(mn))
+```
+
+Remember the goal in inference is to see how much coefficients in the regression vary from sample-to-sample. We can carry fit the model to several bootstrap samples by using the `do()` function.
+
+```{r}
+myBoot = do(1000) * lm(gradRate ~ 1 + public, data = resample(mn))
+head(myBoot)
+```
+
+The `public` column in the `myBoot` data frame contains the 1000 regression slopes from the model fitted to the bootstrapped samples. To quantify the sampling variation, we compute the standard deviation of these measures.
+
+```{r}
+se_public = sd(myBoot$public)
+se_public
+```
+
+
+Compare this with the SE based on the theory-based approximation found from the `lm()` function. 
+
+```{r}
+lm.1 = lm(gradRate ~ 1 + public, data = mn)
+summary(lm.1)
+```
+
+They are pretty similar.  
+
+# Using the Bootstrap SE to Compute a Simulated p-Value
+
+Recall that under the null hypothesis, 
+
+$$
+H_0:\beta_{\mathrm{Public}} = 0
+$$
+
+This defines the center (mean) of our sampling distribution. This sampling distribution is also normally distributed with a particular standard error. We just approximated the standard error from our bootstrap procedure. We can now use `rnorm()` to simulate the sampling distribution for $\hat\beta_{\mathrm{Public}}$.
+
+```{r}
+# Simulate the sampling distribution
+beta_hats = rnorm(10000, mean = 0, sd = se_public)
+```
+
+The $p$-value is the probability, under the null hypothesis of seeing an observed slope at least as extreme as the one we saw in the observed data, $\hat\beta_{\mathrm{Public}}=-14.24$. The density plot of the simulated $\hat\beta_{\mathrm{Public}}$ values below shows the values that are at least as extreme as $-14.24$. Since, in the social sciences, tests are typically two-tailed, we have to examine those values $\leq -14.24$ and those $\geq 14.24$. Those areas are shown in red in the plot below.
+
+```{r out.width='3.5in', warning=FALSE}
+# Plot the beta_hats
+sm.density(beta_hats, xlab = expression(hat(beta)[Public]))
+polygon(x = c(-50, -14.24, -14.24, -50), y = c(0, 0, 10, 10), col = rgb(1, 0, 0, 0.2))
+polygon(x = c(14.24, 50, 50, 14.24), y = c(0, 0, 10, 10), col = rgb(1, 0, 0, 0.2))
+```
+
+Typically we would computet the area under the density curve that is in the red. However, since we have simulated a finite number of $\hat\beta$s we can simply count the number that have values at least as extreme as $-14.24$. Keep in mind that the test is two-tailed meaning we have to count all the $\hat\beta \leq -14.24$ and all the $\hat\beta \geq 14.24$. 
+
+```{r}
+# Plot the beta_hats
+sum(beta_hats <= -14.24)
+sum(beta_hats >= 14.24)
+```
+
+We can also do this in a single computation using the absolute value,
+
+```{r}
+sum(abs(beta_hats) >= 14.24)
+```
+
+Out of the 10,000 simulated $\hat\beta$ values, `r sum(abs(beta_hats) >= 14.24)` were at least as extreme as the observed $\hat\beta$ of $-14.24$. As a proportion this is, `r sum(abs(beta_hats) >= 14.24)/10000`. This is the $p$-value based on the hypothesis that $\beta_{\mathrm{Public}}=0$. 
+
+## Comparison to the lm() Summary Output
+
+The $p$-value for the slope from the `summary()` output of the lm is 0.022. This is quite a bit larger than the simulated $p$-value. This is because the SE for the results from the `lm()` was quite a bit larger; 5.91. If we simulate from the null distribution having a SE of 5.91, then we obtain a $p$-value that corresponds to the `summary()` output.
+
+```{r}
+beta_lm = rnorm(10000, mean = 0, sd = 5.91)
+sum(abs(beta_lm) >= 14.24) / 10000
+```
+
+The $p$-value is a function of the uncertainty (the SE). All things being equal, more uncertainty gives larger $p$-values. So which set of results, the `summary()` output or the bootstrapped and simulated results, should we believe. This decision needs to be is largely based on whether the assumptions are met. If they are met, then the `lm()` results can be trusted. If not, then the bootstrap and simulation results are probably more valid.
+
+## Testing Other Hypotheses
+
+The nice thing is that the bootstrap and simulation method now allows us to obtain a $p$-value to test hypotheses about the slope that are not 0. For example one could test whether
+
+$$
+H: \beta_{\mathrm{Public}} = 5
+$$
+
+We just need to adjust the mean in the `rnorm()` function when we simulate the sampling distibution of $\hat\beta$.
+
+```{r}
+# Simulate the sampling distribution
+beta_hats = rnorm(10000, mean = 5, sd = se_public)
+
+# Compute the p-value
+sum(abs(beta_hats) >= 14.24) / 10000
+```
+
+Based on the $p$-value associated with this hypothesis, we would reject the hypothesis that $\beta_{\mathrm{Public}} = 5$. The data are not consistent with this hypothesis.
+
+
+# Other Statistics
+
+Note that the `do()` function collected several other bootstrapped statistics. One of those is $R^2$. This means, we can now compute an interval estimate for $R^2$. The density plot of the bootstrapped $R^2$ values is shown below.
+
+```{r out.width='3.5in', warning=FALSE}
+sm.density(myBoot$r.squared, xlab = expression(R^2))
+```
+
+The positive skew of the distribution indicates that $R^2$ is biased. Thus to compute an interval estimate, we might consider using the percentile method rather than the plus--minus two SE method.
+
+```{r}
+quantile(myBoot$r.squared, prob = c(0.025, 0.975))
+```
+
+Think about what this says. Going back to our observed data, we said that differences in education sector (public/private) explained 15.8\% of the variation in graduation rates. The interval estimate gives us some indication of how stable that estimate is from sample-to-sample. Now we are saying that differences in education sector may exlplain as little as `r quantile(myBoot$r.squared, prob = c(0.025))[[1]]*100`\% of the variation in graduation rates, or as much as `r quantile(myBoot$r.squared, prob = c(0.975))[[1]]*100`\% of the variation in graduation rates. There is a lot of uncertainty in our estimate.
+
+
