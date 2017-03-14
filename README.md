@@ -137,9 +137,9 @@ ___
 ___
 
 
-<!--
 
-### Multilevel Regression Models
+
+### Cross-Sectional Multilevel Regression Models
 
 
 - Woltman, H., Feldstain, A., MacKay, J. C., &amp; Rocchi, M. (2012). [An introduction to hierarchical linear modeling](http://www.tqmp.org/RegularArticles/vol08-1/p052/p052.pdf). _Tutorials in Quantitative Methods for Psychology, 8_(1), 52&ndash;69.
@@ -148,6 +148,9 @@ Additional resources for multilevel regression models:
 
 - Hayes, A. F. (2006). [A primer on multilevel modeling](http://onlinelibrary.wiley.com/doi/10.1111/j.1468-2958.2006.00281.x/abstract). *Human Communication Research, 32*(4), 385&ndash;410.
 
+<br />
+
+___
 
 
 <!--
