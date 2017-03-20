@@ -23,7 +23,7 @@ Any data needed for the homework assignments are in the `data` folder.
 
 - Presentation 10:30 a.m.–12:30 p.m., Wednesday, May 10, 2017
 
-More information will be added.
+The document, *Oral-Presentation-Criteria.pdf* includes more information on the oral project.
 
 <br />
 
@@ -31,6 +31,10 @@ More information will be added.
 
 
 # Optional Assignment: Mathematics and Computation
+
+This assignment will be graded and credit for the assignment will be given if you score a B&ndash; or better. If you score under a B&ndash;, you will not receive credit. There will be no re-dos for this assignment.
+
+----
 
 Here are some resources that may help you in completing the optional assignment. If you come across other resources that are helpful, email the link to Andy or Jonathan and we will get them posted below.
 
