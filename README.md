@@ -147,6 +147,14 @@ ___
 Additional resources for multilevel regression models:
 
 - Hayes, A. F. (2006). [A primer on multilevel modeling](http://onlinelibrary.wiley.com/doi/10.1111/j.1468-2958.2006.00281.x/abstract). *Human Communication Research, 32*(4), 385&ndash;410.
+- [Stargazer for lmer Models](http://svmiller.com/blog/2015/02/quasi-automating-the-inclusion-of-random-effects-in-rs-stargazer-package/)
+- [A Stargazer Cheatsheet](http://jakeruss.com/cheatsheets/stargazer.html)
+- [texreg Vignette](http://www2.uaem.mx/r-mirror/web/packages/texreg/vignettes/texreg.pdf)
+- Hofmann, D. A., & Gavin, M. B. (1998). Centering decisions in hierarchical linear models: Implications for research in organizations. _Journal of Management, 24_(5), 623–641.
+- Scherbaum, C. A., & Ferreter, J. M. (2008). Estimating statistical power and required sample sizes for organizational research using multilevel modeling. _Organizational Research Methods, 12_(2), 347–367.
+- [Estimation of the Log-Likelihood in lmer](http://stackoverflow.com/questions/20980116/how-does-lmer-from-the-r-package-lme4-compute-log-likelihood)
+
+
 
 <br />
 
@@ -167,15 +175,7 @@ ___
 - Long, J. D. (2012). _Longitudinal data analysis for the behavioral sciences using R_. Thousand Oaks, CA: Sage. [Amazon](http://www.amazon.com/Longitudinal-Analysis-Behavioral-Sciences-Using/dp/1412982685)
 
 
-### Miscellany Regarding Multilevel Models
 
-- Hofmann, D. A., & Gavin, M. B. (1998). Centering decisions in hierarchical linear models: Implications for research in organizations. _Journal of Management, 24_(5), 623–641.
-- Scherbaum, C. A., & Ferreter, J. M. (2008). Estimating statistical power and required sample sizes for organizational research using multilevel modeling. _Organizational Research Methods, 12_(2), 347–367.
-
-### Estimation of Multilevel Models
-
-- [Stack Overflow](http://stackoverflow.com/questions/20980116/how-does-lmer-from-the-r-package-lme4-compute-log-likelihood)
-- [Linear mixed models and penalized least squares](http://pages.cs.wisc.edu/~bates/reports/MixedComp.pdf)
-- [lme4: Mixed-effects modeling with R](http://lme4.r-forge.r-project.org/lMMwR/lrgprt.pdf)
+- 
  
  -->
