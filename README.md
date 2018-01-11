@@ -19,10 +19,14 @@ To download individual PDF files, open the file link and then click on the `Down
 
 Andrew Zieffler ([zief0002@umn.edu](mailto://zief0002@umn.edu)) <br />
 **Office:** [Education Sciences Building 178](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />**Office Hours:** Tuesday 9:30 AM&ndash;10:30 AM; and by appointment
-### Teaching Assistant
+<!--
+
+### Teaching Assistant
 
 Jonathan Brown ([brow3019@umn.edu](mailto://brow3019@umn.edu))  <br />
 **Office:** [Education Sciences Building 192](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />**Office Hours:** Mondays, Wednesdays 1:00 PM&ndash;2:00 PM; and by appointment
+
+-->
 
 <br />
 
@@ -32,9 +36,9 @@ Jonathan Brown ([brow3019@umn.edu](mailto://brow3019@umn.edu))  <br />
 
 All of the course textbooks (required and optional) are available via the University of Minnesota library.
 
-- [A mathematical primer for social statistics](http://methods.sagepub.com.ezp3.lib.umn.edu/book/a-mathematical-primer-for-social-statistics) [required]
-- [Model based inference in the life sciences: A primer on evidence](http://link.springer.com.ezp3.lib.umn.edu/book/10.1007%2F978-0-387-74075-1) [optional]
-- [Applied regression: An introduction](http://primo.lib.umn.edu/TWINCITIES:mncat_discovery:UMN_ALMA21533776460001701) [optional]
+- [A mathematical primer for social statistics](http://dx.doi.org.ezp1.lib.umn.edu/10.4135/9781412983228) [required]
+- [Model based inference in the life sciences: A primer on evidence](http://login.ezproxy.lib.umn.edu/login?url=http://link.springer.com/10.1007/978-0-387-74075-1) [optional]
+- [An introduction to generalized linear models](http://login.ezproxy.lib.umn.edu/login?url=http://methods.sagepub.com/book/an-introduction-to-generalized-linear-models) [optional]
 
 <br />
 
@@ -49,6 +53,7 @@ Below is the required reading you will need to do for the course. Some are tradi
 
 #### General Student Resources
 
+- [EPsy 8251 Resources](https://github.com/zief0002/epsy-8251)
 - [dplyr Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 - [ggplot2 Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/08/ggplot2-cheatsheet.pdf)
 - [ggplot2 Extensions](http://ggplot2-exts.github.io/index.html)
@@ -82,7 +87,30 @@ Using Reveal.js to create a "sexier" presentation
 
 ___
 
+
+### Bootstrapping
+
+Primary resources for the unit:
+
+- [Bootstrapping](http://www.dummies.com/education/science/biology/the-bootstrap-method-for-standard-errors-and-confidence-intervals/) from *Biostatistics for Dummies*
+- [The Bootstrap](https://www.youtube.com/watch?v=_nhgHjdLE-I) a YouTube video lecture by Jeff Leek (Johns Hopkins University)
+
+
+Additional resources for simulation:
+
+- [Statistics Without the Agonizing Pain](https://www.youtube.com/watch?v=5Dnw46eC-0o) a keynote adress by Pinterest data scientist John Rauser at *Strata + Hadoop 2014*
+- Eckhardt, R. (1987). [Stan Ulan, John Von Neumann, and the Monte Carlo method](http://permalink.lanl.gov/object/tr?what=info:lanl-repo/lareport/LA-UR-88-9068). *Los Alamos Science,* 1&ndash;13.
+- Burton, A., Altman, D. G., Royston, P., &amp; Holder, R. L. (2006). The design of simulation studies in medical statistics. *Statistics in Medicine, 25,* 4279&ndash;4292. doi: 10.1002/sim.2673
+- [Simulation for Model Checking](https://www.youtube.com/watch?v=rbjt-a0Pf8k) a YouTube video lecture by Jeff Leek (Johns Hopkins University)
+
+<br />
+
+___
+
+
 #### Probability Models and Likelihood Estimation
+
+Primary resources for the unit:
 
 - Fox; Section 3.1.1 (Probability Basics)
 - Fox; Section 3.1.2 (Random Variables) --- Skim this section. Don't worry about the mathematics (unless it interests you). Instead, read it for vocabulary and to better understand what we talked about in class.
@@ -100,6 +128,8 @@ ___
 
 #### Information Criteria
 
+Primary resources for the unit:
+
 - Burnham, K. P., Anderson, D. R., &amp; Huyvaert, K. P. (2010). [AIC model selection and multimodel inference in behavioral ecology: Some background, observations, and comparisons](http://doi.org/10.1007/s00265-010-1029-6). *Behavioral Ecology and Sociobiology, 65*(1), 23&ndash;35.
 
 Additional resources for information crieria:
@@ -112,20 +142,7 @@ Additional resources for information crieria:
 
 ___
 
-### Simulation, Bootstrapping, and Quantifying Sampling Error
-
-- [The Bootstrap](https://www.youtube.com/watch?v=_nhgHjdLE-I) a YouTube video lecture by Jeff Leek (Johns Hopkins University)
-- [Statistics Without the Agonizing Pain](https://www.youtube.com/watch?v=5Dnw46eC-0o) a keynote adress by Pinterest data scientist John Rauser at *Strata + Hadoop 2014*
-- Eckhardt, R. (1987). [Stan Ulan, John Von Neumann, and the Monte Carlo method](http://permalink.lanl.gov/object/tr?what=info:lanl-repo/lareport/LA-UR-88-9068). *Los Alamos Science,* 1&ndash;13.
-
-Additional resources for simulation:
-
-- Burton, A., Altman, D. G., Royston, P., &amp; Holder, R. L. (2006). The design of simulation studies in medical statistics. *Statistics in Medicine, 25,* 4279&ndash;4292. doi: 10.1002/sim.2673
-- [Simulation for Model Checking](https://www.youtube.com/watch?v=rbjt-a0Pf8k) a YouTube video lecture by Jeff Leek (Johns Hopkins University)
-
-<br />
-
-___
+<!--
 
 ### Cross-Validation
 
