@@ -19,14 +19,14 @@ To download individual PDF files, open the file link and then click on the `Down
 
 Andrew Zieffler ([zief0002@umn.edu](mailto://zief0002@umn.edu)) <br />
 **Office:** [Education Sciences Building 178](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />**Office Hours:** Tuesday 9:30 AM&ndash;10:30 AM; and by appointment
-<!--
+
 
 ### Teaching Assistant
 
-Jonathan Brown ([brow3019@umn.edu](mailto://brow3019@umn.edu))  <br />
-**Office:** [Education Sciences Building 192](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />**Office Hours:** Mondays, Wednesdays 1:00 PM&ndash;2:00 PM; and by appointment
+Kory Vue ([vuexx199@umn.edu](mailto://vuexx199@umn.edu))  <br />
+**Office:** [Education Sciences Building 193](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />**Office Hours:** Thursdays 1:30 PM&ndash;2:30 PM; and by appointment
 
--->
+
 
 <br />
 
