@@ -32,6 +32,16 @@ Kory Vue ([vuexx199@umn.edu](mailto://vuexx199@umn.edu))  <br />
 
 ---
 
+### Classroom
+
+- Monday/Wednesday (9:45&ndash;11:00): [Peik Hall 215](http://campusmaps.umn.edu/peik-hall)
+- Tuesday/Thursday (11:15&ndash;12:30): [Elliott Hall N647](http://campusmaps.umn.edu/elliott-hall)
+
+
+<br />
+
+---
+
 ### Textbooks
 
 All of the course textbooks (required and optional) are available via the University of Minnesota library.
