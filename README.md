@@ -97,6 +97,23 @@ Using Reveal.js to create a "sexier" presentation
 
 ___
 
+#### Probability Distributions
+
+Primary resources for the unit:
+
+- Fox [Required Textbook]: Section 3.1.1 (Probability Basics)
+- Fox [Required Textbook]: Sections 3.3.1&ndash;3.3.4 (Continuous Distributions)
+
+
+Additional resources for probability distributions:
+
+- [Kahn Academy: Random variables and probability distributions](https://www.khanacademy.org/math/probability/random-variables-topic)
+
+
+<br />
+
+___
+
 
 ### Bootstrapping
 
@@ -118,18 +135,16 @@ Additional resources for simulation:
 ___
 
 
-#### Probability Models and Likelihood Estimation
+#### Likelihood Estimation
 
 Primary resources for the unit:
 
-- Fox; Section 3.1.1 (Probability Basics)
-- Fox; Section 3.1.2 (Random Variables) --- Skim this section. Don't worry about the mathematics (unless it interests you). Instead, read it for vocabulary and to better understand what we talked about in class.
-- Fox; Section 3.3.1 (The Normal Distribution)
+- Fox [Required Textbook]: Section 3.1.2 (Random Variables) --- Skim this section. Don't worry about the mathematics (unless it interests you). Instead, read it for vocabulary and to better understand what we talked about in class.
+
+
+Additional resources for likelihood estimation:
+
 - Myung, J. (2003). Tutorial on maximum likelihood estimation. *Journal of Mathematical Psychology, 47*, 90-100.
-
-Additional resources for probability models:
-
-- [Kahn Academy: Random variables and probability distributions](https://www.khanacademy.org/math/probability/random-variables-topic)
 
 
 <br />
@@ -144,7 +159,7 @@ Primary resources for the unit:
 
 Additional resources for information crieria:
 
-- Burnham, K. C., &amp; Anderson, D. R. (2004). [Multimodel inference: Understanding AIC and BIC in model selection](http://smr.sagepub.com.ezp2.lib.umn.edu/content/33/2/261.full.pdf+html). _Sociological Methods and Research, 33_, 261&ndash;304.
+- Anderson [Optional Textbook]: Chapters 1&ndash;4
 - Dayton, C. M. (2003). [Information criteria for pairwise comparisons](http://www.ncbi.nlm.nih.gov/pubmed/12741673). _Psychological Methods, 8_(1), 61–71.
 
 
