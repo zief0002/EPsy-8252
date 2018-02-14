@@ -156,6 +156,7 @@ ___
 Primary resources for the unit:
 
 - Burnham, K. P., Anderson, D. R., &amp; Huyvaert, K. P. (2010). [AIC model selection and multimodel inference in behavioral ecology: Some background, observations, and comparisons](http://doi.org/10.1007/s00265-010-1029-6). *Behavioral Ecology and Sociobiology, 65*(1), 23&ndash;35.
+- Elliott, L. P., &amp; Brook, B. W. (2007). [Revisiting Chamberlin: Multiple working hypotheses for the 21st century](https://watermark.silverchair.com/57-7-608.pdf?token=AQECAHi208BE49Ooan9kkhW_Ercy7Dm3ZL_9Cf3qfKAc485ysgAAAdwwggHYBgkqhkiG9w0BBwagggHJMIIBxQIBADCCAb4GCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM2TCQx1fdxHCyF-CwAgEQgIIBjzVVz3HqFpXhbsuGPhjbLic_GubSYfkA9fQWJG6GcDjzdJLfTQ7CqVL3GbTZHHp4BiQgYjQUfXCqYPKJy2TVpp-_ak4sIOyTF_01CJbFe3kn7HMCu-7b6H-hjsYoeAxZxt9lrsgSw1jHFxaqAduVxmMwO5Li_SxFrGk6AmQE5yQMK823JkdSN-MorDGrJJc94ot4Tm0jf5UaK22EmjOTQw3zWtfsr1mkKaF7-ceUIUc7Nz_neTA7Hm-WQyF1z7hnWsMwa6qtfCXroL22eRTI5096S45AI1XyV3c0wEyMs1wVSwdOZZBultGpz3U_Sq0fdKPP8w1w1jgyospgqckegOiLVmn25om_-cjU5vhY1XB4pPJf-msCmsS_DxiCr8pZ2KctKXWX9Xh-Rv3QsVFF39Yojnc-hgjAZGInOTF29v1sRy5vkjcMi7DFAaTanZDM5gHi8CCQRgzhuOt1wFArQOG9hoaytoitAQapgwxkDM-S6VXnTbVV8r1NwmhC0OUVeEiq8-euh1bBsNcHIDnRDw). *BioScience, 57*(7), 608&ndash;614.
 
 Additional resources for information crieria:
 
