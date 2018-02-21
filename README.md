@@ -168,40 +168,48 @@ Additional resources for information crieria:
 
 ___
 
-<!--
-
-### Cross-Validation
-
-- [Prediction Study Design](https://www.youtube.com/watch?v=Pi4chMtPowo) a YouTube video lecture by Jeff Leek (Johns Hopkins University) 
-- [Cross-Validation](https://www.youtube.com/watch?v=CmEqvD_ov2o&t=303s) a YouTube video lecture by Jeff Leek (Johns Hopkins University)
-
-<br />
-
-___
 
 
 
 
-### Cross-Sectional Multilevel Regression Models
+### Introduction to Mixed-Effects Regression Models
 
+Primary resources for the unit:
 
 - Woltman, H., Feldstain, A., MacKay, J. C., &amp; Rocchi, M. (2012). [An introduction to hierarchical linear modeling](http://www.tqmp.org/RegularArticles/vol08-1/p052/p052.pdf). _Tutorials in Quantitative Methods for Psychology, 8_(1), 52&ndash;69.
 
-Additional resources for multilevel regression models:
-
-- Hayes, A. F. (2006). [A primer on multilevel modeling](http://onlinelibrary.wiley.com/doi/10.1111/j.1468-2958.2006.00281.x/abstract). *Human Communication Research, 32*(4), 385&ndash;410.
-- [Stargazer for lmer Models](http://svmiller.com/blog/2015/02/quasi-automating-the-inclusion-of-random-effects-in-rs-stargazer-package/)
-- [A Stargazer Cheatsheet](http://jakeruss.com/cheatsheets/stargazer.html)
-- [texreg Vignette](http://www2.uaem.mx/r-mirror/web/packages/texreg/vignettes/texreg.pdf)
-- Hofmann, D. A., & Gavin, M. B. (1998). Centering decisions in hierarchical linear models: Implications for research in organizations. _Journal of Management, 24_(5), 623–641.
-- Scherbaum, C. A., & Ferreter, J. M. (2008). Estimating statistical power and required sample sizes for organizational research using multilevel modeling. _Organizational Research Methods, 12_(2), 347–367.
-- [Estimation of the Log-Likelihood in lmer](http://stackoverflow.com/questions/20980116/how-does-lmer-from-the-r-package-lme4-compute-log-likelihood)
-
+Additional resources for mixed-effects regression models:
 
 
 <br />
 
 ___
+
+
+<!--
+
+### Mixed-Effects Regression Models in Practice
+
+Primary resources for the unit:
+
+- Hayes, A. F. (2006). [A primer on multilevel modeling](http://onlinelibrary.wiley.com/doi/10.1111/j.1468-2958.2006.00281.x/abstract). *Human Communication Research, 32*(4), 385&ndash;410.
+
+Additional resources for mixed-effects regression models:
+
+- [Estimation of the Log-Likelihood in lmer](http://stackoverflow.com/questions/20980116/how-does-lmer-from-the-r-package-lme4-compute-log-likelihood)
+- Hofmann, D. A., & Gavin, M. B. (1998). Centering decisions in hierarchical linear models: Implications for research in organizations. _Journal of Management, 24_(5), 623–641.
+- Scherbaum, C. A., & Ferreter, J. M. (2008). Estimating statistical power and required sample sizes for organizational research using multilevel modeling. _Organizational Research Methods, 12_(2), 347–367.
+
+Markdown resources for creating tables of models:
+
+- [Stargazer for lmer Models](http://svmiller.com/blog/2015/02/quasi-automating-the-inclusion-of-random-effects-in-rs-stargazer-package/)
+- [A Stargazer Cheatsheet](http://jakeruss.com/cheatsheets/stargazer.html)
+- [texreg Vignette](http://www2.uaem.mx/r-mirror/web/packages/texreg/vignettes/texreg.pdf)
+
+---
+
+<!--
+
 
 ### Longitudinal Multilevel Regression Models
 
@@ -226,7 +234,12 @@ ___
 - [Cousera Video](https://class.coursera.org/ml-003/lecture/9)
 
 
+### Cross-Validation
 
+- [Prediction Study Design](https://www.youtube.com/watch?v=Pi4chMtPowo) a YouTube video lecture by Jeff Leek (Johns Hopkins University) 
+- [Cross-Validation](https://www.youtube.com/watch?v=CmEqvD_ov2o&t=303s) a YouTube video lecture by Jeff Leek (Johns Hopkins University)
+
+<br />
 
 
 
