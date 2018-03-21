@@ -1,0 +1,49 @@
+---
+title: "EPsy 8252: Methods in Data Analysis for Educational Research II"
+subtitle: "Spring 2018"
+author: "Andrew Zieffler"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br />
+
+This is the website for the Spring 2018 sections of EPsy 8252. It includes many of the materials used in the course. The GitHub repository for the course is available at https://github.com/zief0002/epsy-8252.
+
+<br />
+
+## Instructor
+
+**Andrew Zieffler** ([zief0002@umn.edu](mailto://zief0002@umn.edu)) <br />
+Office: [Education Sciences Building 178](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />
+Office Hours: Tuesday 9:30 AM&ndash;10:30 AM; and by appointment
+
+<br />
+
+## Teaching Assistant
+
+**Kory Vue** ([vuexx199@umn.edu](mailto://vuexx199@umn.edu))  <br />
+Office: [Education Sciences Building 193](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />
+Office Hours: Thursdays 1:30 PM&ndash;2:30 PM; and by appointment
+
+<br />
+
+## Classroom
+
+- Monday/Wednesday (9:45&ndash;11:00): [Peik Hall 215](http://campusmaps.umn.edu/peik-hall)
+- Tuesday/Thursday (11:15&ndash;12:30): [Elliott Hall N647](http://campusmaps.umn.edu/elliott-hall)
+
+<br />
+
+## Textbooks
+
+All of the course textbooks (required and optional) are available via the University of Minnesota library.
+
+- [A mathematical primer for social statistics](http://dx.doi.org.ezp1.lib.umn.edu/10.4135/9781412983228) [required]
+- [Model based inference in the life sciences: A primer on evidence](http://login.ezproxy.lib.umn.edu/login?url=http://link.springer.com/10.1007/978-0-387-74075-1) [optional]
+- [An introduction to generalized linear models](http://login.ezproxy.lib.umn.edu/login?url=http://methods.sagepub.com/book/an-introduction-to-generalized-linear-models) [optional]
+
+<br />

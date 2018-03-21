@@ -186,7 +186,7 @@ Additional resources for mixed-effects regression models:
 ___
 
 
-<!--
+
 
 ### Mixed-Effects Regression Models in Practice
 
@@ -208,7 +208,6 @@ Markdown resources for creating tables of models:
 
 ---
 
-<!--
 
 
 ### Longitudinal Multilevel Regression Models

@@ -1,0 +1,75 @@
+---
+title: "Fall 2018 Schedule"
+subtitle: "Readings, Notes, and Resources"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br />
+
+Below is the weekly schedule for the class. required reading you will need to do for the course. Some are traditional reading (e.g., books, papers). Others are online videos or webpages to "read". For each topic, additional resources (and courses) are also provided for students interested in pursuing the topic further outside of this course.
+
+<br />
+
+# Calendar
+
+<table class="table">
+
+<thead>
+<tr>
+<th style="width:15%;">Date (T/R)</th>
+<th style="width:15%;">Date (M/W)</th>
+<th style="width:40%;">Topic</th>
+<th style="width:10%;text-align:center">Reading</th>
+<th style="width:10%;text-align:center">Notes</th>
+<th style="width:10%;text-align:center">HW</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Thr, Mar. 08</td>
+<td>Wed, Mar. 21</td>
+<td>Mixed-Effects Models in Practice</td>
+<td align="center"><font color="f1f1f1"><a href="reading-08.html"><i class="fa fa-book fa-lg"></i></a></font></td>
+<td align="center"><font color="f1f1f1"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes-pdf/s18-08-mixed-effects-models-in-practice.pdf"><i class="fa fa-laptop  fa-lg"></i></a></font></td>
+<td align="center"><font color="f1f1f1"><i class="fas fa-edit fa-lg"></i></font></td>
+</tr>
+
+<tr>
+<td>Thr, Mar. 22</td>
+<td>Mon, Mar. 26</td>
+<td>Mixed-Effects Models in Practice</td>
+<td align="center"><font color="f1f1f1"><i class="fa fa-book fa-lg"></i></font></td>
+<td align="center"><font color="f1f1f1"><i class="fa fa-laptop  fa-lg"></i></font></td>
+<td align="center"><font color="f1f1f1"><i class="fas fa-edit fa-lg"></i></font></td>
+</tr>
+
+<tr>
+<td>Tue, Mar. 27</td>
+<td>Wed, Mar. 28</td>
+<td>Mixed-Effects Models in Practice II</td>
+<td align="center"><font color="f1f1f1"><i class="fa fa-book fa-lg"></i></font></td>
+<td align="center"><font color="f1f1f1"><i class="fa fa-laptop  fa-lg"></i></font></td>
+<td align="center"><font color="f1f1f1"><i class="fas fa-edit fa-lg"></i></font></td>
+</tr>
+
+<tr>
+<td>Thr, Mar. 29</td>
+<td>Mon, Apr. 02</td>
+<td>Mixed-Effects Models in Practice II</td>
+<td align="center"><font color="f1f1f1"><i class="fa fa-book fa-lg"></i></font></td>
+<td align="center"><font color="f1f1f1"><i class="fa fa-laptop  fa-lg"></i></font></td>
+<td align="center"><font color="f1f1f1"><i class="fas fa-edit fa-lg"></i></font></td>
+</tr>
+
+</tbody>
+</table>    
+
+
+<!-- <td align="center"><font color="f1f1f1"><i class="fa fa-caret-up fa-lg"></i></font></td> -->
+<!-- <td align="center"><font color="f1f1f1"><i class="fa fa-check-square fa-lg"></i></font></td> -->
+<!-- <td align="center"><font color="f1f1f1"><i class="fa fa-file-powerpoint fa-lg"></i></font></td> -->

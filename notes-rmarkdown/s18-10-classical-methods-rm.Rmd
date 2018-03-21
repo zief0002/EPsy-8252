@@ -1,0 +1,300 @@
+---
+title: "Classical Methods in Longitudinal (Repeated Measures) Analysis"
+date: "`r Sys.Date()`"
+header-includes:
+   - \usepackage{xcolor}
+   - \usepackage[framemethod=tikz]{mdframed}
+   - \usepackage{graphicx}
+   - \usepackage{rotating}
+   - \usepackage{booktabs}
+   - \usepackage{float}
+   - \definecolor{umn}{RGB}{153, 0, 85}
+   - \definecolor{umn2}{rgb}{0.1843137, 0.4509804, 0.5372549}
+   - \definecolor{myorange}{HTML}{EA6153}
+output: 
+  pdf_document:
+    highlight: tango
+    latex_engine: xelatex
+    fig_width: 6
+    fig_height: 6
+mainfont: "Bembo Std"
+sansfont: "Helvetica Neue UltraLight"
+monofont: Inconsolata
+urlcolor: "umn2"
+bibliography: epsy8252.bib
+csl: apa-single-spaced.csl
+always_allow_html: yes
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(digits = 3, scipen = 99)
+library(printr)
+```
+
+## Preparation
+
+We will use the data in the *seasonal-depression.csv* file. These data include the Beck depression scores in four different seasons for 14 males under 35 years of age. The source of these data is: @Myers:2003. We will use these data to explore seasonal depression. The attributes in the dataset include:
+
+- `subject`: The subject ID number for each male
+- `s1`: The Beck depression score in winter (season 1)
+- `s2`: The Beck depression score in spring (season 2)
+- `s3`: The Beck depression score in summer (season 3)
+- `s4`: The Beck depression score in fall (season 4)
+
+The data are displayed below:
+
+```{r message=FALSE, echo=FALSE}
+# Load libraries
+library(dplyr)
+library(corrr)
+library(ez)
+library(ggplot2)
+library(lme4) #for fitting mixed-effects models
+library(readr)
+library(tidyr)
+
+# Read in data
+seasonal = read_csv(file = "~/Dropbox/epsy-8252/data/seasonal-depression.csv")
+
+# Put each subject's data in a row
+seasonal_wide = seasonal %>% 
+  spread(season, beck)
+
+seasonal_wide
+```
+
+## Exploring Seasonal Depression
+
+We might explore seasonal depression by examining the mean depression score across seasons. If they vary, it is evidence supporting seasonal depression. If not, it is evidence against seasonal depression.
+
+```{r echo=FALSE}
+season_means = seasonal %>%
+ group_by(season) %>%
+  summarize(M = mean(beck), SD = sd(beck))
+
+season_means
+```
+
+\newpage
+
+We can also explore this graphically.
+
+```{r fig.width=6, fig.height=6, out.width="3in", fig.cap="Plot of the mean depression score by season.", echo=FALSE}
+ggplot(data = season_means, aes(x = season, y = M)) + 
+  geom_line(group = 1) +
+  geom_point() +
+  theme_bw() +
+  scale_x_discrete(
+    name = "Time",
+    labels = c("S1 \n(Winter)", "S2 \n(Spring)", "S3 \n(Summer)", "S4 \n(Fall)")
+    ) + 
+  ylab("Beck depression score")
+```
+
+Both the summary values and the plot suggest that there are sample differences in the average depression score across seasons. There is, however, a great deal of variation in the scores within each season. Are these differences only due to sampling error? Or are they more than we would expect because of chance?
+
+If the cases were independent, we could fit an ANOVA model (or a regression model with three indicators to represent season) and examine the results for significance. However, with repeated measures data, the observations (and thus the model errors) would not be independent. So, we have to fit a model that accounts for this non-independence. 
+
+## Classical Methods for Modeling Repeated Measures Data
+
+There are two classical methods for modeling repeated measures data: (1) Repeated Measures ANOVA (RM-ANOVA); and (2) Multivariate ANOVA (MANOVA). I will not teach you these methods, but I will show you the output from fitting these procedures in case you encounter them in the research literature you read. 
+
+It is recommended that you fit a mixed-effects regression model (LMER) rather than use either one of the classical methods to model repeated measures data. The LMER models are far more flexible than either of these methods. The LMER models allow for continuous or categorical predictors, and missing data. They also have a less stringent set of assumptions than either of the classical methods.
+
+\newpage
+
+## RM-ANOVA
+
+The key to modeling repeated measures data is to include subject in the model explicitly. RM-ANOVA fits a model that includes a main-effect of time, a main-effect of subject, and an interaction effect between subject and time. The ANOVA table for this model fitted to our seasonal depression data looks like this:
+
+```{r echo=FALSE}
+rm_table = data.frame(
+  Source = c("Subjects", "Seasons", "Subjects x Seasons"),
+  df = c(13, 3, 39),
+  SS = c(779.01, 47.78, 206.97),
+  MS = c(59.93, 15.93, 5.31),
+  F = c("11.30", "3.00", ""),
+  p = c("<.001", ".042", "")
+)
+
+knitr::kable(rm_table, 
+             align = c("l", "r", "r", "r", "r", "r"),
+             caption = "ANOVA Table for the Effects of Seasons and Subjects"  
+             )
+```
+
+In this table there is no "Error" line. That is because there is only one measurment per cell in the table that divides up subjects (rows) and seasons (columns). The error measures the within-cell variation, but with only one measurment per cell, there is no within-cell variation. In a repeated measures design, the interaction between subject and time takes the place of the error variance in the calculations of *F*.
+
+The hypotheses associated with the main-effect being tested by the *F*-tests are, respectively,
+
+- $H_0$: The mean depression score (collapsing across seasons) is the same for every subject.
+- $H_0$: The mean depression score (collapsing across subjects) is the same for every season.
+
+The first of these we reject. The significant *p*-value ($p<.001$) indicates that the mean depression score (collapsing across seasons) is not the same for every subject. While this might be interesting in some research problems, it is not of interest here.
+
+The more important hypothesis is whether the The mean depression score (collapsing across subjects) is the same for every season. We also reject this hypothesis ($p=.042$). There are likely seasonal differences in the mean depression scores. This is evidence that supports the scientific hypothesis of seasonal depression.
+
+If you were interested in which seasons differed, you would need to go in and test each pairwise contrast (Winter vs. Fall, etc.) and then adjust the *p*-values to account for the number of tests you carried out.
+
+\newpage
+
+### Assumptions for Using RM-ANOVA
+
+One of the major assumptions for valid output from the RM-ANOVA is *sphericity*. This assumption says that the difference scores between measurements at any two time points are the same in the population. To examine this, we would need to compute the difference scores between every two timepoints and evaluate the variances of those differences. With four time points (seasons) there are six different difference scores to compute.
+
+```{r echo=FALSE}
+# Compute difference scores
+diffs = seasonal_wide %>%
+  mutate(
+    d1 = s2 - s1,
+    d2 = s3 - s2,
+    d3 = s3 - s1,
+    d4 = s4 - s3,
+    d5 = s4 - s2,
+    d6 = s4 - s1
+  ) %>%
+  dplyr::select(d1, d2, d3, d4, d5, d6)
+
+diffs
+```
+
+The variance for each of the six sets of difference scores are displayed below:
+
+```{r echo=FALSE}
+sapply(diffs, FUN = var)
+```
+
+
+This analysis suggests that the sphericity assumption is not met. (Note: Some data analysts use a test, Mauchley's Test, to examine the sphericity assumption. This test is known to yield signiicant results, saying that sphericity has been violated, when it shouldn't. This is especially true when the distributions of difference scores are non-normal. The methodological advice is: DO NOT USE MAUCHLEY'S TEST to examine the assumption of sphericity.)
+
+Because computing the difference scores can be a pain, especially with a lot of time points, data analysts often examine a related property called *compound symmetry*. Compound symmetry looks at the raw data rather the difference scores. In order for compound symmetry to be met, we must have:
+
+- Homogeneity of variance of the raw data at each time point
+- Equal correlations between time points
+
+To check this we compute the sample variances at each time point and we also compute the correlations between time points.
+
+```{r echo=FALSE}
+# Compute variances
+seasonal %>%
+  group_by(season) %>%
+  summarize(Var = var(beck))
+```
+
+\newpage
+
+```{r echo=FALSE}
+# Compute correlations
+seasonal_wide %>% 
+  dplyr::select(s1, s2, s3, s4) %>%
+  correlate() %>%
+  shave() %>%
+  fashion(decimals = 3)
+```
+
+There is evidence that the property of compound symmetry is not met: the sample variances are not the same, and the correlations between time points is not the same. This tells us the same story as examining the variances of the differences---the assumption of sphericity is likely violated!
+
+### Epsilon-Adjusted Tests
+
+When the sphericity assumption has been violated, the *F*-distribution we use to compute the *p*-value does not have the $df$s that we calculated in the ANOVA output. One attempt to remedy this is to adjust the degrees of freedom, called an epsilon-adjustment. There are several ways to amake these adjustments. Two common methods employed inthe social sciences are the (1) Greenhouse--Geiser epsilon-adjustment; and (2) Hyunh--Feldt epsilon-adjustment (named after the statisticians who derived them).
+
+It is typical to present the *p*-values based on the unadjusted *F*-test, and the epsilon-adjusted tests for the time effect in an ANOVA table. (In these tables, the interaction effect is sometimes referred to as the Error term)
+
+```{r echo=FALSE}
+rm_table = data.frame(
+  Source = c("Seasons", "Subjects x Seasons"),
+  df = c(3, 39),
+  SS = c(47.78, 206.97),
+  MS = c(15.93, 5.31),
+  F = c("3.00", ""),
+  p = c(".042", ""),
+  GG = c(".053", ""),
+  HF = c(".042", "")
+)
+
+knitr::kable(rm_table, 
+             align = c("l", "r", "r", "r", "r", "r"),
+             caption = "ANOVA Table for the Within-Subject Effect of Season. Epsilon-Adjusted *p*-Values are also Provided (GG = Greenhouse--Geiser; HF = Hyunh--Feldt)."  
+             )
+```
+
+\newpage
+
+## MANOVA
+
+Another common method for modeling repeated measures data is to use a multivariate ANOVA. Multivariate analyses, whether regression or ANOVA, model more than one outcome simultaneously. In these types of analyses, we can account for the variation in each outcome, and the correlation between the outcomes. The following pseudo-syntax shows the idea behind multivariate analysis:
+
+```
+manova( c(s1, s2, s3, s4) ~ 1 )
+```
+
+In this multivariate analysis, we use time to predict a vector of outcomes. The subject is included in the model not as a predictor, but by connecting all of their repeated measures in the outcome. (Note: This syntax won't work in R, but is presented to illustrate the idea of multivariate analyses.)
+
+```{r echo=FALSE, eval=FALSE}
+outcome = cbind(seasonal_wide$s1, seasonal_wide$s2, seasonal_wide$s3, seasonal_wide$s4)      
+mod.mlm = lm(outcome ~ 1)
+
+idata = data.frame(time = c("s1", "s2", "s3", "s4"))
+manova1 = car::Anova(mod.mlm, idata = idata, idesign = ~time, type = 3)
+summary(manova1)
+```
+
+
+There are many different multivariate statistics that have been derived over the years. Social scientists tend to use one of the following in repeated measures analsysis: (1) Pillai's trace; (2) Wilk's lambda; (3) Hotelling's $T^2$; or (4) Roy's largest root. The results of fitting a MANOVA to the depression data are displayed below.
+
+```
+Multivariate Tests: Season
+                 Df test stat approx F num Df den Df Pr(>F)
+Pillai            1     0.392     2.37      3     11   0.13
+Wilks             1     0.608     2.37      3     11   0.13
+Hotelling-Lawley  1     0.645     2.37      3     11   0.13
+Roy               1     0.645     2.37      3     11   0.13
+```
+
+Based on the multivariate analysis, there is no statistically significant effect of time. 
+
+## Example: Sleep Quality among Nurses
+
+@Hasson:2010 carried out a [longitudinal study to monitor the development of sleep quality in Swedish nurses](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0014265). They collected data about sleep quality from 1,114 nurses using a self-rated Likert-scale item. The nurses answered this item at four diffeent times during the beginning of their career: during their last semester at university, and at three subsequent annual follow-ups once the nurses had entered working life.
+
+The primary analytic method used in the study is RM-ANOVA and is described as follows:
+
+> A repeated measures ANOVA was conducted to assess possible change in mean sleep quality over time, and effect size was calculated as eta squared statistics. The interpretations were based on established cut-offs [56]. ANCOVAs were then utilized to measure potential interaction between factors such as age groups (divided by quartiles) and sex, as well as factors such as whether or not the nurses were committed to a steady relationship, were living alone (or with parents), had children at home, and whether or not they had previous nursing assistant training, other previous experience in healthcare, or felt their education had prepared them well enough to work as nurses. The covariate in the ANCOVAs was baseline sleep quality.
+
+Because of dropout, they only had complete data on only 846 participants. They report their results using these cases. (They also tried other analyses where they imputed missing values and analyzed more "complete" datasets.) The start by writing about the RM-ANOVA results with no covariates included in the model:
+
+\floatstyle{boxed} 
+\restylefloat{figure}
+
+\begin{figure}[H]
+  \caption{Analytic results of fitting the Subject x Time RM-ANOVA.}
+  \centering
+    \includegraphics[width=0.75\textwidth]{images/initial-results.png}
+\end{figure}
+
+
+After summarizing the longitudinal differences, they re-evaluate the mean differences over time by controlling for other covariates (sex, age, etc.)
+
+\begin{figure}[H]
+  \caption{Analytic results of including various covariates in the Subject x Time RM-ANOVA.}
+  \centering
+    \includegraphics[width=0.75\textwidth]{images/follow-up-results.png}
+\end{figure}
+
+
+
+### Methodological Concerns
+
+Despite doing many things well (e.g., examining selection bias, thinking about drop out), there are several methodological concerns directly related to the use of RM-ANOVA:
+
+- The authors make no note of examining the spericity assumption underlying this model.
+- The outcome is a single item that has a rating of 1--5. Is the distribution at each time point reasonably normally distributed? It is unclear.
+- The listwise deletion removed 25\% of the nurses from the study. In RM-ANOVA if a subject is missing data at even one time point they are eliminated from the analysis. This seems to be throwing away information.
+- The plot of the mean sleep quality over time suggests that there is a log-linear relationship. RM-ANOVA treats each time point as discrete, not allowing for fitting functional forms (at least not easily). By treating time continuously, rather than discretely, we can reduce the number of predictors in the model (one continuous time predictor vs three dummy coded time points). We can also model more complex non-linear relationships.
+- The RM-ANOVA only gives us information about mean differences in sleep quality. We do not get an indication about how individual nurses' sleep quality changes over time (or how variable their trajectories are). 
+
+## References
+
+

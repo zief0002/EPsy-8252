@@ -1,0 +1,363 @@
+---
+title: "Mixed-Effects Models in Practice II"
+date: "`r Sys.Date()`"
+header-includes:
+   - \usepackage{xcolor}
+   - \usepackage[framemethod=tikz]{mdframed}
+   - \usepackage{graphicx}
+   - \usepackage{rotating}
+   - \usepackage{booktabs}
+   - \usepackage{float}
+   - \definecolor{umn}{RGB}{153, 0, 85}
+   - \definecolor{umn2}{rgb}{0.1843137, 0.4509804, 0.5372549}
+   - \definecolor{myorange}{HTML}{EA6153}
+output: 
+  pdf_document:
+    highlight: tango
+    latex_engine: xelatex
+    fig_width: 6
+    fig_height: 6
+mainfont: "Bembo Std"
+sansfont: "Helvetica Neue UltraLight"
+monofont: Inconsolata
+urlcolor: "umn2"
+bibliography: epsy8252.bib
+csl: apa-single-spaced.csl
+always_allow_html: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(digits = 3, scipen = 99)
+library(printr)
+```
+
+## Preparation
+
+We will use two datasets located in the *nbaLevel1.sav* file and the *nbaLevel2.sav* file. These data include player-level attributes for $n=300$ NBA players, and team-level attributes for $N=30$ different teams. The source of these data is: @Woltman:2012. We will use these data to explore the question of whether how good a player is (`Shots_on_five`) predicts variation in life satisfaction.
+
+The player-level attributes in the *nbaLevel1.sav* file include:
+
+- `Team_ID`: The team ID number for each player
+- `Shots_on_five`: A proxy for player quality/success. This indicates the number of successful shots (out of five taken). Higher values indicate a more succesful player.
+- `Life_Satisfaction`: Score on a survey of life satisfaction. Scores range from 5 to 25, with higher scores indicating more life satisfaction.
+
+The team-level attributes in the *nbaLevel2.sav* file include:
+
+- `Team_ID`:The team ID number
+- `Coach_Experience`: Years of coaching experience in the NBA
+
+
+```{r message=FALSE}
+# Load libraries
+library(AICcmodavg)
+library(broom)
+library(dplyr)
+library(ggplot2)
+library(haven) #for reading in the .sav files
+library(lme4) #for fitting mixed-effects models
+library(sm)
+
+# Read in player-level data
+nbaL1 = read_sav(file = "~/Dropbox/epsy-8252/data/nbaLevel1.sav")
+
+# Read in team-level data
+nbaL2 = read_sav(file = "~/Dropbox/epsy-8252/data/nbaLevel2.sav")
+
+# Join/merge the two files together
+nba = left_join(nbaL1, nbaL2, by = "Team_ID")
+head(nba)
+```
+
+## Writing the Model as a Multilevel Model
+
+One way we can express a mixed-effects model is by seperating the model equation into a different equation for each level. For example, out mixed-effects models for the NBA data can be separated into a Level-1 (player-level) equation and a set of Level-2 (team-level) equations. Take the equation for the unconditional means model:
+
+$$
+\mathrm{Life~Satisfaction}_{ij} = \beta_0 + b_{0j} + \epsilon_{ij},
+$$
+
+We initially write the Level-1 equation. The level-1 equation here is:
+
+$$
+\mathrm{Life~Satisfaction}_{ij} = \beta_{0j} + \epsilon_{ij},
+$$
+
+Here, each player's outcome is a function of a team-level intercept and the player-specific error. Then we can write the level-2 (team-level) equation as:
+
+$$
+\beta_{0j} = \beta_{00} + b_{0j}
+$$
+
+This indicates that the team $j$'s intercept is a function of the average intercept ($\beta_{00}$) and a deviation for team $j$. Together these equations are referred to as the set of multilevel equations:
+
+$$
+\begin{split}
+\mathbf{Level\mbox{-}1:}\\
+&~ \mathrm{Life~Satisfaction}_{ij} = \beta_{0j} + \epsilon_{ij}\\
+\mathbf{Level\mbox{-}2:}\\
+&~ \beta_{0j} = \beta_{00} + b_{0j}
+\end{split}
+$$
+
+
+If we have the multilevel equations, we can substitute the Level-2 equation(s) into the Level-1 equation to get the *composite* mixed-effects equation.
+
+$$
+\mathrm{Life~Satisfaction}_{ij} = \big[\beta_{00} + b_{0j}\big] + \epsilon_{ij},
+$$
+
+Here are some guidelines in helping you think about writing multilevel equations. 
+
+- Write the level-1 equation first. This will be an equation that expresses the outcome's relationship to a series of team-specific parameters and a player-specific residual.
+- The number of team-specific parameters in the level-1 equation (aside from the residual) dictate the number of level-2 equations you will have. 
+- The team-specific parameters fro mthe level-1 equation will be the outcomes in the level-2 equations.
+- Random-effects are the residuals in the level-2 equations, and therefore are in the level-2 equations; one per equation.
+- Variables from the data go to their appropriate level. For example player-level variables will be put in the level-1 equation, and team-level predictors will be put in the level-2 equations.
+
+To see this in action, let's consider the mixed-effects model that includes a random-effect for intercept and for the effect of shots-on-five. The composite mixed-effects model we previously wrote looks like this:
+
+$$
+\mathrm{Life~Satisfaction}_{ij} = \beta_0 + b_{0j} + \beta_1(\mathrm{Shots}_{ij}) + b_{1j}(\mathrm{Shots}) + \epsilon_{ij}
+$$
+
+Using our guidelines, we first write the level-1 equation which expresses life-satisfaction scores as a team-specific intercept and team-specific slope for shots-on-five. The residual term and the shots-on-five variable bot h have $i$ subscripts indicating they also go in the level-1 equation. The level-1 equation is:
+
+$$
+\mathrm{Life~Satisfaction}_{ij} = \beta_{0j} + \beta_{1j}(\mathrm{Shots}_{ij}) + \epsilon_{ij}
+$$
+
+Now we can write our level-2 equations. Since there are two team-specific paramaters in the level-1 model, there will be two level-2 equations. The outcomes for these equations will be those team-specific parameters. Here the two level-2 equations are:
+
+$$
+\begin{split}
+\beta_{0j} &= \beta_{00} + b_{0j}\\
+\beta_{1j} &= \beta_{10} + b_{1j}
+\end{split}
+$$
+
+You can check the substitution for yourself.
+
+## Predictor: Coach Experience in Level-2 Intercept Equation
+
+The coach experience variable is a team-level variable. Thus, we would include it in the level-2 equations. Below we include the coach experience variable in the level-2 intercept equation (but not the slope equation):
+
+$$
+\begin{split}
+\mathbf{Level\mbox{-}1:}\\
+&~ \mathrm{Life~Satisfaction}_{ij} = \beta_{0j} + \beta_{1j}(\mathrm{Shots}_{ij}) + \epsilon_{ij}\\
+\mathbf{Level\mbox{-}2:}\\
+&~ \beta_{0j} = \beta_{00} + \beta_{01}(\mathrm{CE}_j) + b_{0j}\\
+&~ \beta_{1j} = \beta_{10} + b_{1j}
+\end{split}
+$$
+
+If we substitute the level-2 equations into the level-1 equation and simplify,
+
+$$
+\begin{split}
+\mathrm{Life~Satisfaction}_{ij} &= \bigg[\beta_{00} + \beta_{01}(\mathrm{CE}_j) + b_{0j}\bigg] + \bigg[\beta_{10} + b_{1j}\bigg](\mathrm{Shots}_{ij}) + \epsilon_{ij}\\
+&= \beta_{00} + \beta_{01}(\mathrm{CE}_j) + b_{0j} + \beta_{10}(\mathrm{Shots}_{ij}) + b_{1j}(\mathrm{Shots}_{ij}) + \epsilon_{ij}\\
+&= \beta_{00} + \beta_{10}(\mathrm{Shots}_{ij}) + \beta_{01}(\mathrm{CE}_j) + \bigg[b_{0j}  + b_{1j}(\mathrm{Shots}_{ij}) + \epsilon_{ij}\bigg]
+\end{split}
+$$
+
+Including a team-level predictor in the level-2 intercept equation leads to the inclusion of a main-effect of that predictor in the composite (LMER) equation.
+
+## Predictor: Coach Experience in Level-2 Slope Equation
+
+Below we include the coach experience variable in the level-2 slope equation (but not the intercept equation):
+
+$$
+\begin{split}
+\mathbf{Level\mbox{-}1:}\\
+&~ \mathrm{Life~Satisfaction}_{ij} = \beta_{0j} + \beta_{1j}(\mathrm{Shots}_{ij}) + \epsilon_{ij}\\
+\mathbf{Level\mbox{-}2:}\\
+&~ \beta_{0j} = \beta_{00} +  b_{0j}\\
+&~ \beta_{1j} = \beta_{10} + \beta_{11}(\mathrm{CE}_j) + b_{1j}
+\end{split}
+$$
+
+If we substitute the level-2 equations into the level-1 equation and simplify,
+
+$$
+\begin{split}
+\mathrm{Life~Satisfaction}_{ij} &= \bigg[\beta_{00} + b_{0j}\bigg] + \bigg[\beta_{10} + \beta_{11}(\mathrm{CE}_j) + b_{1j}\bigg](\mathrm{Shots}_{ij}) + \epsilon_{ij}\\
+&= \beta_{00} + b_{0j} + \beta_{10}(\mathrm{Shots}_{ij}) + \beta_{11}(\mathrm{CE}_j)(\mathrm{Shots}_{ij}) + b_{1j}(\mathrm{Shots}_{ij}) + \epsilon_{ij}\\
+&= \beta_{00} + \beta_{10}(\mathrm{Shots}_{ij}) + \beta_{11}(\mathrm{CE}_j)(\mathrm{Shots}_{ij}) + \bigg[b_{0j}  + b_{1j}(\mathrm{Shots}_{ij}) + \epsilon_{ij}\bigg]
+\end{split}
+$$
+
+Including a team-level predictor in the level-2 slope equation leads to the inclusion of an interaction in the composite (LMER) equation. If we want to include an interaction we also need to include all constituent main-effects in the model. Therefore we need a main-effect of coaching experience and a main-effect of shots-on-five in the model. The latter is there, but not the former. To get a main-effect of coaching expereince in the composite equation it needs to be be included in the level-2 intercept model.
+
+ANY PREDICTORS INCLUDED IN THE LEVEL-2 SLOPE EQUATIONS NEED TO ALSO BE INCLUDED IN THE LEVEL-2 INTERCEPT EQUATIONS.
+
+
+## Multilevel Equations for Fixed-Effects Models
+
+Our conventional fixed-effects regression models (LM) can also be expressed as multilevel models. For example,
+
+$$
+\begin{split}
+\mathbf{Level\mbox{-}1:}\\
+&~ \mathrm{Life~Satisfaction}_{ij} = \beta_{0j} + \beta_{1j}(\mathrm{Shots}_{ij}) + \epsilon_{ij}\\
+\mathbf{Level\mbox{-}2:}\\
+&~ \beta_{0j} = \beta_{00}\\
+&~ \beta_{1j} = \beta_{10}
+\end{split}
+$$
+
+Here the level-2 equations just include fixed-effects (no random-effects). Thus when we substitute them back into the level-1 model we only have fixed-effects in the model:
+
+$$
+\mathrm{Life~Satisfaction}_{ij} = \beta_{00} + \beta_{10}(\mathrm{Shots}_{ij}) + \epsilon_{ij}
+$$
+
+### Why are Multilevel Expressions Helpful?
+
+Expressing the model as a set of multilevel equations can be helpful for readers. First, it explicitly separates the predictors into the two levels. Team-level predictors only appear in the level-2 models. Player-level predictors only appear in the level-1 model. Secondly, it helps us think aboout what the predictors at each level are actually doing. Level-1 predictors explain variation in the outcome at level-1. Level-2 predictors explain variation in the team-specific intercepts (or intercepts and slopes)---they explain level-2 variation. (Think about that partitioning of variation into levels we did.)
+
+## Checking Assumptions for the Mixed-Effects Model
+
+To illustrate assumption checking in practice, we will evaluate the assumptions for a mixed-effects model that includes the fixed-effect of shots-on-five and random-effect for intercept and shots-on-five. 
+
+```{r}
+lmer.1 = lmer(Life_Satisfaction ~ 1 + Shots_on_five +
+                (1 + Shots_on_five| Team_ID), data = nba, REML = FALSE)
+```
+
+
+In mathematical notation,
+
+$$
+\mathrm{Life~Satisfaction}_{ij} = \beta_0+ \beta_1(\mathrm{SO5}_{ij}) + b_{0j} + b_{1j}(\mathrm{SO5}_{ij}) + \epsilon_{ij}
+$$
+
+where,
+
+$$
+\begin{split}
+\epsilon_i &\sim \mathcal{N}(0,\sigma^2_{\epsilon})\\
+b_{0j} &\sim \mathcal{N}(0,\sigma^2_{b_0})\\
+b_{1j} &\sim \mathcal{N}(0,\sigma^2_{b_1})
+\end{split}
+$$
+
+Just as in fixed-effects regression, we need to evaluate the assumptions; this time, however, we need to evaluate assumptions about the level-1 errors and for the random-effects.
+
+### Assumptions about the Level-1 Residuals
+
+We will evaluate the level-1 residuals in the exact same way we evalauted the residuals from an LM analysis.
+
+```{r}
+# Augment the model to get the level-1 residuals and fitted values
+out1 = augment(lmer.1)
+head(out1)
+```
+
+The level-1 residuals are found in the `.resid` column, and the `.fitted` column contains the $\hat{Y}$ values. As with LM residual analysis, we want to examine the normality of the residuals in a density plot (or some other plot that allows you to evaluate this), and the other assumptions by plotting the residuals against the fitted values in a scatterplot.
+
+```{r fig.width=6, fig.height=6, out.width='3in'}
+# Density plot of the level-1 residuals
+sm.density(out1$.resid, model = "normal")
+```
+
+```{r fig.width=6, fig.height=6, out.width='3in'}
+# Scatterplot of the level-1 residuals versus the fitted values
+ggplot(data = out1, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  xlab("Fitted values") +
+  ylab("Level-1 residuals")
+```
+
+Based on the plots, the level-1 residual assumptions of the model seem reasonably met (maybe). The density plot suggests that the normality assumption is tenable. The scatterplot shows symmetry around the $Y=0$ line (linearity) and fairly consistent variation in the resiudal throughout most of the fitted values (some lesser variation in the extremes).
+
+### Assumptions about the Random-Effects
+
+We also need to examine the assumptions for the random-effects. The first assumption we will examine is the normality assumption for each set of REs.
+
+```{r}
+# Obtain the RE for intercept and slope
+re_int = ranef(lmer.1)$Team_ID[ , 1]
+re_shots = ranef(lmer.1)$Team_ID[ , 2]
+```
+
+```{r eval=FALSE}
+# Density plot of the RE for intercept
+sm.density(re_int, model = "normal", xlab = "RE for intercept")
+sm.density(re_shots, model = "normal", xlab = "RE for shots-on-five")
+```
+
+
+```{r fig.width=12, fig.height=6, out.width='5in', echo=FALSE}
+par(mfrow=c(1, 2))
+sm.density(re_int, model = "normal", xlab = "RE for intercept")
+sm.density(re_shots, model = "normal", xlab = "RE for shots-on-five")
+par(mfrow=c(1, 1))
+```
+
+This looks good for both sets of REs. We will also plot each set of REs against the fitted values for the level-2 equations to check for linearity, and homogeneity of variance. The level-2 equations are:
+
+$$
+\begin{split}
+\beta_{0j} &= \beta_{00} + b_{0j}\\
+\beta_{1j} &= \beta_{10} + b_{1j}
+\end{split}
+$$
+
+Thus the fitted-values for these are $\hat\beta_{00}$ and $\hat\beta_{10}$, respectively. In this example, the fitted values are just the fixed-effect estimates. If we had other level-2 predictors, that would not be the case. For example in the case of including coach experience at each level, the level-2 equations would be
+
+$$
+\begin{split}
+\beta_{0j} &= \beta_{00} + \beta_{01}(\mathrm{CE}_j) +  b_{0j}\\
+\beta_{1j} &= \beta_{10} + \beta_{11}(\mathrm{CE}_j) + b_{1j}
+\end{split}
+$$
+
+In this case the fitted values would be computed as $\hat\beta_{00} + \hat\beta_{01}(\mathrm{CE}_j)$ and $\hat\beta_{10} + \hat\beta_{11}(\mathrm{CE}_j)$.
+
+Below we set up a data set that puts the fitted values and random-effects for the level-2 equations to be used to create a scatterplot.
+
+```{r fig.width=6, fig.height=6, out.width='3in'}
+# Set up level-2 intercept data set
+level_2_int = data.frame(
+  fitted = 6.40,
+  random_effect = ranef(lmer.1)$Team_ID[ ,1] 
+)
+
+head(level_2_int)
+
+ggplot(data = level_2_int, aes(x = fitted, y = random_effect)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  xlab("Fitted values") +
+  ylab("Level-2 intercept random-effects")
+```
+
+There is only one fitted value, so only a single vertical strip of dots. (With other level-2 predictors in the model this would look more like residual plots you are used to seeing.) Because of this, the assumption of homogeneity of variance is met and the assumption of linearity also seems tenable. Now we will do the same analysis for the second level-2 equation.
+
+```{r fig.width=6, fig.height=6, out.width='3in'}
+# Set up level-2 shots-on-five data set
+level_2_shots = data.frame(
+  fitted = 3.31,
+  random_effect = ranef(lmer.1)$Team_ID[ , 2] 
+)
+
+head(level_2_shots)
+
+ggplot(data = level_2_shots, aes(x = fitted, y = random_effect)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  xlab("Fitted values") +
+  ylab("Level-2 shots-on-five random-effects")
+```
+
+The assumptions also look good for this set of REs.
+
+## References
+
+

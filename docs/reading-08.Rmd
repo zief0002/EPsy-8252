@@ -1,0 +1,21 @@
+---
+title: "Reading"
+subtitle: "Mixed-Effects Models in Practice"
+output: html_document
+---
+
+<br />
+
+## Required
+
+- Hayes, A. F. (2006). [A primer on multilevel modeling](http://onlinelibrary.wiley.com/doi/10.1111/j.1468-2958.2006.00281.x/abstract). *Human Communication Research, 32*(4), 385&ndash;410.
+
+<br />
+
+## Additional Resources
+
+- [Estimation of the Log-Likelihood in lmer](http://stackoverflow.com/questions/20980116/how-does-lmer-from-the-r-package-lme4-compute-log-likelihood)
+- Hofmann, D. A., & Gavin, M. B. (1998). Centering decisions in hierarchical linear models: Implications for research in organizations. _Journal of Management, 24_(5), 623–641.
+- Scherbaum, C. A., & Ferreter, J. M. (2008). Estimating statistical power and required sample sizes for organizational research using multilevel modeling. _Organizational Research Methods, 12_(2), 347–367.
+
+

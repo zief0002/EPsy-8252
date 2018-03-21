@@ -1,0 +1,37 @@
+body p{
+	font-family: 'Lora', serif;
+}
+
+/*h1, h2, h3, h4, h5, h6{
+  font-family: 'Lato', sans-serif;
+  }*/
+
+a, a:visited, a:hover {
+    color: #ff2600;
+  }
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #ff2600;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus{
+  color:#ff2600;
+  background-color:transparent
+}
+
+table{
+  margin-left: auto; 
+  margin-right:auto; 
+  border-bottom: 1px solid black;
+  font-size: 80%;
+}
+
+
+table thead tr {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+table tbody tr {
+  border-bottom: 1px solid black;
+}
