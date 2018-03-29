@@ -1,0 +1,20 @@
+---
+title: "Reading"
+subtitle: "Longitudinal (Repeated Measures) Analysis"
+output: html_document
+---
+
+<br />
+
+## Required
+
+- Uchikoshi, Y. (2005). [Narrative development in bilingual kindergarteners: Can Arthur help?](http://psycnet.apa.org.ezp3.lib.umn.edu/journals/dev/41/3/464) *Developmental Psychology, 41*(3), 464&ndash;478. doi: 10.1037/0012-1649.41.3.464
+
+<br />
+
+## Additional Resources
+
+- Long, J. D. (2012). _Longitudinal data analysis for the behavioral sciences using R_. Thousand Oaks, CA: Sage. [[Amazon]](http://www.amazon.com/Longitudinal-Analysis-Behavioral-Sciences-Using/dp/1412982685)
+- Swihart, B. J., Caffo, B., James, B. D., Strand, M., Schwartz, B. S., &amp; Punjabi, N. M. (2010). [Lasagna plots: A saucy alternative to spaghetti plots.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2937254/) *Epidemiology, 21*(5), 621&ndash;625.
+
+
