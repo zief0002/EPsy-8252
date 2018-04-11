@@ -224,6 +224,22 @@ Additional resources for longitudinal models:
 
 ___
 
+### Generalized Linear Models: Logistic Regression
+
+
+- Epenshade, T. J., Chung, C. Y., &amp; Walling, J. L. (2004). [Admission preferences for minority students, athletes and legacies at elite universities](https://primo.lib.umn.edu/primo-explore/fulldisplay?docid=TN_wj10.1111/j.0038-4941.2004.00284.x&context=PC&vid=TWINCITIES&search_scope=mncat_discovery&tab=article_discovery&lang=en_US) *Social Science Quarterly, 85*(5), 1422&ndash;1446.
+
+Additional resources for logistic regression:
+
+- [Explaining Logistic Regression Results to Non-Statistical Audiences](https://www.theanalysisfactor.com/explaining-logistic-regression/) a blog post by Karen Grace-Martin
+
+
+<br />
+
+___
+
+
+
 <!--
 
 ### Gradient Descent
