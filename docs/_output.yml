@@ -1,0 +1,23 @@
+bookdown::gitbook:
+  highlight: default
+  css: style.css
+  config:
+    toc:
+      before: |
+        <li><a href="./">EPsy 8252 Notes</a></li>
+      after: |
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+    collapse: section
+    download: null
+    toolbar:
+    position: fixed
+    search: yes
+    sharing:
+      facebook: no
+      twitter: no
+      google: no
+      weibo: no
+      instapper: no
+      vk: no
+      all: []
+

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<meta name="date" content="2018-03-29" />
+
+<title>Introduction to Mixed-Effects Models</title>
+
+<script src="s19-07-introduction-to-mixed-effects-models_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="s19-07-introduction-to-mixed-effects-models_files/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="s19-07-introduction-to-mixed-effects-models_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="s19-07-introduction-to-mixed-effects-models_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="s19-07-introduction-to-mixed-effects-models_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="s19-07-introduction-to-mixed-effects-models_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="s19-07-introduction-to-mixed-effects-models_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="s19-07-introduction-to-mixed-effects-models_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="s19-07-introduction-to-mixed-effects-models_files/navigation-1.1/tabsets.js"></script>
+<link href="s19-07-introduction-to-mixed-effects-models_files/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="s19-07-introduction-to-mixed-effects-models_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Introduction to Mixed-Effects Models</h1>
+<h4 class="date"><em>2018-03-29</em></h4>
+
+</div>
+
+
+<div id="preparation" class="section level1">
+<h1>Preparation</h1>
+<p>We will use two datasets in this set of notes. The source of these data is: <span class="citation">Snijders &amp; Bosker (2012)</span>. We will use these data to explore predictors of students’ language scores.</p>
+<p>The file <em>netherlands-level1.csv</em> includes data for <span class="math inline">\(n_i=2287\)</span> 8th-grade students in the Netherlands. The student-level attributes in the file include:</p>
+<ul>
+<li><code>school_id</code>: The school ID number for each student</li>
+<li><code>language_pre</code>: Language pre-test score</li>
+<li><code>language_post</code>: Language post-test score</li>
+<li><code>ses</code>: Measure of the socio-economic status</li>
+<li><code>verbal_iq</code>: Student’s score on a verbal IQ test. The variable is centered to have a mean of 0.</li>
+<li><code>female</code>: Student’s sex (0 = male; 1 = female)</li>
+<li><code>minority</code>: Student’s minority status (0 = white; 1 = minority)</li>
+</ul>
+<p>The file <em>netherlands-level2.csv</em> includes data for <span class="math inline">\(n_j=131\)</span> classrooms (1 per school). The classroom-level attributes in the file include:</p>
+<ul>
+<li><code>school_id</code>: The school ID number</li>
+<li><code>school_type</code>: Indicates whether the school is a public school, a Protestant private school, a Catholic private school, or a non-denominational private school</li>
+<li><code>school_ses</code>: School’s average socio-economic status</li>
+<li><code>school_verbal_iq</code>: School’s average verbal IQ score</li>
+<li><code>school_minority</code>: Percentage of students at the school who are minority students</li>
+</ul>
+<p>Below we load several R packages and import both datasets.</p>
+<pre class="r"><code># Load libraries
+library(AICcmodavg)
+library(broom)
+library(dplyr)
+library(ggplot2)
+library(lme4) #for fitting mixed-effects models
+library(readr)
+library(sm)
+
+# Read in student-level data
+level_1 = read_csv(file = &quot;~/Dropbox/epsy-8252/data/netherlands-level-1.csv&quot;)
+head(level_1)</code></pre>
+<pre><code>## # A tibble: 6 x 8
+##   student_id school_id language_pre language_post   ses verbal_iq female
+##        &lt;int&gt;     &lt;int&gt;        &lt;int&gt;         &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;  &lt;int&gt;
+## 1      17001         1           36            46    23     3.17       0
+## 2      17002         1           36            45    10     2.67       0
+## 3      17003         1           33            33    15    -2.33       0
+## 4      17004         1           29            46    23    -0.834      0
+## 5      17005         1           19            20    10    -3.83       0
+## 6      17006         1           22            30    10    -2.33       0
+## # ... with 1 more variable: minority &lt;int&gt;</code></pre>
+<pre class="r"><code># Read in team-level data
+level_2 = read_csv(file = &quot;~/Dropbox/epsy-8252/data/netherlands-level-2.csv&quot;)
+head(level_2)</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   school_id school_type school_ses school_verbal_iq school_minority
+##       &lt;int&gt; &lt;chr&gt;            &lt;int&gt;            &lt;dbl&gt;           &lt;int&gt;
+## 1         1 Public              11           -1.51               60
+## 2         2 Public              11           -2.83               10
+## 3        10 Public              15           -1.33                4
+## 4        12 Public              20           -2.40                5
+## 5        15 Catholic            18           -0.334              25
+## 6        16 Protestant          13           -0.147               0</code></pre>
+<div id="merge-the-student--and-school-level-datasets" class="section level2">
+<h2>Merge the Student- and School-Level Datasets</h2>
+<p>Before analyzing the data, we need to merge, or join, the two datasets together. To do this, we will use the <code>left_join()</code> function from the <strong>dplyr</strong> package. <strong>dplyr</strong> includes six different join functions. You can read about several different join functions <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html">here</a>.</p>
+<pre class="r"><code>full_data = left_join(level_1, level_2, by = &quot;school_id&quot;)
+head(full_data)</code></pre>
+<pre><code>## # A tibble: 6 x 12
+##   student_id school_id language_pre language_post   ses verbal_iq female
+##        &lt;int&gt;     &lt;int&gt;        &lt;int&gt;         &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;  &lt;int&gt;
+## 1      17001         1           36            46    23     3.17       0
+## 2      17002         1           36            45    10     2.67       0
+## 3      17003         1           33            33    15    -2.33       0
+## 4      17004         1           29            46    23    -0.834      0
+## 5      17005         1           19            20    10    -3.83       0
+## 6      17006         1           22            30    10    -2.33       0
+## # ... with 5 more variables: minority &lt;int&gt;, school_type &lt;chr&gt;,
+## #   school_ses &lt;int&gt;, school_verbal_iq &lt;dbl&gt;, school_minority &lt;int&gt;</code></pre>
+</div>
+</div>
+<div id="linear-regression-fixed-effects" class="section level1">
+<h1>Linear Regression: Fixed-Effects</h1>
+<p>We will start by examining whether there is an effect of verbal IQ scores on language post-test scores. To evaluate this, we might regress the <code>language_pre</code> variable on the <code>verbal_iq</code> variable using the <code>lm()</code> function. The <code>lm()</code> function fits a <em>fixed-effects regression model</em>.</p>
+<div id="fit-linear-models" class="section level3">
+<h3>Fit Linear Models</h3>
+<pre class="r"><code>lm.1 = lm(language_pre ~ 1 + verbal_iq, data = full_data)
+summary(lm.1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = language_pre ~ 1 + verbal_iq, data = full_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -20.5638  -3.4675   0.4362   3.4712  22.6987 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 34.19108    0.10867  314.64   &lt;2e-16 ***
+## verbal_iq    2.03500    0.05254   38.74   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.197 on 2285 degrees of freedom
+## Multiple R-squared:  0.3964, Adjusted R-squared:  0.3961 
+## F-statistic:  1500 on 1 and 2285 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Based on the output, there is a statistically significant effect of verbal IQ on language test socres. To have faith in the analytic results from this model, we need to evaluate whether the assumptions are satisfied.</p>
+</div>
+<div id="examine-residuals" class="section level3">
+<h3>Examine Residuals</h3>
+<pre class="r"><code># Obtain the fortified data frame
+out = augment(lm.1)
+head(out)</code></pre>
+<pre><code>##   language_pre  verbal_iq  .fitted   .se.fit    .resid         .hat
+## 1           36  3.1659379 40.63376 0.1986765 -4.633762 0.0014616170
+## 2           36  2.6659379 39.61626 0.1772692 -3.616262 0.0011636094
+## 3           33 -2.3340621 29.44126 0.1638429  3.558735 0.0009940216
+## 4           29 -0.8340621 32.49376 0.1171686 -3.493764 0.0005083502
+## 5           19 -3.8340621 26.38877 0.2288678 -7.388766 0.0019395911
+## 6           22 -2.3340621 29.44126 0.1638429 -7.441265 0.0009940216
+##     .sigma      .cooksd .std.resid
+## 1 5.196955 0.0005827500 -0.8923223
+## 2 5.197309 0.0002823899 -0.6962787
+## 3 5.197327 0.0002335403  0.6851442
+## 4 5.197347 0.0001150013 -0.6724723
+## 5 5.195557 0.0019681180 -1.4231933
+## 6 5.195526 0.0010210899 -1.4326270</code></pre>
+<pre class="r"><code># Normality
+sm.density(out$.std.resid, model = &quot;normal&quot;)</code></pre>
+<p><img src="s19-07-introduction-to-mixed-effects-models_files/figure-html/unnamed-chunk-4-1.png" width="3in" /></p>
+<pre class="r"><code># All other assumptions
+ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
+    geom_point() +
+    geom_hline(yintercept = 0) +
+    theme_bw() +
+  xlab(&quot;Fitted values&quot;) +
+  ylab(&quot;Studentized residuals&quot;)</code></pre>
+<p><img src="s19-07-introduction-to-mixed-effects-models_files/figure-html/unnamed-chunk-4-2.png" width="3in" /></p>
+<p>The assumptions of linearity, normality, and homoscedasticity seem reasonably satisfied. The assumption of independence, however, is probably not tenable. The language scores (and thus the residuals) are probably more correlated within school than between school—this is a violation of independence.</p>
+<p>If you have a variable that identifies school, we can actually examine this by plotting the residuals separately for each school. Below are the residual, by school, for a random sample of 25 of the schools.</p>
+<p><img src="s19-07-introduction-to-mixed-effects-models_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
+<p>In general, looking within schools, the residuals are systematically over or under 0. This is a sign of non-independence of the residuals. To account for this we need to use a statistical model that accounts for the correlation among the residuals within schools This is what <em>mixed-effects models</em> bring to the table. By correctly modeling the non-independence, we get more accurate standard errors and <em>p</em>-values.</p>
+<p>Another benefit of using mixed-effects models is that we also get estimates of the variation accounted for at both the student- and school-levels. This disaggregating of the variation allows us to see which level is explaining more variation and to study predictors appropriate to explaining that variation. For example, suppose that in an educational study you disaggregated the variation in student achievement scores and found that:</p>
+<ul>
+<li>96% of the variation in these scores was at the student-level, and</li>
+<li>4% of the variation in these scores was at the school-level.</li>
+</ul>
+<p>By including school-level predictors in the model, you would only be “chipping away” at that 4%. You should focus your attention and resources on student-level predictors!</p>
+</div>
+<div id="conceptual-idea-of-mixed-effects-models" class="section level2">
+<h2>Conceptual Idea of Mixed-Effects Models</h2>
+<p>In this section we will outline the conceptual ideas behind mixed-effects models by linking the ideas behind these models to the conventional, fixed-effects regression model. <em>It is important to realize that this is just conceptual in nature. Its purpose is only to help you understand the output you get from a mixed-effects model analysis. It is not how we fit mixed-effects models in practice.</em></p>
+<p>To begin, we remind you of the fitted regression equation we obtained earlier, when we regressed language scores on verbal IQ scores for the <span class="math inline">\(n=2287\)</span> students:</p>
+<p><span class="math display">\[
+\hat{\mathrm{Language~Score}_i} = 34.19 + 2.04(\mathrm{Verbal~IQ}_i)
+\]</span></p>
+<p>Mixed-effects regression actually fits a global model (like the one above) AND a school-specific model for each school. Conceptually, this is like fitting a regression model for each school separately. Below I show the results (for 5 of the schools) of fitting a different regression model to each school, but keep in mind that this is only to help you understand.</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;font-weight: bold;color: white;background-color: #d7261e;">
+school_id
+</th>
+<th style="text-align:left;font-weight: bold;color: white;background-color: #d7261e;">
+term
+</th>
+<th style="text-align:right;font-weight: bold;color: white;background-color: #d7261e;">
+estimate
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;background-color: #d3d3d3;">
+1
+</td>
+<td style="text-align:left;background-color: #d3d3d3;">
+(Intercept)
+</td>
+<td style="text-align:right;background-color: #d3d3d3;">
+39.789130
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: #d3d3d3;">
+1
+</td>
+<td style="text-align:left;background-color: #d3d3d3;">
+verbal_iq
+</td>
+<td style="text-align:right;background-color: #d3d3d3;">
+2.238435
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+27.350441
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+verbal_iq
+</td>
+<td style="text-align:right;">
+1.283019
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: #d3d3d3;">
+10
+</td>
+<td style="text-align:left;background-color: #d3d3d3;">
+(Intercept)
+</td>
+<td style="text-align:right;background-color: #d3d3d3;">
+38.086739
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: #d3d3d3;">
+10
+</td>
+<td style="text-align:left;background-color: #d3d3d3;">
+verbal_iq
+</td>
+<td style="text-align:right;background-color: #d3d3d3;">
+5.761905
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+36.105947
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+verbal_iq
+</td>
+<td style="text-align:right;">
+2.182371
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: #d3d3d3;">
+15
+</td>
+<td style="text-align:left;background-color: #d3d3d3;">
+(Intercept)
+</td>
+<td style="text-align:right;background-color: #d3d3d3;">
+32.113990
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: #d3d3d3;">
+15
+</td>
+<td style="text-align:left;background-color: #d3d3d3;">
+verbal_iq
+</td>
+<td style="text-align:right;background-color: #d3d3d3;">
+3.708861
+</td>
+</tr>
+</tbody>
+</table>
+<p>As an example, let’s focus on the fitted model for School 1.</p>
+<p><span class="math display">\[
+\hat{\mathrm{Language~Score}_i} = 39.79 + 2.24(\mathrm{Verbal~IQ}_i)
+\]</span></p>
+<p>Comparing this school-specific model to the global model, we find that School 1’s intercept is higher than the intercept from the global model (by 5.65) and it’s slope is also higher than the slope from the global model (by 0.20). We can actually re-write the school-specific model using these ideas:</p>
+<p><span class="math display">\[
+\hat{\mathrm{Language~Score}_i} = \bigg[34.19 + 5.65\bigg] + \bigg[2.04 + 0.20\bigg](\mathrm{Verbal~IQ}_i)
+\]</span></p>
+<p>In the language of mixed-effects modeling:</p>
+<ul>
+<li>The global intercept and slope are referred to as <em>fixed-effects</em>.
+<ul>
+<li>The fixed-effect of intercept is <span class="math inline">\(34.19\)</span>; and</li>
+<li>The fixed effect of the slope is <span class="math inline">\(2.04\)</span>.</li>
+</ul></li>
+<li>The school-specific deviations from the fixed-effect values are referred to as <em>random-effects</em>.
+<ul>
+<li>The random-effect of the intercept for School 1 is <span class="math inline">\(+5.65\)</span>; and</li>
+<li>The random-effect of the slope for School 1 is <span class="math inline">\(+0.20\)</span>.</li>
+</ul></li>
+</ul>
+<p>Note, each school could potentially have a different random-effect for intercept and slope. For example, writing the team-specific fitted equation for School 2 in this manner,</p>
+<p><span class="math display">\[
+\begin{split}
+\hat{\mathrm{Language~Score}_i} &amp;= 27.35 + 1.28(\mathrm{Verbal~IQ}_i)\\
+ &amp;= \bigg[34.19 - 6.84\bigg] + \bigg[2.04 - 0.76\bigg](\mathrm{Verbal~IQ}_i).\\
+\end{split}
+\]</span></p>
+<p>In this model:</p>
+<ul>
+<li>The fixed-effects are the same (global) as they were for School 1.
+<ul>
+<li>The fixed-effect of intercept is <span class="math inline">\(34.19\)</span>; and</li>
+<li>The fixed effect of the slope is <span class="math inline">\(2.04\)</span>.</li>
+</ul></li>
+<li>The random-effect of intercept for School 2 is <span class="math inline">\(-6.84\)</span>.</li>
+<li>The random-effect of slope for School 2 is <span class="math inline">\(-0.76\)</span>.</li>
+</ul>
+<!-- ## Fitting the Mixed-Effects Regression Model in Practice -->
+<!-- In practice, we use the `lmer()` function from the **lme4** library to fit mixed-effect regression models. This function will essentially do what we did in the previous section, but rather than independently fitting the team-specific models, it will fit all these models simultaneously and make use of the information in all the clusters (teams) to do this. This will result in better estimates for both the fixed- and random-effects. -->
+<!-- The syntax looks similar to the syntax we use in `lm()` except now we split it into two parts. The first part of the syntax gives a model formula to specify the outcome and fixed-effects included in the model. This is identical to the syntax we used in the `lm()` function. In our example: `Life_Satisfaction ~ 1 + Shots_on_five` indicating that we want to fit a model that includes fixed-effects for both the intercept and the slope (the fixed-effect of player success).  -->
+<!-- We also have to declare that we want random-effects for these two coefficients. The second part of the syntax declares this: `(1 + Shots_on_five | Team_ID)`. This says fit random-effects for the intercept and slope and do so for each team. This is literally added (using `+`) to the fixed-effects formula. -->
+<!-- ```{r message=FALSE} -->
+<!-- # Fit mixed-effects regression model -->
+<!-- lmer.1 = lmer(Life_Satisfaction ~ 1 + Shots_on_five + (1 + Shots_on_five | Team_ID), data = nba) -->
+<!-- ``` -->
+<!-- To view the fixed-effects, we use the `fixef()` function. -->
+<!-- ```{r} -->
+<!-- fixef(lmer.1) -->
+<!-- ``` -->
+<!-- To view the team-specific random-effects, we use the `ranef()` function (only the first 6 rows are shown). -->
+<!-- ```{r eval=FALSE} -->
+<!-- ranef(lmer.1) -->
+<!-- ``` -->
+<!-- ``` -->
+<!-- $Team_ID -->
+<!--    (Intercept) Shots_on_five -->
+<!-- 01      0.0779        0.0805 -->
+<!-- 02      0.3611        0.3732 -->
+<!-- 03      0.3844        0.3973 -->
+<!-- 04     -0.0737       -0.0762 -->
+<!-- 05     -0.2381       -0.2461 -->
+<!-- 06      0.1734        0.1792 -->
+<!-- ``` -->
+<!-- From these two sets of information, we can re-construct each team-specific fitted equation if we are so inclined. For example, to construct the team-specific fitted equation for Team 30, we first write the fitted equatin for the fixed-effects (global equation): -->
+<!-- $$ -->
+<!-- \hat{\mathrm{Life~Satisfaction}_i} = 6.43 + 3.29(\mathrm{Player~Success}_i) -->
+<!-- $$ -->
+<!-- Then we add the estimated random-effects for Team 30 to the respective fixed-effects: -->
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \hat{\mathrm{Life~Satisfaction}_i} &= \bigg[6.43 + 0.1463 \bigg] + \bigg[3.29 + 0.1512\bigg](\mathrm{Player~Success}_i)\\ -->
+<!-- &= 6.58 + 3.44(\mathrm{Player~Success}_i)\\ -->
+<!-- \end{split}  -->
+<!-- $$ -->
+<!-- <!-- ## Variance Components: Quantifying Variation in the Random-Effects -->
+<p>–&gt;</p>
+<!-- <!-- Looking over the random-effects, it is clear that the random-effects for intercept vary across teams. The random-effects for slope also vary across team. It is common to quantify this variation by computing the standard deviation (or variance) for each set of random-effects. We can obtain these estimates by using the `VarCorr()` function. -->
+<p>–&gt;</p>
+<!-- <!-- ```{r} -->
+<p>–&gt; <!-- <!-- VarCorr(lmer.1) --> –&gt; <!-- <!-- ``` --> –&gt;</p>
+<!-- <!-- The output gives standard deviations of the random-effects. To get variances, we square these values. For example to obtain the variance component for the intercept random-effects, -->
+<p>–&gt;</p>
+<!-- <!-- ```{r} -->
+<p>–&gt; <!-- <!-- 0.305 ^ 2 --> –&gt; <!-- <!-- ``` --> –&gt;</p>
+<!-- <!-- There is also a standard deviation for the residuals. This is a measure of the variation in the player-level errors. Remember, even if we use a team-specific equation to predict life satisfaction, there will still be deviation between the predicted value and a player's actual life satisfaction.  -->
+<p>–&gt;</p>
+<!-- <!-- Recall that the goal in regression modeling is to explain variation. In a multilevel model, we can now try to explain between-team variation (the variation in intercepts and slopes) and within-team variation (residual). Comparing the size of the variance components, we see that the within-team variation (residual) is a lot larger than the between-team variation. This suggests that we may want to focus on including predictors that vary across players rather than on team-level predictors. -->
+<p>–&gt;</p>
+<!-- ## Example 2: Beauty and Course Evaluations -->
+<!-- In the second example, we will re-visit the `beauty` dataset to answer the question of whether there is a differential effect of beauty by gender on course evaluation scores. Recall that the data were collected from student evaluations of instructors' beauty and teaching quality for several courses at the University of Texas. The teaching evaluations were conducted at the end of the semester, and the beauty judgments were made later, by six students who had not attended the classes and were not aware of the course evaluations. The source of these data is @Hamermesh:2005; made available by @Gelman:2007. -->
+<!-- The variables in the dataset  are: -->
+<!-- - `prof`: Professor ID number -->
+<!-- - `avgeval`: Average course rating -->
+<!-- - `btystdave`: Measure of the professor's beauty composed  of the average score on six standardized beauty ratings -->
+<!-- - `tenured`: 0 = non-tenured; 1 = tenured -->
+<!-- - `nonenglish`: 0 = native English speaker; 1 = non-native English speaker -->
+<!-- - `age`: Professor's age (in years) -->
+<!-- - `female`: 0 = male; 1 = female -->
+<!-- - `students`: Number of students enrolled in the course -->
+<!-- - `percentevaluating`: Percentage of enrolled students who completed an evaluation -->
+<!-- ```{r preparation, warning=FALSE, message=FALSE} -->
+<!-- # Read in data -->
+<!-- beauty = readr::read_csv(file = "~/Dropbox/epsy-8252/data/beauty.csv") -->
+<!-- head(beauty) -->
+<!-- ``` -->
+<!-- ### Fit a Fixed-Effects Model -->
+<!-- These data, unlike the NBA data, are already merged; there are both student-level and professor-level variables in the same file. Below, we fit a fixed-effects regression model to predict variation in course evaluation scores based on three predictors: the professor's beauty, the professor's sex, and whether the professor is a native speaker of English. -->
+<!-- ```{r} -->
+<!-- lm.1 = lm(avgeval ~ 1 + btystdave + female + nonenglish, data = beauty) -->
+<!-- ``` -->
+<!-- For the results to be valid, the independence assumption needs to be satisfied. It is not unreasonable to think that course evaluation scores are correlated among students within the same course (professor). Since we have a variable in the data that indicates professor, we can examine the model's residuals grouped by professor to assess them for violation of the independence assumption. -->
+<!-- There are 94 professors represented in the data, and rather than show all 94 plots (too much!) we randomly sample 25 and only show those plots. -->
+<!-- ```{r fig.height=10, fig.width=12, out.width='6in', out.height='5in'} -->
+<!-- # Get model residuals, fitted values, etc. -->
+<!-- out = augment(lm.1) -->
+<!-- # Add professor ID to the data; Turn it into a factor for better plotting -->
+<!-- out$prof = as.factor(beauty$prof) -->
+<!-- # Randomly sample 25 professors -->
+<!-- set.seed(1001) -->
+<!-- my_profs = sample(unique(out$prof), size = 25, replace = FALSE) -->
+<!-- # Filter the data to only select data from those professors -->
+<!-- my_sample = out %>% -->
+<!--   filter(prof %in% my_profs) -->
+<!-- # Show residuals by professor -->
+<!-- ggplot(data = my_sample, aes(x = .fitted, y = .std.resid)) + -->
+<!--    geom_point() + -->
+<!--    geom_hline(yintercept = 0) + -->
+<!--    theme_bw() + -->
+<!--   xlab("Fitted values") + -->
+<!--   ylab("Studentized residuals") + -->
+<!--    facet_wrap(~prof, nrow = 5) -->
+<!-- ``` -->
+<!-- This plot shows some evidence of non-independence. To compensate for that, we should fit a mixed-effects regression model rather than a fixed-effects regression model. -->
+<!-- ### Fit the Mixed-Effects Model -->
+<!-- Below we fit a mixed-effects regression model that includes the same fixed-effects as in our fixed-effects model and a random-effect of intercept. (Note: To account for the dependence in the data we need to include a random-effect, but we do not need to include random-effects for all of our predictors. Here we chose to only include a random-effect for the intercept.) -->
+<!-- ```{r} -->
+<!-- # Fit model -->
+<!-- lmer.1 = lmer(avgeval ~ 1 + btystdave + female + nonenglish + (1 | prof), -->
+<!--               data = beauty) -->
+<!-- # Get fixed-effects -->
+<!-- fixef(lmer.1) -->
+<!-- ``` -->
+<!-- \pagebreak -->
+<!-- ```{r eval=FALSE} -->
+<!-- # Get random-effects (only first 10 are shown) -->
+<!-- ranef(lmer.1) -->
+<!-- ``` -->
+<!-- ``` -->
+<!--    (Intercept) -->
+<!-- 1      0.09349 -->
+<!-- 2     -0.28198 -->
+<!-- 3     -0.30658 -->
+<!-- 4      0.22753 -->
+<!-- 5      0.25545 -->
+<!-- 6      0.27089 -->
+<!-- 7      0.01611 -->
+<!-- 8      0.18972 -->
+<!-- 9      0.33576 -->
+<!-- 10     0.39347 -->
+<!-- ``` -->
+<!-- Combining the fixed- and random-effects, we can write the professor-specific models. For example, the professor-specific model for Professor 1 is: -->
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \hat{\mathrm{Eval}_i} &= \bigg[4.053 + 0.0935 \bigg] + 0.133 (\mathrm{beauty~rating}_i) -0.205 (\mathrm{female}_i) -0.359 (\mathrm{nonenglish}_i)\\ -->
+<!-- &= 4.15 + 0.133 (\mathrm{beauty~rating}_i) -0.205 (\mathrm{female}_i) -0.359 (\mathrm{nonenglish}_i)\\ -->
+<!-- \end{split} -->
+<!-- $$ -->
+<!-- If we write the professor-specific equation for Professor 2: -->
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \hat{\mathrm{Eval}_i} &= \bigg[4.053 4.053 - 0.2820 \bigg] + 0.133 (\mathrm{beauty~rating}_i) -0.205 (\mathrm{female}_i) -0.359 (\mathrm{nonenglish}_i)\\ -->
+<!-- &= 3.77 + 0.133 (\mathrm{beauty~rating}_i) -0.205 (\mathrm{female}_i) -0.359 (\mathrm{nonenglish}_i)\\ -->
+<!-- \end{split} -->
+<!-- $$ -->
+<!-- Looking at these two equations gives us some insight into why the effects are referred to as fixed or random. The effects for each of the predictors in this model are fixed; we did not include a random-effect for any of them in the `lmer()` function. They have the exact same magnitude regardless of professor---they are fixed. We included a random-effect for intercept. In the two professor-specific equations the intercepts are different. They vary by professor---they are random. -->
+<!-- In the fixed-effect model the equation for a one-predictor model is: -->
+<!-- In this model the regression parameters ($\beta_0$ and $\beta_1$) are fixed---they are the same across individuals. The errors ($\epsilon_i$) are random---they vary across individuals. -->
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-Snijders:2012">
+<p>Snijders, T. A. B., &amp; Bosker, R. J. (2012). <em>Multilevel analysis: An introduction to basic and advanced multilevel modeling</em> (2nd ed.). Thousand Oaks, CA: Sage.</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

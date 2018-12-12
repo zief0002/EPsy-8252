@@ -1,0 +1,243 @@
+---
+title: "Fitting and Interpreting Mixed-Effects Models"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    self_contained: no
+    theme: flatly
+    highlight: textmate
+bibliography: epsy8252.bib
+csl: apa-single-spaced.csl
+link-citations: no
+includes:
+  in_header: header.html
+  after_body: footer.html ## Input html for a custom footer
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
+```
+
+
+# Preparation
+
+We will again use the data from the files *netherlands-level1.csv* and  *netherlands-level2.csv*. Below we load several R packages and import both datasets.
+
+```{r message=FALSE}
+# Load libraries
+library(AICcmodavg)
+library(broom)
+library(dplyr)
+library(ggplot2)
+library(lme4) #for fitting mixed-effects models
+library(readr)
+library(sm)
+
+# Read in student-level data
+level_1 = read_csv(file = "~/Dropbox/epsy-8252/data/netherlands-level-1.csv")
+head(level_1)
+
+# Read in team-level data
+level_2 = read_csv(file = "~/Dropbox/epsy-8252/data/netherlands-level-2.csv")
+head(level_2)
+
+# Merge the two datasets
+full_data = left_join(level_1, level_2, by = "school_id")
+head(full_data)
+```
+
+
+## Fitting the Mixed-Effects Regression Model in Practice
+
+In practice, we use the `lmer()` function from the **lme4** library to fit mixed-effect regression models. This function will essentially do what we conceptually did in the previous set of notes, but rather than independently fitting the school-specific models and the global model, it will fit all these models simultaneously and make use of the information in all the clusters (schools) to do this. This will result in better estimates for both the fixed- and random-effects.
+
+The syntax looks similar to the syntax we use in `lm()` except now we split it into two parts. The first part of the syntax gives a model formula to specify the outcome and fixed-effects included in the model. This is identical to the syntax we used in the `lm()` function. In our example: `language_post ~ 1 + verbal_iq` indicating that we want to fit a model that includes fixed-effects for both the intercept and the effect of verbal IQ score. This specifies the global model
+
+We also have to declare that we want to fit a model for each school. To do this, we will include a random-effect for intercept. (We could also include a random-effect of verbal IQ, but to keep it simpler right now, we only include the RE of intercept.) The second part of the syntax declares this: `(1 | school_id)`. This says fit school-specific models that vary in their intercepts. This is literally added to the fixed-effects formula using `+`. The complete syntax is:
+
+```{r message=FALSE}
+# Fit mixed-effects regression model
+lmer.1 = lmer(language_post ~ 1 + verbal_iq + (1 | school_id), data = full_data)
+```
+
+To view the fixed-effects, we use the `fixef()` function.
+
+```{r}
+fixef(lmer.1)
+```
+
+This gives the coefficients for the global model,
+
+$$
+\hat{\mathrm{Language~Score}_{ij}} = 40.61 + 2.49(\mathrm{Verbal~IQ}_{ij})
+$$
+
+We interpret these coefficients exactly like `lm()` coefficients. Here,
+
+- The average language score for students with a verbal IQ score of 0 is predicted to be 40.61.
+- Each one-point difference in verbal IQ score is associated with a 2.49-point difference in language scores, on average.
+
+To view the school-specific random-effects, we use the `ranef()` function (only the first 6 rows are shown).
+
+```{r eval=FALSE}
+ranef(lmer.1)
+```
+
+```{r echo=FALSE, results='asis'}
+x = ranef(lmer.1)$school_id %>%
+  head(.)
+
+kable(x, "html") %>%
+  kable_styling("striped") %>%
+  row_spec(0, bold = T, color = "white", background = "#d7261e") %>%
+  row_spec(c(2, 4, 6), background = "#d3d3d3")
+```
+
+
+
+From these two sets of information, we can re-construct each school-specific fitted equation if we are so inclined. For example, to construct the school-specific fitted equation for School 1, we combine the estimated coefficients for the fixed-effects (global equation) and the estimated random-effect for School 1:
+
+$$
+\begin{split}
+\hat{\mathrm{Language~Score}_{ij}} &= \bigg[ 40.61 -0.376 \bigg]+ 2.49(\mathrm{Verbal~IQ}_{ij}) \\
+&= 40.2 + 2.49(\mathrm{Verbal~IQ}_{ij}) 
+\end{split}
+$$
+
+
+
+<!-- ## Variance Components: Quantifying Variation in the Random-Effects -->
+
+<!-- Looking over the random-effects, it is clear that the random-effects for intercept vary across teams. The random-effects for slope also vary across team. It is common to quantify this variation by computing the standard deviation (or variance) for each set of random-effects. We can obtain these estimates by using the `VarCorr()` function. -->
+
+<!-- ```{r} -->
+<!-- VarCorr(lmer.1) -->
+<!-- ``` -->
+
+<!-- The output gives standard deviations of the random-effects. To get variances, we square these values. For example to obtain the variance component for the intercept random-effects, -->
+
+<!-- ```{r} -->
+<!-- 0.305 ^ 2 -->
+<!-- ``` -->
+
+<!-- There is also a standard deviation for the residuals. This is a measure of the variation in the player-level errors. Remember, even if we use a team-specific equation to predict life satisfaction, there will still be deviation between the predicted value and a player's actual life satisfaction.  -->
+
+<!-- Recall that the goal in regression modeling is to explain variation. In a multilevel model, we can now try to explain between-team variation (the variation in intercepts and slopes) and within-team variation (residual). Comparing the size of the variance components, we see that the within-team variation (residual) is a lot larger than the between-team variation. This suggests that we may want to focus on including predictors that vary across players rather than on team-level predictors. -->
+
+## Example 2: Beauty and Course Evaluations
+
+In the second example, we will re-visit the question of whether perceived beauty of a profeesor impacts course evaluation scores. Recall that the data were collected from student evaluations of instructors' beauty and teaching quality for several courses at the University of Texas. The source of these data is @Hamermesh:2005; made available by @Gelman:2007.
+
+We actually have more nuanced data than we examined in EPsy 8251. The file *evaluations-level-2.csv* includes professor-level data for 94 professors. The variables in this data set are:
+
+- `prof_id`: Professor ID number
+- `beauty`: Measure of the professor's beauty. This is score is standardized ($M=0$, $SD=1$) so that a beauty rating of 0 represents the average beauty rating.
+- `tenured`: Is the professor tenured? (0 = non-tenured; 1 = tenured)
+- `native_english`: Is the professor a native english speaker? (0 = non-native English speaker; 1 = native English speaker)
+- `age`: Professor's age (in years)
+- `female`: Is the professor a female? (0 = male; 1 = female)
+
+The file *evaluations-level-1.csv* includes data from 463 courses taught by these 94 professors. The variables in this data set are:
+
+- `prof_id`: Professor ID number
+- `avg_eval`: Average course rating for the course
+- `num_students`: Number of students enrolled in the course
+- `perc_evaluating`: Percentage of enrolled students who completed a course evaluation
+
+To begin, we will import both the Level-1 and Level-2 datasets and then join them together.
+
+```{r beauty_preparation, warning=FALSE, message=FALSE}
+# Read in level-1 data
+eval_level_1 = read_csv(file = "~/Dropbox/epsy-8252/data/evaluations-level-1.csv")
+head(eval_level_1)
+
+# Read in level-2 data
+eval_level_2 = read_csv(file = "~/Dropbox/epsy-8252/data/evaluations-level-2.csv")
+head(eval_level_2)
+
+# Join the level-1 and level-2 datasets
+evaluations = left_join(eval_level_1, eval_level_2, by = "prof_id")
+head(evaluations)
+```
+
+In these data, there are multiple courses for each professor. If we want to use these data to predict variation in course evaluation scores, we need to account for the fact that course evaluation scores are not independent of one another in this data. (Professors who have higher evaluations in one class also probably have higher evaluations in other classes.) To alleviate this problem, we can include a random-effect of intercept in our regression model.
+
+
+### Fit a Mixed-Effects Model
+
+Below we fit a mixed-effects regression model to predict variation in course evaluation scores that includes the following four predictors: number of students, percentage of students evaluating the course, beauty rating, and professor's sex. To account for the dependency we also include a random-effect of intercept. The statistical model is:
+
+$$
+\mathrm{Avg.~Eval}_{ij} = \bigg[\beta_0 + b_{0j} \bigg] + \beta_1(\mathrm{Num.~Students}_{ij}) + \beta_2(\mathrm{Perc.~Evaluating}_{ij}) + \beta_3(\mathrm{Beauty~Rating}_{j}) + \beta_4(\mathrm{Female}_{j}) + \epsilon_{ij}
+$$
+
+We fit the model using `lmer()` as:
+
+```{r}
+# Fit model
+lmer.1 = lmer(avg_eval ~ 1 + num_students + perc_evaluating + beauty + female + 
+                (1 | prof_id), data = evaluations)
+```
+
+
+We can then extract the fixed-effects estimates using the `fixef()` function. 
+
+```{r}
+# Get fixed-effects
+fixef(lmer.1)
+```
+
+These give the beta estimates in our global model. We write the fitted fixed-effects model (which ignores the random-effects) as:
+
+$$
+\hat{\mathrm{Avg.~Eval}_{ij}} = 3.85 - 0.001(\mathrm{Num.~Students}_{ij}) + 0.003(\mathrm{Perc.~Evaluating}_{ij}) + 0.137(\mathrm{Beauty~Rating}_{j}) - .237(\mathrm{Female}_{j})
+$$
+
+We can interpret these fixed-effects estimates the same way we do any other regression coefficient. Rather than interpret the raw numbers, below, we offer more general interpretations of these effects. (You can interpret the raw numbers exactly like we did in EPsy 8251. A one-unit difference in $X$ is associated with a $\hat{\beta}$-difference in $Y$, controlling for otehr predictors in the model.)
+
+- The average course evaluation score when a course has 0 students enrolled, 0% of the students fill out course evaluations, the professor has an average beauty rating (rating = 0), and the professor is male is predicted to be 3.85. (Extrapolation!)
+- Larger classes tend to have lower average course evaluations, controlling for differences in all the other predictors in the model. 
+- Course that have a higher percentages of students complete a course evaluation tend to have higher average course evaluation scores, controlling for the other predictors in the model.
+- Courses taught by professors with higher beauty ratings tend to have higher average course evaluation scores than courses taught by professors with lower beauty ratings, controlling for the other predictors in the model.
+- Courses taught by female professors tend to have lower average course evaluation scores than courses taught by male professors, controlling for the other predictors in the model.
+
+If we are interested in the fitted model for a SPECIFIC professor, we can extract the random-effect of intercept for that professor and add it to the fixed-effect estimate of estimate from the global model.
+
+```{r eval=FALSE}
+# Get random-effects (only first 10 are shown)
+ranef(lmer.1)
+```
+
+```{r echo=FALSE}
+# Get random-effects (only first 10 are shown)
+ranef(lmer.1)$prof_id %>% head(., 10)
+```
+
+For example, the fitted equation for Professor 1 is:
+
+$$
+\begin{split}
+\hat{\mathrm{Avg.~Eval}_{ij}} &= \bigg[3.85 + 0.2152\bigg] - 0.001(\mathrm{Num.~Students}_{ij}) + 0.003(\mathrm{Perc.~Evaluating}_{ij}) + 0.137(\mathrm{Beauty~Rating}_{j}) - .237(\mathrm{Female}_{j})\\
+&= 4.07 + - 0.001(\mathrm{Num.~Students}_{ij}) + 0.003(\mathrm{Perc.~Evaluating}_{ij}) + 0.137(\mathrm{Beauty~Rating}_{j}) - .237(\mathrm{Female}_{j})\\
+\end{split}
+$$
+
+If we write the professor-specific equation for Professor 2:
+
+$$
+\begin{split}
+\hat{\mathrm{Avg.~Eval}_{ij}} &= \bigg[3.85 - 0.3399\bigg] - 0.001(\mathrm{Num.~Students}_{ij}) + 0.003(\mathrm{Perc.~Evaluating}_{ij}) + 0.137(\mathrm{Beauty~Rating}_{j}) - .237(\mathrm{Female}_{j})\\
+&= 3.51 + - 0.001(\mathrm{Num.~Students}_{ij}) + 0.003(\mathrm{Perc.~Evaluating}_{ij}) + 0.137(\mathrm{Beauty~Rating}_{j}) - .237(\mathrm{Female}_{j})\\
+\end{split}
+$$
+
+Looking at these two equations gives us some insight into why the effects are referred to as *fixed-effects* or *random-effects*. In the two equations, the effect associated with each of the predictors is the same as in the global model. This implies that these effects have the exact same magnitude regardless of professor---they are fixed. On the other hand, the intercept value in the professor-specific equations are different. They vary by professor. Because of this we say that they are random-effects.
+
+# References
+
+

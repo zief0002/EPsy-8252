@@ -1,32 +1,34 @@
-team,established,arena,arena_location,arena_open,arena_capacity,avg_temp,latitude,longitude,canada,division,conference
-Boston Bruins,1924,TD Garden,"Boston, Massachusetts",1995,17565,51.3,42.366443,-71.062147,0,Atlantic,Eastern
-Buffalo Sabres,1970,First Niagara Center,"Buffalo, New York",1996,19070,48.3,42.8838,-78.8742,0,Atlantic,Eastern
-Detroit Red Wings,1926,Joe Louis Arena,"Detroit, Michigan",1979,20066,50.3,42.32519,-83.051362,0,Atlantic,Eastern
-Florida Panthers,1993,BB&T Center,"Sunrise, Florida",1998,19250,76.1,26.158691,-80.325321,0,Atlantic,Eastern
-Montreal Canadiens,1909,Bell Centre,"Montreal, Quebec",1996,21273,45.4,45.496067,-73.569315,1,Atlantic,Eastern
-Ottawa Senators,1992,Canadian Tire Centre,"Ottawa, Ontario",1996,19153,44,45.29871,-75.926323,1,Atlantic,Eastern
-Tampa Bay Lightning,1993,Tampa Bay Times Forum,"Tampa, Florida",1996,19204,73.4,27.942983,-82.451788,0,Atlantic,Eastern
-Toronto Maple Leafs,1917,Air Canada Centre,"Toronto, Ontario",1999,18819,45.9,43.644154,-79.378221,1,Atlantic,Eastern
-Atlanta Thrashers,1999,Philips Arena,"Atlanta, Georgia",1999,17624,62.6,33.757525,-84.39634,0,Central,Western
-Chicago Blackhawks,1926,United Center,"Chicago, Illinois",1994,19717,49.9,41.880691,-87.674176,0,Central,Western
-Colorado Avalanche,1995,Pepsi Center,"Denver, Colorado",1999,18007,50.2,39.748568,-105.009966,0,Central,Western
-Dallas Stars,1993,American Airlines Center,"Dallas, Texas",2001,18532,66.3,32.790689,-96.810392,0,Central,Western
-Minnesota Wild,2000,Xcel Energy Center,"Saint Paul, Minnesota",2000,17954,45.6,44.945089,-93.101092,0,Central,Western
-Nashville Predators,1998,Bridgestone Arena,"Nashville, Tennessee",1996,17113,59.5,36.159443,-86.778528,0,Central,Western
-St. Louis Blues,1967,Scottrade Center,"St. Louis, Missouri",1994,19150,57.1,38.626786,-90.20267,0,Central,Western
-Winnipeg Jets,2011,MTS Centre,"Winnipeg, Manitoba",2004,15004,37,49.893871,-97.14323,1,Central,Western
-Carolina Hurricanes,1997,PNC Arena,"Raleigh, North Carolina",1999,18680,60.8,35.803444,-78.721877,0,Metropolitan,Eastern
-Columbus Blue Jackets,2000,Nationwide Arena,"Columbus, Ohio",2000,18144,53.4,39.967954,-83.010707,0,Metropolitan,Eastern
-New Jersey Devils,1982,Prudential Center,"Newark, New Jersey",2007,17625,54.9,40.73344,-74.171128,0,Metropolitan,Eastern
-New York Islanders,1972,Nassau Veterans Memorial Coliseum,"Uniondale, New York",1972,16170,55.1,40.722938,-73.590681,0,Metropolitan,Eastern
-New York Rangers,1926,Madison Square Garden,"Manhattan, New York City, New York",1968,18006,54,40.752,-73.993,0,Metropolitan,Eastern
-Philadelphia Flyers,1967,Wells Fargo Center,"Philadelphia, Pennsylvania",1996,19537,55.9,39.900666,-75.17142,0,Metropolitan,Eastern
-Pittsburgh Penguins,1967,Consol Energy Center,"Pittsburgh, Pennsylvania",2010,18387,51.4,40.439183,-79.989657,0,Metropolitan,Eastern
-Washington Capitals,1974,Verizon Center,"Washington, D.C.",1997,18506,58.2,38.898041,-77.020911,0,Metropolitan,Eastern
-Anaheim Ducks,1993,Honda Center,"Anaheim, California",1993,17174,65.1,33.808151,-117.876544,0,Pacific,Western
-Arizona Coyotes,1996,Jobing.com Arena,"Glendale, Arizona",2003,17125,69,33.531929,-112.261222,0,Pacific,Western
-Calgary Flames,1980,Scotiabank Saddledome,"Calgary, Alberta",1983,19289,40,51.037434,-114.051934,1,Pacific,Western
-Edmonton Oilers,1972,Rexall Place,"Edmonton, Alberta",1974,16839,36.7,53.522419,-113.524405,1,Pacific,Western
-Los Angeles Kings,1967,Staples Center,"Los Angeles, California",1999,18118,64.9,34.042435,-118.266586,0,Pacific,Western
-San Jose Sharks,1991,SAP Center at San Jose,"San Jose, California",1993,17562,60.6,37.333046,-121.901189,0,Pacific,Western
-Vancouver Canucks,1970,Rogers Arena,"Vancouver, British Columbia",1995,18910,50.7,49.278067,-123.108823,1,Pacific,Western
+team,established,arena,arena_location,arena_open,arena_capacity,avg_temp,avg_high_temp_jan,latitude,longitude,canada,division,conference
+Anaheim Ducks,1993,Honda Center,"Anaheim, California",1993,17.174,65.1,68,33.808151,-117.876544,0,Pacific,Western
+Phoenix Coyotes,1996,Jobing.com Arena,"Glendale, Arizona",2003,17.125,69,67.5,33.531929,-112.261222,0,Pacific,Western
+Atlanta Thrashers,1999,Philips Arena,"Atlanta, Georgia",1999,17.624,62.6,53,33.757525,-84.39634,0,Central,Western
+Boston Bruins,1924,TD Garden,"Boston, Massachusetts",1995,17.565,51.3,37,42.366443,-71.062147,0,Atlantic,Eastern
+Buffalo Sabres,1970,First Niagara Center,"Buffalo, New York",1996,19.07,48.3,32.5,42.8838,-78.8742,0,Atlantic,Eastern
+Calgary Flames,1980,Scotiabank Saddledome,"Calgary, Alberta",1983,19.289,40,31,51.037434,-114.051934,1,Pacific,Western
+Carolina Hurricanes,1997,PNC Arena,"Raleigh, North Carolina",1999,18.68,60.8,52,35.803444,-78.721877,0,Metropolitan,Eastern
+Chicago Blackhawks,1926,United Center,"Chicago, Illinois",1994,19.717,49.9,33,41.880691,-87.674176,0,Central,Western
+Colorado Avalanche,1995,Pepsi Center,"Denver, Colorado",1999,18.007,50.2,45,39.748568,-105.009966,0,Central,Western
+Columbus Blue Jackets,2000,Nationwide Arena,"Columbus, Ohio",2000,18.144,53.4,37,39.967954,-83.010707,0,Metropolitan,Eastern
+Dallas Stars,1993,American Airlines Center,"Dallas, Texas",2001,18.532,66.3,57,32.790689,-96.810392,0,Central,Western
+Detroit Red Wings,1926,Joe Louis Arena,"Detroit, Michigan",1979,20.066,50.3,32.5,42.32519,-83.051362,0,Atlantic,Eastern
+Edmonton Oilers,1972,Rexall Place,"Edmonton, Alberta",1974,16.839,36.7,22,53.522419,-113.524405,1,Pacific,Western
+Florida Panthers,1993,BB&T Center,"Sunrise, Florida",1998,19.25,76.1,75,26.158691,-80.325321,0,Atlantic,Eastern
+Los Angeles Kings,1967,Staples Center,"Los Angeles, California",1999,18.118,64.9,68,34.042435,-118.266586,0,Pacific,Western
+Minnesota Wild,2000,Xcel Energy Center,"Saint Paul, Minnesota",2000,17.954,45.6,24,44.945089,-93.101092,0,Central,Western
+Montreal Canadiens,1909,Bell Centre,"Montreal, Quebec",1996,21.273,45.4,25,45.496067,-73.569315,1,Atlantic,Eastern
+Nashville Predators,1998,Bridgestone Arena,"Nashville, Tennessee",1996,17.113,59.5,48,36.159443,-86.778528,0,Central,Western
+New Jersey Devils,1982,Prudential Center,"Newark, New Jersey",2007,17.625,54.9,40,40.73344,-74.171128,0,Metropolitan,Eastern
+New York Islanders,1972,Nassau Veterans Memorial Coliseum,"Uniondale, New York",1972,16.17,55.1,40,40.722938,-73.590681,0,Metropolitan,Eastern
+New York Rangers,1926,Madison Square Garden,"Manhattan, New York City, New York",1968,18.006,54,40,40.752,-73.993,0,Metropolitan,Eastern
+Ottawa Senators,1992,Canadian Tire Centre,"Ottawa, Ontario",1996,19.153,44,23,45.29871,-75.926323,1,Atlantic,Eastern
+Philadelphia Flyers,1967,Wells Fargo Center,"Philadelphia, Pennsylvania",1996,19.537,55.9,41,39.900666,-75.17142,0,Metropolitan,Eastern
+Pittsburgh Penguins,1967,Consol Energy Center,"Pittsburgh, Pennsylvania",2010,18.387,51.4,38,40.439183,-79.989657,0,Metropolitan,Eastern
+San Jose Sharks,1991,SAP Center at San Jose,"San Jose, California",1993,17.562,60.6,60.5,37.333046,-121.901189,0,Pacific,Western
+St. Louis Blues,1967,Scottrade Center,"St. Louis, Missouri",1994,19.15,57.1,41,38.626786,-90.20267,0,Central,Western
+Tampa Bay Lightning,1993,Tampa Bay Times Forum,"Tampa, Florida",1996,19.204,73.4,71,27.942983,-82.451788,0,Atlantic,Eastern
+Toronto Maple Leafs,1917,Air Canada Centre,"Toronto, Ontario",1999,18.819,45.9,30.5,43.644154,-79.378221,1,Atlantic,Eastern
+Vancouver Canucks,1970,Rogers Arena,"Vancouver, British Columbia",1995,18.91,50.7,43.5,49.278067,-123.108823,1,Pacific,Western
+Washington Capitals,1974,Verizon Center,"Washington, D.C.",1997,18.506,58.2,44,38.898041,-77.020911,0,Metropolitan,Eastern
+Winnipeg Jets,2011,MTS Centre,"Winnipeg, Manitoba",2004,15.004,37,14,49.893871,-97.14323,1,Central,Western
+Arizona Coyotes,2014,Gila River Arena,"Glendale, Arizona",2003,17.125,69,67.5,33.531929,-112.261222,0,Pacific,Western
+Quebec Nordiques,1979,Colisée de Québec,"Quebec City, Quebec",1949,15.176,,20,46.830833,-71.246389,1,,

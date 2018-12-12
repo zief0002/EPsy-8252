@@ -68,7 +68,7 @@ head(boot_reg)
 
 boot_reg %>%
   group_by(term) %>%
-  summarize(SE = sd(estimate))
+  summarize(M = mean(estimate), SE = sd(estimate))
 
 
 p1 = boot_reg %>%

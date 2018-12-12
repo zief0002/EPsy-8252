@@ -220,3 +220,46 @@ ggplot(data = my_data, aes(x = Shots_on_five, y = yhat, color = Coach_Experience
   ggsci::scale_color_d3(name = "Coach experience (in years)") +
   facet_wrap(~model)
 
+
+
+
+# Set up plotting data for lmer.2
+my_data2 = expand.grid(
+  Shots_on_five = seq(from = 0, to = 5, by = 1),
+  Coach_Experience = c(1, 3)
+)
+
+
+my_data2$yhat = predict(lmer.3, newdata = my_data2, re.form = NA)
+head(my_data2)
+
+
+my_data2$Coach_Experience = factor(my_data2$Coach_Experience)
+
+ggplot(data = my_data2, aes(x = Shots_on_five, y = yhat, color = Coach_Experience)) +
+  geom_line() +
+  theme_bw() +
+  xlab("Shots-on-five") +
+  ylab("Predicted life satisfaction") +
+  ggsci::scale_color_d3(name = "Coach experience (in years)")
+
+
+
+lmer.1 = lmer(Life_Satisfaction ~ 1 + Shots_on_five + Coach_Experience +
+                (1 | Team_ID), data = nba, REML = FALSE)
+out = augment(lmer.1)
+head(out)
+
+sm.density(out$.resid, model = "normal")
+
+ggplot(data = out, aes(x = .fitted, y = .resid)) +
+  geom_point(size = 4) +
+  geom_hline(yintercept = 0)
+
+
+b0j = ranef(lmer.1)$Team_ID[ , 1]
+sm.density(b0j, model="normal")
+
+yhat = 3.947370 + 1.553284 * nbaL2$Coach_Experience
+
+

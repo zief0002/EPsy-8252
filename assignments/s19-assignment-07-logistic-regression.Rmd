@@ -1,0 +1,91 @@
+---
+title: "Assignment 07"
+author: "Logistic Regression"
+header-includes:
+   - \usepackage{xcolor}
+   - \definecolor{umn}{RGB}{153, 0, 85}
+   - \definecolor{umn2}{rgb}{0.1843137, 0.4509804, 0.5372549}
+output: 
+  pdf_document:
+    highlight: tango
+urlcolor: "umn2"
+---
+
+This assignment is intended to give you experience working with logistic regression models to analyze dichotomous outcome data. *Do not include any R syntax or output unless it is specifically required in the question.* Please submit your responses to each of the questions below. Please submit your responses to each of the questions below in a printed document. All graphics should be resized so that they do not take up more room than necessary and should have an appropriate caption. All tables should also have an appropriate caption.
+
+This assignment is worth 17 points. Each question is worth 1 point unless otherwise noted. 
+
+\rule{0.5\linewidth}{\linethickness}
+
+For this assignment, you will use the file, *same-sex-marriage.csv*. This file contains data collected from the 2008 American National Election Study conducted jointly by the University of Michigan and Stanford University. These particular data consist of 1,746 American's responses. The variables in this file are:
+
+- `support`: Does the respondent support gay marriage? (1=Yes; 0=No)
+- `attendance`: How often does the respondent attend religious services? (0=Never; 1=Few times a year; 2=Once or twice a month; 3=Almost every week; 4=Every week) 
+- `denomination`: What is the respondent's religious denomination?
+- `friends`: Does the respondent have family or friends that are LGBT? (1=Yes; 0=No)
+- `age`: Respondent's age, in years
+- `female`: Is the respondent female? (1=Yes; 0=No)
+
+
+Schwartz (2010) broadly examined the demographic factors that play a role in shaping public opinion regarding same-sex marriage. Drawing on previous literature, Schwartz fitted a regression model to predict an individual’s support for gay marriage by looking at several different explanatory variables. His findings religion is an important factor in the prediction of whether or not a person will support same-sex marriage. You will use these data to examine the effects of two aspects of religion (denimination, and frequency of attendance of religious services) on the support of same-sex marriage.
+
+Schwartz, J. (2010). Investigating Differences in Public Support for Gay Rights Issues. *Journal of Homosexuality, 57*(6), 748-759. 
+
+\rule{0.5\linewidth}{\linethickness}
+
+
+# Effect of Religious Service Attendance
+
+You will begin the analysis by examining the effect of religious service attendance on support of same-sex marriage. Because the data for this predictor come from a Likert scale (ordinal in nature), we need to examine whether we can treat it as a continuous predictor in the model, or whether we should treat it as categorical.
+
+1. Begin by computing the proportion of people that support same-sex marriage for each of the attendance categories. Create a line plot that shows the relationship between proportion of support and attendance.
+
+Based on the plot you just created, the relationship between proportion of support and attendance seems linear. Because of this, we can treat the Likert data as continuous; using a line (or polynomial) to fit the relationship. The only caution being that when interpreting a slope, we say something like, "a one-unit difference in $X$ is associated with a $\hat\beta_1$-unit difference in $Y$". For ordinal (Likert) data a one-unit difference in $X$ really indicates a shift from one category to the next highest category.
+
+\pagebreak
+
+2. Fit two logistic models to the data using religious service attendance. In the first model, only include the linear effect of attendance. In the second model, include both a linear and quadratic effect to predict variation in support for same-sex marriage. Which model should be adopted (linear or quadratic)? Justify your response by providing any statistical evidence you used in reaching your decision.
+
+3. Add the results from the fitted model you adopted to a regression table. (You will add other models to this table as you progress through the assignment.) Like other regression tables you have created, be sure to include the estimated coefficients and standard errors for each of the effects included in the model. Also include the AICc value, and at least one pseudo-$R^2$ value.
+
+<!-- You can see an example of a table of logistic model results in: Raikes, H., Pan, B. A., Luze, G., Tamis-LeMonda, C. S., Brooks-Gunn, J., Constantine, J., Banks Tarullo, L., Raikes, H. A., \& Rodriguez, E. T. (2006). Mother–child bookreading in low-income families: Correlates and outcomes during the first three years of life. *Child Development, 77*(4), 924--953. doi: 10.1111/j.1467-8624.2006.00911.x -->
+
+
+4. Write the fitted equation for the adopted model. (Don't forget to include all appropriate subscripts. Also define any terms in the model that are ambiguous.)
+
+5. Use the adopted fitted model to predict the (a) log-odds, (b) odds, and (c) probability of someone supporting same-sex marriage if that person attends religious services almost every week.
+
+
+# Effect of Denomination
+
+6. Compute and report the proportion of people who support same-sex marriage for each of the religious denominations. Are there sample differences in the proportion of people who support same-sex marriage between the denominations? Explain. **(2pts.)**
+
+7. Fit a logistic model to the data using denomination to predict variation in support for same-sex marriage. In this model, use Protestant as the reference group. Add this model's results to the table you created in Question 3.
+
+8. Interpret the effect associated with the `Jewish` coefficient in terms of (a) log-odds, and (b) odds. **(2pts.)**
+
+
+# Effect of Attendance and Denomination
+
+9. Fit the logistic model that includes the adopted effects for religous service attendance (based on your response to Question 2) *and* the effects of denomination to predict variation in support of same-sex marriage. (Note: This should be the main-effects model.) Add the results from fitting this model to your table of model results.
+
+# Adding Covariates
+
+Now you will examine three potential covariates (`friends`, `age`, and `female`) that have been linked in the substantive literature to support of same-sex marriage. 
+
+10. To help think about which covariates should be included in your model, create a correlation matrix of the outcome, and all three covariates. By referring to this matrix, clearly indicate the order in which you will add covariates into the model.
+
+11. Fit the logistic model that includes the effects of religious attendance, denomination, and any covariates you identifed in Question 10. Add the results of this model to your table of model results.
+
+\pagebreak
+
+# Interpreting the Final Model
+
+12. Create a plot that visually displays the results of your final fitted model. Be sure to visually show the effects the focal predictors (religious service attendance and denomination). Also show any pertinent covariates you think are necessary to include. (Think about how the inclusion of the covariates help readers better understand the effects of the focal predictors.) **(2pts.)**
+
+13. Write a few sentences that tell the data narrative about the effects of religous service attendance and denomination on the support of same-sex marriage. Use the models in your table of model results to help create this narrative. Keep the focus on the focal variables in this narrative. **(2pts.)**
+
+
+
+
+

@@ -1,0 +1,450 @@
+---
+title: ""
+date: ""
+output: 
+  pdf_document:
+    highlight: tango
+    latex_engine: xelatex
+    fig_width: 6
+    fig_height: 6
+    includes:
+      in_header: syllabus-formatting.tex
+geometry: top=.25in, bottom=.5in, left=.5in, right=.5in
+fontsize: 11pt
+mainfont: "EB Garamond"
+sansfont: "Quicksand"
+monofont: Inconsolata
+subparagraph: true
+urlcolor: "myorange"
+always_allow_html: yes
+---
+
+\includegraphics[angle=-90, width=\textwidth]{syllabus-head2.pdf}
+
+
+\begin{figure}[H]
+\begin{minipage}[t]{.65\textwidth}
+\section{Course Description}
+Methods in Data Analysis for Educational Research II is the second course of a two-semester sequence for students in education. The course content for EPsy 8252 includes : (1) likelihood estimation and inference, (2) information criteria for model selection, (3) mixed-effects/multi-level models for analysis of cross-sectional data, (4) mixed-effects/multi-level models for analysis of longitudinal data, and (5) logistic models for analyzing dichotomous outcomes. Time permitting, miscellaneous topics (e.g., design weights, empirical Bayes estimation, semi-parametric models) will also be introduced. \\
+
+The two-semester sequence provides in-depth coverage of widely used statistical methods and models and prepares students for advanced statistical coursework such as: Statistical Analysis Using Structural Equation Methods (EPsy 8266), Applied Multivariate Analysis (EPsy 8267), Hierarchical Linear Modeling in Educational Research (EPsy 8268), Statistical Analysis of Longitudinal Data (EPsy 8282), and/or Item Response Theory (EPsy 8290).
+\end{minipage}\hfill
+\begin{minipage}[t]{.3\textwidth}
+\begin{mdframed}
+{\small 
+\textsf{\color{myheading}{Course Meeting Time}} \\
+M, W, 9:45 a.m.–11:00 a.m. \\
+Peik Hall 215 \\
+\\
+T, R, 11:15 a.m.–12:30 p.m. \\
+Elliott Hall N647 \\
+
+\textsf{\color{myheading}{Website}}\\
+\url{https://github.com/zief0002/epsy-8252}\\
+
+\textsf{\color{myheading}{Required Textbook}}\\
+Fox, J. (2009). A mathematical primer for social statistics. Thousand Oaks, CA: Sage.
+}
+\end{mdframed}
+\end{minipage}
+\end{figure}
+
+# Textbooks
+
+The required textbook for the course is:
+
+- Fox, J. (2009). [A mathematical primer for social statistics.](http://dx.doi.org.ezp1.lib.umn.edu/10.4135/9781412983228) Thousand Oaks, CA: Sage.
+
+There are also two optional textbooks:
+
+- Anderson, D. R. (2008). [Model based inference in the life sciences: A primer on evidence.](http://login.ezproxy.lib.umn.edu/login?url=http://link.springer.com/10.1007/978-0-387-74075-1) New York: Springer.
+- Dunteman, G. H., \& Ho, M.-H. R. (2006). [An introduction to generalized linear models.](http://login.ezproxy.lib.umn.edu/login?url=http://methods.sagepub.com/book/an-introduction-to-generalized-linear-models) Thousand Oaks, CA: Sage.
+
+
+# Course Prerequisites
+
+Prerequisites include EPsy 8251: Methods in Data Analysis for Educational Research I, or a sound conceptual understanding of the topics of design, foundational topics in data analysis, correlation, simple and multiple linear regression. For the topics listed, students would be expected to be able to carry out an appropriate data analysis and properly interpret the results. It is also assumed that everyone enrolled in the course has some familiarity with using R. Students not meeting these prerequisites are strongly advised to not enroll in EPsy 8252.
+
+\begin{minipage}[t]{\textwidth}
+\begin{mdframed}
+\begin{minipage}[c]{0.6in}
+\includegraphics[width=0.5in]{/Users/zief0002/Pictures/UMN-Images/Goldy/goldy-vector.png}
+\end{minipage}
+\begin{minipage}[c]{1.6in}
+\centering 
+{\Huge \textsf{\color{myheading}{2018}}}\\
+{\small \textsf{\color{myheading}{Spring Semester}}}
+\end{minipage}
+\begin{minipage}[c]{5in}
+{\small
+Andrew Zieffler\\
+Office: Educational Sciences Building 178\\
+Office Hours: Tuesdays 9:30 AM--10:30 AM; and by appointment\\
+Email: \url{zief0002@umn.edu}
+}
+\end{minipage}
+\end{mdframed}
+\end{minipage}
+
+# Course Requirements
+
+Students will complete eight homework assignments. The homework assignments will be posted on the course website, or sent to you via email. These assignments include problems that will help you learn the course material through reflection and practice. The assignments will make up the entirety of your grade for the course.
+
+You are permitted to collaborate with other students (2--3) in the course to complete the assignments. If you collaborate with others, please turn in only one homework assignment with all your names on it. Although I believe you will learn more by collaborating with others, you do not need to join a group to ultimately be successful in this course. For those students who work collaboratively, note that I am not willing to manage intra-group conflicts nor will I assign varying grades within a group. From past experience, student collaborations work most fluidly when everyone in the group has chosen the same grading option for the course (e.g., A/F, S/N, etc.).
+
+## Evaluation of Student Performance
+
+Course grades will be based entirely on performance on the homework assignments. The points from the eight homework assignments will be pooled to compte the final course grade. Students who earn below 64% will receive the letter grade of F. If you are taking the course S/N, the minimum criterion to receive an S is 80\% (the equivalent of a B$–$ letter grade). Any student who does not complete all homework assignments without making prior arrangements with the instructor will receive a grade of F/N.
+
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{>{\centering\arraybackslash}p{.5in}p{.5in}>{\centering\arraybackslash}p{.5in}p{.5in}>{\centering\arraybackslash}p{.5in}p{.5in}}
+\hline
+\rowcolor{tableheader}
+{\small \color{white}{Cutoff}} & {\small \color{white}{Grade}} & {\small \color{white}{Cutoff}} & {\small \color{white}{Grade}} & {\small \color{white}{Cutoff}} & {\small \color{white}{Grade}} \\
+\hline
+93\% & A & 83\% & B & 73\% & C \\
+\rowcolor{tablealtrow}
+90\% & A$-$ & 80\% & B$-$ & 70\% & C$-$ \\
+87\% & B$+$ & 77\% & C$+$ & 63\% & D \\
+\hline
+\end{tabular}
+\end{table}
+
+## Assignment Format and Submission
+
+Homework assignments are required to be completed using RMarkdown and submitted as a printed document (during class the day they are due). **Any assignment that is submitted via email without prior instructor approval will receive no credit.** If approval is granted to turn in an assignment via email the only acceptable format is a PDF file.
+
+Assignments will be handed back in class or during office hours. Uncollected labs and final projects will be retained for three weeks after the course and then discarded. Shortly after the course, you may access your grades on-line at http://www.onestop.edu.
+
+## Required Reading
+
+As part of the course, there are several articles, papers and technical reports that you will need to read during the semester. Most of the articles themselves are accessible through the University of Minnesota library website (http://www.lib.umn.edu). In order to access the full text of some of the articles, you will need to log in using your University x500 username and password. More detailed information, including references or links to specific readings, are given in the course calendar, or will be made available to students on the course website.
+
+## Discussion/Participation
+
+While not a part of the course grade, active participation in the course is expected of all students enrolled in EPsy 8252. Active participation includes, but is not limited to, being engaged during the class, asking questions, providing additional insight and material, responding to other students and the instructor, and always being open and inquisitive.
+
+\newpage
+
+\section{T/R Course Calendar}
+
+The calendar below lists the tentative dates of the course topics and assignments. These dates are subject to change at the instructor’s discretion. Readings will be posted on the course website, and should be done prior to class.
+
+
+\begin{table}[ht]
+\centering
+{
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{ | >{\centering\arraybackslash} p{.6in} | p{2.5in} | p{.1in} | >{\centering\arraybackslash} p{.6in} | p{2.5in} | }
+\hline
+\rowcolor{tableheader}
+{\small \color{white}{Date}} & {\small \color{white}{Topic}} &  & {\small \color{white}{Date}} & {\small \color{white}{Topic}} \\
+\hline
+Jan. 16 & Welcome to EPsy 8252 & \cellcolor{tableheader} & Mar. 13 & SPRING BREAK \\
+\hline
+Jan. 18 & Introduction to R Markdown & \cellcolor{tableheader} & Mar. 15 & SPRING BREAK \\
+\hline
+Jan. 23 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 20 & Mixed-effects models (longitudinal) \\
+\hline
+Jan. 25 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 22 & Mixed-effects models (longitudinal) \\
+\hline
+Jan. 30 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 27 & Mixed-effects models (longitudinal) \\
+\hline
+Feb. 01 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 29 & Mixed-effects models (cross-sectional) \\
+\hline
+Feb. 06 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 03 & Mixed-effects models (cross-sectional) \\
+\hline
+Feb. 08 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 05 & Mixed-effects models (cross-sectional) \\
+\hline
+Feb. 13 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 10 & Generalized linear models \\
+\hline
+Feb. 15 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 12 & Generalized linear models \\
+\hline
+Feb. 20 & Information criteria  & \cellcolor{tableheader} & Apr. 17 & Generalized linear models \\
+\hline
+Feb. 22 & Information criteria & \cellcolor{tableheader} & Apr. 19 & Generalized linear models \\
+\hline
+Feb. 27 & Information criteria & \cellcolor{tableheader} & Apr. 24 & Generalized linear models \\
+\hline
+Mar. 01 & Information criteria & \cellcolor{tableheader} & Apr. 26 & Generalized linear models \\
+\hline
+Mar. 06 & Introduction to mixed-effects models & \cellcolor{tableheader} & May 01 & Generalized linear models \\
+\hline
+Mar. 08 & Introduction to mixed-effects models & \cellcolor{tableheader} & May 03 & Generalized linear models \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+\section{Assignments}
+
+- Assignment \#1: Using R Markdown  (due Jan. 30)
+- Assignment \#2: Bootstrapping standard errors (due Feb. 08)
+- Assignment \#3: Probability models (due Feb. 22)
+- Assignment \#4: Evidence and model selection (due Mar. 08)
+- Assignment \#5: Introduction to mixed-effects models (due Mar. 22)
+- Assignment \#6: Mixed-effects models (longitudinal) (due Apr. 05)
+- Assignment \#7: Mixed-effects models (cross-sectional) (due Apr. 19)
+- Assignment \#8: Generalized linear models (due May 03)
+
+\newpage
+
+\section{M/W Course Calendar}
+
+The calendar below lists the tentative dates of the course topics and assignments. These dates are subject to change at the instructor’s discretion. Readings will be posted on the course website, and should be done prior to class.
+
+
+\begin{table}[ht]
+\centering
+{
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{ | >{\centering\arraybackslash} p{.6in} | p{2.5in} | p{.1in} | >{\centering\arraybackslash} p{.6in} | p{2.5in} | }
+\hline
+\rowcolor{tableheader}
+{\small \color{white}{Date}} & {\small \color{white}{Topic}} &  & {\small \color{white}{Date}} & {\small \color{white}{Topic}} \\
+\hline
+Jan. 17 & Welcome to EPsy 8252 & \cellcolor{tableheader} & Mar. 12 & SPRING BREAK \\
+\hline
+Jan. 22 & Introduction to R Markdown & \cellcolor{tableheader} & Mar. 14 & SPRING BREAK \\
+\hline
+Jan. 24 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 19 & Introduction to mixed-effects models \\
+\hline
+Jan. 29 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 21 & Mixed-effects models (longitudinal) \\
+\hline
+Jan. 31 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 26 & Mixed-effects models (longitudinal) \\
+\hline
+Feb. 05 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 28 & Mixed-effects models (longitudinal) \\
+\hline
+Feb. 07 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 02 & Mixed-effects models (cross-sectional) \\
+\hline
+Feb. 12 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 04 & Mixed-effects models (cross-sectional) \\
+\hline
+Feb. 14 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 09 & Mixed-effects models (cross-sectional) \\
+\hline
+Feb. 19 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 11 & Generalized linear models \\
+\hline
+Feb. 21 & Information criteria  & \cellcolor{tableheader} & Apr. 16 & Generalized linear models \\
+\hline
+Feb. 26 & Information criteria & \cellcolor{tableheader} & Apr. 18 & Generalized linear models \\
+\hline
+Feb. 28 & Information criteria & \cellcolor{tableheader} & Apr. 23 & Generalized linear models \\
+\hline
+Mar. 05 & Information criteria & \cellcolor{tableheader} & Apr. 25 & Generalized linear models \\
+\hline
+Mar. 07 & Introduction to mixed-effects models & \cellcolor{tableheader} & Apr. 30 & Generalized linear models \\
+\hline
+  &  & \cellcolor{tableheader} & May 02 & Generalized linear models \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+\section{Assignments}
+
+- Assignment \#1: Using R Markdown  (due Jan. 31)
+- Assignment \#2: Bootstrapping standard errors (due Feb. 12)
+- Assignment \#3: Probability models (due Feb. 26)
+- Assignment \#4: Evidence and model selection (due Mar. 19)
+- Assignment \#5: Introduction to mixed-effects models (due Mar. 26)
+- Assignment \#6: Mixed-effects models (longitudinal) (due Apr. 09)
+- Assignment \#7: Mixed-effects models (cross-sectional) (due Apr. 23)
+- Assignment \#8: Generalized linear models (due May 04; 12:00pm in EdSciB 250)
+
+\newpage
+
+\begin{figure}[H]
+\begin{minipage}[t]{.31\textwidth}
+\begin{mdframed}
+\section{Email}
+Email is the primary source of communication among instructors, teaching assistants, and students for this course. As such, you will be expected to check your email frequently (i.e., at least once per day). As per the University policy, "students are responsible for all information sent to them via their University assigned email account. If a student chooses to forward their University email account, he or she is responsible for all information, including attachments, sent to any other email account."
+\end{mdframed}
+\end{minipage}\hfill
+\begin{minipage}[t]{.66\textwidth}
+\begin{mdframed}
+\section{Course Technology Policy}
+The course uses technology on a regular basis during both instruction and assessments (e.g., homework assignments etc.). Student difficulty with obtaining or operating the various software programs and technologies---including printer trouble---will not be acceptable as an excuse for late work. Due to the variation in computer types and systems, the instructor or TA may not be able to assist in trouble shooting all problems you may have.
+\end{mdframed}
+
+\vspace{1em}
+
+\begin{mdframed}
+\section{Campus Computer Labs}
+The Office of Information Technology (OIT) manages numerous computer labs on the Twin Cities campus. Students from all colleges may drop in to use the computer labs during open hours. The OIT website (\url{http://www.oit.umn.edu/computer-labs/}) contains information pertaining to the location, hours, and software available for each of the computer labs.
+\end{mdframed}
+\end{minipage}
+\end{figure}
+
+\vspace{1em}
+
+\begin{minipage}[t]{\textwidth}
+\begin{mdframed}
+\section{Use of Personal Electronic Devices in the Classroom}
+Using personal electronic devices in the classroom setting can hinder instruction and learning, not only for the student using the device but also for other students in the class. To this end, the University establishes the right of each faculty member to determine if and how personal electronic devices are allowed to be used in the classroom. For complete information, please reference: http://policy.umn.edu/Policies/Education/Education/CLASSROOMPED.html
+\end{mdframed}
+\end{minipage}
+
+\vspace{1em}
+
+\begin{figure}[H]
+\begin{minipage}[t]{.54\textwidth}
+\begin{mdframed}
+\section{Statistical Computing and R}
+Statistical computing is an integral part of statistical work, and subsequently, EPsy 8252. To support your learning in this area, this course will emphasize the use of R. R is a free software environment for statistical computing and graphics. It compiles and runs on a wide variety of UNIX platforms, Windows and MacOS. The latest version of R can be obtained from the R Project for Statistical Computing at \url{http://www.r-project.org/}\\
+
+After navigating to the website click on "CRAN" under "Download, Packages" on the left-hand side of the welcome screen. You must choose a server in your country of origin, called a CRAN mirror. After doing so, select the appropriate operating system for your computer--Linux, MacOS, or Windows. For Linux and MacOS, follow the directions at the top of the download page. For Windows, download the base package and install it like any other executable file. On Windows machines you might need to have "administrator"" privileges to successfully install and use the program.
+\end{mdframed}
+\end{minipage}\hfill
+\begin{minipage}[t]{.44\textwidth}
+\begin{mdframed}
+\section{RStudio}
+RStudio is an integrated development environment (IDE) for R. A free application, RStudio combines an intuitive user interface with powerful coding tools to help you get the most out of R. It can be downloaded at \url{http://www.rstudio.org/}
+\end{mdframed}
+
+\vspace{1em}
+
+\begin{mdframed}
+\section{Microsoft Office}
+Microsoft Office 365 Pro Plus is available free of charge for University of Minnesota faculty, staff and students. Download and install the latest version of Microsoft Office from \url{https://it.umn.edu/microsoft-office-pro-plus-365-faculty-0}
+\end{mdframed}
+\end{minipage}
+\end{figure}
+
+\newpage
+
+\begin{minipage}[t]{\textwidth}
+\begin{mdframed}
+\section{Quantitative Methods in Education Mission Statement}
+The Quantitative Methods in Education (QME) track offers educational opportunities in both quantitative and qualitative methods with a broad array of introductory and advanced coursework. Students who choose QME as their track within educational psychology may specialize in any of four areas: measurement, evaluation, statistics, and statistics education. The goal of QME is to provide students with broad but rigorous methodological skills so that they may conduct research on methodologies, may help to train others in methodology, or will have the skills necessary to conduct research in related fields.
+\end{mdframed}
+\end{minipage}
+
+\vspace{1em}
+
+\begin{figure}[H]
+\begin{minipage}[t]{.49\textwidth}
+\begin{mdframed}
+\section{Department of Educational Psychology Mission Statement}
+Educational psychology involves the study of cognitive, emotional, and social learning processes that underlie education and human development across the lifespan. Research in educational psychology advances scientific knowledge of those processes and their application in diverse educational and community settings. The department provides training in the psychological foundations of education, research methods, and the practice and science of counseling psychology, school psychology, and special education. Faculty and students provide leadership and consultation to the state, the nation, and the international community in each area of educational psychology. The department's scholarship and teaching enhance professional practice in schools and universities, community mental health agencies, business and industrial organizations, early childhood programs, and government agencies. Adopted by the Department. of Educational Psychology faculty October 27, 2004
+\end{mdframed}
+\end{minipage}\hfill
+\begin{minipage}[t]{.49\textwidth}
+\begin{mdframed}
+\section{College of Education + Human Development Mission Statement}
+The new College of Education and Human Development is a world leader in discovering, creating, sharing, and applying principles and practices of multiculturalism and multidisciplinary scholarship to advance teaching and learning and to enhance the psychological, physical, and social development of children, youth, and adults across the lifespan in families, organizations, and communities.
+\end{mdframed}
+
+\vspace{1em}
+
+\includegraphics[width=2.18in,right]{/Users/zief0002/Pictures/UMN-Images/therapy-chicken.png}
+
+\end{minipage}
+\end{figure}
+
+\vspace{-2em}
+
+\begin{center}
+\begin{minipage}[t]{.75\textwidth}
+\begin{mdframed}
+\begin{figure}[H]
+\begin{minipage}[c]{3in}
+\section{Stress Management}
+Stress management is an important piece of the skill set needed for success in graduate school. Pet Away Worry \& Stress (PAWS) is one of the many resources available to students. Find out more at \url{http://www.bhs.umn.edu/services/wellness-paws.htm}.
+\end{minipage}\hfill
+\begin{minipage}[c]{1.6in}
+\includegraphics[]{/Users/zief0002/Pictures/UMN-Images/goldy-paws.png}
+\end{minipage}
+\end{figure}
+\end{mdframed}
+\end{minipage}
+\end{center}
+
+
+
+\begin{textblock}{3}(8.5,7.75)
+\begin{center}
+{\small Tilly the Therapy Chicken}\\
+{\small \url{@TherapyChicken}}
+\end{center}
+\end{textblock}
+
+\newpage
+
+\begin{footnotesize}
+
+\begin{multicols*}{3}
+[
+\section{University of Minnesota Policies and Procedures}
+]
+\subsubsection{Academic Freedom and Responsibility}
+Academic freedom is a cornerstone of the University. Within the scope and content of the course as defined by the instructor, it includes the freedom to discuss relevant matters in the classroom. Along with this freedom comes responsibility. Students are encouraged to develop the capacity for critical judgment and to engage in a sustained and independent search for truth. Students are free to take reasoned exception to the views offered in any course of study and to reserve judgment about matters of opinion, but they are responsible for learning the content of any course of study for which they are enrolled.$^{*}$ Reports of concerns about academic freedom are taken seriously, and there are individuals and offices available for help. Contact the instructor (Andrew Zieffler; \url{zief0002@umn.edu}), the Department Chair (Geoff Maruyama; \url{geoff@umn.edu}), your adviser, the associate dean of the college (Kenneth R. Bartlett; \url{bartlett@umn.edu}), or the Vice Provost for Faculty and Academic Affairs in the Office of the Provost (Arlene Carney; \url{carne005@umn.edu}).
+
+{\footnotesize *Language adapted from the American Association of University Professors "Joint Statement on Rights and Freedoms of Students".}
+
+\subsubsection{Disability Accommodations}
+The University of Minnesota views disability as an important aspect of diversity, and is committed to providing equitable access to learning opportunities for all students. The Disability Resource Center (DRC) is the campus office that collaborates with students who have disabilities to provide and/or arrange reasonable accommodations.
+
+- If you have, or think you have, a disability in any area such as, mental health, attention, learning, chronic health, sensory, or physical, please contact the DRC office on your campus (612.626.1333) to arrange a confidential discussion regarding equitable access and reasonable accommodations.
+- Students with short-term disabilities, such as a broken arm, can often work with instructors to minimize classroom barriers. In situations where additional assistance is needed, students should contact the DRC as noted above.
+- If you are registered with the DRC and have a disability accommodation letter dated for this semester or this year, please contact your instructor early in the semester to review how the accommodations will be applied in the course.
+- If you are registered with the DRC and have questions or concerns about your accommodations please contact your (access consultant/disability specialist).
+
+Additional information is available on the DRC website: \url{http://diversity.umn.edu/disability} or e-mail \url{drc@umn.edu} with questions.
+
+\subsubsection{Equity, Diversity, Equal Opportunity, and Affirmative Action}
+The University will provide equal access to and opportunity in its programs and facilities, without regard to race, color, creed, religion, national origin, gender, age, marital status, disability, public assistance status, veteran status, sexual orientation, gender identity, or gender expression. For more information, please consult Board of Regents Policy: \url{http://www1.umn.edu/regents/policies/administrative/Equity_Diversity_EO_AA.html}.
+
+\subsubsection{Makeup Work for Legitimate Absences}
+Students will not be penalized for absence during the semester due to unavoidable or legitimate circumstances. Such circumstances include verified illness, participation in intercollegiate athletic events, subpoenas, jury duty, military service, bereavement, and religious observances. Such circumstances do not include voting in local, state, or national elections. For complete information, please see: \url{http://policy.umn.edu/education/makeupwork}.
+
+\subsubsection{Mental Health and Stress Management}
+As a student you may experience a range of issues that can cause barriers to learning, such as strained relationships, increased anxiety, alcohol/drug problems, feeling down, difficulty concentrating and/or lack of motivation. These mental health concerns or stressful events may lead to diminished academic performance and may reduce your ability to participate in daily activities. University of Minnesota services are available to assist you. You can learn more about the broad range of confidential mental health services available on campus via the Student Mental Health Website: \url{http://www.mentalhealth.umn.edu}.
+
+\subsubsection{Respecting Intellectual Property}
+Students may not distribute instructor-provided notes or other course materials, except to other members of the same class or with the express (written) consent of the instructor. Instructors have the right to impose additional restrictions on course materials in accordance with copyright and intellectual property law and policy. Students may not engage in the widespread distribution or sale of transcript-like notes or notes that are close to verbatim records of a lecture or presentation. For additional information, please see: \url{http://policy.umn.edu/Policies/Education/Education/STUDENTRESP.html}.
+
+\subsubsection{Scholastic Dishonesty}
+You are expected to do your own academic work and cite sources as necessary. Failing to do so is scholastic dishonesty. Scholastic dishonesty means plagiarizing; cheating on assignments or examinations; engaging in unauthorized collaboration on academic work; taking, acquiring, or using test materials without faculty permission; submitting false or incomplete records of academic achievement; acting alone or in cooperation with another to falsify records or to obtain dishonestly grades, honors, awards, or professional endorsement; altering, forging, or misusing a University academic record; or fabricating or falsifying data, research procedures, or data analysis. (Student Conduct Code: \url{http://regents.umn.edu/sites/default/files/policies/Student_Conduct_Code.pdf}) If it is determined that a student has cheated, he or she may be given an "F" or an "N" for the course, and may face additional sanctions from the University. For additional information, please see: \url{http://policy.umn.edu/Policies/Education/Education/INSTRUCTORRESP.html}.
+
+The Office for Student Conduct and Academic Integrity has compiled a useful list of Frequently Asked Questions pertaining to scholastic dishonesty: \url{http://www1.umn.edu/oscai/integrity/student/index.html}. If you have additional questions, please clarify with your instructor for the course. Your instructor can respond to your specific questions regarding what would constitute scholastic dishonesty in the context of a particular class---e.g., whether collaboration on assignments is permitted, requirements and methods for citing sources, if electronic aids are permitted or prohibited during an exam.
+
+\subsubsection{Sexual Harassment}
+"Sexual harassment" means unwelcome sexual advances, requests for sexual favors, and/or other verbal or physical conduct of a sexual nature. Such conduct has the purpose or effect of unreasonably interfering with an individual's work or academic performance or creating an intimidating, hostile, or offensive working or academic environment in any University activity or program. Such behavior is not acceptable in the University setting. For additional information, please consult Board of Regents Policy: \url{http://www1.umn.edu/regents/policies/humanresources/SexHarassment.html}
+
+\subsubsection{Student Conduct Code}
+he University seeks an environment that promotes academic achievement and integrity, that is protective of free inquiry, and that serves the educational mission of the University. Similarly, the University seeks a community that is free from violence, threats, and intimidation; that is respectful of the rights, opportunities, and welfare of students, faculty, staff, and guests of the University; and that does not threaten the physical or mental health or safety of members of the University community.
+
+As a student at the University you are expected adhere to Board of Regents Policy: Student Conduct Code. To review the Student Conduct Code, please see: \url{http://regents.umn.edu/sites/default/files/policies/Student_Conduct_Code.pdf}. 
+
+Note that the conduct code specifically addresses disruptive classroom conduct, which means "engaging in behavior that substantially or repeatedly interrupts either the instructor's ability to teach or student learning. The classroom extends to any setting where a student is engaged in work toward academic credit or satisfaction of program-based requirements or related activities."
+
+\subsubsection{Senate Grading Policy}
+The University of Minnesota's grading policy is available online. For additional information, please refer to \url{http://policy.umn.edu/Policies/Education/Education/GRADINGTRANSCRIPTS.html}. The University utilizes plus and minus grading on a 4.000 cumulative grade point scale in accordance with the following:
+
+
+\begin{textblock}{5}(6.2,.7)
+\begin{table}
+\begin{tabular}{p{.4in}p{.5in}p{2.6in}}
+A & 4.000 & Represents achievement that is outstanding relative to the level necessary to meet course requirements \\
+A$-$ & 3.667 & \\
+B$+$ & 3.333 & \\
+B & 3.000 & Represents achievement that is significantly above the level necessary to meet course requirements \\
+B$-$ & 2.667 & \\
+C$+$ & 2.333 & \\
+C & 2.000 & Represents achievement that meets the course requirements in every respect \\
+C$-$ & 1.667 & \\
+D$+$ & 1.333 & \\
+D & 1.000 & Represents achievement that is worthy of credit even though it fails to meet fully the course requirements \\
+S &  & Represents achievement that is satisfactory, which is equivalent to a C$−$ or better \\
+F/N &  & Represents failure (or no credit) and signifies that the work was either (1) completed but at a level of achievement that is not worthy of credit or (2) was not completed and there was no agreement between the instructor and the student that the student would be awarded an I (see also I). \\
+I & Incomplete & Assigned at the discretion of the instructor when, due to extraordinary circumstances, e.g., hospitalization, a student is prevented from completing the work of the course on time. Requires a written agreement between instructor and student. \\
+\end{tabular}
+\end{table}
+\end{textblock}
+
+\end{multicols*}
+
+
+\end{footnotesize}

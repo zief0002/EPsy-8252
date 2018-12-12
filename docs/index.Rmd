@@ -1,49 +1,84 @@
----
-title: "EPsy 8252: Methods in Data Analysis for Educational Research II"
-subtitle: "Spring 2018"
+--- 
+title: "EPsy 8252 Notes"
 author: "Andrew Zieffler"
-output: html_document
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "These are the notes for EPsy 8252."
+new_session: yes
+before_chapter_script: ["setup-script.R"]
+bibliography: [epsy8251.bib, epsy8252.bib]
+csl: apa-single-spaced.csl
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+
+
+```{r eval=FALSE}
+install.packages("bookdown")
+# or the development version
+# devtools::install_github("rstudio/bookdown")
+
+options(max.print = "75")
+options(scipen = 5)
+options(digits = 4)
+
+opts_chunk$set(prompt = FALSE, comment = NA, message = FALSE, warning = FALSE, tidy = FALSE, fig.align = 'center')
+opts_knit$set(width = 85)
 ```
 
-<br />
 
-This is the website for the Spring 2018 sections of EPsy 8252. It includes many of the materials used in the course. The GitHub repository for the course is available at https://github.com/zief0002/epsy-8252.
+# Introduction to the Course {-}
 
-<br />
+Welcome to *EPsy 8252: Methods in Data Analysis for Educational Research II*. This is the second course of a two-semester sequence for students in education. The course content for EPsy 8252 includes: (1) likelihood estimation and inference, (2) information criteria for model selection, (3) mixed-effects/multi-level models for analysis of cross-sectional data, (4) mixed-effects/multi-level models for analysis of longitudinal data, and (5) logistic models for analyzing dichotomous outcomes. Time permitting, miscellaneous topics (e.g., design weights, empirical Bayes estimation, semi-parametric models) will also be introduced.
 
-## Instructor
+## Prerequisites {-}
 
-**Andrew Zieffler** ([zief0002@umn.edu](mailto://zief0002@umn.edu)) <br />
-Office: [Education Sciences Building 178](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />
-Office Hours: Tuesday 9:30 AM&ndash;10:30 AM; and by appointment
+Prerequisites include *EPsy 8251: Methods in Data Analysis for Educational Research I*, or a sound conceptual understanding of the topics of: 
 
-<br />
+- Foundational topics in data analysis;
+  + Design (e.g., random assignment and random sampling)
+  + Descriptive statistics and plots
+  + One- and two-sample tests
+- Correlation;
+- Simple regression analysis;
+  + Model-level and coefficient-level interpretation
+  + Ordinary least squares estimation
+  + Model-level and coefficient-level inference
+  + Assumption checking/residual analysis
+- Multiple linear regression
+  + Model-level and coefficient-level interpretation and inference
+  + Assumption checking/residual analysis
+  + Working with categorical predictors (including adjusting *p*-values for multiple tests)
+  + Interaction effects
 
-## Teaching Assistant
+For the topics listed, students would be expected to be able to carry out an appropriate data analysis and properly interpret the results. It is also assumed that everyone enrolled in the course has some familiarity with using R. Students not meeting these prerequisites are strongly advised to not enroll in EPsy 8252.
 
-**Kory Vue** ([vuexx199@umn.edu](mailto://vuexx199@umn.edu))  <br />
-Office: [Education Sciences Building 193](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />
-Office Hours: Thursdays 1:30 PM&ndash;2:30 PM; and by appointment
 
-<br />
+## Books and Other Reading Materials {-}
 
-## Classroom
+This website will serve as the primary set of course notes. In addition the following textbook is required:
 
-- Monday/Wednesday (9:45&ndash;11:00): [Peik Hall 215](http://campusmaps.umn.edu/peik-hall)
-- Tuesday/Thursday (11:15&ndash;12:30): [Elliott Hall N647](http://campusmaps.umn.edu/elliott-hall)
+- Fox, J. (2009). [A mathematical primer for social statistics.](http://dx.doi.org.ezp1.lib.umn.edu/10.4135/9781412983228) Thousand Oaks, CA: Sage.
 
-<br />
+There are also two optional textbooks:
 
-## Textbooks
+- Anderson, D. R. (2008). [Model based inference in the life sciences: A primer on evidence.](http://login.ezproxy.lib.umn.edu/login?url=http://link.springer.com/10.1007/978-0-387-74075-1) New York: Springer.
+- Dunteman, G. H., \& Ho, M.-H. R. (2006). [An introduction to generalized linear models.](http://login.ezproxy.lib.umn.edu/login?url=http://methods.sagepub.com/book/an-introduction-to-generalized-linear-models) Thousand Oaks, CA: Sage.
 
-All of the course textbooks (required and optional) are available via the University of Minnesota library.
 
-- [A mathematical primer for social statistics](http://dx.doi.org.ezp1.lib.umn.edu/10.4135/9781412983228) [required]
-- [Model based inference in the life sciences: A primer on evidence](http://login.ezproxy.lib.umn.edu/login?url=http://link.springer.com/10.1007/978-0-387-74075-1) [optional]
-- [An introduction to generalized linear models](http://login.ezproxy.lib.umn.edu/login?url=http://methods.sagepub.com/book/an-introduction-to-generalized-linear-models) [optional]
+## Assignments, Data Sets, Codebooks, and Scripts {-}
 
-<br />
+The assignments, datasets, and R script files for the course can be found on our accompanying github site:
+
+- https://github.com/zief0002/epsy-8252
+
+Directions for downloading these materials are found on that site.
+
+The data codebooks can be found in the appendix of this document: [Data Codebooks](#data-codebook)
+
+
+

@@ -1,0 +1,33 @@
+# Data Codebooks {#data-codebook}
+
+The data codebooks provide information about the attributes and source of each of the datasets used in the notes.
+
+## ed-schools.csv {#ed-schools}
+
+The data in *ed-schools.csv* come from @USNWR:2018 and contain 13 attributes collected from the $n=129$ graduate schools of education ranked in the *2018 Best Graduate Schools*. The attributes include:
+
+- `rank`: Rank
+- `school`: Graduate program of Education
+- `score`: Years of seniority
+- `peer`: Peer assessment score (5.0 = highest)
+- `expert_score`: Administrator/expert assessment score (5.0 = highest)
+- `gre_verbal`: Mean GRE verbal score in 2016
+- `gre_quant`: Mean GRE quantitative score in 2016
+- `doc_accept`: Acceptance rate for doctoral students in 2016
+- `student_faculty_ratio`: Ratio of doctoral students to faculty member in 2016
+- `phd_granted_per_faculty`: Doctorates granted per faculty member in 2015–16
+- `funded_research`: Funded research (in millions of dollars)
+- `funded_research_per_faculty`: Funded research per faculty member (in thousands of dollars)
+- `enroll`: Total graduate education enrollment in 2016
+
+
+## riverview.csv {#riverview}
+
+The data in *riverview.csv* come from @Lewis-Beck:2016 and contain five attributes collected from a random sample of $n=32$ employees working for the city of Riverview, a hyopothetical midwestern city. The attributes include:
+
+- `education`: Years of formal education
+- `income`: Annual income (in thousands of U.S. dollars)
+- `seniority`: Years of seniority
+- `gender`: Employee's gender
+- `male`: Dummy coded gender variable (0 = Female, 1 = Male)
+- `party`: Political party affiliation

@@ -31,7 +31,7 @@ graduates = grad %>%
     N = n() 
     ) %>% 
   mutate( 
-    Prop = N / sum (N) 
+    Prop = N / sum(N) 
     ) %>%
   filter(degree == 1) %>%
   ungroup() #Makes the resulting tibble regular
