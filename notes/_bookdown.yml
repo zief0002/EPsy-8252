@@ -1,6 +1,21 @@
-book_filename: "bookdown-demo"
+book_filename: "epsy-8252-notes"
 language:
+  label:
+    fig: 'Figure '
+    tab: 'Table '
+    eq: 'Equation '
+    thm: 'Theorem '
+    lem: 'Lemma '
+    cor: 'Corollary '
+    prp: 'Proposition '
+    cnj: 'Conjecture '
+    def: 'Definition '
+    exm: 'Example '
+    exr: 'Exercise '
+    proof: 'Proof. '
+    remark: 'Remark. '
+    solution: 'Solution. '
   ui:
-    chapter_name: "Unit "
+    chapter_name: !expr function(i) paste0('Unit ', i, ':')
 delete_merged_file: true
 output_dir: "../docs"

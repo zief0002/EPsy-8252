@@ -132,9 +132,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction to the Course</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-content"><i class="fa fa-check"></i>Course Content</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#books-and-other-reading-materials"><i class="fa fa-check"></i>Books and Other Reading Materials</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#assignments-data-sets-codebooks-and-scripts"><i class="fa fa-check"></i>Assignments, Data Sets, Codebooks, and Scripts</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="simple-descript.html"><a href="simple-descript.html"><i class="fa fa-check"></i><b>1</b> Simple Linear Regression—Description</a><ul>
 <li class="chapter" data-level="1.1" data-path="simple-descript.html"><a href="simple-descript.html#preparation"><i class="fa fa-check"></i><b>1.1</b> Preparation</a></li>
@@ -231,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To begin this exploration, we will examine the marginal distribution of employees’ incomes. We can plot a marginal distribution using the <code>sm.density()</code> function from the <strong>sm</strong> package.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">sm.density</span>(city<span class="op">$</span>income, <span class="dt">xlab =</span> <span class="st">&quot;Income&quot;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-3-1.png" alt="Density plot of employee incomes." width="50%" />
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-3-1.png" alt="Density plot of employee incomes." width="50%" />
 <p class="caption">
 Figure 1.1: Density plot of employee incomes.
 </p>
@@ -258,7 +258,7 @@ Figure 1.1: Density plot of employee incomes.
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># Plot</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">sm.density</span>(city<span class="op">$</span>education, <span class="dt">xlab =</span> <span class="st">&quot;Education Level&quot;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-5-1.png" alt="Density plot of employee education levels." width="50%" />
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-5-1.png" alt="Density plot of employee education levels." width="50%" />
 <p class="caption">
 Figure 1.2: Density plot of employee education levels.
 </p>
@@ -292,7 +292,7 @@ Figure 1.2: Density plot of employee education levels.
 <a class="sourceLine" id="cb10-4" data-line-number="4"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Education (in years)&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb10-5" data-line-number="5"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Income (in thousands of U.S. dollars)&quot;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-7"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-7-1.png" alt="Scatterplot displaying the relationship between employee education levels and incomes." width="50%" />
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-7-1.png" alt="Scatterplot displaying the relationship between employee education levels and incomes." width="50%" />
 <p class="caption">
 Figure 1.3: Scatterplot displaying the relationship between employee education levels and incomes.
 </p>
@@ -377,7 +377,7 @@ Y_i &amp;= \hat{Y}_i + \epsilon_i
 <h2><span class="header-section-number">1.5</span> Details about the Regression Model</h2>
 <p>One question you may have is, why is there an error term in the statistical model? We use a single line to describe the relationship between education and income. This line is the same for all of the observations in the sample. For example, look at the figure below which shows the relationship between education and income, but this time also includes the regression line.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-9"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-9-1.png" alt="Scatterplot displaying the relationship between employee education levels and incomes. The OLS fitted regression line is also displayed." width="50%" />
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-9-1.png" alt="Scatterplot displaying the relationship between employee education levels and incomes. The OLS fitted regression line is also displayed." width="50%" />
 <p class="caption">
 Figure 1.4: Scatterplot displaying the relationship between employee education levels and incomes. The OLS fitted regression line is also displayed.
 </p>
@@ -496,7 +496,7 @@ Coefficients:
 <p><span class="math inline">\(e_{1} = 4.93\)</span>.</p>
 <p>The positive residual suggests that this employee earns 4.93 thousand dollars more than would be expected for a city employee with eight years of formal education. We can also represent these values graphically.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-15"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-15-1.png" alt="Plot displaying the OLS fitted regression line (blue) between employee education levels and incomes. The first employee's observed data (black dot) is plotted, and a visual representation of the employee's residual (red line) is also displayed." width="50%" />
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-15-1.png" alt="Plot displaying the OLS fitted regression line (blue) between employee education levels and incomes. The first employee's observed data (black dot) is plotted, and a visual representation of the employee's residual (red line) is also displayed." width="50%" />
 <p class="caption">
 Figure 1.5: Plot displaying the OLS fitted regression line (blue) between employee education levels and incomes. The first employee’s observed data (black dot) is plotted, and a visual representation of the employee’s residual (red line) is also displayed.
 </p>
@@ -601,7 +601,7 @@ Y_i = \beta_0 + \beta_1(X_i) + \epsilon_i
 #   funded_research_per_faculty &lt;dbl&gt;, enroll &lt;int&gt;</code></pre>
 <p>To begin we examine the scatterplot of the relationship between the two variables. The plot below also shows the marginal distributions for the two variables. This plot was created with the <code>ggMarginal()</code> function from the <strong>ggExtra</strong> package. To learn more, see the <strong>ggExtra</strong> documentation at <a href="https://cran.r-project.org/web/packages/ggExtra/README.html" class="uri">https://cran.r-project.org/web/packages/ggExtra/README.html</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-20"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-20-1.png" alt="Scatterplot showing the relationship between doctoral acceptance rate and expert rating for 129 graduate programs of education. Plots of the marginal distributions for these distributions are also displayed." width="50%" />
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-20-1.png" alt="Scatterplot showing the relationship between doctoral acceptance rate and expert rating for 129 graduate programs of education. Plots of the marginal distributions for these distributions are also displayed." width="50%" />
 <p class="caption">
 Figure 1.9: Scatterplot showing the relationship between doctoral acceptance rate and expert rating for 129 graduate programs of education. Plots of the marginal distributions for these distributions are also displayed.
 </p>

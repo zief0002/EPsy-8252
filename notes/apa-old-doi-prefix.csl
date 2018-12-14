@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never">
   <info>
-    <title>American Psychological Association 6th edition (single-spaced bibliography)</title>
+    <title>American Psychological Association 6th edition ("doi:" DOI prefix)</title>
     <title-short>APA</title-short>
-    <id>http://www.zotero.org/styles/apa-single-spaced</id>
-    <link href="http://www.zotero.org/styles/apa-single-spaced" rel="self"/>
-    <link href="http://www.zotero.org/styles/apa" rel="template"/>
+    <id>http://www.zotero.org/styles/apa-old-doi-prefix</id>
+    <link href="http://www.zotero.org/styles/apa-old-doi-prefix" rel="self"/>
     <link href="http://owl.english.purdue.edu/owl/resource/560/01/" rel="documentation"/>
     <author>
       <name>Simon Kornblith</name>
@@ -32,7 +31,7 @@
     <category citation-format="author-date"/>
     <category field="psychology"/>
     <category field="generic-base"/>
-    <updated>2014-07-06T15:22:58+00:00</updated>
+    <updated>2018-07-08T02:01:21+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -159,7 +158,7 @@
       <if type="thesis report" match="any">
         <choose>
           <if variable="DOI" match="any">
-            <text variable="DOI" prefix="https://doi.org/"/>
+            <text variable="DOI" prefix="doi:/"/>
           </if>
           <else-if variable="URL" match="any">
             <group>
@@ -181,7 +180,7 @@
       <else>
         <choose>
           <if variable="DOI">
-            <text variable="DOI" prefix="https://doi.org/"/>
+            <text variable="DOI" prefix="doi:"/>
           </if>
           <else>
             <choose>
@@ -724,7 +723,7 @@
       </group>
     </layout>
   </citation>
-  <bibliography hanging-indent="true" et-al-min="8" et-al-use-first="6" et-al-use-last="true" entry-spacing="0">
+  <bibliography hanging-indent="true" et-al-min="8" et-al-use-first="6" et-al-use-last="true" entry-spacing="0" line-spacing="2">
     <sort>
       <key macro="author"/>
       <key macro="issued-sort" sort="ascending"/>

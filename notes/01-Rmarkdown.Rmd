@@ -1,0 +1,81 @@
+# R Markdown {#rmarkdown}
+
+```{r echo=FALSE, message=FALSE}
+options(max.print = "75")
+options(scipen = 5)
+options(digits = 4)
+
+library(knitr)
+opts_chunk$set(prompt = FALSE, comment = NA, message = FALSE, warning = FALSE, tidy = FALSE, fig.align = 'center')
+opts_knit$set(width = 85)
+```
+
+
+
+In this set of notes, you will learn how to integrate R syntax directly into your word-processed documents to create more reproducible reports. 
+
+---
+
+### Preparation {-}
+
+Before class you will need to do the following:
+
+- Download the [sample BibTeX file](https://github.com/zief0002/epsy-8252/raw/master/notes/s19-notes/s19-01-r-markdown/myBibliography.bib)
+- Download the CSL style file for the [American Psychological Association 6th edition (single-spaced bibliography)](https://www.zotero.org/styles) from Zotero's repository.
+- Install the R package **tinytex**
+
+<br />
+
+---
+
+
+
+## Notes {-}
+
+The notes and files you will need can be found at:
+
+- [Unit 01: R Markdown](https://github.com/zief0002/epsy-8252/raw/master/notes/s19-notes/s19-01-r-markdown/01-r-markdown.pdf) [Class Notes]
+
+
+```{r}
+knitr::include_url("http://www.datadreaming.org/files/01-introduction-to-r.html#1")
+```
+
+
+## Other Resources {-}
+
+In addition to the notes and what we cover in class, there many other resources for learning about R Markdown. Here are some resources that may be helpful in that endeavor:
+
+- [R Markdown documentation:](http://rmarkdown.rstudio.com/) Official R Markdown documentation from RStudio
+- [R Markdown cheatsheet:](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) What it sounds like; a cheatsheet for R Markdown
+- [knitr:](http://yihui.name/knitr/) Document and code chunk options for R Markdown
+- [R Markdown Gallery:](https://rmarkdown.rstudio.com/gallery.html) - Gallery of some R Markdown outputs
+- [Pimp my Rmd:](https://holtzy.github.io/Pimp-my-rmd/) Blog post providing a few tips to improve the appearance of output documents.
+
+
+<br />
+
+For **typesetting equations** using R Markdown, check out: 
+
+- [Using LaTeX to write mathematical content](https://en.wikibooks.org/wiki/LaTeX/Mathematics)
+
+
+<br />
+
+For integrating **references** into R Markdown, here are a few resources:
+
+- [Zotero CSL style repository](https://www.zotero.org/styles)
+- [Export a BibTeX file from Mendeley](http://blog.mendeley.com/2012/03/24/how-to-series-generate-bibtex-files-for-your-collections-for-use-in-latex-part-3-of-12/)
+- [Export a BibTeX file from Zotero](http://libguides.mit.edu/c.php?g=176000&p=1159208#3)
+
+
+<br />
+
+Finally, here are some references for using reveal.js and remark.js to create sweet-looking **presentations**:
+
+- [Reveal.js presentations](http://rmarkdown.rstudio.com/revealjs_presentation_format.html)
+- [Customizing Reveal.js presentations](https://logfc.wordpress.com/2015/06/24/presentations-in-rmarkdown/)
+- [xaringan](https://github.com/yihui/xaringan)
+
+
+

@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="methods.html">
-<link rel="next" href="final-words.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="literature.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -173,17 +173,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="applications" class="section level1">
-<h1><span class="header-section-number">Unit 4:</span> Applications</h1>
-<p>Some <em>significant</em> applications are demonstrated in this chapter.</p>
-<div id="example-one" class="section level2">
-<h2><span class="header-section-number">4.1</span> Example one</h2>
+<div id="rmarkdown" class="section level1">
+<h1><span class="header-section-number">Unit 1:</span> R Markdown</h1>
+<p>In this set of notes, you will learn how to integrate R syntax directly into your word-processed documents to create more reproducible reports.</p>
+<hr />
+<div id="preparation" class="section level3 unnumbered">
+<h3>Preparation</h3>
+<p>Before class you will need to do the following:</p>
+<ul>
+<li>Download the <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/s19-notes/s19-01-r-markdown/myBibliography.bib">sample BibTeX file</a></li>
+<li>Download the CSL style file for the <a href="https://www.zotero.org/styles">American Psychological Association 6th edition (single-spaced bibliography)</a> from Zotero’s repository.</li>
+<li>Install the R package <strong>tinytex</strong></li>
+</ul>
+<p><br /></p>
+<hr />
 </div>
-<div id="example-two" class="section level2">
-<h2><span class="header-section-number">4.2</span> Example two</h2>
-<h2>
-Just Checking
-</h2>
+<div id="notes" class="section level2 unnumbered">
+<h2>Notes</h2>
+<p>The notes and files you will need can be found at:</p>
+<ul>
+<li><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/s19-notes/s19-01-r-markdown/01-r-markdown.pdf">Unit 01: R Markdown</a> [Class Notes]</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">include_url</span>(<span class="st">&quot;http://www.datadreaming.org/files/01-introduction-to-r.html#1&quot;</span>)</a></code></pre></div>
+<iframe src="http://www.datadreaming.org/files/01-introduction-to-r.html#1" width="672" height="400px">
+</iframe>
+</div>
+<div id="other-resources" class="section level2 unnumbered">
+<h2>Other Resources</h2>
+<p>In addition to the notes and what we cover in class, there many other resources for learning about R Markdown. Here are some resources that may be helpful in that endeavor:</p>
+<ul>
+<li><a href="http://rmarkdown.rstudio.com/">R Markdown documentation:</a> Official R Markdown documentation from RStudio</li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">R Markdown cheatsheet:</a> What it sounds like; a cheatsheet for R Markdown</li>
+<li><a href="http://yihui.name/knitr/">knitr:</a> Document and code chunk options for R Markdown</li>
+<li><a href="https://rmarkdown.rstudio.com/gallery.html">R Markdown Gallery:</a> - Gallery of some R Markdown outputs</li>
+<li><a href="https://holtzy.github.io/Pimp-my-rmd/">Pimp my Rmd:</a> Blog post providing a few tips to improve the appearance of output documents.</li>
+</ul>
+<p><br /></p>
+<p>For <strong>typesetting equations</strong> using R Markdown, check out:</p>
+<ul>
+<li><a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">Using LaTeX to write mathematical content</a></li>
+</ul>
+<p><br /></p>
+<p>For integrating <strong>references</strong> into R Markdown, here are a few resources:</p>
+<ul>
+<li><a href="https://www.zotero.org/styles">Zotero CSL style repository</a></li>
+<li><a href="http://blog.mendeley.com/2012/03/24/how-to-series-generate-bibtex-files-for-your-collections-for-use-in-latex-part-3-of-12/">Export a BibTeX file from Mendeley</a></li>
+<li><a href="http://libguides.mit.edu/c.php?g=176000&amp;p=1159208#3">Export a BibTeX file from Zotero</a></li>
+</ul>
+<p><br /></p>
+<p>Finally, here are some references for using reveal.js and remark.js to create sweet-looking <strong>presentations</strong>:</p>
+<ul>
+<li><a href="http://rmarkdown.rstudio.com/revealjs_presentation_format.html">Reveal.js presentations</a></li>
+<li><a href="https://logfc.wordpress.com/2015/06/24/presentations-in-rmarkdown/">Customizing Reveal.js presentations</a></li>
+<li><a href="https://github.com/yihui/xaringan">xaringan</a></li>
+</ul>
 
 </div>
 </div>
@@ -192,8 +235,8 @@ Just Checking
           </div>
         </div>
       </div>
-<a href="methods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="literature.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

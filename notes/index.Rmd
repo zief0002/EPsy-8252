@@ -9,7 +9,6 @@ link-citations: yes
 github-repo: rstudio/bookdown-demo
 description: "These are the notes for EPsy 8252."
 new_session: yes
-before_chapter_script: ["setup-script.R"]
 bibliography: [epsy8251.bib, epsy8252.bib]
 csl: apa-single-spaced.csl
 ---
@@ -33,7 +32,32 @@ opts_knit$set(width = 85)
 
 # Introduction to the Course {-}
 
-Welcome to *EPsy 8252: Methods in Data Analysis for Educational Research II*. This is the second course of a two-semester sequence for students in education. The course content for EPsy 8252 includes: (1) likelihood estimation and inference, (2) information criteria for model selection, (3) mixed-effects/multi-level models for analysis of cross-sectional data, (4) mixed-effects/multi-level models for analysis of longitudinal data, and (5) logistic models for analyzing dichotomous outcomes. Time permitting, miscellaneous topics (e.g., design weights, empirical Bayes estimation, semi-parametric models) will also be introduced.
+Welcome to *EPsy 8252: Methods in Data Analysis for Educational Research II*. This is the second course of a two-semester sequence for students in education. Materials for the course can be found:
+
+- [Syllabus](https://github.com/zief0002/epsy-8252/raw/master/syllabus/s19-8252-syllabus.pdf)
+- [Assignments, Data, and Script Files](https://github.com/zief0002/epsy-8252)
+- [Data Codebooks](#data-codebook)
+
+
+## Course Content {-}
+
+The statistical content for EPsy 8252 includes: (1) likelihood estimation and inference, (2) information criteria for model selection, (3) mixed-effects/multi-level models for analysis of cross-sectional data, (4) mixed-effects/multi-level models for analysis of longitudinal data, and (5) logistic models for analyzing dichotomous outcomes. 
+
+Time permitting, miscellaneous topics (e.g., design weights, empirical Bayes estimation, semi-parametric models) will also be introduced.
+
+
+## Books and Other Reading Materials {-}
+
+This website will serve as the primary set of course notes. In addition, the following textbook is required:
+
+- Fox, J. (2009). [A mathematical primer for social statistics.](http://dx.doi.org.ezp1.lib.umn.edu/10.4135/9781412983228) Thousand Oaks, CA: Sage.
+
+There are also two optional textbooks:
+
+- Anderson, D. R. (2008). [Model based inference in the life sciences: A primer on evidence.](http://login.ezproxy.lib.umn.edu/login?url=http://link.springer.com/10.1007/978-0-387-74075-1) New York: Springer.
+- Dunteman, G. H., \& Ho, M.-H. R. (2006). [An introduction to generalized linear models.](http://login.ezproxy.lib.umn.edu/login?url=http://methods.sagepub.com/book/an-introduction-to-generalized-linear-models) Thousand Oaks, CA: Sage.
+
+
 
 ## Prerequisites {-}
 
@@ -55,30 +79,10 @@ Prerequisites include *EPsy 8251: Methods in Data Analysis for Educational Resea
   + Working with categorical predictors (including adjusting *p*-values for multiple tests)
   + Interaction effects
 
-For the topics listed, students would be expected to be able to carry out an appropriate data analysis and properly interpret the results. It is also assumed that everyone enrolled in the course has some familiarity with using R. Students not meeting these prerequisites are strongly advised to not enroll in EPsy 8252.
+For the topics listed, students would be expected to be able to carry out an appropriate data analysis and properly interpret the results. It is also assumed that everyone enrolled in the course has some familiarity with using R. If you need a refresher on any of these topics, see the [EPsy 8251 course notes](https://zief0002.github.io/epsy-8251/).
 
 
-## Books and Other Reading Materials {-}
 
-This website will serve as the primary set of course notes. In addition the following textbook is required:
-
-- Fox, J. (2009). [A mathematical primer for social statistics.](http://dx.doi.org.ezp1.lib.umn.edu/10.4135/9781412983228) Thousand Oaks, CA: Sage.
-
-There are also two optional textbooks:
-
-- Anderson, D. R. (2008). [Model based inference in the life sciences: A primer on evidence.](http://login.ezproxy.lib.umn.edu/login?url=http://link.springer.com/10.1007/978-0-387-74075-1) New York: Springer.
-- Dunteman, G. H., \& Ho, M.-H. R. (2006). [An introduction to generalized linear models.](http://login.ezproxy.lib.umn.edu/login?url=http://methods.sagepub.com/book/an-introduction-to-generalized-linear-models) Thousand Oaks, CA: Sage.
-
-
-## Assignments, Data Sets, Codebooks, and Scripts {-}
-
-The assignments, datasets, and R script files for the course can be found on our accompanying github site:
-
-- https://github.com/zief0002/epsy-8252
-
-Directions for downloading these materials are found on that site.
-
-The data codebooks can be found in the appendix of this document: [Data Codebooks](#data-codebook)
 
 
 
