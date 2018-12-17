@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Introduction to RMarkdown</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Andrew Zieffler" />
+    <meta name="date" content="2018-12-15" />
+    <link href="css/remark-css/default.css" rel="stylesheet" />
+    <link href="css/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="css/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/extra.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introduction to RMarkdown
+## EPsy 8252
+### Andrew Zieffler
+### 2018-12-15
+
+---
+
+
+
+
+
+# Markup and Markdown
+
+.pull-left[
+## Markup
+
+A markup language is a system for including both text and software instructions for interpreting/displaying that text in the same document. The markup instructs the software to carry out appropriate actions, but is omitted from the version of the text that users see.
+
+One of the most common markup languages is **Hypertext Markup Language** (HTML)&amp;mdash;the language that powers the web. In HTML, the markup describes the formatting of the text displayed on a webpage. 
+]
+
+.pull-right[
+## Markdown
+
+Markdown is a more human-readable system for using markup language. It is designed so that it can be converted to HTML and many other formats. 
+
+![](images/notes-01-markdown.png )
+
+]
+
+
+
+---
+
+# Markup and Markdown Syntax
+
+.pull-left[
+## Markup
+
+```
+&lt;h1&gt; Heading &lt;/h1&gt;
+&lt;h2&gt; Sub-heading &lt;/h2&gt;
+
+
+&lt;p&gt; Paragraph &lt;/p&gt;
+
+
+&lt;b&gt; Bold text &lt;/b&gt;
+&lt;i&gt; Italic text &lt;/i&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt; First list item &lt;/li&gt;
+  &lt;li&gt; Second list item &lt;/li&gt;
+  &lt;li&gt; Third list item &lt;/li&gt;
+&lt;/ul&gt;  
+```
+
+]
+
+.pull-right[
+## Markdown
+
+```
+# Heading
+## Sub-heading
+
+Paragraphs are just written
+
+__bold text__
+_italic text_
+
+
+- First list item
+- Second list item
+- Third list item
+```
+]
+
+
+---
+
+# Create a New Markdown Document
+
+.pull-left[
+
+&lt;br /&gt;
+
+- Under the `File` menu,
+- Select `New File &gt; R Markdown...` 
+
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+
+- Select `Document`
+- Choose the `HTML` format
+- Put your name in as `Author:`
+- Click `OK`
+]
+
+.pull-right[
+
+![](images/notes-01-create-01.png )
+
+![](images/notes-01-create-02.png )
+
+]
+
+---
+
+![](images/notes-01-blank-document.png )
+
+This will open a document that has some pre-included text and is formatted using R Markdown. 
+
+Save this document (`File &gt; Save`) on your computer. Then click the `Knit` button.
+
+---
+
+.pull-left[
+
+Knitting compiles the document and formats it according to the markdown you included (or that was pre-included for you).
+
+![](images/notes-01-knitted-document.png )
+]
+
+.pull-right[
+
+The actual file you saved has the `.Rmd` extension. The compiled, formatted document has the extension `.html`. 
+
+![](images/notes-01-markdown-files.png )
+
+The HTML file can be opened in any browser. **Examine the HTML document in your bowser.**
+
+]
+
+---
+
+# Anatomy of an R Markdown Document
+
+.pull-left[
+
+There are two major parts to your RMD document.
+
+The first part is called YAML (YAML Ain't Markup Language) and is between the two sets of three hyphens. This constitutes meta-data for your document.
+
+The second part is the main text and markdown formatting for your document.
+]
+
+.pull-right[
+
+![](images/notes-01-yaml.png )
+
+]
+
+---
+
+# YAML: Changing the Meta-Data
+
+YAML is a human-friendly standard for describing the structure of data and embedded this structure within the data being described. 
+
+```
+---
+title: "Hello World"
+author: "Andrew Zieffler"
+date: "January 12, 2019"
+output: html_document
+---
+```
+
+
+- Change the title of your document and re-knit.
+
+---
+
+# Table of Contents
+
+Adding to the document's metadata allows document formatting. For example, we can add a table of contents to our document.
+
+```
+---
+title: "Hello World"
+author: "Andrew Zieffler"
+date: "January 12, 2019"
+output:
+  html_document:
+    toc: true
+---
+```
+
+Correctly structured YAML needs to be indented **exactly two spaces**.
+
+---
+
+# More Formatting
+
+
+
+```
+---
+title: "Hello World"
+author: "Andrew Zieffler"
+date: "January 12, 2019"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    theme: united
+    highlight: tango
+---
+```
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
