@@ -1,8 +1,8 @@
-# Data Codebooks {#data-codebook}
+# Data Codebooks {-#data-codebook}
 
 The data codebooks provide information about the attributes and source of each of the datasets used in the notes.
 
-## ed-schools.csv {#ed-schools}
+## ed-schools.csv {-#ed-schools}
 
 The data in *ed-schools.csv* come from @USNWR:2018 and contain 13 attributes collected from the $n=129$ graduate schools of education ranked in the *2018 Best Graduate Schools*. The attributes include:
 
@@ -20,8 +20,19 @@ The data in *ed-schools.csv* come from @USNWR:2018 and contain 13 attributes col
 - `funded_research_per_faculty`: Funded research per faculty member (in thousands of dollars)
 - `enroll`: Total graduate education enrollment in 2016
 
+## mn-schools.csv {-#mn-schools}
 
-## riverview.csv {#riverview}
+The data in *mnSchools.csv* were collected from [http://www.collegeresults.org](http://www.collegeresults.org) and contain 2011 institutional data for $n=33$ Minnesota colleges and universities. The attributes include:
+
+- `name`: College/university name
+- `grad`: Six-year graduation rate, as a percentage
+- `public`: Sector (1 = public college/university, 0 = private college/university)
+- `sat`: Estimated median composite SAT score (in hundreds)
+- `tuition`: Amount of tuition and required fees covering a full academic year for a typical student, in thousands of U.S. dollars
+
+
+
+## riverview.csv {-#riverview}
 
 The data in *riverview.csv* come from @Lewis-Beck:2016 and contain five attributes collected from a random sample of $n=32$ employees working for the city of Riverview, a hyopothetical midwestern city. The attributes include:
 

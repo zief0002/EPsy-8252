@@ -3,7 +3,9 @@ title: "EPsy 8252 Notes"
 author: "Andrew Zieffler"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output: 
+  bookdown::gitbook:
+    df_print: paged
 documentclass: book
 link-citations: yes
 github-repo: rstudio/bookdown-demo
@@ -24,6 +26,7 @@ install.packages("bookdown")
 options(max.print = "75")
 options(scipen = 5)
 options(digits = 4)
+options("yaml.eval.expr" = TRUE)
 
 opts_chunk$set(prompt = FALSE, comment = NA, message = FALSE, warning = FALSE, tidy = FALSE, fig.align = 'center')
 opts_knit$set(width = 85)
