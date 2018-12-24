@@ -31,6 +31,15 @@ The data in *mnSchools.csv* were collected from [http://www.collegeresults.org](
 - `tuition`: Amount of tuition and required fees covering a full academic year for a typical student, in thousands of U.S. dollars
 
 
+## movies.csv {-#movies}
+
+The data in *movies.csv* includes attributes for $n=1,806$ movies. These data are a subset of data from the `movies` data object included in the **ggplot2movies** package. The original data contains information on 24 variables collected from 28,819 movies. The attributes include:
+
+- `title`: Movie's title
+- `budget`: Movie's budget (in millions of U.S. dollars)
+- `age`: Age of the movie; Computed by subtracting the movie's release date from 2019
+- `mpaa`: MPAA rating (PG, PG-13, R)
+
 
 ## riverview.csv {-#riverview}
 
