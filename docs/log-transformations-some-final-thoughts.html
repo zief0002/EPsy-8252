@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>EPsy 8252 Notes</title>
+  <title>Log Transformations: Some Final Thoughts | EPsy 8252 Notes</title>
   <meta name="description" content="These are the notes for EPsy 8252.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="EPsy 8252 Notes" />
+  <meta property="og:title" content="Log Transformations: Some Final Thoughts | EPsy 8252 Notes />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="EPsy 8252 Notes" />
+  <meta name="twitter:title" content="Log Transformations: Some Final Thoughts | EPsy 8252 Notes />
   
   <meta name="twitter:description" content="These are the notes for EPsy 8252." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="rmarkdown.html">
+<link rel="prev" href="nonlinearity-log-transforming-the-outcome.html">
+<link rel="next" href="probability-distributions.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -218,58 +218,107 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">EPsy 8252 Notes</h1>
-<p class="author"><em>Andrew Zieffler</em></p>
-<p class="date"><em>2018-12-28</em></p>
+<div id="log-transformations-some-final-thoughts" class="section level1 unnumbered">
+<h1>Log Transformations: Some Final Thoughts</h1>
+<p>There are four general curvilinear, monotonic functions (shown below).</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-60"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-60-1.png" alt="Four general monotonic, curvilinear shapes." width="80%" />
+<p class="caption">
+Figure 3.8: Four general monotonic, curvilinear shapes.
+</p>
 </div>
-<div id="introduction-to-the-course" class="section level1 unnumbered">
-<h1>Introduction to the Course</h1>
-<p>Welcome to <em>EPsy 8252: Methods in Data Analysis for Educational Research II</em>. This is the second course of a two-semester sequence for students in education. Materials for the course can be found:</p>
+<p>In the previous two units you learned how to transform the data to “linearize” two of the four monotonic functions:</p>
 <ul>
-<li><a href="https://github.com/zief0002/epsy-8252/raw/master/syllabus/s19-8252-syllabus.pdf">Syllabus</a></li>
-<li><a href="https://github.com/zief0002/epsy-8252">Assignments, Data, and Script Files</a></li>
-<li><a href="data-codebook.html#data-codebook">Data Codebooks</a></li>
+<li>For positive, decelerating functions we log-transformed <em>X</em>; and</li>
+<li>For positive, accelerating functions we log-transformed <em>Y</em>.</li>
 </ul>
-<div id="course-content" class="section level2 unnumbered">
-<h2>Course Content</h2>
-<p>The statistical content for EPsy 8252 includes: (1) likelihood estimation and inference, (2) information criteria for model selection, (3) mixed-effects/multi-level models for analysis of cross-sectional data, (4) mixed-effects/multi-level models for analysis of longitudinal data, and (5) logistic models for analyzing dichotomous outcomes.</p>
-<p>Time permitting, miscellaneous topics (e.g., design weights, empirical Bayes estimation, semi-parametric models) will also be introduced.</p>
+<p>To better understand how we can use transformations to straighten-out relationships, we will examine a set of transformations known as <strong>power transformations</strong>.</p>
+<div id="power-transformations" class="section level2 unnumbered">
+<h2>Power Transformations</h2>
+<p>Consider a set of powers, <span class="math inline">\(p\)</span> that can be used in the exponent of a variable <span class="math inline">\(X\)</span> (the variable is irrelevant; it could also be <span class="math inline">\(Y\)</span>) so that a transfortmation of the variable <span class="math inline">\(X\)</span> is:</p>
+<p><span class="math display">\[
+\mathrm{Transformed~Variable} = X^p
+\]</span></p>
+<p>Consider the following values for <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[
+p = \{-3,-2,-1,0,1,2,3\}
+\]</span></p>
+<p>These all represent particular transformations of <span class="math inline">\(X\)</span>. Note that when <span class="math inline">\(p=1\)</span>, the variable <span class="math inline">\(X\)</span> is left untransformed (<span class="math inline">\(X^1 = X\)</span>). Consider the following transformations:</p>
+<p><span class="math display">\[
+\begin{split}
+&amp;X^3 \\
+&amp;X^2 \\
+&amp;X^1 \qquad \mathrm{Untransformed}
+\end{split}
+\]</span></p>
+<p>These are shown in the figure below.</p>
+<p><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-61-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p>Power transformations that are bigger than 1 (<span class="math inline">\(p&gt;1\)</span>) show positive acceleration. Powers larger than one are referred to as <em>upward</em> transformations as they increase the power (move it up) from one.</p>
+<p>Now consider these transformations:</p>
+<p><span class="math display">\[
+\begin{split}
+&amp;X^{-1} \\
+&amp;X^{-2} \\
+&amp;X^{-3}
+\end{split}
+\]</span></p>
+<p>These are shown in the figure below.</p>
+<p><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-62-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p>For power transformations that are smaller than 1 (<span class="math inline">\(p&lt;1\)</span>), the function shows positive deceleration. Powers that are smaller than one are referred to as <em>downward</em> transformations as they decrease the power (move it down) from one.</p>
+<div id="ladder-of-transformations" class="section level3 unnumbered">
+<h3>Ladder of Transformations</h3>
+<p>If we order the different values of <span class="math inline">\(p\)</span>, they form what statisticians call a “ladder of re-expression” or “ladder of transformations”.</p>
+<p><span class="math display">\[
+\begin{split}
+&amp; ~~~~~\vdots \\
+&amp;Y^3,X^3 &amp;\qquad \mathrm{Upward~Transformation}\\
+&amp;Y^2,X^2 &amp;\qquad \mathrm{Upward~Transformation}\\
+&amp;Y^1,X^1  &amp;\qquad \mathrm{Untransformed} \\
+&amp;Y^{\frac{1}{2}},X^{\frac{1}{2}} &amp;\qquad \mathrm{Downward~Transformation}\\
+&amp;Y^0,X^0 \equiv \ln(X) &amp;\qquad \mathrm{Downward~Transformation}\\
+&amp;Y^{-1},X^{-1} &amp;\qquad \mathrm{Downward~Transformation}\\
+&amp;Y^{-2},X^{-2} &amp;\qquad \mathrm{Downward~Transformation}\\
+&amp;Y^{-3},X^{-3} &amp;\qquad \mathrm{Downward~Transformation} \\
+&amp; ~~~~~\vdots
+\end{split}
+\]</span></p>
 </div>
-<div id="books-and-other-reading-materials" class="section level2 unnumbered">
-<h2>Books and Other Reading Materials</h2>
-<p>This website will serve as the primary set of course notes. In addition, the following textbook is required:</p>
-<ul>
-<li>Fox, J. (2009). <a href="http://dx.doi.org.ezp1.lib.umn.edu/10.4135/9781412983228">A mathematical primer for social statistics.</a> Thousand Oaks, CA: Sage.</li>
-</ul>
-<p>There are also two optional textbooks:</p>
-<ul>
-<li>Anderson, D. R. (2008). <a href="http://login.ezproxy.lib.umn.edu/login?url=http://link.springer.com/10.1007/978-0-387-74075-1">Model based inference in the life sciences: A primer on evidence.</a> New York: Springer.</li>
-<li>Dunteman, G. H., &amp; Ho, M.-H. R. (2006). <a href="http://login.ezproxy.lib.umn.edu/login?url=http://methods.sagepub.com/book/an-introduction-to-generalized-linear-models">An introduction to generalized linear models.</a> Thousand Oaks, CA: Sage.</li>
-</ul>
+<div id="rule-of-the-bulge" class="section level3 unnumbered">
+<h3>Rule of the Bulge</h3>
+<p>To determine how we need to transform data, we can rely on Mosteller and Tukey’s ‘Rule of the Bulge’. This rule, depicted visually below, has us “move on the ladder in the direction in which the bulge points”.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-63"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-63-1.png" alt="Four general monotonic, curvilinear shapes. The Rule of the Bulge helps us identify how to transform the data to linearize any of these four shapes." width="80%" />
+<p class="caption">
+Figure 3.9: Four general monotonic, curvilinear shapes. The Rule of the Bulge helps us identify how to transform the data to linearize any of these four shapes.
+</p>
 </div>
-<div id="prerequisites" class="section level2 unnumbered">
-<h2>Prerequisites</h2>
-<p>Prerequisites include <em>EPsy 8251: Methods in Data Analysis for Educational Research I</em>, or a sound conceptual understanding of the topics of:</p>
+<p>For example, below we re-vist the <code>mn-schools.csv</code> data and again look at the relationship between median SAT score and six-year graduation rate.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-64"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-64-1.png" alt="Scatterplot of the relationship between median SAT score and six-year graduation rate. The loess smoother is also displayed." width="50%" />
+<p class="caption">
+Figure 3.10: Scatterplot of the relationship between median SAT score and six-year graduation rate. The loess smoother is also displayed.
+</p>
+</div>
+<p>This positive, decelerating relationship is similar to the one in the upper-lefthand quadrant of the ‘Rule of the Bulge’. To linearize this we can either:</p>
 <ul>
-<li>Foundational topics in data analysis;</li>
-<li>Design (e.g., random assignment and random sampling)</li>
-<li>Descriptive statistics and plots</li>
-<li>One- and two-sample tests</li>
-<li>Correlation;</li>
-<li>Simple regression analysis;</li>
-<li>Model-level and coefficient-level interpretation</li>
-<li>Ordinary least squares estimation</li>
-<li>Model-level and coefficient-level inference</li>
-<li>Assumption checking/residual analysis</li>
-<li>Multiple linear regression</li>
-<li>Model-level and coefficient-level interpretation and inference</li>
-<li>Assumption checking/residual analysis</li>
-<li>Working with categorical predictors (including adjusting <em>p</em>-values for multiple tests)</li>
-<li>Interaction effects</li>
+<li>Transform <span class="math inline">\(X\)</span> using a DOWNWARD transformation; or</li>
+<li>Transform <span class="math inline">\(Y\)</span> using an UPWARD transformation.</li>
 </ul>
-<p>For the topics listed, students would be expected to be able to carry out an appropriate data analysis and properly interpret the results. It is also assumed that everyone enrolled in the course has some familiarity with using R. If you need a refresher on any of these topics, see the <a href="https://zief0002.github.io/epsy-8251/">EPsy 8251 course notes</a>.</p>
+<p>In the Unit 2 notes, we linearized this by taking the natural logarithm of SAT; a downward transformation of <span class="math inline">\(X\)</span>. What about the relationship between movie age and budget we looked at in Unit 3?</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-65"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-65-1.png" alt="Scatterplot between age and budget. The loess smoother is also displayed." width="50%" />
+<p class="caption">
+Figure 3.11: Scatterplot between age and budget. The loess smoother is also displayed.
+</p>
+</div>
+<p>This negative, decelerating relationship is similar to the one in the lower-lefthand quadrant of the ‘Rule of the Bulge’. To linearize this we can either:</p>
+<ul>
+<li>Transform <span class="math inline">\(X\)</span> using a DOWNWARD transformation; or</li>
+<li>Transform <span class="math inline">\(Y\)</span> using an DOWNWARD transformation.</li>
+</ul>
+<p>In the Unit 3 notes, we linearized this by taking the natural logarithm of budget; a downward transformation of <span class="math inline">\(Y\)</span>. By transforming <span class="math inline">\(Y\)</span> instead of <span class="math inline">\(X\)</span>, we also fixed a problem of heterogeneity of variance; a problem in the residuals (which is related to <span class="math inline">\(Y\)</span>).</p>
 
+</div>
 </div>
 </div>
             </section>
@@ -277,8 +326,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="rmarkdown.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="nonlinearity-log-transforming-the-outcome.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="probability-distributions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
