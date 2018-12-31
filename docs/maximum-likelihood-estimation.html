@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Unit 5: Maximum Likelihood Estimation | EPsy 8252 Notes</title>
+  <meta name="description" content="These are the notes for EPsy 8252.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Unit 5: Maximum Likelihood Estimation | EPsy 8252 Notes />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are the notes for EPsy 8252." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Unit 5: Maximum Likelihood Estimation | EPsy 8252 Notes />
+  
+  <meta name="twitter:description" content="These are the notes for EPsy 8252." />
+  
+
+<meta name="author" content="Andrew Zieffler">
+
+
+<meta name="date" content="2018-12-31">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="probability-distributions.html">
+<link rel="next" href="data-codebook.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EPsy 8252 Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction to the Course</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-content"><i class="fa fa-check"></i>Course Content</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#books-and-other-reading-materials"><i class="fa fa-check"></i>Books and Other Reading Materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>1</b> R Markdown</a><ul>
+<li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#preparation"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#notes"><i class="fa fa-check"></i>Notes</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html"><i class="fa fa-check"></i><b>2</b> Nonlinearity: Log-Transforming the Predictor</a><ul>
+<li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#preparation-1"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="2.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#dataset-and-research-question"><i class="fa fa-check"></i><b>2.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="2.2" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#log-transformation-of-a-variable"><i class="fa fa-check"></i><b>2.2</b> Log-Transformation of a Variable</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#quick-refresher-on-logarithms"><i class="fa fa-check"></i><b>2.2.1</b> Quick Refresher on Logarithms</a></li>
+<li class="chapter" data-level="2.2.2" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#log-transforming-variables"><i class="fa fa-check"></i><b>2.2.2</b> Log-Transforming Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>2.3</b> Fitting the Regression Model</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#examine-the-assumption-of-linearity"><i class="fa fa-check"></i><b>2.3.1</b> Examine the Assumption of Linearity</a></li>
+<li class="chapter" data-level="2.3.2" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#interpret-the-regression-results"><i class="fa fa-check"></i><b>2.3.2</b> Interpret the Regression Results</a></li>
+<li class="chapter" data-level="2.3.3" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#better-interpretations-back-transforming"><i class="fa fa-check"></i><b>2.3.3</b> Better Interpretations: Back-transforming</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#alternative-method-of-fitting-the-model"><i class="fa fa-check"></i><b>2.4</b> Alternative Method of Fitting the Model</a></li>
+<li class="chapter" data-level="2.5" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#plotting-the-fitted-model"><i class="fa fa-check"></i><b>2.5</b> Plotting the Fitted Model</a></li>
+<li class="chapter" data-level="2.6" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#different-base-values-in-the-logarithm"><i class="fa fa-check"></i><b>2.6</b> Different Base Values in the Logarithm</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#comparing-the-output-from-the-two-bases"><i class="fa fa-check"></i><b>2.6.1</b> Comparing the Output from the Two Bases</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#base-e-logarithm-the-natural-logarithm"><i class="fa fa-check"></i><b>2.7</b> Base-<span class="math inline">\(e\)</span> Logarithm: The Natural Logarithm</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#using-the-natural-logarithm-in-a-regression-model"><i class="fa fa-check"></i><b>2.7.1</b> Using the Natural Logarithm in a Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#including-covariates"><i class="fa fa-check"></i><b>2.8</b> Including Covariates</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#plot-of-the-model-results"><i class="fa fa-check"></i><b>2.8.1</b> Plot of the Model Results</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#polynomial-effects-vs.log-transformations"><i class="fa fa-check"></i><b>2.9</b> Polynomial Effects vs. Log-Transformations</a></li>
+<li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#other-resources-1"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html"><i class="fa fa-check"></i><b>3</b> Nonlinearity: Log-Transforming the Outcome</a><ul>
+<li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#preparation-2"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="3.1" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#dataset-and-research-question-1"><i class="fa fa-check"></i><b>3.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="3.2" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#examine-relationship-between-age-and-budget"><i class="fa fa-check"></i><b>3.2</b> Examine Relationship between Age and Budget</a></li>
+<li class="chapter" data-level="3.3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#transform-the-outcome-using-the-natural-logarithm-base-e"><i class="fa fa-check"></i><b>3.3</b> Transform the Outcome Using the Natural Logarithm (Base-e)</a></li>
+<li class="chapter" data-level="3.4" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#re-analyze-using-the-log-transformed-budget"><i class="fa fa-check"></i><b>3.4</b> Re-analyze using the Log-Transformed Budget</a></li>
+<li class="chapter" data-level="3.5" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#interpreting-the-regression-output"><i class="fa fa-check"></i><b>3.5</b> Interpreting the Regression Output</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#back-transforming-a-more-useful-interpretation"><i class="fa fa-check"></i><b>3.5.1</b> Back-Transforming: A More Useful Interpretation</a></li>
+<li class="chapter" data-level="3.5.2" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#substituting-in-values-for-age-to-interpret-effects"><i class="fa fa-check"></i><b>3.5.2</b> Substituting in Values for Age to Interpret Effects</a></li>
+<li class="chapter" data-level="3.5.3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#approximate-interpretation-of-the-slope"><i class="fa fa-check"></i><b>3.5.3</b> Approximate Interpretation of the Slope</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#plotting-the-fitted-model-1"><i class="fa fa-check"></i><b>3.6</b> Plotting the Fitted Model</a></li>
+<li class="chapter" data-level="3.7" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#relationship-between-mpaa-rating-and-budget"><i class="fa fa-check"></i><b>3.7</b> Relationship between MPAA Rating and Budget</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#regression-model"><i class="fa fa-check"></i><b>3.7.1</b> Regression Model</a></li>
+<li class="chapter" data-level="3.7.2" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#mathematical-explanation-1"><i class="fa fa-check"></i><b>3.7.2</b> Mathematical Explanation</a></li>
+<li class="chapter" data-level="3.7.3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#approximate-interpretations"><i class="fa fa-check"></i><b>3.7.3</b> Approximate Interpretations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#multiple-regression-main-effects-model"><i class="fa fa-check"></i><b>3.8</b> Multiple Regression: Main Effects Model</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#nested-f-test"><i class="fa fa-check"></i><b>3.8.1</b> Nested F-Test</a></li>
+<li class="chapter" data-level="3.8.2" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#coefficient-level-interpretation"><i class="fa fa-check"></i><b>3.8.2</b> Coefficient-Level Interpretation</a></li>
+<li class="chapter" data-level="3.8.3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#plot-of-the-fitted-model"><i class="fa fa-check"></i><b>3.8.3</b> Plot of the Fitted Model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#multiple-regression-interaction-model"><i class="fa fa-check"></i><b>3.9</b> Multiple Regression: Interaction Model</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="log-transformations-some-final-thoughts.html"><a href="log-transformations-some-final-thoughts.html"><i class="fa fa-check"></i>Log Transformations: Some Final Thoughts</a><ul>
+<li class="chapter" data-level="" data-path="log-transformations-some-final-thoughts.html"><a href="log-transformations-some-final-thoughts.html#power-transformations"><i class="fa fa-check"></i>Power Transformations</a><ul>
+<li class="chapter" data-level="" data-path="log-transformations-some-final-thoughts.html"><a href="log-transformations-some-final-thoughts.html#ladder-of-transformations"><i class="fa fa-check"></i>Ladder of Transformations</a></li>
+<li class="chapter" data-level="" data-path="log-transformations-some-final-thoughts.html"><a href="log-transformations-some-final-thoughts.html#rule-of-the-bulge"><i class="fa fa-check"></i>Rule of the Bulge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>4</b> Probability Distributions</a><ul>
+<li class="chapter" data-level="" data-path="probability-distributions.html"><a href="probability-distributions.html#preparation-3"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="4.1" data-path="probability-distributions.html"><a href="probability-distributions.html#dataset-and-research-question-2"><i class="fa fa-check"></i><b>4.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="4.2" data-path="probability-distributions.html"><a href="probability-distributions.html#normal-distribution"><i class="fa fa-check"></i><b>4.2</b> Normal Distribution</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="probability-distributions.html"><a href="probability-distributions.html#other-useful-r-functions-for-working-with-probability-distributions"><i class="fa fa-check"></i><b>4.2.1</b> Other Useful R Functions for Working with Probability Distributions</a></li>
+<li class="chapter" data-level="4.2.2" data-path="probability-distributions.html"><a href="probability-distributions.html#finding-cumulative-probability"><i class="fa fa-check"></i><b>4.2.2</b> Finding Cumulative Probability</a></li>
+<li class="chapter" data-level="4.2.3" data-path="probability-distributions.html"><a href="probability-distributions.html#cumulative-density-and-p-value"><i class="fa fa-check"></i><b>4.2.3</b> Cumulative Density and <span class="math inline">\(p\)</span>-Value</a></li>
+<li class="chapter" data-level="4.2.4" data-path="probability-distributions.html"><a href="probability-distributions.html#finding-quantiles"><i class="fa fa-check"></i><b>4.2.4</b> Finding Quantiles</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="probability-distributions.html"><a href="probability-distributions.html#students-t-distribution"><i class="fa fa-check"></i><b>4.3</b> Student’s <span class="math inline">\(t\)</span>-Distribution</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="probability-distributions.html"><a href="probability-distributions.html#comparing-probability-densities"><i class="fa fa-check"></i><b>4.3.1</b> Comparing Probability Densities</a></li>
+<li class="chapter" data-level="4.3.2" data-path="probability-distributions.html"><a href="probability-distributions.html#comparing-cumulative-densities"><i class="fa fa-check"></i><b>4.3.2</b> Comparing Cumulative Densities</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="probability-distributions.html"><a href="probability-distributions.html#using-the-t-distribution-in-regression"><i class="fa fa-check"></i><b>4.4</b> Using the <span class="math inline">\(t\)</span>-Distribution in Regression</a></li>
+<li class="chapter" data-level="4.5" data-path="probability-distributions.html"><a href="probability-distributions.html#model-level-inference-the-f-distribution"><i class="fa fa-check"></i><b>4.5</b> Model-Level Inference: The <span class="math inline">\(F\)</span>-Distribution</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="probability-distributions.html"><a href="probability-distributions.html#testing-the-model-level-null-hypothesis"><i class="fa fa-check"></i><b>4.5.1</b> Testing the Model-Level Null Hypothesis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="probability-distributions.html"><a href="probability-distributions.html#mean-squares-are-variance-estimates"><i class="fa fa-check"></i><b>4.6</b> Mean Squares are Variance Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html"><i class="fa fa-check"></i><b>5</b> Maximum Likelihood Estimation</a><ul>
+<li class="chapter" data-level="" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#preparation-4"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="5.1" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#dataset-and-research-question-3"><i class="fa fa-check"></i><b>5.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="5.2" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#joint-probability-density"><i class="fa fa-check"></i><b>5.2</b> Joint Probability Density</a></li>
+<li class="chapter" data-level="5.3" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#likelihood"><i class="fa fa-check"></i><b>5.3</b> Likelihood</a></li>
+<li class="chapter" data-level="5.4" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#maximum-likelihood"><i class="fa fa-check"></i><b>5.4</b> Maximum Likelihood</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#method-1-grid-search"><i class="fa fa-check"></i><b>5.4.1</b> Method 1: Grid Search</a></li>
+<li class="chapter" data-level="5.4.2" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#log-likelihood"><i class="fa fa-check"></i><b>5.4.2</b> Log-Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#maximum-likelihood-estimation-for-regression"><i class="fa fa-check"></i><b>5.5</b> Maximum Likelihood Estimation for Regression</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#large-search-spaces"><i class="fa fa-check"></i><b>5.5.1</b> Large Search Spaces</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#ml-estimation-in-regression-using-r"><i class="fa fa-check"></i><b>5.6</b> ML Estimation in Regression Using R</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#using-r-to-directly-compute-the-likelihood-and-log-likelihood"><i class="fa fa-check"></i><b>5.6.1</b> Using R to Directly Compute the Likelihood and Log-Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#way-way-way-too-much-mathematics-way-too-much-math"><i class="fa fa-check"></i><b>5.7</b> Way, Way, Way too Much Mathematics {way-too-much-math}</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools"><i class="fa fa-check"></i>ed-schools.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#mn-schools"><i class="fa fa-check"></i>mn-schools.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#movies"><i class="fa fa-check"></i>movies.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#riverview"><i class="fa fa-check"></i>riverview.csv</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EPsy 8252 Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="maximum-likelihood-estimation" class="section level1">
+<h1><span class="header-section-number">Unit 5:</span> Maximum Likelihood Estimation</h1>
+<p>In this set of notes, you will learn about the method of maximum likelihood to estimate model parameters.</p>
+<hr />
+<div id="preparation-4" class="section level3 unnumbered">
+<h3>Preparation</h3>
+<p>Before class you will need read the following:</p>
+<ul>
+<li>Section 3.1.2: Random Variables in Fox [Required Textbook]</li>
+<li>Myung, J. (2003). <a href="http://times.cs.uiuc.edu/course/410/note/mle.pdf">Tutorial on maximum likelihood estimation</a>. <em>Journal of Mathematical Psychology, 47</em>, 90–100.</li>
+</ul>
+<p><br /></p>
+<hr />
+</div>
+<div id="dataset-and-research-question-3" class="section level2">
+<h2><span class="header-section-number">5.1</span> Dataset and Research Question</h2>
+<p>In this set of notes, we will not be using a specific dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries</span>
+<span class="kw">library</span>(broom)
+<span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(readr)
+<span class="kw">library</span>(sm)
+<span class="kw">library</span>(tidyr)</code></pre></div>
+</div>
+<div id="joint-probability-density" class="section level2">
+<h2><span class="header-section-number">5.2</span> Joint Probability Density</h2>
+<p>In the previous set of notes, we disucssed the probability density of an observation <span class="math inline">\(X_i\)</span>. Now we will extend this idea to the probability density of a set of observations, say <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, AND <span class="math inline">\(x_k\)</span>. The probability density of a set of observations is referred to as the <em>joint probability density</em>, or simply <em>joint density</em>.</p>
+<p>If we can make an assumption about INDEPENDENCE, then the joint probability density would be the product of the individual densities:</p>
+<p><span class="math display">\[
+p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots \times p(x_k)
+\]</span></p>
+<p>Say we had three independent observations from our <span class="math inline">\(\sim\mathcal{N}(50,10)\)</span> distribution, namely <span class="math inline">\(x =\{60, 65, 67\}\)</span>. Then the joint density would be,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="dv">60</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="dv">65</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="dv">67</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>)</code></pre></div>
+<pre><code>[1] 0.000002947</code></pre>
+<p>We could also shortcut this computation,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prod</span>(<span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">67</span>), <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>))</code></pre></div>
+<pre><code>[1] 0.000002947</code></pre>
+<p>This value is the joint probability density. The joint probability density indicates the probability of observing the data (<span class="math inline">\(x =\{60, 65, 67\}\)</span>) GIVEN (1) they are drawn from a normal distribution and (2) the normal distribution has a mean of 50 and a standard deviation of 10. In other words:</p>
+<blockquote>
+<p>The joint probability density is the probability of the data given the distribution and parameters.</p>
+</blockquote>
+<p>Symbolically,</p>
+<p><span class="math display">\[
+\mathrm{Joint~Density} = P(\mathrm{Data} \mid \mathrm{Distribution~and~Parameters})
+\]</span></p>
+</div>
+<div id="likelihood" class="section level2">
+<h2><span class="header-section-number">5.3</span> Likelihood</h2>
+<p>Likelihood is the probability of a particualar set of parameters GIVEN (1) the data, and (2) the data are from a particular distribution (e.g., normal). Symbolically,</p>
+<p><span class="math display">\[
+\mathrm{Likelihood} = P(\mathrm{Parameters} \mid \mathrm{Distribution~and~Data})
+\]</span></p>
+<p>Likelihood takes the data as given and computes the probability of a set of parameters. Symbolically we denote likelihood with a caligraphic letter “L” (<span class="math inline">\(\mathcal{L}\)</span>). For example, we might ask the question, given the observed data <span class="math inline">\(x = \{30, 20, 24, 27\}\)</span> come from a normal distribution, what is the likelihood (probability) that the mean is 20 and the standard deviation is 4? We might denote this as,</p>
+<p><span class="math display">\[
+\mathcal{L}(\mu = 20, \sigma =4 \mid x)
+\]</span></p>
+<p>Note that although we need to specify the distribution (e.g., normal), this is typically not included in the symbolic notation; instead it is typically included in the assumptions.</p>
+<p>The likelihood allows us to answer probability questions about a set of parameters. For example, what is the likelihood (probability) that the data (<span class="math inline">\(x = \{30, 20, 24, 27\}\)</span>) were generated from a normal distribution with a mean of 20 and standard deviation of 4? To compute the likelihood we compute the joint probability density of the data under that particular set of parameters.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prod</span>(<span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>), <span class="dt">mean =</span> <span class="dv">20</span>, <span class="dt">sd =</span> <span class="dv">4</span>))</code></pre></div>
+<pre><code>[1] 0.0000005703</code></pre>
+<p>What is the likelihood (probability) that the data (<span class="math inline">\(x = \{30, 20, 24, 27\}\)</span>) were generated from a normal distribution with a mean of 25 and standard deviation of 4?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prod</span>(<span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>), <span class="dt">mean =</span> <span class="dv">25</span>, <span class="dt">sd =</span> <span class="dv">4</span>))</code></pre></div>
+<pre><code>[1] 0.00001774</code></pre>
+<p>It is important to note that although we use the joint probability under a set of parameters to compute the likelihood of those parameters, theoretically joint density and likelihood are very different. Likelihood refers to the probability of the parameters and joint probability density refers to the probability of the data.</p>
+</div>
+<div id="maximum-likelihood" class="section level2">
+<h2><span class="header-section-number">5.4</span> Maximum Likelihood</h2>
+<p>Which set of parameters,<span class="math inline">\(\mathcal{N}(20,4)\)</span> or <span class="math inline">\(\mathcal{N}(25,4)\)</span>, was <em>more likely</em> to generate the given data? Since the second set of parameters produced a higher likelihood, the data was more likely to have been generated from the <span class="math inline">\(\mathcal{N}(25,4)\)</span> distribution that the <span class="math inline">\(\mathcal{N}(20,4)\)</span> distribution.</p>
+<p>So now we come to the crux of Maximum Likelihood Estimation (MLE). The goal of MLE is to find a set of parameters that MAXIMIZES the likelihood given the data and a distribution. For example, given the observed data <span class="math inline">\(x = \{30, 20, 24, 27\}\)</span> were generated from a normal distribution, what are the values for the paramters of this distribution (mean and standard deviation) that produce the HIGHEST (or maximum) value of the likelihood?</p>
+<p>Below, we will examine a couple different methods for determining the parameter values that produce the maximum value of the likelihood.</p>
+<div id="method-1-grid-search" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> Method 1: Grid Search</h3>
+<p>One method for finding the parameters (in our example, the mean and standard deviation) that produce the maximum likelihood, is to substitute several parameter values in the <code>dnorm()</code> function, compute the likelihood for each set of parameters, and determine which set produces the highest (maximum) likelihood.</p>
+<p>In computer science, this method for finding the MLE is referred to as a <em>grid search</em>. Below is some syntax to carry out a grid search. The syntax creates several sets of parameter values (called the search space), computes the likelihood for each combination of parameter values, and then arranges the likelihoods in descending order.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">crossing</span>(
+  <span class="dt">mu =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">10</span>, <span class="dt">to =</span> <span class="dv">30</span>, <span class="dt">by =</span> <span class="fl">0.1</span>),
+  <span class="dt">sigma =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">L =</span> <span class="kw">prod</span>(<span class="kw">dnorm</span>(<span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>), <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma))
+    ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(L))</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["mu"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["L"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"25.2","2":"3.7","3":"0.00001829"},{"1":"25.3","2":"3.7","3":"0.00001829"},{"1":"25.3","2":"3.8","3":"0.00001824"},{"1":"25.2","2":"3.8","3":"0.00001824"},{"1":"25.4","2":"3.7","3":"0.00001824"},{"1":"25.1","2":"3.7","3":"0.00001824"},{"1":"25.2","2":"3.6","3":"0.00001824"},{"1":"25.3","2":"3.6","3":"0.00001824"},{"1":"25.1","2":"3.8","3":"0.00001819"},{"1":"25.4","2":"3.8","3":"0.00001819"},{"1":"25.1","2":"3.6","3":"0.00001818"},{"1":"25.4","2":"3.6","3":"0.00001818"},{"1":"25.0","2":"3.7","3":"0.00001813"},{"1":"25.5","2":"3.7","3":"0.00001813"},{"1":"25.2","2":"3.9","3":"0.00001810"},{"1":"25.3","2":"3.9","3":"0.00001810"},{"1":"25.0","2":"3.8","3":"0.00001809"},{"1":"25.5","2":"3.8","3":"0.00001809"},{"1":"25.0","2":"3.6","3":"0.00001807"},{"1":"25.5","2":"3.6","3":"0.00001807"},{"1":"25.2","2":"3.5","3":"0.00001806"},{"1":"25.3","2":"3.5","3":"0.00001806"},{"1":"25.1","2":"3.9","3":"0.00001805"},{"1":"25.4","2":"3.9","3":"0.00001805"},{"1":"25.1","2":"3.5","3":"0.00001800"},{"1":"25.4","2":"3.5","3":"0.00001800"},{"1":"25.6","2":"3.7","3":"0.00001797"},{"1":"24.9","2":"3.7","3":"0.00001797"},{"1":"25.0","2":"3.9","3":"0.00001795"},{"1":"25.5","2":"3.9","3":"0.00001795"},{"1":"24.9","2":"3.8","3":"0.00001794"},{"1":"25.6","2":"3.8","3":"0.00001794"},{"1":"25.6","2":"3.6","3":"0.00001790"},{"1":"24.9","2":"3.6","3":"0.00001790"},{"1":"25.5","2":"3.5","3":"0.00001788"},{"1":"25.0","2":"3.5","3":"0.00001788"},{"1":"25.3","2":"4.0","3":"0.00001787"},{"1":"25.2","2":"4.0","3":"0.00001787"},{"1":"25.1","2":"4.0","3":"0.00001783"},{"1":"25.4","2":"4.0","3":"0.00001783"},{"1":"25.6","2":"3.9","3":"0.00001781"},{"1":"24.9","2":"3.9","3":"0.00001781"},{"1":"24.8","2":"3.7","3":"0.00001776"},{"1":"25.7","2":"3.7","3":"0.00001776"},{"1":"25.2","2":"3.4","3":"0.00001775"},{"1":"25.3","2":"3.4","3":"0.00001775"},{"1":"24.8","2":"3.8","3":"0.00001774"},{"1":"25.7","2":"3.8","3":"0.00001774"},{"1":"25.0","2":"4.0","3":"0.00001774"},{"1":"25.5","2":"4.0","3":"0.00001774"},{"1":"25.6","2":"3.5","3":"0.00001771"},{"1":"24.9","2":"3.5","3":"0.00001771"},{"1":"25.1","2":"3.4","3":"0.00001768"},{"1":"25.4","2":"3.4","3":"0.00001768"},{"1":"24.8","2":"3.6","3":"0.00001768"},{"1":"25.7","2":"3.6","3":"0.00001768"},{"1":"24.8","2":"3.9","3":"0.00001763"},{"1":"25.7","2":"3.9","3":"0.00001763"},{"1":"25.6","2":"4.0","3":"0.00001761"},{"1":"24.9","2":"4.0","3":"0.00001761"},{"1":"25.2","2":"4.1","3":"0.00001758"},{"1":"25.3","2":"4.1","3":"0.00001758"},{"1":"25.0","2":"3.4","3":"0.00001756"},{"1":"25.5","2":"3.4","3":"0.00001756"},{"1":"25.4","2":"4.1","3":"0.00001754"},{"1":"25.1","2":"4.1","3":"0.00001754"},{"1":"24.7","2":"3.7","3":"0.00001751"},{"1":"25.8","2":"3.7","3":"0.00001751"},{"1":"24.7","2":"3.8","3":"0.00001750"},{"1":"25.8","2":"3.8","3":"0.00001750"},{"1":"24.8","2":"3.5","3":"0.00001748"},{"1":"25.7","2":"3.5","3":"0.00001748"},{"1":"25.0","2":"4.1","3":"0.00001746"},{"1":"25.5","2":"4.1","3":"0.00001746"},{"1":"24.8","2":"4.0","3":"0.00001743"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>The parameters that maximize the likelihood (in our search space) are a mean of 25.2 and a standard deviation of 3.7.</p>
+</div>
+<div id="log-likelihood" class="section level3">
+<h3><span class="header-section-number">5.4.2</span> Log-Likelihood</h3>
+<p>The likelihood values are quite small since we are multiplying several probabilities together. We could take the natural logarithm of the likelihood to alleviate this issue. So in our example, <span class="math inline">\(\mathcal{L} = .00001829129\)</span> and the log-likelihood would be</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(.<span class="dv">00001829129</span>)</code></pre></div>
+<pre><code>[1] -10.91</code></pre>
+<p>We typically denote log-likelihood using a caligraphic lower-case “l” (<span class="math inline">\(\mathcal{l}\)</span>). Going back to how we compute the likelihood, we assumed a set of parameters and then found the joint probability density, which assuming normality and independence is the product of the individual densities.</p>
+<p><span class="math display">\[
+\mathcal{L}(\mathrm{parameters} | \mathrm{data}) = p(x_1) \times p(x_2) \times \ldots \times p(x_n)
+\]</span></p>
+<p>If we compute the log of the likelihood instead:</p>
+<p><span class="math display">\[
+\mathcal{l}(\mathrm{parameters} | \mathrm{data}) =  \ln \Bigl(\mathcal{L}(\mathrm{parameters} | \mathrm{data})\Bigr) = \ln \Bigl(p(x_1) \times p(x_2) \times \ldots \times p(x_n)\Bigr)
+\]</span></p>
+<p>Using the rules of logarithms, the right-hand side of the equation can be manipulated to:</p>
+<p><span class="math display">\[
+= \ln \Bigl(p(x_1)\Bigr) + \ln \Bigl(p(x_2)\Bigr) + \ldots + \ln \Bigl(p(x_n)\Bigr)
+\]</span></p>
+<p>The log-likelihood is the <em>sum of the log-transformed densities</em>. This means we could re-write our grid search syntax to compute the log-likelihood. Since finding the log of the densities is so useful, there is even an argument in <code>dnorm()</code> of <code>log=TRUE</code> that does this for us. Our revised grid search syntax is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">crossing</span>(
+  <span class="dt">mu =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">10</span>, <span class="dt">to =</span><span class="dv">30</span>, <span class="dt">by =</span> <span class="fl">0.1</span>),
+  <span class="dt">sigma =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">log_L =</span> <span class="kw">sum</span>(<span class="kw">dnorm</span>(<span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>), <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma, <span class="dt">log =</span> <span class="ot">TRUE</span>))
+    ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(log_L))</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["mu"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["log_L"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"25.2","2":"3.7","3":"-10.91"},{"1":"25.3","2":"3.7","3":"-10.91"},{"1":"25.3","2":"3.8","3":"-10.91"},{"1":"25.2","2":"3.8","3":"-10.91"},{"1":"25.1","2":"3.7","3":"-10.91"},{"1":"25.4","2":"3.7","3":"-10.91"},{"1":"25.3","2":"3.6","3":"-10.91"},{"1":"25.2","2":"3.6","3":"-10.91"},{"1":"25.1","2":"3.8","3":"-10.91"},{"1":"25.4","2":"3.8","3":"-10.91"},{"1":"25.1","2":"3.6","3":"-10.92"},{"1":"25.4","2":"3.6","3":"-10.92"},{"1":"25.0","2":"3.7","3":"-10.92"},{"1":"25.5","2":"3.7","3":"-10.92"},{"1":"25.2","2":"3.9","3":"-10.92"},{"1":"25.3","2":"3.9","3":"-10.92"},{"1":"25.0","2":"3.8","3":"-10.92"},{"1":"25.5","2":"3.8","3":"-10.92"},{"1":"25.5","2":"3.6","3":"-10.92"},{"1":"25.0","2":"3.6","3":"-10.92"},{"1":"25.2","2":"3.5","3":"-10.92"},{"1":"25.3","2":"3.5","3":"-10.92"},{"1":"25.1","2":"3.9","3":"-10.92"},{"1":"25.4","2":"3.9","3":"-10.92"},{"1":"25.1","2":"3.5","3":"-10.93"},{"1":"25.4","2":"3.5","3":"-10.93"},{"1":"24.9","2":"3.7","3":"-10.93"},{"1":"25.6","2":"3.7","3":"-10.93"},{"1":"25.0","2":"3.9","3":"-10.93"},{"1":"25.5","2":"3.9","3":"-10.93"},{"1":"24.9","2":"3.8","3":"-10.93"},{"1":"25.6","2":"3.8","3":"-10.93"},{"1":"24.9","2":"3.6","3":"-10.93"},{"1":"25.6","2":"3.6","3":"-10.93"},{"1":"25.5","2":"3.5","3":"-10.93"},{"1":"25.0","2":"3.5","3":"-10.93"},{"1":"25.3","2":"4.0","3":"-10.93"},{"1":"25.2","2":"4.0","3":"-10.93"},{"1":"25.1","2":"4.0","3":"-10.93"},{"1":"25.4","2":"4.0","3":"-10.93"},{"1":"24.9","2":"3.9","3":"-10.94"},{"1":"25.6","2":"3.9","3":"-10.94"},{"1":"24.8","2":"3.7","3":"-10.94"},{"1":"25.7","2":"3.7","3":"-10.94"},{"1":"25.2","2":"3.4","3":"-10.94"},{"1":"25.3","2":"3.4","3":"-10.94"},{"1":"24.8","2":"3.8","3":"-10.94"},{"1":"25.7","2":"3.8","3":"-10.94"},{"1":"25.0","2":"4.0","3":"-10.94"},{"1":"25.5","2":"4.0","3":"-10.94"},{"1":"24.9","2":"3.5","3":"-10.94"},{"1":"25.6","2":"3.5","3":"-10.94"},{"1":"25.1","2":"3.4","3":"-10.94"},{"1":"25.4","2":"3.4","3":"-10.94"},{"1":"25.7","2":"3.6","3":"-10.94"},{"1":"24.8","2":"3.6","3":"-10.94"},{"1":"24.8","2":"3.9","3":"-10.95"},{"1":"25.7","2":"3.9","3":"-10.95"},{"1":"24.9","2":"4.0","3":"-10.95"},{"1":"25.6","2":"4.0","3":"-10.95"},{"1":"25.2","2":"4.1","3":"-10.95"},{"1":"25.3","2":"4.1","3":"-10.95"},{"1":"25.5","2":"3.4","3":"-10.95"},{"1":"25.0","2":"3.4","3":"-10.95"},{"1":"25.1","2":"4.1","3":"-10.95"},{"1":"25.4","2":"4.1","3":"-10.95"},{"1":"24.7","2":"3.7","3":"-10.95"},{"1":"25.8","2":"3.7","3":"-10.95"},{"1":"24.7","2":"3.8","3":"-10.95"},{"1":"25.8","2":"3.8","3":"-10.95"},{"1":"24.8","2":"3.5","3":"-10.95"},{"1":"25.7","2":"3.5","3":"-10.95"},{"1":"25.0","2":"4.1","3":"-10.96"},{"1":"25.5","2":"4.1","3":"-10.96"},{"1":"24.8","2":"4.0","3":"-10.96"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Maximizing the log-likelihood gives the same parameter values as maximizing the likelihood. Remember that the log computation keeps the same ordination of values as the original data, so maximizing the log-likelihood is the same as maximizing the likelihood.</p>
+</div>
+</div>
+<div id="maximum-likelihood-estimation-for-regression" class="section level2">
+<h2><span class="header-section-number">5.5</span> Maximum Likelihood Estimation for Regression</h2>
+<p>In model fitting, the components we care about are the residuals. Those are the things we put distributional assumptions on (e.g., normality, homogeneity of variance, independence). Our goal in regression is to estimate a set of parameters (<span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>) that maximize the likelihood for a given set of residuals that come from a normal distribution.</p>
+<p>To understand this, let’s use a toy example of <span class="math inline">\(n=10\)</span> observations.</p>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["x"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"4","2":"53"},{"1":"0","2":"56"},{"1":"3","2":"37"},{"1":"4","2":"55"},{"1":"7","2":"50"},{"1":"0","2":"36"},{"1":"0","2":"22"},{"1":"3","2":"75"},{"1":"0","2":"37"},{"1":"2","2":"42"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>To begin, we can enter these observations into two vectors, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Enter data into vectors</span>
+x =<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)
+y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>, <span class="dv">56</span>, <span class="dv">37</span>, <span class="dv">55</span>, <span class="dv">50</span>, <span class="dv">36</span>, <span class="dv">22</span>, <span class="dv">75</span>, <span class="dv">37</span>, <span class="dv">42</span>)</code></pre></div>
+<p>Next, we will write a function to compute the log-likelihood (or likelihood) of the residuals given particular <code>b0</code> and <code>b1</code> estimates that will be inputted to the function.</p>
+<p>One issue is that in using the <code>dnorm()</code> function we need to specify the mean and standard deviation. The regression assumptions help with this task. The conditional mean residual value is 0. So we will set the mean value to 0. The asumption about the standard deviation is that the conditional distributions all have the same SD, but it doesn’t specify what that is. However, the SD of the errors seems like a reasonable value, so let’s use that.</p>
+<p>Below, we will write a function called <code>log_likelihood()</code> that takes two arguments as input, <code>b0=</code> and <code>b1=</code>, and outputs the log-likelihood.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log_likelihood =<span class="st"> </span><span class="cf">function</span>(b0, b1){
+  <span class="co"># Use the following x and y values</span>
+  x =<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)
+  y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>, <span class="dv">56</span>, <span class="dv">37</span>, <span class="dv">55</span>, <span class="dv">50</span>, <span class="dv">36</span>, <span class="dv">22</span>, <span class="dv">75</span>, <span class="dv">37</span>, <span class="dv">42</span>)
+  
+  <span class="co"># Compute the yhat and residuals based on the two input values</span>
+  yhats =<span class="st"> </span>b0 <span class="op">+</span><span class="st"> </span>b1<span class="op">*</span>x
+  errors =<span class="st"> </span>y <span class="op">-</span><span class="st"> </span>yhats
+  
+  <span class="co"># Compute the sd of the residuals</span>
+  sigma =<span class="st"> </span><span class="kw">sd</span>(errors)
+  
+  <span class="co"># Compute the log-likelihood</span>
+  log_lik =<span class="st"> </span><span class="kw">sum</span>(<span class="kw">dnorm</span>(errors, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> sigma, <span class="dt">log =</span> <span class="ot">TRUE</span>))
+  
+  <span class="co"># Output the log-likelihood</span>
+  <span class="kw">return</span>(log_lik)
+}</code></pre></div>
+<p>Now we read in our function by highlighting the whole thing and running it. Once it has been read in, we can use it just like any other function. For example to find the log-likelihood for the parameters <span class="math inline">\(\beta_0=10\)</span> and <span class="math inline">\(\beta_1=3\)</span> we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log_likelihood</span>(<span class="dt">b0 =</span> <span class="dv">10</span>, <span class="dt">b1 =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>[1] -64.29</code></pre>
+<p>We can also use our function in a grid search.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">crossing</span>(
+  <span class="dt">b0 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">30</span>, <span class="dt">to =</span> <span class="dv">50</span>, <span class="dt">by =</span> <span class="fl">0.1</span>),
+  <span class="dt">b1 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="op">-</span><span class="dv">5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
+) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">log_L =</span> <span class="kw">log_likelihood</span>(<span class="dt">b0 =</span> b0, <span class="dt">b1 =</span> b1)
+    ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(log_L))</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["b0"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["b1"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["log_L"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"40.1","2":"2.7","3":"-39.48"},{"1":"40.0","2":"2.7","3":"-39.48"},{"1":"40.2","2":"2.7","3":"-39.48"},{"1":"39.9","2":"2.8","3":"-39.48"},{"1":"39.8","2":"2.8","3":"-39.48"},{"1":"40.0","2":"2.8","3":"-39.48"},{"1":"39.9","2":"2.7","3":"-39.48"},{"1":"39.7","2":"2.8","3":"-39.48"},{"1":"40.3","2":"2.7","3":"-39.48"},{"1":"40.1","2":"2.8","3":"-39.48"},{"1":"39.6","2":"2.8","3":"-39.48"},{"1":"39.8","2":"2.7","3":"-39.48"},{"1":"40.4","2":"2.7","3":"-39.48"},{"1":"40.3","2":"2.6","3":"-39.48"},{"1":"40.4","2":"2.6","3":"-39.48"},{"1":"40.2","2":"2.6","3":"-39.48"},{"1":"40.5","2":"2.6","3":"-39.49"},{"1":"40.2","2":"2.8","3":"-39.49"},{"1":"39.6","2":"2.9","3":"-39.49"},{"1":"39.5","2":"2.8","3":"-39.49"},{"1":"40.1","2":"2.6","3":"-39.49"},{"1":"39.7","2":"2.9","3":"-39.49"},{"1":"39.7","2":"2.7","3":"-39.49"},{"1":"39.5","2":"2.9","3":"-39.49"},{"1":"40.5","2":"2.7","3":"-39.49"},{"1":"39.8","2":"2.9","3":"-39.49"},{"1":"40.6","2":"2.6","3":"-39.49"},{"1":"39.4","2":"2.9","3":"-39.49"},{"1":"40.0","2":"2.6","3":"-39.49"},{"1":"40.3","2":"2.8","3":"-39.49"},{"1":"39.9","2":"2.9","3":"-39.49"},{"1":"39.4","2":"2.8","3":"-39.49"},{"1":"39.6","2":"2.7","3":"-39.49"},{"1":"40.7","2":"2.6","3":"-39.49"},{"1":"39.3","2":"2.9","3":"-39.49"},{"1":"40.6","2":"2.7","3":"-39.49"},{"1":"39.9","2":"2.6","3":"-39.49"},{"1":"40.0","2":"2.9","3":"-39.49"},{"1":"40.5","2":"2.5","3":"-39.49"},{"1":"40.6","2":"2.5","3":"-39.49"},{"1":"40.4","2":"2.8","3":"-39.49"},{"1":"39.2","2":"2.9","3":"-39.49"},{"1":"40.4","2":"2.5","3":"-39.49"},{"1":"40.7","2":"2.5","3":"-39.49"},{"1":"40.8","2":"2.6","3":"-39.49"},{"1":"39.3","2":"2.8","3":"-39.49"},{"1":"39.5","2":"2.7","3":"-39.49"},{"1":"40.1","2":"2.9","3":"-39.49"},{"1":"40.3","2":"2.5","3":"-39.49"},{"1":"40.8","2":"2.5","3":"-39.49"},{"1":"39.8","2":"2.6","3":"-39.49"},{"1":"40.7","2":"2.7","3":"-39.49"},{"1":"39.4","2":"3.0","3":"-39.49"},{"1":"39.3","2":"3.0","3":"-39.49"},{"1":"39.5","2":"3.0","3":"-39.49"},{"1":"39.2","2":"3.0","3":"-39.49"},{"1":"39.6","2":"3.0","3":"-39.49"},{"1":"39.1","2":"2.9","3":"-39.49"},{"1":"40.5","2":"2.8","3":"-39.49"},{"1":"40.2","2":"2.5","3":"-39.49"},{"1":"40.9","2":"2.5","3":"-39.49"},{"1":"40.9","2":"2.6","3":"-39.49"},{"1":"39.2","2":"2.8","3":"-39.49"},{"1":"40.2","2":"2.9","3":"-39.49"},{"1":"39.1","2":"3.0","3":"-39.49"},{"1":"39.7","2":"3.0","3":"-39.49"},{"1":"39.4","2":"2.7","3":"-39.50"},{"1":"39.7","2":"2.6","3":"-39.50"},{"1":"40.8","2":"2.7","3":"-39.50"},{"1":"40.1","2":"2.5","3":"-39.50"},{"1":"41.0","2":"2.5","3":"-39.50"},{"1":"39.0","2":"2.9","3":"-39.50"},{"1":"39.0","2":"3.0","3":"-39.50"},{"1":"39.8","2":"3.0","3":"-39.50"},{"1":"41.0","2":"2.6","3":"-39.50"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Here the parameter values that maximize the likelihood are <span class="math inline">\(\beta_0 = 40.1\)</span> and <span class="math inline">\(\beta_1=2.7\)</span>. We can also compute what the standard deviation for the residual distributions was using the estimated parameter values. Remember, this value is an estimate of the RMSE.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">errors =<span class="st"> </span>y <span class="op">-</span><span class="st"> </span><span class="fl">40.1</span> <span class="op">-</span><span class="st"> </span><span class="fl">2.7</span><span class="op">*</span>x
+<span class="kw">sd</span>(errors)</code></pre></div>
+<pre><code>[1] 13.19</code></pre>
+<p>In practice, there are a couple subtle differences, namely that the estimate for the SD value we use in <code>dnorm()</code> is slightly different. This generally does not have an effect on the coefficient estimates, but does impact the estimate of the RMSE. We will talk more about this when we talk about <em>Restricted Maximum Likelihood Estimation</em> (REML).</p>
+<div id="large-search-spaces" class="section level3">
+<h3><span class="header-section-number">5.5.1</span> Large Search Spaces</h3>
+<p>So far, we have been using a very finite search space that has been defined for us. For example, we limited the search space to 20,301 combinatins of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(
+  <span class="kw">crossing</span>(
+    <span class="dt">b0 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">30</span>, <span class="dt">to =</span> <span class="dv">50</span>, <span class="dt">by =</span> <span class="fl">0.1</span>),
+    <span class="dt">b1 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="op">-</span><span class="dv">5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
+  )
+)</code></pre></div>
+<pre><code>[1] 20301</code></pre>
+<p>This allowed us to find the coefficient estimates to the nearest tenth. If we instead needed to find the estimates to the nearest hundredth, we would need to expand the number of combinations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(
+  <span class="kw">crossing</span>(
+    <span class="dt">b0 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">30</span>, <span class="dt">to =</span> <span class="dv">50</span>, <span class="dt">by =</span> <span class="fl">0.01</span>),
+    <span class="dt">b1 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="op">-</span><span class="dv">5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)
+  )
+)</code></pre></div>
+<pre><code>[1] 2003001</code></pre>
+<p>This leads to a search space of 2,003,001 parameter combinations. If we need them to the nearest thousandth, the search space is 200,030,001 combinations.</p>
+<p>Furthermore, in practice you would not have any idea which values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> to limit the search space to. Essentially you would need to search an infinite number of values unless you could limit the search space in some way. For many common methods (e.g., linear regression) finding the ML estimates is mathematically pretty easy (if we know calculus; see the section <a href="#way-too-much-math">Way, Way, Way too Much Mathematics</a>). For more complex methods (e.g., mixed-effect models) there is not a mathematical solution. Instead, mathematics is used to help limit the search space and then a grid search is used to hone in on the estimates.</p>
+</div>
+</div>
+<div id="ml-estimation-in-regression-using-r" class="section level2">
+<h2><span class="header-section-number">5.6</span> ML Estimation in Regression Using R</h2>
+<p>Recall that the <code>lm()</code> function uses Ordinary Least Squares (OLS) estimation—it finds the coefficient estimates and RMSE that minimize the sum of squared residuals.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">1</span> =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x)
+
+<span class="co"># Get coefficient estimates</span>
+<span class="kw">tidy</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"40.006","3":"6.342","4":"6.308","5":"0.0002307"},{"1":"x","2":"2.737","3":"1.976","4":"1.385","5":"0.2034786"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get estimate for RMSE</span>
+<span class="kw">glance</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.1934","2":"0.09255","3":"13.99","4":"1.918","5":"0.2035","6":"2","7":"-39.45","8":"84.91","9":"85.82","10":"1565","11":"8","_rn_":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Under OLS estimation:</p>
+<ul>
+<li><span class="math inline">\(\hat\beta_0 = 40.01\)</span></li>
+<li><span class="math inline">\(\hat\beta_1 = 2.74\)</span></li>
+<li><span class="math inline">\(\hat\sigma_\epsilon = 13.99\)</span></li>
+</ul>
+<p>To compute ML estimates of the coefficients we will use the <code>mle2()</code> function from the <strong>bbmle</strong> package. To use the <code>mle2()</code> function, we need to provide a user-written function that returns the <em>negative log-likelihood</em> given a set of parameter inputs.</p>
+<p>For simple regression, recall that we need to estimate three parameters: <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\sigma_{\epsilon}\)</span> (RMSE). Below we have a function that inputs values for each of the three parameters, uses the inputted coefficient values to compute the residuals given the data, and returns the negative log-likelihood value assuming normality, independence, and homoscedasticity.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">regress.ll =<span class="st"> </span><span class="cf">function</span>(b0, b1, rmse) { 
+  <span class="co"># Use the following x and y values</span>
+  x =<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)
+  y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>, <span class="dv">56</span>, <span class="dv">37</span>, <span class="dv">55</span>, <span class="dv">50</span>, <span class="dv">36</span>, <span class="dv">22</span>, <span class="dv">75</span>, <span class="dv">37</span>, <span class="dv">42</span>)
+  
+  <span class="co"># Compute yhats and residuals</span>
+  yhats =<span class="st"> </span>b0 <span class="op">+</span><span class="st"> </span>b1 <span class="op">*</span><span class="st"> </span>x
+  errors =<span class="st"> </span>y <span class="op">-</span><span class="st"> </span>yhats
+  
+  <span class="co"># Compute the negative log-likelihood</span>
+  neg_log_L =<span class="st"> </span><span class="op">-</span><span class="kw">sum</span>(<span class="kw">dnorm</span>(errors, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> rmse, <span class="dt">log =</span> <span class="ot">TRUE</span>))
+  <span class="kw">return</span>(neg_log_L)
+} </code></pre></div>
+<p>Now we can implement the <code>mle2()</code> function. This function requires the argument, <code>minuslogl=</code>, which takes the user written function returning the negative log-likelihood. It also requires a list of starting values for the input parameters in the user-written function. (Here we give values close to the OLS estimates as starting values.)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model using ML</span>
+<span class="kw">library</span>(bbmle)
+mle.results =<span class="st"> </span><span class="kw">mle2</span>(<span class="dt">minuslogl =</span> regress.ll, <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">b0 =</span> <span class="fl">40.0</span>, <span class="dt">b1 =</span> <span class="fl">2.7</span>, <span class="dt">rmse =</span> <span class="fl">13.98</span>))
+
+<span class="co"># View results</span>
+<span class="kw">summary</span>(mle.results)</code></pre></div>
+<pre><code>Maximum likelihood estimation
+
+Call:
+mle2(minuslogl = regress.ll, start = list(b0 = 40, b1 = 2.7, 
+    rmse = 13.98))
+
+Coefficients:
+     Estimate Std. Error z value   Pr(z)    
+b0      40.01       5.67    7.05 1.7e-12 ***
+b1       2.74       1.77    1.55    0.12    
+rmse    12.51       2.80    4.47 7.7e-06 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+-2 log L: 78.91 </code></pre>
+<p>Under ML estimation:</p>
+<ul>
+<li><span class="math inline">\(\hat\beta_0 = 40.01\)</span></li>
+<li><span class="math inline">\(\hat\beta_1 = 2.74\)</span></li>
+<li><span class="math inline">\(\hat\sigma_\epsilon = 12.51\)</span></li>
+</ul>
+<p>Comparing the coefficient estimates (<span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>) between the two methods of estimation, we find they are quite similar. The estimate of <span class="math inline">\(\sigma_{\epsilon}\)</span> is different between the two estimation methods (although they are somewhat close in value).</p>
+<p>Why do the estimates of the RMSE differ depending on the method of estimation? This is because the two methods use different formulas for computing RMSE. In OLS estimation, recall that the estimate of <span class="math inline">\(\hat\sigma_\epsilon\)</span> was:</p>
+<p><span class="math display">\[
+\hat\sigma_{\epsilon}=\frac{\left(Y_i - \hat{Y}_i\right)^2}{n-2},
+\]</span></p>
+<p>For ML estimation, the estimate for <span class="math inline">\(\hat\sigma_\epsilon\)</span> is:</p>
+<p><span class="math display">\[
+\hat\sigma_{\epsilon}=\frac{\left(Y_i - \hat{Y}_i\right)^2}{n},
+\]</span></p>
+<p>The smaller denominator in OLS results in a higher estimate of the variation. This, in turn, affects the size of the SE estimates for the coefficients (and thus the <span class="math inline">\(t\)</span>- and <span class="math inline">\(p\)</span>-values). When <span class="math inline">\(n\)</span> is large, the differences in the estimates of <span class="math inline">\(\hat\sigma_\epsilon\)</span> are minimal and can safely be ignored.</p>
+<p>Lastly, we note that the value of <span class="math inline">\(-2\)</span>(log-likelihood) is the same for both the ML and OLS estimated models. This is a useful result. It allows us to use <code>lm()</code> to estimate the coefficients from a model and then use its log-likelihood as if we had fitted the model using ML.</p>
+<div id="using-r-to-directly-compute-the-likelihood-and-log-likelihood" class="section level3">
+<h3><span class="header-section-number">5.6.1</span> Using R to Directly Compute the Likelihood and Log-Likelihood</h3>
+<p>We can use R to directly compute the log-likelihood after we fit a model using the <code>lm()</code> function. To do this, we use the <code>logLik()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">1</span> =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x)
+<span class="kw">logLik</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<pre><code>&#39;log Lik.&#39; -39.45 (df=3)</code></pre>
+<p>To compute the likelihood, we can use the <code>exp()</code> function to back-transform the log-likelihood to the likelihood (although generally we will work with the log-likelihood).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="op">-</span><span class="fl">39.45442</span>)</code></pre></div>
+<pre><code>[1] 7.331e-18</code></pre>
+</div>
+</div>
+<div id="way-way-way-too-much-mathematics-way-too-much-math" class="section level2">
+<h2><span class="header-section-number">5.7</span> Way, Way, Way too Much Mathematics {way-too-much-math}</h2>
+<p>A second, more convenient method to determine the ML estimates of the regression parameters is to use mathematics; specifically calculus. Remember, we can express the likelihood of the regression residuals mathematically as:</p>
+<p><span class="math display">\[
+\mathcal{L}(\beta_0, \beta_1 | \mathrm{data}) = p(\epsilon_1) \times p(\epsilon_2) \times \ldots \times p(\epsilon_n)
+\]</span></p>
+<p>where the probability density of each residual (assuming normality) is:</p>
+<p><span class="math display">\[
+p(\epsilon_i) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left[-\frac{(\epsilon_i-\mu)^2}{2\sigma^2}\right]
+\]</span></p>
+<p>In addition to normality, which gives us the equation to compute the PDF for each residual, the regression assumptions also specify that each conditional error distribution has a mean of 0 and some variance (that is the same for all conditional error distributions). We can call it <span class="math inline">\(\sigma^2_{\epsilon}\)</span>. Substituting these values into the density function, we get,</p>
+<p><span class="math display">\[
+\begin{split}
+p(\epsilon_i) &amp;= \frac{1}{\sigma_{\epsilon}\sqrt{2\pi}}\exp\left[-\frac{(\epsilon_i-0)^2}{2\sigma^2_{\epsilon}}\right] \\[1em]
+&amp;= \frac{1}{\sigma_{\epsilon}\sqrt{2\pi}}\exp\left[-\frac{(\epsilon_i)^2}{2\sigma^2_{\epsilon}}\right]
+\end{split}
+\]</span></p>
+<p>Now we use this expression for each of the <span class="math inline">\(p(\epsilon_i)\)</span> values in the liklihood computation.</p>
+<p><span class="math display">\[
+\begin{split}
+\mathcal{L}(\beta_0, \beta_1 | \mathrm{data}) &amp;= p(\epsilon_1) \times p(\epsilon_2) \times \ldots \times p(\epsilon_n) \\[1em]
+&amp;= \frac{1}{\sigma_{\epsilon}\sqrt{2\pi}}\exp\left[-\frac{\epsilon_1
+^2}{2\sigma^2_{\epsilon}}\right] \times \frac{1}{\sigma_{\epsilon}\sqrt{2\pi}}\exp\left[-\frac{\epsilon_2^2}{2\sigma^2_{\epsilon}}\right] \times \ldots \times \frac{1}{\sigma_{\epsilon}\sqrt{2\pi}}\exp\left[-\frac{\epsilon_n^2}{2\sigma^2_{\epsilon}}\right] 
+\end{split}
+\]</span></p>
+<p>We can simplify this:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathcal{L}(\beta_0, \beta_1 | \mathrm{data}) &amp;=\left[ \frac{1}{\sigma_{\epsilon}\sqrt{2\pi}} \right]^n \times \exp\left[-\frac{\epsilon_1^2}{2\sigma^2_{\epsilon}}\right] \times \exp\left[-\frac{\epsilon_2^2}{2\sigma^2_{\epsilon}}\right] \times \ldots \times \exp\left[-\frac{\epsilon_n^2}{2\sigma^2_{\epsilon}}\right] 
+\end{split}
+\]</span></p>
+<p>Now we will take the natural logarithm of both sides of the expression:</p>
+<p><span class="math display">\[
+\begin{split}
+\ln \Bigl(\mathcal{L}(\beta_0, \beta_1 | \mathrm{data})\Bigr) &amp;= \ln \Biggl( \left[ \frac{1}{\sigma_{\epsilon}\sqrt{2\pi}} \right]^n \times \exp\left[-\frac{\epsilon_1^2}{2\sigma^2_{\epsilon}}\right] \times \exp\left[-\frac{\epsilon_2^2}{2\sigma^2_{\epsilon}}\right] \times \ldots \times \exp\left[-\frac{\epsilon_n^2}{2\sigma^2_{\epsilon}}\right] \Biggr) \\
+\end{split}
+\]</span></p>
+<p>Using our rules for logarithms and re-arranging gives,</p>
+<p><span class="math display">\[
+\mathcal{l}(\beta_0, \beta_1 | \mathrm{data}) = -\frac{n}{2} \times \ln (2\pi\sigma^2_{\epsilon}) - \frac{1}{2\sigma^2_{\epsilon}} \times \sum \epsilon_i^2
+\]</span></p>
+<p>Examining this equation, we see that the log-likelihood is a function of <span class="math inline">\(n\)</span>, <span class="math inline">\(\sigma^2_{\epsilon}\)</span> and the sum of squared residuals (SSE). The observed data define <span class="math inline">\(n\)</span> (the sample size) and the other two components come from the residuals which are a function of the parameters and the data.</p>
+<p>Once we have this function, calculus can be used to find the analytic maximum. Typically before we do this, we replace <span class="math inline">\(\epsilon_i\)</span> with <span class="math inline">\(Y_i - \hat\beta_0 - \hat\beta_1(X_i)\)</span>; writing the residuals as a function of the parameters (which we are solving for) and the data.</p>
+<p><span class="math display">\[
+\mathcal{l}(\beta_0, \beta_1 | \mathrm{data}) = -\frac{n}{2} \times \ln (2\pi\sigma^2_{\epsilon}) - \frac{1}{2\sigma^2_{\epsilon}} \times \sum \bigg(Y_i - \hat\beta_0 - \hat\beta_1(X_i)\bigg)^2
+\]</span></p>
+<p>To find the analytic maximum, we compute the partial derivatives <em>with respect to</em> <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>, and set these equal to zero. This gives us a system of two equations with two unknowns (<span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>). We can then solve this set of equations to obtain each of the parameter estimates. Then, based on these values, we can compute the estimate for the RMSE.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="probability-distributions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-codebook.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": {},
+"instapper": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+},
+"collapse": "section",
+"toolbar": null,
+"position": "fixed",
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

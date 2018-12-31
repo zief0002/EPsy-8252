@@ -27,9 +27,9 @@ In this set of notes, you will learn about log-transforming the outcome variable
 
 ### Preparation {-}
 
-Before class you will need to do the following:
+Before class you will need to read the following:
 
-- Refresh your knowledge about logarithms by going though the [Khan Academy Intro to Logarithms](https://www.khanacademy.org/math/algebra2/exponential-and-logarithmic-functions/introduction-to-logarithms/v/logarithms) tutorial.
+- Osborne, Jason (2002). [Notes on the use of data transformations](https://pareonline.net/getvn.asp?v=8&n=6). *Practical Assessment, Research &amp; Evaluation, 8*(6).
 
 
 <br />
