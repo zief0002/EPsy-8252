@@ -394,7 +394,7 @@ exp(-39.45442)
 ```
 
 
-## Way, Way, Way too Much Mathematics {way-too-much-math}
+## Way, Way, Way too Much Mathematics {#way-too-much-math}
 
 A second, more convenient method to determine the ML estimates of the regression parameters is to use mathematics; specifically calculus. Remember, we can express the likelihood of the regression residuals mathematically as:
 

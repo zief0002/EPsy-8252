@@ -206,7 +206,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.6" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#ml-estimation-in-regression-using-r"><i class="fa fa-check"></i><b>5.6</b> ML Estimation in Regression Using R</a><ul>
 <li class="chapter" data-level="5.6.1" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#using-r-to-directly-compute-the-likelihood-and-log-likelihood"><i class="fa fa-check"></i><b>5.6.1</b> Using R to Directly Compute the Likelihood and Log-Likelihood</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#way-way-way-too-much-mathematics-way-too-much-math"><i class="fa fa-check"></i><b>5.7</b> Way, Way, Way too Much Mathematics {way-too-much-math}</a></li>
+<li class="chapter" data-level="5.7" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#way-too-much-math"><i class="fa fa-check"></i><b>5.7</b> Way, Way, Way too Much Mathematics</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools"><i class="fa fa-check"></i>ed-schools.csv</a></li>
@@ -437,7 +437,7 @@ y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>
 )</code></pre></div>
 <pre><code>[1] 2003001</code></pre>
 <p>This leads to a search space of 2,003,001 parameter combinations. If we need them to the nearest thousandth, the search space is 200,030,001 combinations.</p>
-<p>Furthermore, in practice you would not have any idea which values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> to limit the search space to. Essentially you would need to search an infinite number of values unless you could limit the search space in some way. For many common methods (e.g., linear regression) finding the ML estimates is mathematically pretty easy (if we know calculus; see the section <a href="#way-too-much-math">Way, Way, Way too Much Mathematics</a>). For more complex methods (e.g., mixed-effect models) there is not a mathematical solution. Instead, mathematics is used to help limit the search space and then a grid search is used to hone in on the estimates.</p>
+<p>Furthermore, in practice you would not have any idea which values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> to limit the search space to. Essentially you would need to search an infinite number of values unless you could limit the search space in some way. For many common methods (e.g., linear regression) finding the ML estimates is mathematically pretty easy (if we know calculus; see the section <a href="maximum-likelihood-estimation.html#way-too-much-math">Way, Way, Way too Much Mathematics</a>). For more complex methods (e.g., mixed-effect models) there is not a mathematical solution. Instead, mathematics is used to help limit the search space and then a grid search is used to hone in on the estimates.</p>
 </div>
 </div>
 <div id="ml-estimation-in-regression-using-r" class="section level2">
@@ -530,8 +530,8 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <pre><code>[1] 7.331e-18</code></pre>
 </div>
 </div>
-<div id="way-way-way-too-much-mathematics-way-too-much-math" class="section level2">
-<h2><span class="header-section-number">5.7</span> Way, Way, Way too Much Mathematics {way-too-much-math}</h2>
+<div id="way-too-much-math" class="section level2">
+<h2><span class="header-section-number">5.7</span> Way, Way, Way too Much Mathematics</h2>
 <p>A second, more convenient method to determine the ML estimates of the regression parameters is to use mathematics; specifically calculus. Remember, we can express the likelihood of the regression residuals mathematically as:</p>
 <p><span class="math display">\[
 \mathcal{L}(\beta_0, \beta_1 | \mathrm{data}) = p(\epsilon_1) \times p(\epsilon_2) \times \ldots \times p(\epsilon_n)
