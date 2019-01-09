@@ -22,7 +22,7 @@ Before class you will need to do the following:
 
 - Download the [sample BibTeX file](https://github.com/zief0002/epsy-8252/raw/master/notes/s19-notes/s19-01-r-markdown/myBibliography.bib)
 - Download the CSL style file for the [American Psychological Association 6th edition (single-spaced bibliography)](https://www.zotero.org/styles) from Zotero's repository.
-- Install the R package **tinytex**
+- Install the R package **tinytex**. See the [documentation here](https://yihui.name/tinytex/).
 
 <br />
 
@@ -41,7 +41,7 @@ The notes and files you will need can be found at:
 - [Unit 01: R Markdown](https://github.com/zief0002/epsy-8252/raw/master/notes/s19-notes/s19-01-r-markdown/01-r-markdown.pdf) [Class Notes]
 
 
-```{r}
+```{r echo=FALSE}
 knitr::include_url("http://www.datadreaming.org/files/01-introduction-to-r.html#1")
 ```
 

@@ -14,6 +14,23 @@ To download individual PDF files, open the file link and then click on the `Down
 
 ---
 
+### What's What
+
+What is included in this repository (and your download)? The primary files and directories include:
+
+
+- **README.md:** This is a plain text file that basically includes the information you are reading right now.
+- **assignments:** This directory includes RMD and PDF versions of the assignments for the course.
+- **data:** This directory includes the data sets we will use in the course.
+- **docs:** This directory includes the HTML version of the course notes. These are the same notes that are at [http://zief0002.github.io/epsy-8252/](http://zief0002.github.io/epsy-8252/). To open them double-click the file *index.html* or drag that file onto your browser. 
+- **notes:** This directory includes the RMD files used to generate the HTML version of the course notes.
+- **scripts:** This directory includes the R script files associated with each unit.
+- **syllabus:** This directory includes the files needed to generate the course syllabus. The file *syllabus-8252-s19.pdf* file is a PDF file of the course syllabus.
+
+
+<br />
+
+---
 
 <!--
 

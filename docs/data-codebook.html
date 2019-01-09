@@ -25,7 +25,7 @@
 <meta name="author" content="Andrew Zieffler">
 
 
-<meta name="date" content="2019-01-07">
+<meta name="date" content="2019-01-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -243,9 +243,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools-2018"><i class="fa fa-check"></i>ed-schools-2018.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#evaluations"><i class="fa fa-check"></i>evaluations.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#fci-2018"><i class="fa fa-check"></i>fci-2015.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#mn-schools"><i class="fa fa-check"></i>mn-schools.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#movies"><i class="fa fa-check"></i>movies.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#riverview"><i class="fa fa-check"></i>riverview.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#wine"><i class="fa fa-check"></i>wine.csv</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -273,7 +276,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The data codebooks provide information about the attributes and source of each of the datasets used in the notes.</p>
 <div id="ed-schools-2018" class="section level2 unnumbered">
 <h2>ed-schools-2018.csv</h2>
-<p>The data in <em>ed-schools.csv</em> come from <span class="citation">U.S. News and World Report (<a href="#ref-USNWR:2018">2018</a>)</span> and contain 13 attributes collected from the <span class="math inline">\(n=129\)</span> graduate schools of education ranked in the <em>2018 Best Graduate Schools</em>. The attributes include:</p>
+<p>The data in <em>ed-schools-2018.csv</em> come from <span class="citation">U.S. News and World Report (<a href="#ref-USNWR:2018">2018</a>)</span> and contain 13 attributes collected from the <span class="math inline">\(n=129\)</span> graduate schools of education ranked in the <em>2018 Best Graduate Schools</em>. The attributes include:</p>
 <ul>
 <li><code>rank</code>: Rank in USNWR</li>
 <li><code>school</code>: Graduate program of Education</li>
@@ -288,6 +291,34 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>funded_research</code>: Funded research (in millions of dollars)</li>
 <li><code>funded_research_per_faculty</code>: Funded research per faculty member (in thousands of dollars)</li>
 <li><code>enroll</code>: Total graduate education enrollment in 2016</li>
+</ul>
+</div>
+<div id="evaluations" class="section level2 unnumbered">
+<h2>evaluations.csv</h2>
+<p>This file contains data collected from student evaluations of instructors’ beauty and teaching quality for several courses at the University of Texas. The teaching evaluations were conducted at the end of the semester, and the beauty judgments were made later, by six students who had not attended the classes and were not aware of the course evaluations. The variables are:</p>
+<ul>
+<li><code>prof_id</code>: Professor ID number</li>
+<li><code>avg_eval</code>: Average course rating</li>
+<li><code>num_courses</code>: Number of courses for which the professor has evaluations</li>
+<li><code>num_students</code>: Number of students enrolled in the professor’s courses</li>
+<li><code>perc_evaluating</code>: Average percentage of enrolled students who completed an evaluation</li>
+<li><code>beauty</code>: Measure of the professor’s beauty composed of the average score on six standardized beauty ratings</li>
+<li><code>tenured</code>: Is the professor tenured? (0 = non-tenured; 1 = tenured)</li>
+<li><code>native_english</code>: Is the professor a native English speaker? (0 = non-native English speaker; 1 = native English speaker)</li>
+<li><code>age</code>: Professor’s age (in years)</li>
+<li><code>female</code>: Is the professor female? (0 = male; 1 = female)</li>
+</ul>
+<p>These source of these data is: Hamermesh, D. S. &amp; Parker, A. M. (2005). Beauty in the classroom: Instructors’ pulchritude and putative pedagogical productivity. <em>Economics of Education Review, 24</em>, 369–376. The data were made available by: Gelman, A., &amp; Hill, J. (2007). <em>Data analysis using regression and multilevel/hierarchical models</em>. New York: Cambridge University Press.</p>
+</div>
+<div id="fci-2018" class="section level2 unnumbered">
+<h2>fci-2015.csv</h2>
+<p>Each season, <a href="http://www.teammarketing.com/">Team Marketing Report (TMR)</a> computes the cost of taking a family of four to a professional sports contest for each of the major sporting leagues. Costs are determined by telephone calls with representatives of the teams, venues and concessionaires. Identical questions were asked in all interviews. Prices for Canadian teams were converted to US dollars and comparison prices were converted using a recent exchange rate. Salary data were collected by Sporting Intelligence as part of their <em>Global Sports Salaries Survey 2015</em>.</p>
+<p>The data in <em>fci-2015.csv</em> include five attributes collected from from the 2014/2015 season for <span class="math inline">\(n=122\)</span> professional sports teams across the United States. The attributes include:</p>
+<ul>
+<li><code>team</code>: Name of professional sports team</li>
+<li><code>league</code>: Major sporting league the team plays in (MLB = Major Lague Baseball; NBA = National Basketball Association; NFL = National Football League; NHL = National Hockey League)</li>
+<li><code>fci</code>: Fan Cost Index (FCI). The FCI is a summary of what it costs to take a family of four to a game. It comprises the prices of four (4) adult average-price tickets, two (2) small draft beers, four (4) small soft drinks, four (4) regular-size hot dogs, parking for one (1) car, two (2) game programs and two (2) least expensive, adult-size adjustable caps.</li>
+<li><code>salary</code>: Average yearly salary for players on the active roster</li>
 </ul>
 </div>
 <div id="mn-schools" class="section level2 unnumbered">
@@ -321,6 +352,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>gender</code>: Employee’s gender</li>
 <li><code>male</code>: Dummy coded gender variable (0 = Female, 1 = Male)</li>
 <li><code>party</code>: Political party affiliation</li>
+</ul>
+</div>
+<div id="wine" class="section level2 unnumbered">
+<h2>wine.csv</h2>
+<p>The data in <em>wine.csv</em> includes data on 200 different wines. These data are a subset of a larger database (<span class="math inline">\(n = 6,613\)</span>) from <a href="https://www.wine.com/">wine.com</a>, one of the biggest e-commerce wine retailers in the U.S. It allows customers to buy wine according to any price range, grape variety, country of origin, etc. The data were made available at <a href="http://insightmine.com/bring-your-own-data-analyzing-wine-market/">http://insightmine.com/</a>. The attributes include:</p>
+<ul>
+<li><code>wine</code>: Wine name</li>
+<li><code>vintage</code>: Year the wine was produced (centered so that 0 = 2008, 1 = 2009, etc.)</li>
+<li><code>region</code>: Region of the world where the wine was produced</li>
+<li><code>varietal</code>: Grape varietal (e.g., Cabernet Sauvignon)</li>
+<li><code>rating</code>: Wine rating on a 100 pt. scale (these are from sources such as <em>Wine Spectator</em>, the <em>Wine Advocate</em>, and the <em>Wine Enthusiast</em>)</li>
+<li><code>price</code>: Price in U.S. dollars</li>
 </ul>
 
 </div>

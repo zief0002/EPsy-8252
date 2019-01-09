@@ -366,11 +366,11 @@ The $p$-value using the $t$-distribution is larger than the $p$-value computed b
 
 ## Using the $t$-Distribution in Regression
 
-To illustrate how probability distributions are used in practice, we will will use the *riverside.csv* (see the [data codebook](#riverside) here) and fit a regression model that uses education level and seniority to predict variation in employee income.
+To illustrate how probability distributions are used in practice, we will will use the *riverview.csv* (see the [data codebook](#riverview) here) and fit a regression model that uses education level and seniority to predict variation in employee income.
 
 ```{r message=FALSE, warning=FALSE}
 # Read in data
-city = read_csv(file = "~/Documents/github/epsy-8252/data/riverside.csv")
+city = read_csv(file = "~/Documents/github/epsy-8252/data/riverview.csv")
 head(city)
 
 # Fit regression model
