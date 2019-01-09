@@ -9,7 +9,7 @@
   <meta name="description" content="These are the notes for EPsy 8252.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Unit 2: Nonlinearity: Log-Transforming the Predictor | EPsy 8252 Notes />
+  <meta property="og:title" content="Unit 2: Nonlinearity: Log-Transforming the Predictor | EPsy 8252 Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Unit 2: Nonlinearity: Log-Transforming the Predictor | EPsy 8252 Notes />
+  <meta name="twitter:title" content="Unit 2: Nonlinearity: Log-Transforming the Predictor | EPsy 8252 Notes" />
   
   <meta name="twitter:description" content="These are the notes for EPsy 8252." />
   
@@ -25,14 +25,14 @@
 <meta name="author" content="Andrew Zieffler">
 
 
-<meta name="date" content="2018-12-31">
+<meta name="date" content="2019-01-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="rmarkdown.html">
+<link rel="prev" href="pretty-printing-tables-in-markdown.html">
 <link rel="next" href="nonlinearity-log-transforming-the-outcome.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,6 +50,7 @@
 
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -115,6 +116,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#preparation"><i class="fa fa-check"></i>Preparation</a></li>
 <li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#notes"><i class="fa fa-check"></i>Notes</a></li>
 <li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html"><i class="fa fa-check"></i>Pretty-Printing Tables in Markdown</a><ul>
+<li class="chapter" data-level="1.1" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#summary-statistics-table"><i class="fa fa-check"></i><b>1.1</b> Summary Statistics Table</a></li>
+<li class="chapter" data-level="1.2" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#correlation-table"><i class="fa fa-check"></i><b>1.2</b> Correlation Table</a></li>
+<li class="chapter" data-level="1.3" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#regression-table"><i class="fa fa-check"></i><b>1.3</b> Regression Table</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html"><i class="fa fa-check"></i><b>2</b> Nonlinearity: Log-Transforming the Predictor</a><ul>
 <li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#preparation-1"><i class="fa fa-check"></i>Preparation</a></li>
@@ -208,8 +214,35 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5.7" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#way-too-much-math"><i class="fa fa-check"></i><b>5.7</b> Way, Way, Way too Much Mathematics</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html"><i class="fa fa-check"></i><b>6</b> Information Criteria for Model Selection</a><ul>
+<li class="chapter" data-level="" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#preparation-5"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="6.1" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#dataset-and-research-question-4"><i class="fa fa-check"></i><b>6.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="6.2" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#model-building"><i class="fa fa-check"></i><b>6.2</b> Model-Building</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#exploration-of-the-outcome"><i class="fa fa-check"></i><b>6.2.1</b> Exploration of the Outcome</a></li>
+<li class="chapter" data-level="6.2.2" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-student-related-factors-model"><i class="fa fa-check"></i><b>6.2.2</b> Building the Student-Related Factors Model</a></li>
+<li class="chapter" data-level="6.2.3" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-faculty-related-factors-model"><i class="fa fa-check"></i><b>6.2.3</b> Building the Faculty-Related Factors Model</a></li>
+<li class="chapter" data-level="6.2.4" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-institution-related-factors-model"><i class="fa fa-check"></i><b>6.2.4</b> Building the Institution-Related Factors Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#candidate-statistical-models"><i class="fa fa-check"></i><b>6.3</b> Candidate Statistical Models</a></li>
+<li class="chapter" data-level="6.4" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#log-likelihood-1"><i class="fa fa-check"></i><b>6.4</b> Log-Likelihood</a></li>
+<li class="chapter" data-level="6.5" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#deviance-an-alternative-fit-value"><i class="fa fa-check"></i><b>6.5</b> Deviance: An Alternative Fit Value</a></li>
+<li class="chapter" data-level="6.6" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#akiakes-information-criteria-aic"><i class="fa fa-check"></i><b>6.6</b> Akiake’s Information Criteria (AIC)</a></li>
+<li class="chapter" data-level="6.7" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#empirical-support-for-hypotheses"><i class="fa fa-check"></i><b>6.7</b> Empirical Support for Hypotheses</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="moreinfocrit.html"><a href="moreinfocrit.html"><i class="fa fa-check"></i><b>7</b> Model Evidence</a><ul>
+<li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#preparation-6"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="7.1" data-path="moreinfocrit.html"><a href="moreinfocrit.html#dataset-and-research-question-5"><i class="fa fa-check"></i><b>7.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="7.2" data-path="moreinfocrit.html"><a href="moreinfocrit.html#corrected-aic-aicc-adjusting-for-model-complexity-and-sample-size"><i class="fa fa-check"></i><b>7.2</b> Corrected AIC (AICc): Adjusting for Model Complexity and Sample Size</a></li>
+<li class="chapter" data-level="7.3" data-path="moreinfocrit.html"><a href="moreinfocrit.html#model-selection-uncertainty"><i class="fa fa-check"></i><b>7.3</b> Model-Selection Uncertainty</a></li>
+<li class="chapter" data-level="7.4" data-path="moreinfocrit.html"><a href="moreinfocrit.html#relative-likelihood-and-evidence-ratios"><i class="fa fa-check"></i><b>7.4</b> Relative Likelihood and Evidence Ratios</a></li>
+<li class="chapter" data-level="7.5" data-path="moreinfocrit.html"><a href="moreinfocrit.html#model-probabilities"><i class="fa fa-check"></i><b>7.5</b> Model Probabilities</a></li>
+<li class="chapter" data-level="7.6" data-path="moreinfocrit.html"><a href="moreinfocrit.html#tables-of-model-evidence"><i class="fa fa-check"></i><b>7.6</b> Tables of Model Evidence</a></li>
+<li class="chapter" data-level="7.7" data-path="moreinfocrit.html"><a href="moreinfocrit.html#some-final-thoughts"><i class="fa fa-check"></i><b>7.7</b> Some Final Thoughts</a></li>
+<li class="chapter" data-level="7.8" data-path="moreinfocrit.html"><a href="moreinfocrit.html#pretty-printing-tables-of-model-evidence"><i class="fa fa-check"></i><b>7.8</b> Pretty Printing Tables of Model Evidence</a></li>
+<li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#other-resources-2"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
-<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools"><i class="fa fa-check"></i>ed-schools.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools-2018"><i class="fa fa-check"></i>ed-schools-2018.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#mn-schools"><i class="fa fa-check"></i>mn-schools.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#movies"><i class="fa fa-check"></i>movies.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#riverview"><i class="fa fa-check"></i>riverview.csv</a></li>
@@ -276,20 +309,20 @@ mn =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">f
 <div id="log-transformation-of-a-variable" class="section level2">
 <h2><span class="header-section-number">2.2</span> Log-Transformation of a Variable</h2>
 <p>Recall that the scatterplot of SAT scores and graduation rates suggested that the relationship between these variables was curvilinear.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-6"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-6-1.png" alt="Scatterplot of the relationship between median SAT score and six-year graduation rate. The loess smoother is also displayed." width="50%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-24"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-24-1.png" alt="Scatterplot of the relationship between median SAT score and six-year graduation rate. The loess smoother is also displayed." width="50%" />
 <p class="caption">
 Figure 2.1: Scatterplot of the relationship between median SAT score and six-year graduation rate. The loess smoother is also displayed.
 </p>
 </div>
 <p>One way to model this nonlinearity was to fit a model that included a polynomial effect (quadratic). Another method of modeling nonlinearity is to transform the predictor (or outcome) using a nonlinear transformation. One commonly used nonlinear transformation is the logarithm. Below is a comparison of the quadratic function to the logarithmic function.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-7"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-7-1.png" alt="Quadratic and logarithmic functions." width="80%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-25"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-25-1.png" alt="Quadratic and logarithmic functions." width="80%" />
 <p class="caption">
 Figure 2.2: Quadratic and logarithmic functions.
 </p>
 </div>
-<p>The quadratic function shows continuous and diminishing growth followed by contiuous and increasing loss (parabola; the function changes direction), while the logarithmic function models continuous, albeit diminishing, growth (the function does not change direction).</p>
+<p>The quadratic function shows continuous and diminishing growth followed by continuous and increasing loss (parabola; the function changes direction), while the logarithmic function models continuous, albeit diminishing, growth (the function does not change direction).</p>
 <div id="quick-refresher-on-logarithms" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Quick Refresher on Logarithms</h3>
 <p>The logarithm is an inverse function of an exponent. Consider this example,</p>
@@ -330,7 +363,7 @@ Figure 2.2: Quadratic and logarithmic functions.
 5     6 College of Saint Benedict          81.1      0  11.8    43.2  3.57
 6     7 Concordia College at Moorhead      69.4      0  11.4    36.6  3.52</code></pre>
 <p>How does this log-transformed variable compare to the original SAT predictor. We can examine the density plot of both the original and log-transformed variables to answer this.</p>
-<p><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-11-1.png" width="6in" style="display: block; margin: auto;" /></p>
+<p><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-29-1.png" width="6in" style="display: block; margin: auto;" /></p>
 <ul>
 <li>Comparing the shapes of the two variables, we see that the original variable was right-skewed. The log-transformed variable is also right-skewed, although it is LESS right-skewed than the original.</li>
 <li>The scale is quite different between the two variables (one is, after all, log-transformed). This has greatly affected the variation. After log-transforming, the variation is much smaller.</li>
@@ -342,8 +375,8 @@ Figure 2.2: Quadratic and logarithmic functions.
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Log-transformed SAT score&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Six-year graduation rate&quot;</span>)</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-12"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-12-1.png" alt="Scatterplot of the relationship between log-transformed median SAT score (base-2) and six-year graduation rate. The loess smoother is also displayed." width="50%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-30"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-30-1.png" alt="Scatterplot of the relationship between log-transformed median SAT score (base-2) and six-year graduation rate. The loess smoother is also displayed." width="50%" />
 <p class="caption">
 Figure 2.3: Scatterplot of the relationship between log-transformed median SAT score (base-2) and six-year graduation rate. The loess smoother is also displayed.
 </p>
@@ -367,7 +400,7 @@ out =<span class="st"> </span><span class="kw">augment</span>(lm.<span class="dv
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-14-1.png" width="3.5in" style="display: block; margin: auto;" /></p>
+<p><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-32-1.png" width="3.5in" style="display: block; margin: auto;" /></p>
 <p>The assumption looks reasonably met as the horizontal line of <span class="math inline">\(y=0\)</span> is encompassed in the confidence envelope of the loess smoother.</p>
 </div>
 <div id="interpret-the-regression-results" class="section level3">
@@ -377,7 +410,7 @@ out =<span class="st"> </span><span class="kw">augment</span>(lm.<span class="dv
 <span class="kw">glance</span>(lm.<span class="dv">1</span>)</code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.8113","2":"0.8053","3":"7.386","4":"133.3","5":"9.296e-13","6":"2","7":"-111.8","8":"229.6","9":"234.1","10":"1691","11":"31","_rn_":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.8113","2":"0.8053","3":"7.386","4":"133.3","5":"9.296e-13","6":"2","7":"-111.8","8":"229.6","9":"234.1","10":"1691","11":"31"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>Examining the model-level output, we see that differences in <span class="math inline">\(\log_2(\mathrm{SAT})\)</span> explain 81.13% of the variation in graduation rates. This is statistically significant, <span class="math inline">\(F(1,~31)=133.3\)</span>, <span class="math inline">\(p&lt;.001\)</span>. Since differences in <span class="math inline">\(\log_2(\mathrm{SAT})\)</span> imply that there are differences in the raw SAT scores, we would typically just say that “differences in SAT scores explain 81.13% of the variation in graduation rates.”</p>
@@ -437,7 +470,7 @@ out =<span class="st"> </span><span class="kw">augment</span>(lm.<span class="dv
 <p>To understand this further, consider a specific school, say Augsburg. Their measurement on the SAT variable is 10.3, and their log-transformed SAT score is 3.36. Using the fitted regression equation (which employs the log-transformed SAT),</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="fl">306.7</span> <span class="op">+</span><span class="st"> </span><span class="fl">106.4</span> <span class="op">*</span><span class="st"> </span><span class="fl">3.36</span></code></pre></div>
 <pre><code>[1] 50.8</code></pre>
-<p>Augsburg’s predicted graduation rate would be 50.8. If we increase the <code>L2sat</code> score by 1 to 4.36 (which is equivalent to a raw SAT measurment of 20.6; double 10.3), their predicted graduation rate is,</p>
+<p>Augsburg’s predicted graduation rate would be 50.8. If we increase the <code>L2sat</code> score by 1 to 4.36 (which is equivalent to a raw SAT measurement of 20.6; double 10.3), their predicted graduation rate is,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="fl">306.7</span> <span class="op">+</span><span class="st"> </span><span class="fl">106.4</span> <span class="op">*</span><span class="st"> </span><span class="fl">4.36</span></code></pre></div>
 <pre><code>[1] 157.2</code></pre>
 <p>This is an increase of 106.4.</p>
@@ -452,7 +485,7 @@ out =<span class="st"> </span><span class="kw">augment</span>(lm.<span class="dv
 <span class="kw">glance</span>(lm.<span class="dv">1</span>)</code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.8113","2":"0.8053","3":"7.386","4":"133.3","5":"9.296e-13","6":"2","7":"-111.8","8":"229.6","9":"234.1","10":"1691","11":"31","_rn_":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.8113","2":"0.8053","3":"7.386","4":"133.3","5":"9.296e-13","6":"2","7":"-111.8","8":"229.6","9":"234.1","10":"1691","11":"31"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Coefficient-level output</span>
@@ -489,8 +522,8 @@ plot_data =<span class="st"> </span><span class="kw">crossing</span>(
 <span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Median SAT score (in hundreds)&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Predicted graduation rate&quot;</span>)</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-20"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-20-1.png" alt="Plot of the predicted graduation rates as a function of median SAT score (in hundreds). The non-linearity in the plot indicates that there is a diminishing positive effect of SAT on graduation rates." width="50%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-38"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-38-1.png" alt="Plot of the predicted graduation rates as a function of median SAT score (in hundreds). The non-linearity in the plot indicates that there is a diminishing positive effect of SAT on graduation rates." width="50%" />
 <p class="caption">
 Figure 2.4: Plot of the predicted graduation rates as a function of median SAT score (in hundreds). The non-linearity in the plot indicates that there is a diminishing positive effect of SAT on graduation rates.
 </p>
@@ -519,14 +552,14 @@ Figure 2.4: Plot of the predicted graduation rates as a function of median SAT s
 <p><span class="math display">\[
 10^{1.013} = 10.3
 \]</span></p>
-<p>If we fit a model using the base-10 lagarithm,</p>
+<p>If we fit a model using the base-10 logarithm,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">2</span> =<span class="st"> </span><span class="kw">lm</span>(grad <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(sat, <span class="dt">base =</span> <span class="dv">10</span>), <span class="dt">data =</span> mn)
 
 <span class="co"># Model-level output</span>
 <span class="kw">glance</span>(lm.<span class="dv">2</span>)</code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.8113","2":"0.8053","3":"7.386","4":"133.3","5":"9.296e-13","6":"2","7":"-111.8","8":"229.6","9":"234.1","10":"1691","11":"31","_rn_":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.8113","2":"0.8053","3":"7.386","4":"133.3","5":"9.296e-13","6":"2","7":"-111.8","8":"229.6","9":"234.1","10":"1691","11":"31"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>Examining the model-level output, we see that differences in <span class="math inline">\(\log_{10}(\mathrm{SAT})\)</span> explain 81.13% of the variation in graduation rates. Or simply, that differences in SAT scores explain 81.13% of the variation in graduation rates. This is statistically significant, <span class="math inline">\(F(1,~31)=133.3\)</span>, <span class="math inline">\(p&lt;.001\)</span>. These model-level results are the same as when we used the base-2 logarithm.</p>
@@ -556,8 +589,8 @@ Figure 2.4: Plot of the predicted graduation rates as a function of median SAT s
 <h3><span class="header-section-number">2.6.1</span> Comparing the Output from the Two Bases</h3>
 <p>The model-level information is all the same. Furthermore, the intercepts (and SE and <span class="math inline">\(p\)</span>-value) was the same across both models. The slope coefficients and SEs were different in the two models, but the <span class="math inline">\(t\)</span>-value and <span class="math inline">\(p\)</span>-value for the effect of SAT was identical for both base-2 and base-10. The only real difference in using base-10 vs. base-2 in the logarithm is in the interpretation of the SAT effect.</p>
 <p>What if we look at the residual fit?</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-24"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-24-1.png" alt="Standardized residuals versus the fitted values for the models fitted with the log-2 predictor (left) and the log-10 predictor (right)." width="80%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-42"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-42-1.png" alt="Standardized residuals versus the fitted values for the models fitted with the log-2 predictor (left) and the log-10 predictor (right)." width="80%" />
 <p class="caption">
 Figure 2.5: Standardized residuals versus the fitted values for the models fitted with the log-2 predictor (left) and the log-10 predictor (right).
 </p>
@@ -585,7 +618,7 @@ Figure 2.5: Standardized residuals versus the fitted values for the models fitte
 </div>
 <div id="base-e-logarithm-the-natural-logarithm" class="section level2">
 <h2><span class="header-section-number">2.7</span> Base-<span class="math inline">\(e\)</span> Logarithm: The Natural Logarithm</h2>
-<p>In our example, neither of the bases we examined is satisfactory in terms of talking about the effect of SAT. Two-fold differences in SAT are very unlikely, to say anything of ten-fold differences. One base that is commonly used for log-transformations is base-<span class="math inline">\(e\)</span>. <span class="math inline">\(e\)</span> is a mathematical constant (Euler’s number) that is approximately equal to 2.71828. We can obtain this by using the <code>exp()</code> function in R. This function takes <span class="math inline">\(e\)</span> to some exponanent that is given as the argument. So to obtain the approximation of <span class="math inline">\(e\)</span> we use</p>
+<p>In our example, neither of the bases we examined is satisfactory in terms of talking about the effect of SAT. Two-fold differences in SAT are very unlikely, to say anything of ten-fold differences. One base that is commonly used for log-transformations is base-<span class="math inline">\(e\)</span>. <span class="math inline">\(e\)</span> is a mathematical constant (Euler’s number) that is approximately equal to 2.71828. We can obtain this by using the <code>exp()</code> function in R. This function takes <span class="math inline">\(e\)</span> to some exponent that is given as the argument. So to obtain the approximation of <span class="math inline">\(e\)</span> we use</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="dv">1</span>)</code></pre></div>
 <pre><code>[1] 2.718</code></pre>
 <p>The logarithm (base-<span class="math inline">\(e\)</span>) for a number, referred to as the <em>natural logarithm</em>, can be obtained using the <code>log()</code> function with the argument <code>base=exp(1)</code>. However, this base is so commonly used that it is the default value for the <code>base=</code> argument. So, if we use the <code>log()</code> function without defining the <code>base=</code> argument, it will automatically use base-<span class="math inline">\(e\)</span>. For example, the natural logarithm of Augsburg’s SAT score of 1030 can be computed as</p>
@@ -605,7 +638,7 @@ lm.<span class="dv">3</span> =<span class="st"> </span><span class="kw">lm</span
 <span class="kw">glance</span>(lm.<span class="dv">3</span>)</code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.8113","2":"0.8053","3":"7.386","4":"133.3","5":"9.296e-13","6":"2","7":"-111.8","8":"229.6","9":"234.1","10":"1691","11":"31","_rn_":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.8113","2":"0.8053","3":"7.386","4":"133.3","5":"9.296e-13","6":"2","7":"-111.8","8":"229.6","9":"234.1","10":"1691","11":"31"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>As with any base, using base-<span class="math inline">\(e\)</span> results in the same model-level information (<span class="math inline">\(R^2=.811\)</span>, <span class="math inline">\(F(1,~31)=133.3\)</span>, <span class="math inline">\(p&lt;.001\)</span>).</p>
@@ -619,7 +652,7 @@ lm.<span class="dv">3</span> =<span class="st"> </span><span class="kw">lm</span
 <p>The intercept has the same coefficient (<span class="math inline">\(\hat\beta_0=-306.7\)</span>), SE, <span class="math inline">\(t\)</span>-value, and <span class="math inline">\(p\)</span>-value as the intercept from the models using base-2 and base-10 log-transformations of SAT. (This is, again, because <span class="math inline">\(2^0=10^0=e^0=1\)</span>.) And, although the coefficient and SE for the effect of SAT is again different (a one-unit change in the three different log-scales does not correspond to the same amount of change in raw SAT for the three models), the <span class="math inline">\(t\)</span>-value and level of statistical significance (<span class="math inline">\(t(31)=11.55\)</span>, <span class="math inline">\(p&lt;.001\)</span>) for this effect, are the same as when we used base-2 and base-10.</p>
 <p>So how can we interpret the model’s coefficients?</p>
 <ul>
-<li>The intercept can be interpreted exactly the same as in the previous models in which we used base-2 or base-10; namely that the predicted average graduation rate for colleges/univeristies with a SAT value of one is <span class="math inline">\(-306.7\)</span>.</li>
+<li>The intercept can be interpreted exactly the same as in the previous models in which we used base-2 or base-10; namely that the predicted average graduation rate for colleges/universities with a SAT value of one is <span class="math inline">\(-306.7\)</span>.</li>
 <li>Interpreting the slope, we could say that an <span class="math inline">\(e\)</span>-fold difference in SAT value is associated with a 153.6-unit difference in graduation rates, on average.</li>
 </ul>
 <div id="interpretation-using-percentage-change" class="section level4">
@@ -630,25 +663,43 @@ lm.<span class="dv">3</span> =<span class="st"> </span><span class="kw">lm</span
 \]</span></p>
 <p>The SAT values and predicted graduation rates for these schools are given below:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-29">Table 2.1: </span>SAT values and Graduation Rates for Three Hypothetical Schools that have SAT Values that Differ by One Percent.</caption>
+<caption>
+<span id="tab:unnamed-chunk-47">Table 2.1: </span>SAT values and Graduation Rates for Three Hypothetical Schools that have SAT Values that Differ by One Percent.
+</caption>
 <thead>
-<tr class="header">
-<th align="right">SAT</th>
-<th align="right">Predicted Graduation Rate</th>
+<tr>
+<th style="text-align:right;">
+SAT
+</th>
+<th style="text-align:right;">
+Predicted Graduation Rate
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">10.0</td>
-<td align="right">46.88</td>
+<tr>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+46.88
+</td>
 </tr>
-<tr class="even">
-<td align="right">10.1</td>
-<td align="right">48.41</td>
+<tr>
+<td style="text-align:right;">
+10.1
+</td>
+<td style="text-align:right;">
+48.41
+</td>
 </tr>
-<tr class="odd">
-<td align="right">10.2</td>
-<td align="right">49.93</td>
+<tr>
+<td style="text-align:right;">
+10.2
+</td>
+<td style="text-align:right;">
+49.93
+</td>
 </tr>
 </tbody>
 </table>
@@ -692,8 +743,8 @@ lm.<span class="dv">3</span> =<span class="st"> </span><span class="kw">lm</span
 <pre><code>[1] 1.528</code></pre>
 <p>This gives you the constant difference exactly. So you can interpret the effect of SAT as, each 1% difference in SAT score is associated with a difference in graduation rates of 1.53, on average.</p>
 </div>
-<div id="approximate-interpretaton" class="section level4">
-<h4><span class="header-section-number">2.7.1.3</span> Approximate Interpretaton</h4>
+<div id="approximate-interpretation" class="section level4">
+<h4><span class="header-section-number">2.7.1.3</span> Approximate Interpretation</h4>
 <p>We can get an approximate estimate for the size of the effect by using the mathematical shortcut of</p>
 <p><span class="math display">\[
 \mathrm{Effect} \approx \frac{\hat\beta_1}{100}
@@ -716,7 +767,7 @@ lm.<span class="dv">4</span> =<span class="st"> </span><span class="kw">lm</span
 <span class="kw">glance</span>(lm.<span class="dv">4</span>)</code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.8656","2":"0.8566","3":"6.338","4":"96.58","5":"8.466e-14","6":"3","7":"-106.2","8":"220.4","9":"226.4","10":"1205","11":"30","_rn_":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.8656","2":"0.8566","3":"6.338","4":"96.58","5":"8.466e-14","6":"3","7":"-106.2","8":"220.4","9":"226.4","10":"1205","11":"30"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>The model explains 86.5% of the variation in graduation rates, <span class="math inline">\(F(2,~30)=96.58\)</span>, <span class="math inline">\(p&lt;.001\)</span>.</p>
@@ -761,8 +812,8 @@ plot_data =<span class="st"> </span><span class="kw">crossing</span>(
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Predicted graduation rate&quot;</span>) <span class="op">+</span>
 <span class="st">  </span>ggsci<span class="op">::</span><span class="kw">scale_color_d3</span>(<span class="dt">name =</span> <span class="st">&quot;Sector&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_linetype_manual</span>(<span class="dt">name =</span> <span class="st">&quot;Sector&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>))</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-34"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-34-1.png" alt="Predicted graduation rate as a function of median SAT score (in hundreds) and sector. The effect of SAT is log-linear." width="50%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-52"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-52-1.png" alt="Predicted graduation rate as a function of median SAT score (in hundreds) and sector. The effect of SAT is log-linear." width="50%" />
 <p class="caption">
 Figure 2.6: Predicted graduation rate as a function of median SAT score (in hundreds) and sector. The effect of SAT is log-linear.
 </p>
@@ -774,8 +825,8 @@ Figure 2.6: Predicted graduation rate as a function of median SAT score (in hund
 <h2><span class="header-section-number">2.9</span> Polynomial Effects vs. Log-Transformations</h2>
 <p>The inclusion of polynomial effects and the use of a log-transformation was to model the nonlinearity observed in the relationship between SAT scores and graduation rates. Both methods were successful in this endeavor. While either method could be used in practice to model nonlinearity, there are some considerations when making the choice of which may be more appropriate for a given modeling situation.</p>
 <p>The first consideration is one of theory. The plot below shows the mathematical function for a log-transformed <span class="math inline">\(X\)</span>-value (solid, black line) and for a quadratic polynomial of <span class="math inline">\(X\)</span> (dashed, red line).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-35"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-35-1.png" alt="Comparison of quadratic (blue, dashed) and logarithmic (black, solid) functions of X." width="3in" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-53"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-53-1.png" alt="Comparison of quadratic (blue, dashed) and logarithmic (black, solid) functions of X." width="3in" />
 <p class="caption">
 Figure 2.7: Comparison of quadratic (blue, dashed) and logarithmic (black, solid) functions of X.
 </p>
@@ -808,7 +859,7 @@ Figure 2.7: Comparison of quadratic (blue, dashed) and logarithmic (black, solid
           </div>
         </div>
       </div>
-<a href="rmarkdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pretty-printing-tables-in-markdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="nonlinearity-log-transforming-the-outcome.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

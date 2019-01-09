@@ -52,7 +52,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-p.caption {
+.caption {
   color: #777;
   margin-top: 10px;
 }
@@ -69,3 +69,5 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+

@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Unit 6: Information Criteria for Model Selection | EPsy 8252 Notes</title>
+  <meta name="description" content="These are the notes for EPsy 8252.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Unit 6: Information Criteria for Model Selection | EPsy 8252 Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are the notes for EPsy 8252." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Unit 6: Information Criteria for Model Selection | EPsy 8252 Notes" />
+  
+  <meta name="twitter:description" content="These are the notes for EPsy 8252." />
+  
+
+<meta name="author" content="Andrew Zieffler">
+
+
+<meta name="date" content="2019-01-07">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="maximum-likelihood-estimation.html">
+<link rel="next" href="moreinfocrit.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EPsy 8252 Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction to the Course</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-content"><i class="fa fa-check"></i>Course Content</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#books-and-other-reading-materials"><i class="fa fa-check"></i>Books and Other Reading Materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>1</b> R Markdown</a><ul>
+<li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#preparation"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#notes"><i class="fa fa-check"></i>Notes</a></li>
+<li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html"><i class="fa fa-check"></i>Pretty-Printing Tables in Markdown</a><ul>
+<li class="chapter" data-level="1.1" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#summary-statistics-table"><i class="fa fa-check"></i><b>1.1</b> Summary Statistics Table</a></li>
+<li class="chapter" data-level="1.2" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#correlation-table"><i class="fa fa-check"></i><b>1.2</b> Correlation Table</a></li>
+<li class="chapter" data-level="1.3" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#regression-table"><i class="fa fa-check"></i><b>1.3</b> Regression Table</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html"><i class="fa fa-check"></i><b>2</b> Nonlinearity: Log-Transforming the Predictor</a><ul>
+<li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#preparation-1"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="2.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#dataset-and-research-question"><i class="fa fa-check"></i><b>2.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="2.2" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#log-transformation-of-a-variable"><i class="fa fa-check"></i><b>2.2</b> Log-Transformation of a Variable</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#quick-refresher-on-logarithms"><i class="fa fa-check"></i><b>2.2.1</b> Quick Refresher on Logarithms</a></li>
+<li class="chapter" data-level="2.2.2" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#log-transforming-variables"><i class="fa fa-check"></i><b>2.2.2</b> Log-Transforming Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>2.3</b> Fitting the Regression Model</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#examine-the-assumption-of-linearity"><i class="fa fa-check"></i><b>2.3.1</b> Examine the Assumption of Linearity</a></li>
+<li class="chapter" data-level="2.3.2" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#interpret-the-regression-results"><i class="fa fa-check"></i><b>2.3.2</b> Interpret the Regression Results</a></li>
+<li class="chapter" data-level="2.3.3" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#better-interpretations-back-transforming"><i class="fa fa-check"></i><b>2.3.3</b> Better Interpretations: Back-transforming</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#alternative-method-of-fitting-the-model"><i class="fa fa-check"></i><b>2.4</b> Alternative Method of Fitting the Model</a></li>
+<li class="chapter" data-level="2.5" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#plotting-the-fitted-model"><i class="fa fa-check"></i><b>2.5</b> Plotting the Fitted Model</a></li>
+<li class="chapter" data-level="2.6" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#different-base-values-in-the-logarithm"><i class="fa fa-check"></i><b>2.6</b> Different Base Values in the Logarithm</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#comparing-the-output-from-the-two-bases"><i class="fa fa-check"></i><b>2.6.1</b> Comparing the Output from the Two Bases</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#base-e-logarithm-the-natural-logarithm"><i class="fa fa-check"></i><b>2.7</b> Base-<span class="math inline">\(e\)</span> Logarithm: The Natural Logarithm</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#using-the-natural-logarithm-in-a-regression-model"><i class="fa fa-check"></i><b>2.7.1</b> Using the Natural Logarithm in a Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#including-covariates"><i class="fa fa-check"></i><b>2.8</b> Including Covariates</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#plot-of-the-model-results"><i class="fa fa-check"></i><b>2.8.1</b> Plot of the Model Results</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#polynomial-effects-vs.log-transformations"><i class="fa fa-check"></i><b>2.9</b> Polynomial Effects vs. Log-Transformations</a></li>
+<li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#other-resources-1"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html"><i class="fa fa-check"></i><b>3</b> Nonlinearity: Log-Transforming the Outcome</a><ul>
+<li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#preparation-2"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="3.1" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#dataset-and-research-question-1"><i class="fa fa-check"></i><b>3.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="3.2" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#examine-relationship-between-age-and-budget"><i class="fa fa-check"></i><b>3.2</b> Examine Relationship between Age and Budget</a></li>
+<li class="chapter" data-level="3.3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#transform-the-outcome-using-the-natural-logarithm-base-e"><i class="fa fa-check"></i><b>3.3</b> Transform the Outcome Using the Natural Logarithm (Base-e)</a></li>
+<li class="chapter" data-level="3.4" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#re-analyze-using-the-log-transformed-budget"><i class="fa fa-check"></i><b>3.4</b> Re-analyze using the Log-Transformed Budget</a></li>
+<li class="chapter" data-level="3.5" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#interpreting-the-regression-output"><i class="fa fa-check"></i><b>3.5</b> Interpreting the Regression Output</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#back-transforming-a-more-useful-interpretation"><i class="fa fa-check"></i><b>3.5.1</b> Back-Transforming: A More Useful Interpretation</a></li>
+<li class="chapter" data-level="3.5.2" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#substituting-in-values-for-age-to-interpret-effects"><i class="fa fa-check"></i><b>3.5.2</b> Substituting in Values for Age to Interpret Effects</a></li>
+<li class="chapter" data-level="3.5.3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#approximate-interpretation-of-the-slope"><i class="fa fa-check"></i><b>3.5.3</b> Approximate Interpretation of the Slope</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#plotting-the-fitted-model-1"><i class="fa fa-check"></i><b>3.6</b> Plotting the Fitted Model</a></li>
+<li class="chapter" data-level="3.7" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#relationship-between-mpaa-rating-and-budget"><i class="fa fa-check"></i><b>3.7</b> Relationship between MPAA Rating and Budget</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#regression-model"><i class="fa fa-check"></i><b>3.7.1</b> Regression Model</a></li>
+<li class="chapter" data-level="3.7.2" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#mathematical-explanation-1"><i class="fa fa-check"></i><b>3.7.2</b> Mathematical Explanation</a></li>
+<li class="chapter" data-level="3.7.3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#approximate-interpretations"><i class="fa fa-check"></i><b>3.7.3</b> Approximate Interpretations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#multiple-regression-main-effects-model"><i class="fa fa-check"></i><b>3.8</b> Multiple Regression: Main Effects Model</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#nested-f-test"><i class="fa fa-check"></i><b>3.8.1</b> Nested F-Test</a></li>
+<li class="chapter" data-level="3.8.2" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#coefficient-level-interpretation"><i class="fa fa-check"></i><b>3.8.2</b> Coefficient-Level Interpretation</a></li>
+<li class="chapter" data-level="3.8.3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#plot-of-the-fitted-model"><i class="fa fa-check"></i><b>3.8.3</b> Plot of the Fitted Model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html#multiple-regression-interaction-model"><i class="fa fa-check"></i><b>3.9</b> Multiple Regression: Interaction Model</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="log-transformations-some-final-thoughts.html"><a href="log-transformations-some-final-thoughts.html"><i class="fa fa-check"></i>Log Transformations: Some Final Thoughts</a><ul>
+<li class="chapter" data-level="" data-path="log-transformations-some-final-thoughts.html"><a href="log-transformations-some-final-thoughts.html#power-transformations"><i class="fa fa-check"></i>Power Transformations</a><ul>
+<li class="chapter" data-level="" data-path="log-transformations-some-final-thoughts.html"><a href="log-transformations-some-final-thoughts.html#ladder-of-transformations"><i class="fa fa-check"></i>Ladder of Transformations</a></li>
+<li class="chapter" data-level="" data-path="log-transformations-some-final-thoughts.html"><a href="log-transformations-some-final-thoughts.html#rule-of-the-bulge"><i class="fa fa-check"></i>Rule of the Bulge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>4</b> Probability Distributions</a><ul>
+<li class="chapter" data-level="" data-path="probability-distributions.html"><a href="probability-distributions.html#preparation-3"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="4.1" data-path="probability-distributions.html"><a href="probability-distributions.html#dataset-and-research-question-2"><i class="fa fa-check"></i><b>4.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="4.2" data-path="probability-distributions.html"><a href="probability-distributions.html#normal-distribution"><i class="fa fa-check"></i><b>4.2</b> Normal Distribution</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="probability-distributions.html"><a href="probability-distributions.html#other-useful-r-functions-for-working-with-probability-distributions"><i class="fa fa-check"></i><b>4.2.1</b> Other Useful R Functions for Working with Probability Distributions</a></li>
+<li class="chapter" data-level="4.2.2" data-path="probability-distributions.html"><a href="probability-distributions.html#finding-cumulative-probability"><i class="fa fa-check"></i><b>4.2.2</b> Finding Cumulative Probability</a></li>
+<li class="chapter" data-level="4.2.3" data-path="probability-distributions.html"><a href="probability-distributions.html#cumulative-density-and-p-value"><i class="fa fa-check"></i><b>4.2.3</b> Cumulative Density and <span class="math inline">\(p\)</span>-Value</a></li>
+<li class="chapter" data-level="4.2.4" data-path="probability-distributions.html"><a href="probability-distributions.html#finding-quantiles"><i class="fa fa-check"></i><b>4.2.4</b> Finding Quantiles</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="probability-distributions.html"><a href="probability-distributions.html#students-t-distribution"><i class="fa fa-check"></i><b>4.3</b> Student’s <span class="math inline">\(t\)</span>-Distribution</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="probability-distributions.html"><a href="probability-distributions.html#comparing-probability-densities"><i class="fa fa-check"></i><b>4.3.1</b> Comparing Probability Densities</a></li>
+<li class="chapter" data-level="4.3.2" data-path="probability-distributions.html"><a href="probability-distributions.html#comparing-cumulative-densities"><i class="fa fa-check"></i><b>4.3.2</b> Comparing Cumulative Densities</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="probability-distributions.html"><a href="probability-distributions.html#using-the-t-distribution-in-regression"><i class="fa fa-check"></i><b>4.4</b> Using the <span class="math inline">\(t\)</span>-Distribution in Regression</a></li>
+<li class="chapter" data-level="4.5" data-path="probability-distributions.html"><a href="probability-distributions.html#model-level-inference-the-f-distribution"><i class="fa fa-check"></i><b>4.5</b> Model-Level Inference: The <span class="math inline">\(F\)</span>-Distribution</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="probability-distributions.html"><a href="probability-distributions.html#testing-the-model-level-null-hypothesis"><i class="fa fa-check"></i><b>4.5.1</b> Testing the Model-Level Null Hypothesis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="probability-distributions.html"><a href="probability-distributions.html#mean-squares-are-variance-estimates"><i class="fa fa-check"></i><b>4.6</b> Mean Squares are Variance Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html"><i class="fa fa-check"></i><b>5</b> Maximum Likelihood Estimation</a><ul>
+<li class="chapter" data-level="" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#preparation-4"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="5.1" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#dataset-and-research-question-3"><i class="fa fa-check"></i><b>5.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="5.2" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#joint-probability-density"><i class="fa fa-check"></i><b>5.2</b> Joint Probability Density</a></li>
+<li class="chapter" data-level="5.3" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#likelihood"><i class="fa fa-check"></i><b>5.3</b> Likelihood</a></li>
+<li class="chapter" data-level="5.4" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#maximum-likelihood"><i class="fa fa-check"></i><b>5.4</b> Maximum Likelihood</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#method-1-grid-search"><i class="fa fa-check"></i><b>5.4.1</b> Method 1: Grid Search</a></li>
+<li class="chapter" data-level="5.4.2" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#log-likelihood"><i class="fa fa-check"></i><b>5.4.2</b> Log-Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#maximum-likelihood-estimation-for-regression"><i class="fa fa-check"></i><b>5.5</b> Maximum Likelihood Estimation for Regression</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#large-search-spaces"><i class="fa fa-check"></i><b>5.5.1</b> Large Search Spaces</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#ml-estimation-in-regression-using-r"><i class="fa fa-check"></i><b>5.6</b> ML Estimation in Regression Using R</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#using-r-to-directly-compute-the-likelihood-and-log-likelihood"><i class="fa fa-check"></i><b>5.6.1</b> Using R to Directly Compute the Likelihood and Log-Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#way-too-much-math"><i class="fa fa-check"></i><b>5.7</b> Way, Way, Way too Much Mathematics</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html"><i class="fa fa-check"></i><b>6</b> Information Criteria for Model Selection</a><ul>
+<li class="chapter" data-level="" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#preparation-5"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="6.1" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#dataset-and-research-question-4"><i class="fa fa-check"></i><b>6.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="6.2" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#model-building"><i class="fa fa-check"></i><b>6.2</b> Model-Building</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#exploration-of-the-outcome"><i class="fa fa-check"></i><b>6.2.1</b> Exploration of the Outcome</a></li>
+<li class="chapter" data-level="6.2.2" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-student-related-factors-model"><i class="fa fa-check"></i><b>6.2.2</b> Building the Student-Related Factors Model</a></li>
+<li class="chapter" data-level="6.2.3" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-faculty-related-factors-model"><i class="fa fa-check"></i><b>6.2.3</b> Building the Faculty-Related Factors Model</a></li>
+<li class="chapter" data-level="6.2.4" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-institution-related-factors-model"><i class="fa fa-check"></i><b>6.2.4</b> Building the Institution-Related Factors Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#candidate-statistical-models"><i class="fa fa-check"></i><b>6.3</b> Candidate Statistical Models</a></li>
+<li class="chapter" data-level="6.4" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#log-likelihood-1"><i class="fa fa-check"></i><b>6.4</b> Log-Likelihood</a></li>
+<li class="chapter" data-level="6.5" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#deviance-an-alternative-fit-value"><i class="fa fa-check"></i><b>6.5</b> Deviance: An Alternative Fit Value</a></li>
+<li class="chapter" data-level="6.6" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#akiakes-information-criteria-aic"><i class="fa fa-check"></i><b>6.6</b> Akiake’s Information Criteria (AIC)</a></li>
+<li class="chapter" data-level="6.7" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#empirical-support-for-hypotheses"><i class="fa fa-check"></i><b>6.7</b> Empirical Support for Hypotheses</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="moreinfocrit.html"><a href="moreinfocrit.html"><i class="fa fa-check"></i><b>7</b> Model Evidence</a><ul>
+<li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#preparation-6"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="7.1" data-path="moreinfocrit.html"><a href="moreinfocrit.html#dataset-and-research-question-5"><i class="fa fa-check"></i><b>7.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="7.2" data-path="moreinfocrit.html"><a href="moreinfocrit.html#corrected-aic-aicc-adjusting-for-model-complexity-and-sample-size"><i class="fa fa-check"></i><b>7.2</b> Corrected AIC (AICc): Adjusting for Model Complexity and Sample Size</a></li>
+<li class="chapter" data-level="7.3" data-path="moreinfocrit.html"><a href="moreinfocrit.html#model-selection-uncertainty"><i class="fa fa-check"></i><b>7.3</b> Model-Selection Uncertainty</a></li>
+<li class="chapter" data-level="7.4" data-path="moreinfocrit.html"><a href="moreinfocrit.html#relative-likelihood-and-evidence-ratios"><i class="fa fa-check"></i><b>7.4</b> Relative Likelihood and Evidence Ratios</a></li>
+<li class="chapter" data-level="7.5" data-path="moreinfocrit.html"><a href="moreinfocrit.html#model-probabilities"><i class="fa fa-check"></i><b>7.5</b> Model Probabilities</a></li>
+<li class="chapter" data-level="7.6" data-path="moreinfocrit.html"><a href="moreinfocrit.html#tables-of-model-evidence"><i class="fa fa-check"></i><b>7.6</b> Tables of Model Evidence</a></li>
+<li class="chapter" data-level="7.7" data-path="moreinfocrit.html"><a href="moreinfocrit.html#some-final-thoughts"><i class="fa fa-check"></i><b>7.7</b> Some Final Thoughts</a></li>
+<li class="chapter" data-level="7.8" data-path="moreinfocrit.html"><a href="moreinfocrit.html#pretty-printing-tables-of-model-evidence"><i class="fa fa-check"></i><b>7.8</b> Pretty Printing Tables of Model Evidence</a></li>
+<li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#other-resources-2"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools-2018"><i class="fa fa-check"></i>ed-schools-2018.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#mn-schools"><i class="fa fa-check"></i>mn-schools.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#movies"><i class="fa fa-check"></i>movies.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#riverview"><i class="fa fa-check"></i>riverview.csv</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EPsy 8252 Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="information-criteria-for-model-selection" class="section level1">
+<h1><span class="header-section-number">Unit 6:</span> Information Criteria for Model Selection</h1>
+<p>In this set of notes, you will learn about using information criteria to select a model from a set of candidate models.</p>
+<hr />
+<div id="preparation-5" class="section level3 unnumbered">
+<h3>Preparation</h3>
+<p>Before class you will need read the following:</p>
+<ul>
+<li>Elliott, L. P., &amp; Brook, B. W. (2007). <a href="https://academic.oup.com/bioscience/article/57/7/608/238555">Revisiting Chamberlin: Multiple working hypotheses for the 21st century</a>. <em>BioScience, 57</em>(7), 608–614.</li>
+</ul>
+<p><br /></p>
+<hr />
+</div>
+<div id="dataset-and-research-question-4" class="section level2">
+<h2><span class="header-section-number">6.1</span> Dataset and Research Question</h2>
+<p>In this set of notes, we will use the data in the <em>ed-schools-2018.csv</em> file (see the <a href="data-codebook.html#ed-schools-2018">data codebook</a> here). These data include institutional-level attributes for several graduate education schools/programs rated by <em>U.S. News and World Report</em> in 2018.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries</span>
+<span class="kw">library</span>(broom)
+<span class="kw">library</span>(corrr)
+<span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(readr)
+<span class="kw">library</span>(sm)
+<span class="kw">library</span>(tidyr)
+
+<span class="co"># Read in data</span>
+ed =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/ed-schools-2018.csv&quot;</span>)
+<span class="kw">head</span>(ed)</code></pre></div>
+<pre><code># A tibble: 6 x 13
+   rank school score  peer expert_score gre_verbal gre_quant doc_accept
+  &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1     1 Harva…   100   4.4          4.6        163       159        4.5
+2     2 Stanf…    99   4.6          4.8        162       160        6.1
+3     3 Unive…    96   4.2          4.3        156       152       29.1
+4     3 Unive…    96   4.1          4.5        163       157        5  
+5     3 Unive…    96   4.3          4.5        155       153       26.1
+6     6 Johns…    95   4.1          4.1        164       162       27.4
+# … with 5 more variables: phd_student_faculty_ratio &lt;dbl&gt;,
+#   phd_granted_per_faculty &lt;dbl&gt;, funded_research &lt;dbl&gt;,
+#   funded_research_per_faculty &lt;dbl&gt;, enroll &lt;dbl&gt;</code></pre>
+<p>Using these data, we will examine the factors our academic peers use to rate graduate programs. To gather the peer assessment data, <em>U.S. News</em> asked deans, program directors and senior faculty to judge the academic quality of programs in their field on a scale of 1 (marginal) to 5 (outstanding). Based on the substantive literature we have three <strong>scientific working hypotheses</strong> about how programs are rated:</p>
+<ul>
+<li><strong>H1:</strong> Student-related factors drive the perceived academic quality of graduate programs in education.</li>
+<li><strong>H2:</strong> Faculty-related factors drive the perceived academic quality of graduate programs in education.</li>
+<li><strong>H3:</strong> Institution-related factors drive the perceived academic quality of graduate programs in education.</li>
+</ul>
+<p>We need to translate these working hypotheses into statistical models that we can then fit to a set of data. The models are only proxies for the working hypotheses. However, that being said, the validity of using the models as proxies is dependent on whether we have measured well, whether the translation makes substantive sense given the literature base, etc. Here is how we are measuring the different attributes:</p>
+<ul>
+<li>The student-related factors we will use are GRE scores.</li>
+<li>The faculty-related factors we will use are funded research (per faculty member) and the number of Ph.D. graduates (per faculty member).</li>
+<li>The institution-related factors we will use are the acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program.</li>
+</ul>
+</div>
+<div id="model-building" class="section level2">
+<h2><span class="header-section-number">6.2</span> Model-Building</h2>
+<p>Before we begin the exploratory analysis associated with model-building, it is worth noting that there are missing data in the dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(ed)</code></pre></div>
+<pre><code>      rank          school              score            peer     
+ Min.   :  1.0   Length:129         Min.   : 38.0   Min.   :2.50  
+ 1st Qu.: 32.0   Class :character   1st Qu.: 42.0   1st Qu.:2.90  
+ Median : 62.0   Mode  :character   Median : 51.0   Median :3.20  
+ Mean   : 63.2                      Mean   : 55.3   Mean   :3.29  
+ 3rd Qu.: 93.0                      3rd Qu.: 63.0   3rd Qu.:3.60  
+  expert_score    gre_verbal    gre_quant     doc_accept   
+ Min.   :2.40   Min.   :148   Min.   :142   Min.   :  4.5  
+ 1st Qu.:3.30   1st Qu.:152   1st Qu.:148   1st Qu.: 25.8  
+ Median :3.60   Median :154   Median :150   Median : 39.8  
+ Mean   :3.64   Mean   :155   Mean   :151   Mean   : 41.4  
+ 3rd Qu.:4.00   3rd Qu.:156   3rd Qu.:153   3rd Qu.: 54.1  
+ phd_student_faculty_ratio phd_granted_per_faculty funded_research
+ Min.   : 0.00             Min.   :0.000           Min.   : 0.10  
+ 1st Qu.: 1.70             1st Qu.:0.400           1st Qu.: 3.75  
+ Median : 2.60             Median :0.600           Median : 8.00  
+ Mean   : 2.91             Mean   :0.745           Mean   :13.84  
+ 3rd Qu.: 3.70             3rd Qu.:0.900           3rd Qu.:18.10  
+ funded_research_per_faculty     enroll    
+ Min.   :   2.9              Min.   :  29  
+ 1st Qu.:  78.5              1st Qu.: 556  
+ Median : 163.4              Median : 835  
+ Mean   : 226.2              Mean   : 954  
+ 3rd Qu.: 266.8              3rd Qu.:1281  
+ [ reached getOption(&quot;max.print&quot;) -- omitted 2 rows ]</code></pre>
+<p>This is a problem when we are comparing models that use different variables as the observations used to fit one model will be different than the observations used to fit another model. Since we are going to be using a likelihood-based method of comparing the models, this is problematic. Remember, likelihood-based methods find us the most likely model given a set of data. If the datasets used are different, we won’t know whether a model with a higher likelihood is truly more likely or is more likely because of the dataset used.</p>
+<p>To alleviate this problem, we will eliminate any observations (rows in the dataset) that have missing data. This is called <em>listwise</em> or <em>row-wise</em> deletion. Any analyses performed on the remaining data constitute a <em>complete-cases</em> analysis, since these cases have no missing data. To select the complete cases, we will use the <code>drop_na()</code> function from the <strong>tidyr</strong> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Drop rows with missing data</span>
+educ =<span class="st"> </span>ed <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>()
+
+<span class="co"># Check resulting data</span>
+<span class="kw">nrow</span>(educ)</code></pre></div>
+<pre><code>[1] 122</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(educ)</code></pre></div>
+<pre><code>      rank          school              score            peer     
+ Min.   :  1.0   Length:122         Min.   : 38.0   Min.   :2.50  
+ 1st Qu.: 31.2   Class :character   1st Qu.: 43.0   1st Qu.:2.90  
+ Median : 59.5   Mode  :character   Median : 51.5   Median :3.20  
+ Mean   : 60.5                      Mean   : 56.2   Mean   :3.31  
+ 3rd Qu.: 89.0                      3rd Qu.: 63.8   3rd Qu.:3.60  
+  expert_score    gre_verbal    gre_quant     doc_accept  
+ Min.   :2.40   Min.   :148   Min.   :142   Min.   : 4.5  
+ 1st Qu.:3.30   1st Qu.:152   1st Qu.:148   1st Qu.:25.5  
+ Median :3.60   Median :154   Median :150   Median :38.6  
+ Mean   :3.66   Mean   :155   Mean   :151   Mean   :40.1  
+ 3rd Qu.:4.00   3rd Qu.:156   3rd Qu.:153   3rd Qu.:51.6  
+ phd_student_faculty_ratio phd_granted_per_faculty funded_research
+ Min.   : 0.00             Min.   :0.000           Min.   : 0.10  
+ 1st Qu.: 1.70             1st Qu.:0.400           1st Qu.: 3.85  
+ Median : 2.70             Median :0.650           Median : 8.50  
+ Mean   : 2.94             Mean   :0.758           Mean   :14.26  
+ 3rd Qu.: 3.77             3rd Qu.:0.900           3rd Qu.:18.82  
+ funded_research_per_faculty     enroll    
+ Min.   :   2.9              Min.   :  29  
+ 1st Qu.:  77.8              1st Qu.: 562  
+ Median : 160.6              Median : 842  
+ Mean   : 228.8              Mean   : 970  
+ 3rd Qu.: 283.4              3rd Qu.:1312  
+ [ reached getOption(&quot;max.print&quot;) -- omitted 1 row ]</code></pre>
+<p>After selecting the complete-cases, the usable, analytic sample size is <span class="math inline">\(n=122\)</span>. Seven observations (5.4%) were eliminated from the original sample because of missing data.</p>
+<div id="exploration-of-the-outcome" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Exploration of the Outcome</h3>
+<p>The outcome variable we will use in each of the models is peer rating (<code>peer</code>). This variable can theoretically vary from 1 to 5, but in our sample has only ranges from 2.5 to 4.6. The density plot indicates that this variable is right-skewed. This may foreshadow problems meeting the normality assumption and we subsequently may consider log-transforming this variable.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-143"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-143-1.png" alt="Density plot of the outcome variable used in the different models." width="50%" />
+<p class="caption">
+Figure 6.1: Density plot of the outcome variable used in the different models.
+</p>
+</div>
+<p>Below we show scatterplots of the outcome (peer ratings) versus each of the predictors we are considering in the three scientific models.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-144"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-144-1.png" alt="Scatterplots of peer ratings versus the student-related factors; verbal and quantitative GRE scores. The loess smoother is also displayed." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-144-2.png" alt="Scatterplots of peer ratings versus the student-related factors; verbal and quantitative GRE scores. The loess smoother is also displayed." width="40%" />
+<p class="caption">
+Figure 6.2: Scatterplots of peer ratings versus the student-related factors; verbal and quantitative GRE scores. The loess smoother is also displayed.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-145"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-145-1.png" alt="Scatterplots of peer ratings versus the faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-145-2.png" alt="Scatterplots of peer ratings versus the faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed." width="40%" />
+<p class="caption">
+Figure 6.3: Scatterplots of peer ratings versus the faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-146"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-146-1.png" alt="Scatterplots of peer ratings versus the institution-related factors; acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program. The loess smoother is also displayed." width="30%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-146-2.png" alt="Scatterplots of peer ratings versus the institution-related factors; acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program. The loess smoother is also displayed." width="30%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-146-3.png" alt="Scatterplots of peer ratings versus the institution-related factors; acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program. The loess smoother is also displayed." width="30%" />
+<p class="caption">
+Figure 6.4: Scatterplots of peer ratings versus the institution-related factors; acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program. The loess smoother is also displayed.
+</p>
+</div>
+<p>Almost all of these plots show curvilinear patterns, some of which can be alleviated by log-transforming the outcome. Remember, log-transforming the outcome will also help with violations of homoskedasticity. Since we want to be able to compare the models at the end of the analysis, we NEED to use the same outcome in each of the models. Given the initial right-skewed nature of the outcome distribution and the evidence from the scatterplots, we will log-transform peer ratings and use that outcome in each model we fit.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create log-transformed peer ratings</span>
+educ =<span class="st"> </span>educ <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">Lpeer =</span> <span class="kw">log</span>(peer)
+    )</code></pre></div>
+</div>
+<div id="building-the-student-related-factors-model" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Building the Student-Related Factors Model</h3>
+<p>To determine which of the student-related factors to include in the model, we will examine the scatterplots of each predictor against the log-transformed peer ratings and also examine the correlation matrix of the outcome and student-related predictors.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-148"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-148-1.png" alt="Scatterplots of the log-transformed peer ratings versus the student-related factors; verbal and quantitative GRE scores. The loess smoother is also displayed." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-148-2.png" alt="Scatterplots of the log-transformed peer ratings versus the student-related factors; verbal and quantitative GRE scores. The loess smoother is also displayed." width="40%" />
+<p class="caption">
+Figure 6.5: Scatterplots of the log-transformed peer ratings versus the student-related factors; verbal and quantitative GRE scores. The loess smoother is also displayed.
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(Lpeer, gre_verbal, gre_quant) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">correlate</span>()</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["rowname"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Lpeer"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["gre_verbal"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["gre_quant"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Lpeer","2":"NA","3":"0.4083","4":"0.4778"},{"1":"gre_verbal","2":"0.4083","3":"NA","4":"0.8084"},{"1":"gre_quant","2":"0.4778","3":"0.8084","4":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Not surprisingly, the mean GRE verbal and GRE quantitative scores are highly correlated. Since including highly correlated predictors in a model can lead to unstable estimates, we will drop one of the predictors from the model. Empirically, the quantitative GRE scores seem more highly correlated with the outcome, so we will drop the GRE verbal scores from the model.</p>
+<p>Focusing on the scatterplot of the GRE quantitative scores, the relationship with the log-transformed peer ratings looks curvilinear (non-monotonic). The empirical relationship seems to change direction twice, indicating that log-transformed peer ratings may be a cubic-function of the quantitative GRE scores.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit cubic model</span>
+lm.<span class="dv">1</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>gre_quant <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(gre_quant<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(gre_quant<span class="op">^</span><span class="dv">3</span>), <span class="dt">data =</span> educ)
+
+<span class="co"># Coefficient-level output</span>
+<span class="kw">tidy</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"779.665326","3":"175.92242333","4":"4.432","5":"0.00002104"},{"1":"gre_quant","2":"-15.426069","3":"3.43393874","4":"-4.492","5":"0.00001654"},{"1":"I(gre_quant^2)","2":"0.101684","3":"0.02232497","4":"4.555","5":"0.00001286"},{"1":"I(gre_quant^3)","2":"-0.000223","3":"0.00004834","4":"-4.612","5":"0.00001018"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain residuals</span>
+out_<span class="dv">1</span> =<span class="st"> </span><span class="kw">augment</span>(lm.<span class="dv">1</span>)
+
+<span class="co"># Examine residuals</span>
+<span class="kw">sm.density</span>(out_<span class="dv">1</span><span class="op">$</span>.std.resid, <span class="dt">xlab =</span> <span class="st">&quot;Standardized residuals&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;normal&quot;</span>)
+
+<span class="kw">ggplot</span>(<span class="dt">data =</span> out_<span class="dv">1</span>, <span class="kw">aes</span>(<span class="dt">x =</span> .fitted, <span class="dt">y =</span> .std.resid)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-150"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-150-1.png" alt="Residual plots for the fitted model using the student-related factors." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-150-2.png" alt="Residual plots for the fitted model using the student-related factors." width="40%" />
+<p class="caption">
+Figure 6.6: Residual plots for the fitted model using the student-related factors.
+</p>
+</div>
+</div>
+<div id="building-the-faculty-related-factors-model" class="section level3">
+<h3><span class="header-section-number">6.2.3</span> Building the Faculty-Related Factors Model</h3>
+<p>To determine which of the faculty-related factors to include in the model, we will examine the scatterplots of each predictor against the log-transformed peer ratings and also examine the correlation matrix of the outcome and faculty-related predictors.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-151"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-151-1.png" alt="Scatterplots of log-transformed peer ratings versus the faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-151-2.png" alt="Scatterplots of log-transformed peer ratings versus the faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed." width="40%" />
+<p class="caption">
+Figure 6.7: Scatterplots of log-transformed peer ratings versus the faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed.
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(Lpeer, funded_research_per_faculty, phd_granted_per_faculty) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">correlate</span>()</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["rowname"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Lpeer"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["funded_research_per_faculty"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["phd_granted_per_faculty"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Lpeer","2":"NA","3":"0.5965","4":"0.2172"},{"1":"funded_research_per_faculty","2":"0.5965","3":"NA","4":"0.4028"},{"1":"phd_granted_per_faculty","2":"0.2172","3":"0.4028","4":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>The two predictors are moderately correlated with each other and both are correlated with the outcome. The scatterplot of peer ratings versus funded research suggest a monotonic curvilinear relationship. The Rule of the Bulge indicates that log-transforming the predictor may help linearize this relationship. The scatterplot of peer ratings versus number of Ph.D.s granted suggests that the distribution of the predictor is right-skewed with a potential outlying observation. This relationship may also benefit from log-transforming the predictor.</p>
+<p>Before log-transforming these predictors, it is a good idea to check the distributions for zero or negative values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(funded_research_per_faculty, phd_granted_per_faculty) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summary</span>()</code></pre></div>
+<pre><code> funded_research_per_faculty phd_granted_per_faculty
+ Min.   :   2.9              Min.   :0.000          
+ 1st Qu.:  77.8              1st Qu.:0.400          
+ Median : 160.6              Median :0.650          
+ Mean   : 228.8              Mean   :0.758          
+ 3rd Qu.: 283.4              3rd Qu.:0.900          
+ Max.   :1239.1              Max.   :8.400          </code></pre>
+<p>The summary values for the <code>phd_granted_per_faculty</code> predictor indicates that there are some schools that have a value of 0 for this predictor and that 0 is the smallest value. Before we transform using a log-transformation, we need to make it so the smallest value in the predictor is 1, since the log of 0 (and any negative values) is undefined. To do this we will add some number (in our case 1) to each value for <code>phd_granted_per_faculty</code> prior to taking the log.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Create log of the faculty-related predictors</span>
+educ =<span class="st"> </span>educ <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">Lfunded_research_per_faculty =</span> <span class="kw">log</span>(funded_research_per_faculty),
+    <span class="dt">Lphd_granted_per_faculty =</span> <span class="kw">log</span>(phd_granted_per_faculty <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)
+  )</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-155"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-155-1.png" alt="Scatterplots of log-transformed peer ratings versus the log-transformed faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-155-2.png" alt="Scatterplots of log-transformed peer ratings versus the log-transformed faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed." width="40%" />
+<p class="caption">
+Figure 6.8: Scatterplots of log-transformed peer ratings versus the log-transformed faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed.
+</p>
+</div>
+<p>Although this helped, it did not “cure” the nonlinearity. We might want to further include a quadratic term for each of the predictors. To evaluate this, we will fit the model that includes the linear and quadratic log-transformed predictors and examine the coefficient-level output and residuals.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit cubic model</span>
+lm.<span class="dv">2</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Lfunded_research_per_faculty <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Lfunded_research_per_faculty<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>Lphd_granted_per_faculty  <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Lphd_granted_per_faculty<span class="op">^</span><span class="dv">2</span>), <span class="dt">data =</span> educ)
+
+<span class="co"># Coefficient-level output</span>
+<span class="kw">tidy</span>(lm.<span class="dv">2</span>)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"1.21391","3":"0.105724","4":"11.482","5":"6.759e-21"},{"1":"Lfunded_research_per_faculty","2":"-0.15078","3":"0.050902","4":"-2.962","5":"3.701e-03"},{"1":"I(Lfunded_research_per_faculty^2)","2":"0.02381","3":"0.005468","4":"4.355","5":"2.872e-05"},{"1":"Lphd_granted_per_faculty","2":"0.29984","3":"0.094800","4":"3.163","5":"1.991e-03"},{"1":"I(Lphd_granted_per_faculty^2)","2":"-0.13927","3":"0.050333","4":"-2.767","5":"6.579e-03"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain residuals</span>
+out_<span class="dv">2</span> =<span class="st"> </span><span class="kw">augment</span>(lm.<span class="dv">1</span>)
+
+<span class="co"># Examine residuals</span>
+<span class="kw">sm.density</span>(out_<span class="dv">2</span><span class="op">$</span>.std.resid, <span class="dt">xlab =</span> <span class="st">&quot;Standardized residuals&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;normal&quot;</span>)
+
+<span class="kw">ggplot</span>(<span class="dt">data =</span> out_<span class="dv">2</span>, <span class="kw">aes</span>(<span class="dt">x =</span> .fitted, <span class="dt">y =</span> .std.resid)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-156"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-156-1.png" alt="Residual plots for the fitted model using the faculty-related factors." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-156-2.png" alt="Residual plots for the fitted model using the faculty-related factors." width="40%" />
+<p class="caption">
+Figure 6.9: Residual plots for the fitted model using the faculty-related factors.
+</p>
+</div>
+</div>
+<div id="building-the-institution-related-factors-model" class="section level3">
+<h3><span class="header-section-number">6.2.4</span> Building the Institution-Related Factors Model</h3>
+<p>To determine which of the institution-related factors to include in the model, we will examine the scatterplots of each predictor against the log-transformed peer ratings and also examine the correlation matrix of the outcome and institution-related predictors.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-157"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-157-1.png" alt="Scatterplots of the log-transformed peer ratings versus the institution-related factors; acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program. The loess smoother is also displayed." width="30%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-157-2.png" alt="Scatterplots of the log-transformed peer ratings versus the institution-related factors; acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program. The loess smoother is also displayed." width="30%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-157-3.png" alt="Scatterplots of the log-transformed peer ratings versus the institution-related factors; acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program. The loess smoother is also displayed." width="30%" />
+<p class="caption">
+Figure 6.10: Scatterplots of the log-transformed peer ratings versus the institution-related factors; acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program. The loess smoother is also displayed.
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(Lpeer, doc_accept, phd_student_faculty_ratio, enroll) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">correlate</span>()</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["rowname"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Lpeer"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["doc_accept"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["phd_student_faculty_ratio"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["enroll"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Lpeer","2":"NA","3":"-0.53391","4":"0.422760","5":"0.096383"},{"1":"doc_accept","2":"-0.53391","3":"NA","4":"-0.234755","5":"-0.025585"},{"1":"phd_student_faculty_ratio","2":"0.42276","3":"-0.23475","4":"NA","5":"0.004505"},{"1":"enroll","2":"0.09638","3":"-0.02559","4":"0.004505","5":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>The three predictors are mostly uncorrelated with each other and all are correlated with the outcome, albeit enrollment is weakly correlated with peer ratings. Two of the three scatterplots suggest curvilinear relationships although with different functional forms—Ph.D. student-to-faculty ratio and total enrollment. The Rule of the Bulge indicates that log-transforming the Ph.D. student-to-faculty ratio predictor, and including quadratic may help linearize this relationship. The scatterplot of peer ratings versus total enrollment suggests that the distribution of the predictor is right-skewed with a potential outlying observations. This relationship may also benefit from log-transforming the predictor. Lastly, it is unclear whether any additional transformation or polynomial terms are necessary for modeling the relationship with doctoral acceptance rate; to double-check this we will also log-transform the total enrollment predictor.</p>
+<p>As before, prior to log-transforming any predictors, it is a good idea to check the distributions for zero or negative values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(doc_accept, phd_student_faculty_ratio, enroll) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summary</span>()</code></pre></div>
+<pre><code>   doc_accept   phd_student_faculty_ratio     enroll    
+ Min.   : 4.5   Min.   : 0.00             Min.   :  29  
+ 1st Qu.:25.5   1st Qu.: 1.70             1st Qu.: 562  
+ Median :38.6   Median : 2.70             Median : 842  
+ Mean   :40.1   Mean   : 2.94             Mean   : 970  
+ 3rd Qu.:51.6   3rd Qu.: 3.77             3rd Qu.:1312  
+ Max.   :92.7   Max.   :11.70             Max.   :4892  </code></pre>
+<p>We will need to add one to every value of the <code>phd_student_faculty_ratio</code> predictor (so that the minimum value becomes 1) prior to the log-transformation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Create log of the faculty-related predictors</span>
+educ =<span class="st"> </span>educ <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">Ldoc_accept =</span> <span class="kw">log</span>(doc_accept),
+    <span class="dt">Lphd_student_faculty_ratio =</span> <span class="kw">log</span>(phd_student_faculty_ratio <span class="op">+</span><span class="st"> </span><span class="dv">1</span>),
+    <span class="dt">Lenroll =</span> <span class="kw">log</span>(enroll)
+  )</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-161"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-161-1.png" alt="Scatterplots of the log-transformed peer ratings versus the log-transformed institution-related factors. The loess smoother is also displayed." width="30%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-161-2.png" alt="Scatterplots of the log-transformed peer ratings versus the log-transformed institution-related factors. The loess smoother is also displayed." width="30%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-161-3.png" alt="Scatterplots of the log-transformed peer ratings versus the log-transformed institution-related factors. The loess smoother is also displayed." width="30%" />
+<p class="caption">
+Figure 6.11: Scatterplots of the log-transformed peer ratings versus the log-transformed institution-related factors. The loess smoother is also displayed.
+</p>
+</div>
+<p>The scatterplots indicate that all three relationships were satisfactorily linearized. After fitting the institution-related factors model we will further examine the coefficient-level output and residuals.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model</span>
+lm.<span class="dv">3</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Ldoc_accept <span class="op">+</span><span class="st"> </span>Lenroll <span class="op">+</span><span class="st"> </span>Lphd_student_faculty_ratio, <span class="dt">data =</span> educ)
+
+<span class="co"># Coefficient-level output</span>
+<span class="kw">tidy</span>(lm.<span class="dv">3</span>)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"1.30862","3":"0.10806","4":"12.110","5":"1.962e-22"},{"1":"Ldoc_accept","2":"-0.10890","3":"0.01562","4":"-6.970","5":"1.952e-10"},{"1":"Lenroll","2":"0.01452","3":"0.01357","4":"1.070","5":"2.868e-01"},{"1":"Lphd_student_faculty_ratio","2":"0.12867","3":"0.02474","4":"5.202","5":"8.419e-07"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain residuals</span>
+out_<span class="dv">3</span> =<span class="st"> </span><span class="kw">augment</span>(lm.<span class="dv">3</span>)
+
+<span class="co"># Examine residuals</span>
+<span class="kw">sm.density</span>(out_<span class="dv">3</span><span class="op">$</span>.std.resid, <span class="dt">xlab =</span> <span class="st">&quot;Standardized residuals&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;normal&quot;</span>)
+
+<span class="kw">ggplot</span>(<span class="dt">data =</span> out_<span class="dv">3</span>, <span class="kw">aes</span>(<span class="dt">x =</span> .fitted, <span class="dt">y =</span> .std.resid)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-162"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-162-1.png" alt="Residual plots for the fitted model using the institution-related factors." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-162-2.png" alt="Residual plots for the fitted model using the institution-related factors." width="40%" />
+<p class="caption">
+Figure 6.12: Residual plots for the fitted model using the institution-related factors.
+</p>
+</div>
+<p>The coefficient-level output indicates that the log-transformed enrollment predictor may be unnecessary (<span class="math inline">\(p=0.287\)</span>). We will fit another model that omits this predictor, but we will also retain this initial model as it was suggested from the scientific research.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model</span>
+lm.<span class="dv">4</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Ldoc_accept <span class="op">+</span><span class="st"> </span>Lphd_student_faculty_ratio, <span class="dt">data =</span> educ)
+
+<span class="co"># Coefficient-level output</span>
+<span class="kw">tidy</span>(lm.<span class="dv">4</span>)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"1.3964","3":"0.07040","4":"19.834","5":"1.560e-39"},{"1":"Ldoc_accept","2":"-0.1072","3":"0.01555","4":"-6.892","5":"2.811e-10"},{"1":"Lphd_student_faculty_ratio","2":"0.1309","3":"0.02467","4":"5.305","5":"5.283e-07"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain residuals</span>
+out_<span class="dv">4</span> =<span class="st"> </span><span class="kw">augment</span>(lm.<span class="dv">4</span>)
+
+<span class="co"># Examine residuals</span>
+<span class="kw">sm.density</span>(out_<span class="dv">4</span><span class="op">$</span>.std.resid, <span class="dt">xlab =</span> <span class="st">&quot;Standardized residuals&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;normal&quot;</span>)
+
+<span class="kw">ggplot</span>(<span class="dt">data =</span> out_<span class="dv">4</span>, <span class="kw">aes</span>(<span class="dt">x =</span> .fitted, <span class="dt">y =</span> .std.resid)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-163"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-163-1.png" alt="Residual plots for the fitted model using the institution-related factors (enrollment omitted)." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-163-2.png" alt="Residual plots for the fitted model using the institution-related factors (enrollment omitted)." width="40%" />
+<p class="caption">
+Figure 6.13: Residual plots for the fitted model using the institution-related factors (enrollment omitted).
+</p>
+</div>
+</div>
+</div>
+<div id="candidate-statistical-models" class="section level2">
+<h2><span class="header-section-number">6.3</span> Candidate Statistical Models</h2>
+<p>Now that we have settled on the functional form for each of the three proposed models, we can write out the statistical models associated with the scientific hypotheses. These models using regression notation are:</p>
+<ul>
+<li><strong>M1:</strong> <span class="math inline">\(\mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{GREQ}_i) + \beta_2(\mathrm{GREQ}^2_i) + \beta_3(\mathrm{GREQ}^3_i) + \epsilon_i\)</span></li>
+<li><strong>M2:</strong> <span class="math inline">\(\mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{Funded~research}_i) + \beta_2(\mathrm{Funded~research}^2_i) + \beta_3(\mathrm{PhDs~granted}_i) + \beta_4(\mathrm{PhDs~granted}^2_i) + \epsilon_i\)</span></li>
+<li><strong>M3:</strong> <span class="math inline">\(\mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{PhD~acceptance~rate}_i) + \beta_2(\mathrm{PhD~student\mbox{-}to\mbox{-}faculty~ratio}_i) + \beta_3(\mathrm{Enrollment}_i) + \epsilon_i\)</span></li>
+</ul>
+<p>where peer rating, funded research, Ph.D.s granted, Ph.D. acceptance rate, enrollment, and Ph.D. student-to-faculty ratio have all been log-transformed. We will also consider a fourth model that omits enrollment from the institution-related factors model.</p>
+<ul>
+<li><strong>M4:</strong> <span class="math inline">\(\mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{PhD~acceptance~rate}_i) + \beta_2(\mathrm{PhD~student\mbox{-}to\mbox{-}faculty~ratio}_i) + \epsilon_i\)</span></li>
+</ul>
+</div>
+<div id="log-likelihood-1" class="section level2">
+<h2><span class="header-section-number">6.4</span> Log-Likelihood</h2>
+<p>Recall that the likelihood gives us the probability of a particular model given a set of data and assumptions about the model, and that the log-likelihood is just a mathematically convenient transformation of the likelihood. Log-likelihood values from different models can be compared, so long as:</p>
+<ul>
+<li>The exact same data is used to fit the models,</li>
+<li>The exact same outcome is used to fit the models, and</li>
+<li>The assumptions underlying the likelihood (independence, distributional assumptions) are met.</li>
+</ul>
+<p>In all four models we are using the same data set and outcome, and the assumptions seem reasonably tenable for each of the four fitted candidate models. This suggests that the likelihood (or log-likelihood) can provide some evidence as to which of the four candidate models is most probable. Below we compute the log-likelihood values for each of the four candidate models.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<pre><code>&#39;log Lik.&#39; 95.88 (df=5)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(lm.<span class="dv">2</span>)</code></pre></div>
+<pre><code>&#39;log Lik.&#39; 98.25 (df=6)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(lm.<span class="dv">3</span>)</code></pre></div>
+<pre><code>&#39;log Lik.&#39; 101.4 (df=5)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(lm.<span class="dv">4</span>)</code></pre></div>
+<pre><code>&#39;log Lik.&#39; 100.8 (df=4)</code></pre>
+<p>Note that the log-likelihood values are also available from the <code>glance()</code> function’s output (in the <code>logLik</code> column).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.4086","2":"0.3936","3":"0.1121","4":"27.18","5":"1.957e-13","6":"4","7":"95.88","8":"-181.8","9":"-167.7","10":"1.483","11":"118"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>These values suggest that the model with the highest probability given the data and set of assumptions is Model 3; it has the highest log-likelihood value.</p>
+</div>
+<div id="deviance-an-alternative-fit-value" class="section level2">
+<h2><span class="header-section-number">6.5</span> Deviance: An Alternative Fit Value</h2>
+<p>It is common to multiply the log-likelihood values by <span class="math inline">\(-2\)</span>. This is called the <em>deviance</em>. Deviance is a measure of model-data error, so when evaluating deviance values, lower is better. (The square brackets in the syntax grab the log-likelihood value from the <code>logLik()</code> output.)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">1</span>)[<span class="dv">1</span>] <span class="co">#Model 1</span></code></pre></div>
+<pre><code>[1] -191.8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">2</span>)[<span class="dv">1</span>] <span class="co">#Model 2</span></code></pre></div>
+<pre><code>[1] -196.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">3</span>)[<span class="dv">1</span>] <span class="co">#Model 3</span></code></pre></div>
+<pre><code>[1] -202.8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">4</span>)[<span class="dv">1</span>] <span class="co">#Model 4</span></code></pre></div>
+<pre><code>[1] -201.7</code></pre>
+<p>Here, the model that produces the lowest amount of model-data error is Model 3; it has the lowest deviance value. Since the deviance just multiplies the log-likelihood values by a constant, it produces the same rank ordering of the candidate models. Thus, whether you evaluate using the likelihood, the log-likelihood, or the deviance, you will end up with the same ordering of candidate models. Using deviance, however, has the advantages of having a direct relationship to model error, so it is more interpretable. It is also more closely aligned with other model measures associated with error that we commonly use (e.g., SSE, <span class="math inline">\(R^2\)</span>).</p>
+</div>
+<div id="akiakes-information-criteria-aic" class="section level2">
+<h2><span class="header-section-number">6.6</span> Akiake’s Information Criteria (AIC)</h2>
+<p>Remember that lower values of deviance indicate the model (as defined via the set of parameters) is more likely (lower model-data error) given the data and set of assumptions. However, in practice we cannot directly compare the deviances since the models include a different number of parameters. It was not coincidence that our most probable candidate model also had the highest number of predictors.</p>
+<p>To account for this, we will add a penalty term to the deviance based on the number of parameters estimated in the model. This penalty-adjusted value is called Akiake’s Information Criteria (AIC).</p>
+<p><span class="math display">\[
+AIC = \mathrm{Deviance} + 2(k)
+\]</span></p>
+<p>where <span class="math inline">\(k\)</span> is the number of parameters being estimated in the model (including the intercept and RMSE). The AIC adjusts the deviance based on the complexity of the model. Note that the value for <span class="math inline">\(k\)</span> is given as <em>df</em> in the <code>logLik()</code> output. For our four models, the <em>df</em> values are:</p>
+<ul>
+<li><strong>M1:</strong> 5 <em>df</em> (<span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\hat\beta_2\)</span>, <span class="math inline">\(\hat\beta_3\)</span>, RMSE)</li>
+<li><strong>M2:</strong> 6 <em>df</em> (<span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\hat\beta_2\)</span>, <span class="math inline">\(\hat\beta_3\)</span>, <span class="math inline">\(\hat\beta_4\)</span>, RMSE)</li>
+<li><strong>M3:</strong> 5 <em>df</em> (<span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\hat\beta_2\)</span>, <span class="math inline">\(\hat\beta_3\)</span>, RMSE)</li>
+<li><strong>M4:</strong> 4 <em>df</em> (<span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\hat\beta_2\)</span>, RMSE)</li>
+</ul>
+<p>Just as with the deviance, smaller AIC values indicate a more likely model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">1</span>)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="dv">5</span> <span class="co">#Model 1</span></code></pre></div>
+<pre><code>[1] -181.8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">2</span>)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="dv">6</span> <span class="co">#Model 2</span></code></pre></div>
+<pre><code>[1] -184.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">3</span>)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="dv">5</span> <span class="co">#Model 3</span></code></pre></div>
+<pre><code>[1] -192.8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">4</span>)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="dv">4</span> <span class="co">#Model 4</span></code></pre></div>
+<pre><code>[1] -193.7</code></pre>
+<p>Arranging these, we find that Model 4 (AIC = <span class="math inline">\(-193.7\)</span>) is the most likely candidate model given the data and candidate set of models. This leads us to adopt Model 4 (the reduced model) over Model 3 (the full model) for the institution-related factors model.</p>
+<p>We can also compute the AIC via the <code>AIC()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute AIC value for Model 4</span>
+<span class="kw">AIC</span>(lm.<span class="dv">4</span>)</code></pre></div>
+<pre><code>[1] -193.7</code></pre>
+<p>Lastly, we note that the AIC value is produced as a column in the model-level output. (Note that the <code>df</code> column from <code>glance()</code> does NOT give the number of model parameters.)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Model-level output for Model 4</span>
+<span class="kw">glance</span>(lm.<span class="dv">4</span>)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.4548","2":"0.4456","3":"0.1072","4":"49.63","5":"2.116e-16","6":"3","7":"100.8","8":"-193.7","9":"-182.5","10":"1.368","11":"119"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="empirical-support-for-hypotheses" class="section level2">
+<h2><span class="header-section-number">6.7</span> Empirical Support for Hypotheses</h2>
+<p>Because the models are proxies for the scientific working hypotheses, the AIC ends up being a measure of empirical support for any particular hypothesis—after all, it takes into account the data (empirical evidence) and model complexity. In practice, we can use the AIC to rank order the models, which results in a rank ordering of the scientific working hypotheses based on the empirical support for each. Ranked in order of empirical support, the three scientific working hypotheses are:</p>
+<ul>
+<li>Peer ratings are attributable to institution-related factors. This hypothesis has the most empirical support of the three working hypotheses, given the data and other candidate models.</li>
+<li>Peer ratings are attributable to faculty-related factors.</li>
+<li>Peer ratings are attributable to student-related factors. This hypothesis has the least amount of empirical support of the three working hypotheses, given the data and other candidate models.</li>
+</ul>
+<p>It is important to remember that the phrase “given the data and other candidate models” is highly important. Using AIC to rank order the models results in a <em>relative ranking of the models</em>. It is not able to rank any hypotheses that you didn’t consider as part of the candidate set of scientific working hypotheses. Moreover, the AIC is a direct function of the likelihood which is based on the actual model fitted as a proxy for the scientific working hypothesis. If the predictors used in any of the models had been different, it would lead to different likelihood and AIC values, and potentially a different rank ordering of the hypotheses.</p>
+<p>As an example, consider if we had not done any exploration of the model’s functional form, but instead had just included the linear main-effects for each model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit models</span>
+lm.<span class="dv">1</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>gre_quant <span class="op">+</span><span class="st"> </span>gre_verbal, <span class="dt">data =</span> educ)
+lm.<span class="dv">2</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>funded_research_per_faculty <span class="op">+</span><span class="st"> </span>phd_granted_per_faculty, <span class="dt">data =</span> educ)
+lm.<span class="dv">3</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>doc_accept <span class="op">+</span><span class="st"> </span>enroll <span class="op">+</span><span class="st"> </span>phd_student_faculty_ratio, <span class="dt">data =</span> educ)
+
+<span class="co"># Compute AIC values</span>
+<span class="kw">AIC</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<pre><code>[1] 144.8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(lm.<span class="dv">2</span>)</code></pre></div>
+<pre><code>[1] 121.6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(lm.<span class="dv">3</span>)</code></pre></div>
+<pre><code>[1] 121</code></pre>
+<p>In this example, the rank-ordering of hypotheses ended up being the same, but the actual AIC values were quite different. This will play an even bigger role in the next set of notes where we compare the size of the different AIC values to look at how much more empirical support one hypothesis has versus another.</p>
+<p>Finally, it is important to mention that philosophically, the use of information-criteria for model selection is not compatible with using <span class="math inline">\(p\)</span>-values for variable selection. As an example consider Model 3 and Model 4:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{Model~3:~} &amp; \mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{PhD~acceptance~rate}_i) + \beta_2(\mathrm{PhD~student\mbox{-}to\mbox{-}faculty~ratio}_i) + \beta_3(\mathrm{Enrollment}_i) + \epsilon_i \\
+\mathbf{Model~4:~} &amp; \mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{PhD~acceptance~rate}_i) + \beta_2(\mathrm{PhD~student\mbox{-}to\mbox{-}faculty~ratio}_i) + \epsilon_i
+\end{split}
+\]</span></p>
+<p>Using <span class="math inline">\(p\)</span>-values for variable selection, we would have fitted Model 3, found that the <span class="math inline">\(p\)</span>-value associated with the enrollment coefficient was non-significant, and dropped enrollment from the model. Using the AIC values however, we also dropped enrollment from the model as the AIC value for Model 4 was smaller than the AIC value for Model 3.</p>
+<p>Although in this case we came to the same conclusion, these methods are based on two very different philosophies of measuring statistical evidence. The <span class="math inline">\(p\)</span>-value is a measure of how rare an observed statistic (e.g., <span class="math inline">\(\hat\beta_k\)</span>, <span class="math inline">\(t\)</span>-value) is under the null hypothesis. The AIC, on the other hand, is a measure of the model-data compatibility accounting for the complexity of the model.</p>
+<p>In general, the use of <span class="math inline">\(p\)</span>-values is not compatible with the use of model-level selection methods such as information criteria; see <span class="citation">Anderson (<a href="#ref-Anderson:2008">2008</a>)</span> for more detail. Because of this, it is typical to not even report <span class="math inline">\(p\)</span>-values when carrying out this type of analysis.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Anderson:2008">
+<p>Anderson, D. R. (2008). <em>Model based inference in the life sciences: A primer on evidence</em>. New York: Springer.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="maximum-likelihood-estimation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="moreinfocrit.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": {},
+"instapper": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+},
+"collapse": "section",
+"toolbar": null,
+"position": "fixed",
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

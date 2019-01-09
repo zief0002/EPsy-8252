@@ -19,7 +19,7 @@ urlcolor: "myorange"
 always_allow_html: yes
 ---
 
-\includegraphics[angle=-90, width=\textwidth]{syllabus-head2.pdf}
+\includegraphics[width=\textwidth]{syllabus-head2.pdf}
 
 
 \begin{figure}[H]
@@ -33,14 +33,14 @@ The two-semester sequence provides in-depth coverage of widely used statistical 
 \begin{mdframed}
 {\small 
 \textsf{\color{myheading}{Course Meeting Time}} \\
-M, W, 9:45 a.m.–11:00 a.m. \\
-Peik Hall 215 \\
+M, W, 2:30 PM–-3:45 PM \\
+Ford Hall 151 \\
 \\
-T, R, 11:15 a.m.–12:30 p.m. \\
-Elliott Hall N647 \\
+T, R, 11:15 AM–-12:30 PM \\
+Burton Hall 125 \\
 
 \textsf{\color{myheading}{Website}}\\
-\url{https://github.com/zief0002/epsy-8252}\\
+\url{http://zief0002.github.io/epsy-8252/}\\
 
 \textsf{\color{myheading}{Required Textbook}}\\
 Fox, J. (2009). A mathematical primer for social statistics. Thousand Oaks, CA: Sage.
@@ -72,7 +72,7 @@ Prerequisites include EPsy 8251: Methods in Data Analysis for Educational Resear
 \end{minipage}
 \begin{minipage}[c]{1.6in}
 \centering 
-{\Huge \textsf{\color{myheading}{2018}}}\\
+{\Huge \textsf{\color{myheading}{2019}}}\\
 {\small \textsf{\color{myheading}{Spring Semester}}}
 \end{minipage}
 \begin{minipage}[c]{5in}
@@ -143,37 +143,37 @@ The calendar below lists the tentative dates of the course topics and assignment
 \rowcolor{tableheader}
 {\small \color{white}{Date}} & {\small \color{white}{Topic}} &  & {\small \color{white}{Date}} & {\small \color{white}{Topic}} \\
 \hline
-Jan. 16 & Welcome to EPsy 8252 & \cellcolor{tableheader} & Mar. 13 & SPRING BREAK \\
+Jan. 22 & Welcome to EPsy 8252 & \cellcolor{tableheader} & Mar. 19 & SPRING BREAK \\
 \hline
-Jan. 18 & Introduction to R Markdown & \cellcolor{tableheader} & Mar. 15 & SPRING BREAK \\
+Jan. 24 & Introduction to R Markdown & \cellcolor{tableheader} & Mar. 21 & SPRING BREAK \\
 \hline
-Jan. 23 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 20 & Mixed-effects models (longitudinal) \\
+Jan. 29 & Log-Transforming the Predictor & \cellcolor{tableheader} & Mar. 26 & Mixed-effects models (cross-sectional) \\
 \hline
-Jan. 25 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 22 & Mixed-effects models (longitudinal) \\
+Jan. 31 & Log-Transforming the Predictor & \cellcolor{tableheader} & Mar. 28 & Mixed-effects models (cross-sectional) \\
 \hline
-Jan. 30 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 27 & Mixed-effects models (longitudinal) \\
+Feb. 05 & Log-Transforming the Outcome & \cellcolor{tableheader} & Apr. 02 & Mixed-effects models (cross-sectional) \\
 \hline
-Feb. 01 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 29 & Mixed-effects models (cross-sectional) \\
+Feb. 07 & Log-Transforming the Outcome & \cellcolor{tableheader} & Apr. 04 & Mixed-effects models (longitudinal) \\
 \hline
-Feb. 06 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 03 & Mixed-effects models (cross-sectional) \\
+Feb. 12 & Probability distributions & \cellcolor{tableheader} & Apr. 09 & Mixed-effects models (longitudinal) \\
 \hline
-Feb. 08 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 05 & Mixed-effects models (cross-sectional) \\
+Feb. 14 & Probability distributions & \cellcolor{tableheader} & Apr. 11 & Mixed-effects models (longitudinal) \\
 \hline
-Feb. 13 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 10 & Generalized linear models \\
+Feb. 19 & Maximum likelihood estimation & \cellcolor{tableheader} & Apr. 16 & Generalized linear models (logistic) \\
 \hline
-Feb. 15 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 12 & Generalized linear models \\
+Feb. 21 & Maximum likelihood estimation & \cellcolor{tableheader} & Apr. 18 & Generalized linear models (logistic)\\
 \hline
-Feb. 20 & Information criteria  & \cellcolor{tableheader} & Apr. 17 & Generalized linear models \\
+Feb. 26 & Information criteria  & \cellcolor{tableheader} & Apr. 23 & Generalized linear models (logistic)\\
 \hline
-Feb. 22 & Information criteria & \cellcolor{tableheader} & Apr. 19 & Generalized linear models \\
+Feb. 28 & Information criteria & \cellcolor{tableheader} & Apr. 25 & Generalized linear models (poisson)\\
 \hline
-Feb. 27 & Information criteria & \cellcolor{tableheader} & Apr. 24 & Generalized linear models \\
+Mar. 05 & Model evidence & \cellcolor{tableheader} & Apr. 30 & Generalized linear models (poisson)\\
 \hline
-Mar. 01 & Information criteria & \cellcolor{tableheader} & Apr. 26 & Generalized linear models \\
+Mar. 07 & Model evidence & \cellcolor{tableheader} & May 02 & Generalized linear models (poisson)\\
 \hline
-Mar. 06 & Introduction to mixed-effects models & \cellcolor{tableheader} & May 01 & Generalized linear models \\
+Mar. 12 & Introduction to mixed-effects models & \cellcolor{tableheader} &  &  \\
 \hline
-Mar. 08 & Introduction to mixed-effects models & \cellcolor{tableheader} & May 03 & Generalized linear models \\
+Mar. 14 & Introduction to mixed-effects models & \cellcolor{tableheader} &  &  \\
 \hline
 \end{tabular}
 }
@@ -181,14 +181,14 @@ Mar. 08 & Introduction to mixed-effects models & \cellcolor{tableheader} & May 0
 
 \section{Assignments}
 
-- Assignment \#1: Using R Markdown  (due Jan. 30)
-- Assignment \#2: Bootstrapping standard errors (due Feb. 08)
-- Assignment \#3: Probability models (due Feb. 22)
-- Assignment \#4: Evidence and model selection (due Mar. 08)
-- Assignment \#5: Introduction to mixed-effects models (due Mar. 22)
-- Assignment \#6: Mixed-effects models (longitudinal) (due Apr. 05)
-- Assignment \#7: Mixed-effects models (cross-sectional) (due Apr. 19)
-- Assignment \#8: Generalized linear models (due May 03)
+- Assignment \#1: R Markdown  (due Jan. 31)
+- Assignment \#2: Log-transformations (due Feb. 14)
+- Assignment \#3: Probability distributions (due Feb. 28)
+- Assignment \#4: Evidence and model selection (due Mar. 14)
+- Assignment \#5: Mixed-effects regression models: Cross-sectional analysis (due Apr. 09)
+- Assignment \#6: Mixed-effects regression models: Longitudinal analysis (due Apr. 18)
+- Assignment \#7: Logistic regression (due Apr. 30)
+- Assignment \#8: Posisson regression (due May 07; 12:00 PM to EdSciB 250)
 
 \newpage
 
@@ -206,37 +206,35 @@ The calendar below lists the tentative dates of the course topics and assignment
 \rowcolor{tableheader}
 {\small \color{white}{Date}} & {\small \color{white}{Topic}} &  & {\small \color{white}{Date}} & {\small \color{white}{Topic}} \\
 \hline
-Jan. 17 & Welcome to EPsy 8252 & \cellcolor{tableheader} & Mar. 12 & SPRING BREAK \\
+Jan. 23 & Welcome to EPsy 8252 & \cellcolor{tableheader} & Mar. 18 & SPRING BREAK \\
 \hline
-Jan. 22 & Introduction to R Markdown & \cellcolor{tableheader} & Mar. 14 & SPRING BREAK \\
+Jan. 28 & Introduction to R Markdown & \cellcolor{tableheader} & Mar. 20 & SPRING BREAK \\
 \hline
-Jan. 24 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 19 & Introduction to mixed-effects models \\
+Jan. 30 & Log-Transforming the Predictor & \cellcolor{tableheader} & Mar. 25 & Introduction to mixed-effects models \\
 \hline
-Jan. 29 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 21 & Mixed-effects models (longitudinal) \\
+Feb. 04 & Log-Transforming the Predictor & \cellcolor{tableheader} & Mar. 27 & Mixed-effects models (cross-sectional) \\
 \hline
-Jan. 31 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 26 & Mixed-effects models (longitudinal) \\
+Feb. 06 & Log-Transforming the Outcome & \cellcolor{tableheader} & Apr. 01 & Mixed-effects models (cross-sectional) \\
 \hline
-Feb. 05 & Bootstrapping SEs & \cellcolor{tableheader} & Mar. 28 & Mixed-effects models (longitudinal) \\
+Feb. 11 & Log-Transforming the Outcome & \cellcolor{tableheader} & Apr. 03 & Mixed-effects models (cross-sectional) \\
 \hline
-Feb. 07 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 02 & Mixed-effects models (cross-sectional) \\
+Feb. 13 & Probability distributions & \cellcolor{tableheader} & Apr. 08 & Mixed-effects models (longitudinal) \\
 \hline
-Feb. 12 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 04 & Mixed-effects models (cross-sectional) \\
+Feb. 18 & Probability distributions & \cellcolor{tableheader} & Apr. 10 & Mixed-effects models (longitudinal) \\
 \hline
-Feb. 14 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 09 & Mixed-effects models (cross-sectional) \\
+Feb. 20 & Maximum likelihood estimation & \cellcolor{tableheader} & Apr. 15 & Mixed-effects models (longitudinal) \\
 \hline
-Feb. 19 & Probability models and likelihood & \cellcolor{tableheader} & Apr. 11 & Generalized linear models \\
+Feb. 25 & Maximum likelihood estimation & \cellcolor{tableheader} & Apr. 17 & Generalized linear models (logistic) \\
 \hline
-Feb. 21 & Information criteria  & \cellcolor{tableheader} & Apr. 16 & Generalized linear models \\
+Feb. 27 & Information criteria  & \cellcolor{tableheader} & Apr. 22 & Generalized linear models (logistic) \\
 \hline
-Feb. 26 & Information criteria & \cellcolor{tableheader} & Apr. 18 & Generalized linear models \\
+Mar. 04 & Information criteria & \cellcolor{tableheader} & Apr. 24 & Generalized linear models (logistic) \\
 \hline
-Feb. 28 & Information criteria & \cellcolor{tableheader} & Apr. 23 & Generalized linear models \\
+Mar. 06 & Model evidence & \cellcolor{tableheader} & Apr. 29 & Generalized linear models (poisson)\\
 \hline
-Mar. 05 & Information criteria & \cellcolor{tableheader} & Apr. 25 & Generalized linear models \\
+Mar. 11 & model evidence & \cellcolor{tableheader} & May 01 & Generalized linear models (poisson)\\
 \hline
-Mar. 07 & Introduction to mixed-effects models & \cellcolor{tableheader} & Apr. 30 & Generalized linear models \\
-\hline
-  &  & \cellcolor{tableheader} & May 02 & Generalized linear models \\
+Mar. 13 & Introduction to mixed-effects models & \cellcolor{tableheader} & May 06 & Generalized linear models (poisson)\\
 \hline
 \end{tabular}
 }
@@ -244,14 +242,14 @@ Mar. 07 & Introduction to mixed-effects models & \cellcolor{tableheader} & Apr. 
 
 \section{Assignments}
 
-- Assignment \#1: Using R Markdown  (due Jan. 31)
-- Assignment \#2: Bootstrapping standard errors (due Feb. 12)
-- Assignment \#3: Probability models (due Feb. 26)
-- Assignment \#4: Evidence and model selection (due Mar. 19)
-- Assignment \#5: Introduction to mixed-effects models (due Mar. 26)
-- Assignment \#6: Mixed-effects models (longitudinal) (due Apr. 09)
-- Assignment \#7: Mixed-effects models (cross-sectional) (due Apr. 23)
-- Assignment \#8: Generalized linear models (due May 04; 12:00pm in EdSciB 250)
+- Assignment \#1: R Markdown  (due Feb. 04)
+- Assignment \#2: Log-transformations (due Feb. 18)
+- Assignment \#3: Probability distributions (due Mar. 04)
+- Assignment \#4: Evidence and model selection (due Mar. 25)
+- Assignment \#5: Mixed-effects regression models: Cross-sectional analysis (due Apr. 09)
+- Assignment \#6: Mixed-effects regression models: Longitudinal analysis (due Apr. 10)
+- Assignment \#7: Logistic regression (due May 01)
+- Assignment \#8: Posisson regression (due May 07; 12:00 PM to EdSciB 250)
 
 \newpage
 

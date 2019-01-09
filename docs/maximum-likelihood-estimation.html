@@ -9,7 +9,7 @@
   <meta name="description" content="These are the notes for EPsy 8252.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Unit 5: Maximum Likelihood Estimation | EPsy 8252 Notes />
+  <meta property="og:title" content="Unit 5: Maximum Likelihood Estimation | EPsy 8252 Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Unit 5: Maximum Likelihood Estimation | EPsy 8252 Notes />
+  <meta name="twitter:title" content="Unit 5: Maximum Likelihood Estimation | EPsy 8252 Notes" />
   
   <meta name="twitter:description" content="These are the notes for EPsy 8252." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Andrew Zieffler">
 
 
-<meta name="date" content="2018-12-31">
+<meta name="date" content="2019-01-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="probability-distributions.html">
-<link rel="next" href="data-codebook.html">
+<link rel="next" href="information-criteria-for-model-selection.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,6 +50,7 @@
 
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -115,6 +116,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#preparation"><i class="fa fa-check"></i>Preparation</a></li>
 <li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#notes"><i class="fa fa-check"></i>Notes</a></li>
 <li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html"><i class="fa fa-check"></i>Pretty-Printing Tables in Markdown</a><ul>
+<li class="chapter" data-level="1.1" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#summary-statistics-table"><i class="fa fa-check"></i><b>1.1</b> Summary Statistics Table</a></li>
+<li class="chapter" data-level="1.2" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#correlation-table"><i class="fa fa-check"></i><b>1.2</b> Correlation Table</a></li>
+<li class="chapter" data-level="1.3" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#regression-table"><i class="fa fa-check"></i><b>1.3</b> Regression Table</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html"><i class="fa fa-check"></i><b>2</b> Nonlinearity: Log-Transforming the Predictor</a><ul>
 <li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#preparation-1"><i class="fa fa-check"></i>Preparation</a></li>
@@ -208,8 +214,35 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5.7" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#way-too-much-math"><i class="fa fa-check"></i><b>5.7</b> Way, Way, Way too Much Mathematics</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html"><i class="fa fa-check"></i><b>6</b> Information Criteria for Model Selection</a><ul>
+<li class="chapter" data-level="" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#preparation-5"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="6.1" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#dataset-and-research-question-4"><i class="fa fa-check"></i><b>6.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="6.2" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#model-building"><i class="fa fa-check"></i><b>6.2</b> Model-Building</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#exploration-of-the-outcome"><i class="fa fa-check"></i><b>6.2.1</b> Exploration of the Outcome</a></li>
+<li class="chapter" data-level="6.2.2" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-student-related-factors-model"><i class="fa fa-check"></i><b>6.2.2</b> Building the Student-Related Factors Model</a></li>
+<li class="chapter" data-level="6.2.3" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-faculty-related-factors-model"><i class="fa fa-check"></i><b>6.2.3</b> Building the Faculty-Related Factors Model</a></li>
+<li class="chapter" data-level="6.2.4" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-institution-related-factors-model"><i class="fa fa-check"></i><b>6.2.4</b> Building the Institution-Related Factors Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#candidate-statistical-models"><i class="fa fa-check"></i><b>6.3</b> Candidate Statistical Models</a></li>
+<li class="chapter" data-level="6.4" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#log-likelihood-1"><i class="fa fa-check"></i><b>6.4</b> Log-Likelihood</a></li>
+<li class="chapter" data-level="6.5" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#deviance-an-alternative-fit-value"><i class="fa fa-check"></i><b>6.5</b> Deviance: An Alternative Fit Value</a></li>
+<li class="chapter" data-level="6.6" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#akiakes-information-criteria-aic"><i class="fa fa-check"></i><b>6.6</b> Akiake’s Information Criteria (AIC)</a></li>
+<li class="chapter" data-level="6.7" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#empirical-support-for-hypotheses"><i class="fa fa-check"></i><b>6.7</b> Empirical Support for Hypotheses</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="moreinfocrit.html"><a href="moreinfocrit.html"><i class="fa fa-check"></i><b>7</b> Model Evidence</a><ul>
+<li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#preparation-6"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="7.1" data-path="moreinfocrit.html"><a href="moreinfocrit.html#dataset-and-research-question-5"><i class="fa fa-check"></i><b>7.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="7.2" data-path="moreinfocrit.html"><a href="moreinfocrit.html#corrected-aic-aicc-adjusting-for-model-complexity-and-sample-size"><i class="fa fa-check"></i><b>7.2</b> Corrected AIC (AICc): Adjusting for Model Complexity and Sample Size</a></li>
+<li class="chapter" data-level="7.3" data-path="moreinfocrit.html"><a href="moreinfocrit.html#model-selection-uncertainty"><i class="fa fa-check"></i><b>7.3</b> Model-Selection Uncertainty</a></li>
+<li class="chapter" data-level="7.4" data-path="moreinfocrit.html"><a href="moreinfocrit.html#relative-likelihood-and-evidence-ratios"><i class="fa fa-check"></i><b>7.4</b> Relative Likelihood and Evidence Ratios</a></li>
+<li class="chapter" data-level="7.5" data-path="moreinfocrit.html"><a href="moreinfocrit.html#model-probabilities"><i class="fa fa-check"></i><b>7.5</b> Model Probabilities</a></li>
+<li class="chapter" data-level="7.6" data-path="moreinfocrit.html"><a href="moreinfocrit.html#tables-of-model-evidence"><i class="fa fa-check"></i><b>7.6</b> Tables of Model Evidence</a></li>
+<li class="chapter" data-level="7.7" data-path="moreinfocrit.html"><a href="moreinfocrit.html#some-final-thoughts"><i class="fa fa-check"></i><b>7.7</b> Some Final Thoughts</a></li>
+<li class="chapter" data-level="7.8" data-path="moreinfocrit.html"><a href="moreinfocrit.html#pretty-printing-tables-of-model-evidence"><i class="fa fa-check"></i><b>7.8</b> Pretty Printing Tables of Model Evidence</a></li>
+<li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#other-resources-2"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
-<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools"><i class="fa fa-check"></i>ed-schools.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools-2018"><i class="fa fa-check"></i>ed-schools-2018.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#mn-schools"><i class="fa fa-check"></i>mn-schools.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#movies"><i class="fa fa-check"></i>movies.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#riverview"><i class="fa fa-check"></i>riverview.csv</a></li>
@@ -262,7 +295,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="joint-probability-density" class="section level2">
 <h2><span class="header-section-number">5.2</span> Joint Probability Density</h2>
-<p>In the previous set of notes, we disucssed the probability density of an observation <span class="math inline">\(X_i\)</span>. Now we will extend this idea to the probability density of a set of observations, say <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, AND <span class="math inline">\(x_k\)</span>. The probability density of a set of observations is referred to as the <em>joint probability density</em>, or simply <em>joint density</em>.</p>
+<p>In the previous set of notes, we discussed the probability density of an observation <span class="math inline">\(X_i\)</span>. Now we will extend this idea to the probability density of a set of observations, say <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, AND <span class="math inline">\(x_k\)</span>. The probability density of a set of observations is referred to as the <em>joint probability density</em>, or simply <em>joint density</em>.</p>
 <p>If we can make an assumption about INDEPENDENCE, then the joint probability density would be the product of the individual densities:</p>
 <p><span class="math display">\[
 p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots \times p(x_k)
@@ -284,11 +317,11 @@ p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots
 </div>
 <div id="likelihood" class="section level2">
 <h2><span class="header-section-number">5.3</span> Likelihood</h2>
-<p>Likelihood is the probability of a particualar set of parameters GIVEN (1) the data, and (2) the data are from a particular distribution (e.g., normal). Symbolically,</p>
+<p>Likelihood is the probability of a particular set of parameters GIVEN (1) the data, and (2) the data are from a particular distribution (e.g., normal). Symbolically,</p>
 <p><span class="math display">\[
 \mathrm{Likelihood} = P(\mathrm{Parameters} \mid \mathrm{Distribution~and~Data})
 \]</span></p>
-<p>Likelihood takes the data as given and computes the probability of a set of parameters. Symbolically we denote likelihood with a caligraphic letter “L” (<span class="math inline">\(\mathcal{L}\)</span>). For example, we might ask the question, given the observed data <span class="math inline">\(x = \{30, 20, 24, 27\}\)</span> come from a normal distribution, what is the likelihood (probability) that the mean is 20 and the standard deviation is 4? We might denote this as,</p>
+<p>Likelihood takes the data as given and computes the probability of a set of parameters. Symbolically we denote likelihood with a scripted letter “L” (<span class="math inline">\(\mathcal{L}\)</span>). For example, we might ask the question, given the observed data <span class="math inline">\(x = \{30, 20, 24, 27\}\)</span> come from a normal distribution, what is the likelihood (probability) that the mean is 20 and the standard deviation is 4? We might denote this as,</p>
 <p><span class="math display">\[
 \mathcal{L}(\mu = 20, \sigma =4 \mid x)
 \]</span></p>
@@ -304,7 +337,7 @@ p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots
 <div id="maximum-likelihood" class="section level2">
 <h2><span class="header-section-number">5.4</span> Maximum Likelihood</h2>
 <p>Which set of parameters,<span class="math inline">\(\mathcal{N}(20,4)\)</span> or <span class="math inline">\(\mathcal{N}(25,4)\)</span>, was <em>more likely</em> to generate the given data? Since the second set of parameters produced a higher likelihood, the data was more likely to have been generated from the <span class="math inline">\(\mathcal{N}(25,4)\)</span> distribution that the <span class="math inline">\(\mathcal{N}(20,4)\)</span> distribution.</p>
-<p>So now we come to the crux of Maximum Likelihood Estimation (MLE). The goal of MLE is to find a set of parameters that MAXIMIZES the likelihood given the data and a distribution. For example, given the observed data <span class="math inline">\(x = \{30, 20, 24, 27\}\)</span> were generated from a normal distribution, what are the values for the paramters of this distribution (mean and standard deviation) that produce the HIGHEST (or maximum) value of the likelihood?</p>
+<p>So now we come to the crux of Maximum Likelihood Estimation (MLE). The goal of MLE is to find a set of parameters that MAXIMIZES the likelihood given the data and a distribution. For example, given the observed data <span class="math inline">\(x = \{30, 20, 24, 27\}\)</span> were generated from a normal distribution, what are the values for the parameters of this distribution (mean and standard deviation) that produce the HIGHEST (or maximum) value of the likelihood?</p>
 <p>Below, we will examine a couple different methods for determining the parameter values that produce the maximum value of the likelihood.</p>
 <div id="method-1-grid-search" class="section level3">
 <h3><span class="header-section-number">5.4.1</span> Method 1: Grid Search</h3>
@@ -331,7 +364,7 @@ p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots
 <p>The likelihood values are quite small since we are multiplying several probabilities together. We could take the natural logarithm of the likelihood to alleviate this issue. So in our example, <span class="math inline">\(\mathcal{L} = .00001829129\)</span> and the log-likelihood would be</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(.<span class="dv">00001829129</span>)</code></pre></div>
 <pre><code>[1] -10.91</code></pre>
-<p>We typically denote log-likelihood using a caligraphic lower-case “l” (<span class="math inline">\(\mathcal{l}\)</span>). Going back to how we compute the likelihood, we assumed a set of parameters and then found the joint probability density, which assuming normality and independence is the product of the individual densities.</p>
+<p>We typically denote log-likelihood using a scripted lower-case “l” (<span class="math inline">\(\mathcal{l}\)</span>). Going back to how we compute the likelihood, we assumed a set of parameters and then found the joint probability density, which assuming normality and independence is the product of the individual densities.</p>
 <p><span class="math display">\[
 \mathcal{L}(\mathrm{parameters} | \mathrm{data}) = p(x_1) \times p(x_2) \times \ldots \times p(x_n)
 \]</span></p>
@@ -375,7 +408,7 @@ p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots
 x =<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)
 y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>, <span class="dv">56</span>, <span class="dv">37</span>, <span class="dv">55</span>, <span class="dv">50</span>, <span class="dv">36</span>, <span class="dv">22</span>, <span class="dv">75</span>, <span class="dv">37</span>, <span class="dv">42</span>)</code></pre></div>
 <p>Next, we will write a function to compute the log-likelihood (or likelihood) of the residuals given particular <code>b0</code> and <code>b1</code> estimates that will be inputted to the function.</p>
-<p>One issue is that in using the <code>dnorm()</code> function we need to specify the mean and standard deviation. The regression assumptions help with this task. The conditional mean residual value is 0. So we will set the mean value to 0. The asumption about the standard deviation is that the conditional distributions all have the same SD, but it doesn’t specify what that is. However, the SD of the errors seems like a reasonable value, so let’s use that.</p>
+<p>One issue is that in using the <code>dnorm()</code> function we need to specify the mean and standard deviation. The regression assumptions help with this task. The conditional mean residual value is 0. So we will set the mean value to 0. The assumption about the standard deviation is that the conditional distributions all have the same SD, but it doesn’t specify what that is. However, the SD of the errors seems like a reasonable value, so let’s use that.</p>
 <p>Below, we will write a function called <code>log_likelihood()</code> that takes two arguments as input, <code>b0=</code> and <code>b1=</code>, and outputs the log-likelihood.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log_likelihood =<span class="st"> </span><span class="cf">function</span>(b0, b1){
   <span class="co"># Use the following x and y values</span>
@@ -420,7 +453,7 @@ y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>
 <p>In practice, there are a couple subtle differences, namely that the estimate for the SD value we use in <code>dnorm()</code> is slightly different. This generally does not have an effect on the coefficient estimates, but does impact the estimate of the RMSE. We will talk more about this when we talk about <em>Restricted Maximum Likelihood Estimation</em> (REML).</p>
 <div id="large-search-spaces" class="section level3">
 <h3><span class="header-section-number">5.5.1</span> Large Search Spaces</h3>
-<p>So far, we have been using a very finite search space that has been defined for us. For example, we limited the search space to 20,301 combinatins of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
+<p>So far, we have been using a very finite search space that has been defined for us. For example, we limited the search space to 20,301 combinations of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(
   <span class="kw">crossing</span>(
     <span class="dt">b0 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">30</span>, <span class="dt">to =</span> <span class="dv">50</span>, <span class="dt">by =</span> <span class="fl">0.1</span>),
@@ -456,7 +489,7 @@ y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>
 <span class="kw">glance</span>(lm.<span class="dv">1</span>)</code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.1934","2":"0.09255","3":"13.99","4":"1.918","5":"0.2035","6":"2","7":"-39.45","8":"84.91","9":"85.82","10":"1565","11":"8","_rn_":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.1934","2":"0.09255","3":"13.99","4":"1.918","5":"0.2035","6":"2","7":"-39.45","8":"84.91","9":"85.82","10":"1565","11":"8"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>Under OLS estimation:</p>
@@ -547,7 +580,7 @@ p(\epsilon_i) &amp;= \frac{1}{\sigma_{\epsilon}\sqrt{2\pi}}\exp\left[-\frac{(\ep
 &amp;= \frac{1}{\sigma_{\epsilon}\sqrt{2\pi}}\exp\left[-\frac{(\epsilon_i)^2}{2\sigma^2_{\epsilon}}\right]
 \end{split}
 \]</span></p>
-<p>Now we use this expression for each of the <span class="math inline">\(p(\epsilon_i)\)</span> values in the liklihood computation.</p>
+<p>Now we use this expression for each of the <span class="math inline">\(p(\epsilon_i)\)</span> values in the likelihood computation.</p>
 <p><span class="math display">\[
 \begin{split}
 \mathcal{L}(\beta_0, \beta_1 | \mathrm{data}) &amp;= p(\epsilon_1) \times p(\epsilon_2) \times \ldots \times p(\epsilon_n) \\[1em]
@@ -586,7 +619,7 @@ p(\epsilon_i) &amp;= \frac{1}{\sigma_{\epsilon}\sqrt{2\pi}}\exp\left[-\frac{(\ep
         </div>
       </div>
 <a href="probability-distributions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-codebook.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="information-criteria-for-model-selection.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

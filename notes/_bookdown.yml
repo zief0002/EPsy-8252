@@ -1,4 +1,5 @@
 book_filename: "epsy-8252-notes"
+before_chapter_script: "pre-setup.R"
 language:
   label:
     fig: 'Figure '

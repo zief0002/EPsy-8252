@@ -1,0 +1,471 @@
+# Model Evidence {#moreinfocrit}
+
+```{r echo=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+
+opts_knit$set(
+  width = 85,
+  tibble.print_max = Inf
+  )
+
+opts_chunk$set(
+  prompt = FALSE,
+  comment = NA,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  fig.align = 'center',
+  out.width = '50%'
+  )
+```
+
+
+
+In this set of notes, you will learn more about using information criteria to select a model from a set of candidate models.
+
+---
+
+### Preparation {-}
+
+Before class you will need read the following:
+
+- Burnham, K. P., Anderson, D. R., &amp; Huyvaert, K. P. (2010). [AIC model selection and multimodel inference in behavioral ecology: Some background, observations, and comparisons](https://link-springer-com.ezp3.lib.umn.edu/article/10.1007/s00265-010-1029-6). *Behavioral Ecology and Sociobiology, 65*(1), 23&ndash;35.
+
+
+
+<br />
+
+---
+
+
+
+## Dataset and Research Question
+
+In this set of notes, we will use the data in the *ed-schools-2018.csv* file (see the [data codebook](#ed-schools-2018) here). These data include institutional-level attributes for several graduate education schools/programs rated by *U.S. News and World Report* in 2018.
+
+```{r message=FALSE, paged.print=FALSE}
+# Load libraries
+library(AICcmodavg)
+library(broom)
+library(corrr)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(sm)
+library(tidyr)
+
+# Read in data
+ed = read_csv(file = "~/Documents/github/epsy-8252/data/ed-schools-2018.csv")
+
+# Drop rows with missing data
+educ = ed %>%
+  drop_na()
+
+head(educ)
+```
+
+In the last set of notes we used these data to examine the factors our academic peers use to rate graduate programs. Based on the substantive literature we had three **scientific working hypotheses** about how programs are rated:
+
+- **H1:** Student-related factors drive the perceived academic quality of graduate programs in education.
+- **H2:** Faculty-related factors drive the perceived academic quality of graduate programs in education.
+- **H3:** Institution-related factors drive the perceived academic quality of graduate programs in education.
+
+After doing some initial exploration, we translates these working hypotheses into statistical models that we then fitted to the data. The four candidate models were:
+
+$$
+\begin{split}
+\mathbf{Model~1:~}& \mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{GREQ}_i) + \beta_2(\mathrm{GREQ}^2_i) + \beta_3(\mathrm{GREQ}^3_i) + \epsilon_i \\
+\mathbf{Model~2:~}& \mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{Funded~research}_i) + \beta_2(\mathrm{Funded~research}^2_i) + \beta_3(\mathrm{PhDs~granted}_i) + \beta_4(\mathrm{PhDs~granted}^2_i) + \epsilon_i \\
+\mathbf{Model~3:~}& \mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{PhD~acceptance~rate}_i) + \beta_2(\mathrm{PhD~student\mbox{-}to\mbox{-}faculty~ratio}_i) + \beta_3(\mathrm{Enrollment}_i) + \epsilon_i \\
+\mathbf{Model~4:~}& \mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{PhD~acceptance~rate}_i) + \beta_2(\mathrm{PhD~student\mbox{-}to\mbox{-}faculty~ratio}_i) + \epsilon_i
+\end{split}
+$$
+
+where peer rating, funded research, Ph.D.s granted, Ph.D. acceptance rate, enrollment, and Ph.D. student-to-faculty ratio have all been log-transformed. We will also consider a fourth model that omits enrollment from the institution-related factors model.
+
+```{r}
+# Create log-transformed variables
+educ = educ %>%
+  mutate(
+    Lpeer = log(peer),
+    Lfunded_research_per_faculty = log(funded_research_per_faculty),
+    Lphd_granted_per_faculty = log(phd_granted_per_faculty + 1),
+    Ldoc_accept = log(doc_accept),
+    Lphd_student_faculty_ratio = log(phd_student_faculty_ratio + 1),
+    Lenroll = log(enroll)
+    )
+
+# Fit candidate models
+lm.1 = lm(Lpeer ~ 1 + gre_quant + I(gre_quant^2) + I(gre_quant^3), data = educ)
+lm.2 = lm(Lpeer ~ 1 + Lfunded_research_per_faculty + I(Lfunded_research_per_faculty^2) + Lphd_granted_per_faculty  + I(Lphd_granted_per_faculty^2), data = educ)
+lm.3 = lm(Lpeer ~ 1 + Ldoc_accept + Lenroll + Lphd_student_faculty_ratio, data = educ)
+lm.4 = lm(Lpeer ~ 1 + Ldoc_accept + Lphd_student_faculty_ratio, data = educ)
+```
+
+Based on the AIC values for the four candidate models we ranked the hypotheses based on the amount of empirical support:
+
+```{r echo=FALSE}
+tab_01 = data.frame(
+  Hypothesis = c("Institution-related factors (Reduced)", "Institution-related factors (Full)", "Faculty-related factors", "Student-related factors"),
+  AIC = c(AIC(lm.4), AIC(lm.3), AIC(lm.2), AIC(lm.1))
+
+)
+
+kable(tab_01, caption = "Working Hypotheses Rank Ordered by the Amount of Empirical Support as Measured by the AIC", digits = 1)
+```
+
+
+## Corrected AIC (AICc): Adjusting for Model Complexity and Sample Size
+
+Although AIC has a penalty correction that should account for model complexity, it turns out that when the number of parameters is large relative to the sample size, AIC is still biased in favor of models that have more parameters. This led @Hurvich:1989 to propose a second-order bias corrected AIC measure (AICc) computed as
+
+$$
+\mathrm{AIC_c} = \mathrm{Deviance} + 2(k)\left( \frac{n}{n - k - 1} \right)
+$$
+
+where $k$ is, again, the number of estimated parameters, and $n$ is the sample size used to fit the model. Note that when $n$ is very large (especially relative to $k$) that the last term is essentially 1 and the AICc value would basically reduce to the AIC value. When $n$ is small relative to $k$ this will add more of a penalty to the deviance. **The recommendation is to pretty much always use AICc rather than AIC when selecting models.**
+
+Below, we will compute the AICc for the first candidate model. (Note that we use $n=122$ cases for the computation for all the models in this data.)
+
+```{r}
+n = 122
+k = 5
+
+# Compute AICc for Model 1
+-2 * logLik(lm.1)[[1]] + 2 * k * n / (n - k - 1) #Model 1
+```
+
+In practice, we will use the `AICc()` function from the **AICcmodavg** package to compute the AICc value directly.
+
+```{r message=FALSE}
+AICc(lm.1)
+AICc(lm.2)
+AICc(lm.3)
+AICc(lm.4)
+```
+
+
+Based on the $\mathrm{AIC_c}$ values, the model with the most empirical support given the data and four candidate models is Model 4. Again, because the models are proxies for the scientific hypotheses, we can rank order the scientific hypotheses based on the empirical support for each.
+
+
+
+
+```{r echo=FALSE}
+tab_02 = data.frame(
+  H = c(  "Institution-related factors (Reduced)", "Institution-related factors (Full)", "Faculty-related factors", "Student-related factors"),
+  a = c(-193.3285, -192.3311, -183.7639, -181.2357)
+)
+
+kable(
+  tab_02, 
+  caption = "Working Hypotheses Rank Ordered by the Amount of Empirical Support", 
+  digits = 1,
+  col.names = c("Hypothesis", "AICc")
+  )
+
+```
+
+<br />
+
+Moving forward, we will use the full institution-related factors model to represent the institution-related factors hypothesis.
+
+
+## Model-Selection Uncertainty
+
+When we adopt one model over another, we are introducing some degree of selection uncertainty into the scientific process. It would be nice if we can quantify and report this uncertainty, and this is the real advantage of using information criteria for model selection; it allows us to quantify the uncertainty we have when we select any particular candidate model.
+
+The amount of model selection uncertainty we have depends on the amount of empirical support each of the candidate models has. For example, if one particular candidate model has a lot of empirical support and the rest have very little empirical support we would have less model uncertainty than if all of the candidate models had about the same amount of empirical support.
+
+Since we measure the empirical support each hypothesis has by computing the AICc for the associated candidate model, we can look at how much more empirical support the most supported hypothesis has relative to each of the other working hypotheses by computing the difference in AICc values between the best fitting model and each of the other candidate models. This measure is referred to as # $\Delta$AICc.
+
+In our example, the hypothesis with the most empirical support was the institution-related factors model as measured in Model 4.
+
+```{r}
+# Compute delta values
+AICc(lm.1) - AICc(lm.4) #Student-related factors
+AICc(lm.2) - AICc(lm.4) #Faculty-related factors
+AICc(lm.4) - AICc(lm.4) #Institution-related factors
+```
+
+```{r echo=FALSE}
+tab_03 = data.frame(
+  Hypothesis = c("Institution-related factors (Reduced)", "Faculty-related factors", "Student-related factors"),
+  a = c(-193.3285, -183.7639, -181.2357)
+  ) %>%
+  mutate(
+    delta_a = a + 193.3285
+  )
+
+kable(
+  tab_03, 
+  caption = "Working Hypotheses Rank Ordered by the Amount of Empirical Support", 
+  digits = 1,
+  col.names = c("Hypothesis", "AICc", "$\\Delta$AICc")
+  )
+```
+
+<br />
+
+@Burnham:2011 [p. 25] give rough guidelines for interpreting $\Delta$AICc values. They suggest that hypotheses with $\Delta$AICc values less than 2 are plausible, those in the range of 4--7 have some empirical support, those in the range of 9--11 have relatively little support, and those greater than 13 have essentially no empirical support. Using these criteria:
+
+- The institution-related factors hypothesis (Model 4) has a lot of empirical support.
+- The student-related factor hypothesis (Model 1) and faculty-related factor hypothesis (Model 2) both have little empirical support relative to the institution-related factors hypothesis.
+
+
+## Relative Likelihood and Evidence Ratios
+
+Onw way we mathematically formalize the strength of evidence for each model is to compute the relative likelihood. The relative likelihood provides the likelihood of each of the candidate models, given the set of candidate models and the data. To compute the relative likelihood,
+
+$$
+\mathrm{Relative~Likelihood} = e ^ {−\frac{1}{2} (\Delta AICc)}
+$$
+
+
+
+
+```{r}
+exp(-1/2 * 12.09) #Student-related factors
+exp(-1/2 *  9.56) #Faculty-related factors
+exp(-1/2 *  0.00) #Institution-related factors
+```
+
+
+```{r echo=FALSE}
+tab_04 = data.frame(
+  Hypothesis = c("Institution-related factors (Reduced)", "Faculty-related factors", "Student-related factors"),
+  a = c(-193.3285, -183.7639, -181.2357)
+  ) %>%
+  mutate(
+    delta_a = a + 193.3285,
+    rel_lik = exp(-1/2 * delta_a)
+  )
+
+kable(
+  tab_04, 
+  caption = "Working Hypotheses Rank Ordered by the Amount of Empirical Support", 
+  digits = c(1, 1, 1, 3),
+  col.names = c("Hypothesis", "AICc", "$\\Delta$AICc", "Rel. Lik.")
+  ) %>%
+  footnote(
+    general = "Rel. Lik. = Relative Likelihood",
+    general_title = "Note.",
+    footnote_as_chunk = TRUE
+  )
+
+```
+
+<br />
+
+These quantities allow evidentiary statements for comparing any two scientific hypotheses. For example,
+
+- The empirical support for the faculty-related factors hypothesis is 0.008 times that of the empirical support for the institution-related factors hypothesis.
+
+To obtain these *evidence ratios*, we divide the relative likelihood for any two hypotheses. This will quantify how much more likely one hypothesis is than another given the data. As another example,
+
+- The empirical support for the institution-related factors hypothesis is 500 times that of the empirical support for the student-related factors hypothesis. (To obtain this we computed $1/.002=500$.)
+
+
+## Model Probabilities
+
+Also referred to as an Akaike Weight ($w_i$), a model probability provides a numerical measure of the probability of each model given the data and the candidate set of models. It can be computed as:
+
+$$
+w_i = \frac{\mathrm{Relative~Likelihood~for~Model~J}}{\sum_j \mathrm{Relative~Likelihood}}
+$$
+
+
+
+
+```{r}
+# Compute sum of relative likelihoods
+sum_rel = 1.000000000 + 0.008376636 + 0.002366380
+
+0.002366380 / sum_rel #Student-related factors
+0.008376636 / sum_rel #Faculty-related factors
+1.000000000 / sum_rel #Institution-related factors
+```
+
+Since the models are proxies for the working hypotheses, the model probabilities can be used to provide probabilities of each working hypothesis as a function of the empirical support. Given the data and the candidate set of working hypotheses:
+
+- The probability of the student-related factors hypothesis is 0.002 (very unlikely).
+- The probability of the faculty-related factors hypothesis is 0.008 (very unlikely).
+- The probability of the institution-related factors hypothesis is 0.990 (very likely).
+
+```{r echo=FALSE}
+tab_05 = data.frame(
+  Hypothesis = c("Institution-related factors (Reduced)", "Faculty-related factors", "Student-related factors"),
+  a = c(-193.3285, -183.7639, -181.2357)
+  ) %>%
+  mutate(
+    delta_a = a + 193.3285,
+    rel_lik = exp(-1/2 * delta_a),
+    model_prob = rel_lik / sum(rel_lik)
+  )
+
+kable(
+  tab_05, 
+  caption = "Working Hypotheses Rank Ordered by the Amount of Empirical Support", 
+  digits = c(1, 1, 1, 3, 3),
+  col.names = c("Hypothesis", "AICc", "$\\Delta$AICc", "Rel. Lik.", "AICc Weight")
+  ) %>%
+  footnote(
+    general = "Rel. Lik. = Relative Likelihood",
+    general_title = "Note.",
+    footnote_as_chunk = TRUE
+  )
+
+```
+
+
+## Tables of Model Evidence
+
+We will use the `aictab()` function from the **AICcmodavg** package to compute and create a table of model evidence values directly from the `lm()` fitted models. This function takes a list of models in the candidate set (it actually has to be an R list). The optional argument `modnames=` is a vector of model names associated with the models in the candidate set.
+
+```{r echo=FALSE}
+myAIC = aictab(
+  cand.set = list(lm.1, lm.2, lm.4),
+  modnames = c("Student-related factors", "Faculty-related factors", "Institution-related factors (Reduced)")
+  )
+```
+
+
+
+```{r eval=FALSE}
+myAIC = aictab(
+  cand.set = list(lm.1, lm.2, lm.4),
+  modnames = c("Student-related factors", "Faculty-related factors", "Institution-related factors (Reduced)")
+  )
+
+# View table
+myAIC
+```
+
+
+```
+Model selection based on AICc:
+
+                                      K    AICc Delta_AICc AICcWt Cum.Wt     LL
+Institution-related factors (Reduced) 4 -193.33       0.00   0.99   0.99 100.84
+Faculty-related factors               6 -183.76       9.56   0.01   1.00  98.25
+Student-related factors               5 -181.24      12.09   0.00   1.00  95.88
+```
+
+
+Note the output includes the number of parameters (`K`) and AICc value (`AICc`) for each candidate model, and prints them in order from the most empirical evidence to the least amount of empirical evidence based on the AICc. It also includes the $\Delta$AICc values, the model probabilities (`AICcWt`), and log-likelihood (`LL`) values. The `Cum.Wt` column gives the cumulative model probabilities. (For example the probability of the first two hypotheses is $0.99 + 0.01 = 1.00$.)
+
+You can also directly compute the evidence ratios, but you have to do that separately. We do this using the `evidence()` function from the **AICcmodavg** package. This function takes the output from the `aictab()` function as well as the names from that table (given in the `modnames=` argument) for the two models you want to compute the evidence ratio for.
+
+```{r}
+# Evidence Ratio 1
+evidence(
+  myAIC,
+  model.high = "Institution-related factors (Reduced)",
+  model.low = "Faculty-related factors"
+  )
+
+# Evidence Ratio 2
+evidence(
+  myAIC,
+  model.high = "Institution-related factors (Reduced)",
+  model.low = "Student-related factors"
+  )
+```
+
+## Some Final Thoughts
+
+Based on the model evidence given the data for this candidate set of models:
+
+- The institution-related factors hypothesis has the most empirical support.
+- There is very little empirical support for the other two hypotheses relative to the institution-related factors hypothesis.
+
+We can get a summary of the model rankings along with qualitative descriptors of the empirical support (weight) using the `confset()` function. The `method="ordinal"` argument rank orders the models for us.
+
+```{r}
+confset(
+  cand.set = list(lm.1, lm.2, lm.4),
+  modnames = c("Student-related factors", "Faculty-related factors", "Institution-related factors (Reduced)"),
+  method = "ordinal"
+  )
+```
+
+It is important to note that it is ultimately the set of scientific working hypotheses that we are evaluating, using the fit from the associated statistical models to a set of empirical data. If we had a different set of data, we may have a whole new ranking of models or interpretation of empirical support. The empirical support is linked to the data.
+
+The amount of empirical evidence is also very much relative to the candidate set of models; a different candidate set of models may result in a different rank ordering or interpretation of empirical support. For example, consider if we had not done any exploration of the model's functional form, but instead had just included the linear main-effects for each model.
+
+```{r}
+# Fit models
+lm.1 = lm(peer ~ 1 + gre_quant + gre_verbal, data = educ)
+lm.2 = lm(peer ~ 1 + funded_research_per_faculty + phd_granted_per_faculty, data = educ)
+lm.3 = lm(peer ~ 1 + doc_accept + enroll + phd_student_faculty_ratio, data = educ)
+
+confset(
+  cand.set = list(lm.1, lm.2, lm.3),
+  modnames = c("Student-related factors", "Faculty-related factors", "Institution-related factors (Full)"),
+  method = "ordinal"
+  )
+```
+
+Based on the model evidence given the data for this candidate set of models:
+
+- The institution-related factors hypothesis still has the most empirical support.
+- But, the faculty-related factors hypothesis now also has substantial empirical support as well ($\Delta\mathrm{AICc}=0.4$).
+- There is almost no empirical support for the student-related factors hypothesis relative to the other two hypotheses.
+
+
+## Pretty Printing Tables of Model Evidence
+
+We can use the `data.frame()` function to coerce the output from the `aictab()` function into a data frame. Then we can use **dplyr** functions to select the columns in the order we want them, add the column of evidence ratios, and re-name any column we want. Lastly, we can use the `kable()` function from the **knitr** package and other functions from the **kableExtra** package to format the table for pretty-printing in Markdown.
+
+```{r}
+# Create data frame to format into table
+tab_07 = data.frame(myAIC) %>%
+  select(
+    Modnames, LL, K, AICc, Delta_AICc, AICcWt
+  ) %>%
+  mutate(
+    ER = max(AICcWt) / AICcWt
+  ) %>%
+  rename(
+    Hypothesis = Modnames,
+    # We can include LaTeX math notation in column names
+    # Because \ is a special character we need two \\
+    '$\\Delta$AICc' = Delta_AICc,
+    'AIC Wt.' = AICcWt
+  )
+
+# Load libraries for formatting
+library(knitr)
+library(kableExtra)
+
+# Format the table output
+kable(tab_07,
+      caption = "Table of Model Evidence for Three Working Hypotheses",
+      digits = 2
+      ) %>%
+  footnote(
+    general = "LL = Log-Likelihood; K = Model df; AIC Wt. = Model Probability; ER = Evidence Ratio",
+    general_title = "Note.",
+    footnote_as_chunk = TRUE
+  )
+```
+
+
+## Other Resources {-}
+
+In addition to the notes and what we cover in class, there many other resources for learning information criteria for model selection. Here are some resources that may be helpful in that endeavor:
+
+- Anderson, David R. (2008). [Model based inference in the life sciences: A primer on evidence](https://link-springer-com.ezp3.lib.umn.edu/book/10.1007%2F978-0-387-74075-1). New York: Springer.
+- Burnham, Kenneth P., &amp; Anderson, David R. (2002). [Model selection and multimodel inference: A practical information-theoretic approach](http://ecologia.ib.usp.br/bie5782/lib/exe/fetch.php?media=bie5782:pdfs:burnham_anderson2002.pdf). New York: Springer.
+
+<br />
+
+For **table formatting** using R Markdown, check out:
+
+- [kableExtra Documentation](https://haozhu233.github.io/kableExtra/)
+- [gt Documentation](https://gt.rstudio.com/)
+
+
+
+
+

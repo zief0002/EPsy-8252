@@ -1,6 +1,6 @@
-Package: placeholder
+Package: EPsy 8252 Notes
 Type: Book
-Title: Does not matter.
-Version: 0.0.1
+Title: Methods in Data Analysis for Educational Research II
+Version: 1.0.0
 Imports: bookdown
 Remotes: rstudio/bookdown

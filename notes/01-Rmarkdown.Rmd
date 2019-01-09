@@ -26,6 +26,10 @@ Before class you will need to do the following:
 
 <br />
 
+Read the following:
+
+- [Rmarkdown (and friends) Tutorial](http://www.flutterbys.com.au/stats/tut/tut17.5.html#h2_1)
+
 ---
 
 

@@ -9,7 +9,7 @@
   <meta name="description" content="These are the notes for EPsy 8252.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data Codebooks | EPsy 8252 Notes />
+  <meta property="og:title" content="Data Codebooks | EPsy 8252 Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Codebooks | EPsy 8252 Notes />
+  <meta name="twitter:title" content="Data Codebooks | EPsy 8252 Notes" />
   
   <meta name="twitter:description" content="These are the notes for EPsy 8252." />
   
@@ -25,14 +25,14 @@
 <meta name="author" content="Andrew Zieffler">
 
 
-<meta name="date" content="2018-12-31">
+<meta name="date" content="2019-01-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="maximum-likelihood-estimation.html">
+<link rel="prev" href="moreinfocrit.html">
 <link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,6 +50,7 @@
 
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -115,6 +116,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#preparation"><i class="fa fa-check"></i>Preparation</a></li>
 <li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#notes"><i class="fa fa-check"></i>Notes</a></li>
 <li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html"><i class="fa fa-check"></i>Pretty-Printing Tables in Markdown</a><ul>
+<li class="chapter" data-level="1.1" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#summary-statistics-table"><i class="fa fa-check"></i><b>1.1</b> Summary Statistics Table</a></li>
+<li class="chapter" data-level="1.2" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#correlation-table"><i class="fa fa-check"></i><b>1.2</b> Correlation Table</a></li>
+<li class="chapter" data-level="1.3" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#regression-table"><i class="fa fa-check"></i><b>1.3</b> Regression Table</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html"><i class="fa fa-check"></i><b>2</b> Nonlinearity: Log-Transforming the Predictor</a><ul>
 <li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#preparation-1"><i class="fa fa-check"></i>Preparation</a></li>
@@ -208,8 +214,35 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5.7" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#way-too-much-math"><i class="fa fa-check"></i><b>5.7</b> Way, Way, Way too Much Mathematics</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html"><i class="fa fa-check"></i><b>6</b> Information Criteria for Model Selection</a><ul>
+<li class="chapter" data-level="" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#preparation-5"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="6.1" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#dataset-and-research-question-4"><i class="fa fa-check"></i><b>6.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="6.2" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#model-building"><i class="fa fa-check"></i><b>6.2</b> Model-Building</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#exploration-of-the-outcome"><i class="fa fa-check"></i><b>6.2.1</b> Exploration of the Outcome</a></li>
+<li class="chapter" data-level="6.2.2" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-student-related-factors-model"><i class="fa fa-check"></i><b>6.2.2</b> Building the Student-Related Factors Model</a></li>
+<li class="chapter" data-level="6.2.3" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-faculty-related-factors-model"><i class="fa fa-check"></i><b>6.2.3</b> Building the Faculty-Related Factors Model</a></li>
+<li class="chapter" data-level="6.2.4" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-institution-related-factors-model"><i class="fa fa-check"></i><b>6.2.4</b> Building the Institution-Related Factors Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#candidate-statistical-models"><i class="fa fa-check"></i><b>6.3</b> Candidate Statistical Models</a></li>
+<li class="chapter" data-level="6.4" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#log-likelihood-1"><i class="fa fa-check"></i><b>6.4</b> Log-Likelihood</a></li>
+<li class="chapter" data-level="6.5" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#deviance-an-alternative-fit-value"><i class="fa fa-check"></i><b>6.5</b> Deviance: An Alternative Fit Value</a></li>
+<li class="chapter" data-level="6.6" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#akiakes-information-criteria-aic"><i class="fa fa-check"></i><b>6.6</b> Akiake’s Information Criteria (AIC)</a></li>
+<li class="chapter" data-level="6.7" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#empirical-support-for-hypotheses"><i class="fa fa-check"></i><b>6.7</b> Empirical Support for Hypotheses</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="moreinfocrit.html"><a href="moreinfocrit.html"><i class="fa fa-check"></i><b>7</b> Model Evidence</a><ul>
+<li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#preparation-6"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="7.1" data-path="moreinfocrit.html"><a href="moreinfocrit.html#dataset-and-research-question-5"><i class="fa fa-check"></i><b>7.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="7.2" data-path="moreinfocrit.html"><a href="moreinfocrit.html#corrected-aic-aicc-adjusting-for-model-complexity-and-sample-size"><i class="fa fa-check"></i><b>7.2</b> Corrected AIC (AICc): Adjusting for Model Complexity and Sample Size</a></li>
+<li class="chapter" data-level="7.3" data-path="moreinfocrit.html"><a href="moreinfocrit.html#model-selection-uncertainty"><i class="fa fa-check"></i><b>7.3</b> Model-Selection Uncertainty</a></li>
+<li class="chapter" data-level="7.4" data-path="moreinfocrit.html"><a href="moreinfocrit.html#relative-likelihood-and-evidence-ratios"><i class="fa fa-check"></i><b>7.4</b> Relative Likelihood and Evidence Ratios</a></li>
+<li class="chapter" data-level="7.5" data-path="moreinfocrit.html"><a href="moreinfocrit.html#model-probabilities"><i class="fa fa-check"></i><b>7.5</b> Model Probabilities</a></li>
+<li class="chapter" data-level="7.6" data-path="moreinfocrit.html"><a href="moreinfocrit.html#tables-of-model-evidence"><i class="fa fa-check"></i><b>7.6</b> Tables of Model Evidence</a></li>
+<li class="chapter" data-level="7.7" data-path="moreinfocrit.html"><a href="moreinfocrit.html#some-final-thoughts"><i class="fa fa-check"></i><b>7.7</b> Some Final Thoughts</a></li>
+<li class="chapter" data-level="7.8" data-path="moreinfocrit.html"><a href="moreinfocrit.html#pretty-printing-tables-of-model-evidence"><i class="fa fa-check"></i><b>7.8</b> Pretty Printing Tables of Model Evidence</a></li>
+<li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#other-resources-2"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
-<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools"><i class="fa fa-check"></i>ed-schools.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools-2018"><i class="fa fa-check"></i>ed-schools-2018.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#mn-schools"><i class="fa fa-check"></i>mn-schools.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#movies"><i class="fa fa-check"></i>movies.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#riverview"><i class="fa fa-check"></i>riverview.csv</a></li>
@@ -238,19 +271,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="data-codebook" class="section level1 unnumbered">
 <h1>Data Codebooks</h1>
 <p>The data codebooks provide information about the attributes and source of each of the datasets used in the notes.</p>
-<div id="ed-schools" class="section level2 unnumbered">
-<h2>ed-schools.csv</h2>
+<div id="ed-schools-2018" class="section level2 unnumbered">
+<h2>ed-schools-2018.csv</h2>
 <p>The data in <em>ed-schools.csv</em> come from <span class="citation">U.S. News and World Report (<a href="#ref-USNWR:2018">2018</a>)</span> and contain 13 attributes collected from the <span class="math inline">\(n=129\)</span> graduate schools of education ranked in the <em>2018 Best Graduate Schools</em>. The attributes include:</p>
 <ul>
-<li><code>rank</code>: Rank</li>
+<li><code>rank</code>: Rank in USNWR</li>
 <li><code>school</code>: Graduate program of Education</li>
-<li><code>score</code>: Years of seniority</li>
+<li><code>score</code>: Overall score given by USNWR</li>
 <li><code>peer</code>: Peer assessment score (5.0 = highest)</li>
 <li><code>expert_score</code>: Administrator/expert assessment score (5.0 = highest)</li>
 <li><code>gre_verbal</code>: Mean GRE verbal score in 2016</li>
 <li><code>gre_quant</code>: Mean GRE quantitative score in 2016</li>
 <li><code>doc_accept</code>: Acceptance rate for doctoral students in 2016</li>
-<li><code>student_faculty_ratio</code>: Ratio of doctoral students to faculty member in 2016</li>
+<li><code>student_faculty_ratio</code>: Ratio of doctoral students to faculty members in 2016</li>
 <li><code>phd_granted_per_faculty</code>: Doctorates granted per faculty member in 2015–16</li>
 <li><code>funded_research</code>: Funded research (in millions of dollars)</li>
 <li><code>funded_research_per_faculty</code>: Funded research per faculty member (in thousands of dollars)</li>
@@ -306,7 +339,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="maximum-likelihood-estimation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="moreinfocrit.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

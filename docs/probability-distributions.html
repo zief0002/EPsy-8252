@@ -9,7 +9,7 @@
   <meta name="description" content="These are the notes for EPsy 8252.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Unit 4: Probability Distributions | EPsy 8252 Notes />
+  <meta property="og:title" content="Unit 4: Probability Distributions | EPsy 8252 Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Unit 4: Probability Distributions | EPsy 8252 Notes />
+  <meta name="twitter:title" content="Unit 4: Probability Distributions | EPsy 8252 Notes" />
   
   <meta name="twitter:description" content="These are the notes for EPsy 8252." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Andrew Zieffler">
 
 
-<meta name="date" content="2018-12-31">
+<meta name="date" content="2019-01-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -50,6 +50,7 @@
 
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -115,6 +116,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#preparation"><i class="fa fa-check"></i>Preparation</a></li>
 <li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#notes"><i class="fa fa-check"></i>Notes</a></li>
 <li class="chapter" data-level="" data-path="rmarkdown.html"><a href="rmarkdown.html#other-resources"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html"><i class="fa fa-check"></i>Pretty-Printing Tables in Markdown</a><ul>
+<li class="chapter" data-level="1.1" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#summary-statistics-table"><i class="fa fa-check"></i><b>1.1</b> Summary Statistics Table</a></li>
+<li class="chapter" data-level="1.2" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#correlation-table"><i class="fa fa-check"></i><b>1.2</b> Correlation Table</a></li>
+<li class="chapter" data-level="1.3" data-path="pretty-printing-tables-in-markdown.html"><a href="pretty-printing-tables-in-markdown.html#regression-table"><i class="fa fa-check"></i><b>1.3</b> Regression Table</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html"><i class="fa fa-check"></i><b>2</b> Nonlinearity: Log-Transforming the Predictor</a><ul>
 <li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#preparation-1"><i class="fa fa-check"></i>Preparation</a></li>
@@ -208,8 +214,35 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5.7" data-path="maximum-likelihood-estimation.html"><a href="maximum-likelihood-estimation.html#way-too-much-math"><i class="fa fa-check"></i><b>5.7</b> Way, Way, Way too Much Mathematics</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html"><i class="fa fa-check"></i><b>6</b> Information Criteria for Model Selection</a><ul>
+<li class="chapter" data-level="" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#preparation-5"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="6.1" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#dataset-and-research-question-4"><i class="fa fa-check"></i><b>6.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="6.2" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#model-building"><i class="fa fa-check"></i><b>6.2</b> Model-Building</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#exploration-of-the-outcome"><i class="fa fa-check"></i><b>6.2.1</b> Exploration of the Outcome</a></li>
+<li class="chapter" data-level="6.2.2" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-student-related-factors-model"><i class="fa fa-check"></i><b>6.2.2</b> Building the Student-Related Factors Model</a></li>
+<li class="chapter" data-level="6.2.3" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-faculty-related-factors-model"><i class="fa fa-check"></i><b>6.2.3</b> Building the Faculty-Related Factors Model</a></li>
+<li class="chapter" data-level="6.2.4" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#building-the-institution-related-factors-model"><i class="fa fa-check"></i><b>6.2.4</b> Building the Institution-Related Factors Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#candidate-statistical-models"><i class="fa fa-check"></i><b>6.3</b> Candidate Statistical Models</a></li>
+<li class="chapter" data-level="6.4" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#log-likelihood-1"><i class="fa fa-check"></i><b>6.4</b> Log-Likelihood</a></li>
+<li class="chapter" data-level="6.5" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#deviance-an-alternative-fit-value"><i class="fa fa-check"></i><b>6.5</b> Deviance: An Alternative Fit Value</a></li>
+<li class="chapter" data-level="6.6" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#akiakes-information-criteria-aic"><i class="fa fa-check"></i><b>6.6</b> Akiake’s Information Criteria (AIC)</a></li>
+<li class="chapter" data-level="6.7" data-path="information-criteria-for-model-selection.html"><a href="information-criteria-for-model-selection.html#empirical-support-for-hypotheses"><i class="fa fa-check"></i><b>6.7</b> Empirical Support for Hypotheses</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="moreinfocrit.html"><a href="moreinfocrit.html"><i class="fa fa-check"></i><b>7</b> Model Evidence</a><ul>
+<li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#preparation-6"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="7.1" data-path="moreinfocrit.html"><a href="moreinfocrit.html#dataset-and-research-question-5"><i class="fa fa-check"></i><b>7.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="7.2" data-path="moreinfocrit.html"><a href="moreinfocrit.html#corrected-aic-aicc-adjusting-for-model-complexity-and-sample-size"><i class="fa fa-check"></i><b>7.2</b> Corrected AIC (AICc): Adjusting for Model Complexity and Sample Size</a></li>
+<li class="chapter" data-level="7.3" data-path="moreinfocrit.html"><a href="moreinfocrit.html#model-selection-uncertainty"><i class="fa fa-check"></i><b>7.3</b> Model-Selection Uncertainty</a></li>
+<li class="chapter" data-level="7.4" data-path="moreinfocrit.html"><a href="moreinfocrit.html#relative-likelihood-and-evidence-ratios"><i class="fa fa-check"></i><b>7.4</b> Relative Likelihood and Evidence Ratios</a></li>
+<li class="chapter" data-level="7.5" data-path="moreinfocrit.html"><a href="moreinfocrit.html#model-probabilities"><i class="fa fa-check"></i><b>7.5</b> Model Probabilities</a></li>
+<li class="chapter" data-level="7.6" data-path="moreinfocrit.html"><a href="moreinfocrit.html#tables-of-model-evidence"><i class="fa fa-check"></i><b>7.6</b> Tables of Model Evidence</a></li>
+<li class="chapter" data-level="7.7" data-path="moreinfocrit.html"><a href="moreinfocrit.html#some-final-thoughts"><i class="fa fa-check"></i><b>7.7</b> Some Final Thoughts</a></li>
+<li class="chapter" data-level="7.8" data-path="moreinfocrit.html"><a href="moreinfocrit.html#pretty-printing-tables-of-model-evidence"><i class="fa fa-check"></i><b>7.8</b> Pretty Printing Tables of Model Evidence</a></li>
+<li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#other-resources-2"><i class="fa fa-check"></i>Other Resources</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
-<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools"><i class="fa fa-check"></i>ed-schools.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools-2018"><i class="fa fa-check"></i>ed-schools-2018.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#mn-schools"><i class="fa fa-check"></i>mn-schools.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#movies"><i class="fa fa-check"></i>movies.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#riverview"><i class="fa fa-check"></i>riverview.csv</a></li>
@@ -277,7 +310,7 @@ p(65) = \frac{1}{10\sqrt{2\pi}}\exp\left[-\frac{(65-50)^2}{2\times10^2}\right] =
 <p>There is also a more direct way to compute this using the <code>dnorm()</code> function. This function computes the density of <code>x</code> from a normal distribution with a specified <code>mean</code> and <code>sd</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="dv">65</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>)</code></pre></div>
 <pre><code>[1] 0.01295</code></pre>
-<p>If we compute the density for several <span class="math inline">\(x\)</span> values and plot them, we get the familiar normal shape; the graphical instantiation of the mathematical equation.</p>
+<p>If we compute the density for several <span class="math inline">\(x\)</span> values and plot them, we get the familiar normal shape; the graphical depiction of the mathematical equation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create dataset</span>
 fig_<span class="dv">01</span> =<span class="st"> </span><span class="kw">data.frame</span>(
   <span class="dt">X =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">10</span>, <span class="dt">to =</span> <span class="dv">90</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)
@@ -292,8 +325,8 @@ fig_<span class="dv">01</span> =<span class="st"> </span><span class="kw">data.f
 <span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">x =</span> <span class="dv">65</span>, <span class="dt">y =</span> <span class="fl">0.01295176</span>, <span class="dt">size =</span> <span class="dv">3</span>)</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-70"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-70-1.png" alt="Plot of the probability density function (PDF) for a Normal distribution with mean of 50 and standard deviation of 10. The density value for $x=65$, $p(65)= 0.01295176$, is also displayed on the PDF." width="50%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-91"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-91-1.png" alt="Plot of the probability density function (PDF) for a Normal distribution with mean of 50 and standard deviation of 10. The density value for $x=65$, $p(65)= 0.01295176$, is also displayed on the PDF." width="50%" />
 <p class="caption">
 Figure 4.1: Plot of the probability density function (PDF) for a Normal distribution with mean of 50 and standard deviation of 10. The density value for <span class="math inline">\(x=65\)</span>, <span class="math inline">\(p(65)= 0.01295176\)</span>, is also displayed on the PDF.
 </p>
@@ -315,8 +348,8 @@ Figure 4.1: Plot of the probability density function (PDF) for a Normal distribu
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pnorm</span>(<span class="dt">q =</span> <span class="dv">65</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>)</code></pre></div>
 <pre><code>[1] 0.9332</code></pre>
 <p>This is akin to finding the proportion of the area under the normal PDF that is to the left of 65.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-72"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-72-1.png" alt="Plot of the PDF for a normal distribution (M=50, SD=10) with the cumulative probability for X less than or equal to 65 shaded." width="50%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-93"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-93-1.png" alt="Plot of the PDF for a normal distribution (M=50, SD=10) with the cumulative probability for X less than or equal to 65 shaded." width="50%" />
 <p class="caption">
 Figure 4.2: Plot of the PDF for a normal distribution (M=50, SD=10) with the cumulative probability for X less than or equal to 65 shaded.
 </p>
@@ -330,13 +363,13 @@ Figure 4.2: Plot of the PDF for a normal distribution (M=50, SD=10) with the cum
 <div id="cumulative-density-and-p-value" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> Cumulative Density and <span class="math inline">\(p\)</span>-Value</h3>
 <p>This type of computation is used most commonly to find a <span class="math inline">\(p\)</span>-value. The <span class="math inline">\(p\)</span>-value is just the area under the distribution (curve) that is AT LEAST as extreme as some observed value. Consider a hypothesis test of whether a population parameter is equal to 0. Also consider that we observed a statistic (that has been standardized) of <span class="math inline">\(z=2.5\)</span>. Then, the <span class="math inline">\(p\)</span>-value can be graphically displayed in the standard normal distribution as follows:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-73"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-73-1.png" alt="Plot of the probability density function (PDF) for the standard normal distribution (M=0, SD=1). The cumulative density representing the p-value for a two-tailed test evaluating whether mu=0 using an observed z-value of 2.5 is also displayed." width="50%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-94"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-94-1.png" alt="Plot of the probability density function (PDF) for the standard normal distribution (M=0, SD=1). The cumulative density representing the p-value for a two-tailed test evaluating whether mu=0 using an observed z-value of 2.5 is also displayed." width="50%" />
 <p class="caption">
 Figure 4.3: Plot of the probability density function (PDF) for the standard normal distribution (M=0, SD=1). The cumulative density representing the p-value for a two-tailed test evaluating whether mu=0 using an observed z-value of 2.5 is also displayed.
 </p>
 </div>
-<p>In most hypthesis tests, we test whether the parameter IS EQUAL to 0. Thus the values in the standard normal distribution more extreme than 2.5 encompass evidence against the hypothesis; those values greater than 2.5 and also those values less than <span class="math inline">\(-2.5\)</span>. (This is akin to testing a fair coin when both 8 heads OR 8 tails would provide evidence against fairness we have to consider evidence in both directions).</p>
+<p>In most hypothesis tests, we test whether the parameter IS EQUAL to 0. Thus the values in the standard normal distribution more extreme than 2.5 encompass evidence against the hypothesis; those values greater than 2.5 and also those values less than <span class="math inline">\(-2.5\)</span>. (This is akin to testing a fair coin when both 8 heads OR 8 tails would provide evidence against fairness we have to consider evidence in both directions).</p>
 <p>To compute this we use <code>pnorm()</code>. Remember, it computes the proportion of the area under the curve TO THE LEFT of a particular value. Here we will compute the are to the left of <span class="math inline">\(-2.5\)</span> and then double it to produce the actual <span class="math inline">\(p\)</span>-value.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q =</span> <span class="op">-</span><span class="fl">2.5</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>[1] 0.01242</code></pre>
@@ -351,8 +384,8 @@ Figure 4.3: Plot of the probability density function (PDF) for the standard norm
 <div id="students-t-distribution" class="section level2">
 <h2><span class="header-section-number">4.3</span> Student’s <span class="math inline">\(t\)</span>-Distribution</h2>
 <p>Student’s <span class="math inline">\(t\)</span>-distribution looks like a standard normal distribution. In the figure below, Student’s <span class="math inline">\(t\)</span>-distribution is depicted with a solid, black line and the standard normal distribution (<span class="math inline">\(M=0\)</span>, <span class="math inline">\(SD=1\)</span>) is depicted with a dotted, red line.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-76"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-76-1.png" alt="Plot of the probability density function (PDF) for the standard normal distribution (dotted, red line) and Student's t-distribution with 5 degrees of freedom (solid, black line)." width="50%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-97"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-97-1.png" alt="Plot of the probability density function (PDF) for the standard normal distribution (dotted, red line) and Student's t-distribution with 5 degrees of freedom (solid, black line)." width="50%" />
 <p class="caption">
 Figure 4.4: Plot of the probability density function (PDF) for the standard normal distribution (dotted, red line) and Student’s t-distribution with 5 degrees of freedom (solid, black line).
 </p>
@@ -360,8 +393,8 @@ Figure 4.4: Plot of the probability density function (PDF) for the standard norm
 <p>Both the standard normal distribution and Student’s <span class="math inline">\(t\)</span>-distribution have a mean (expected value) of 0. The standard deviation for Student’s <span class="math inline">\(t\)</span>-distribution is larger than the standard deviation for the standard normal distribution (<span class="math inline">\(SD&gt;1\)</span>). You can see this in the distribution because the tails in Student’s <span class="math inline">\(t\)</span>-distribution are fatter (more error) than the standard normal distribution.</p>
 <p>In practice, we often use Student’s <span class="math inline">\(t\)</span>-distribution rather than the standard normal distribution when we are using sample data to estimate the population. This estimation increases the error and thus is typically modeled using Student’s <span class="math inline">\(t\)</span>-distribution.</p>
 <p>Student’s <span class="math inline">\(t\)</span>-distribution constitutes a family of distributions—not just a single distribution. The specific shape (and thus probability density) is defined by the <em>degrees of freedom</em>; <em>df</em>. The plot below shows the standard normal distribution (purple) and four <span class="math inline">\(t\)</span>-distributions with varying <em>df</em>-values.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-77"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-77-1.png" alt="Plot of several t-distributions with differing degrees of freedom." width="80%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-98"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-98-1.png" alt="Plot of several t-distributions with differing degrees of freedom." width="80%" />
 <p class="caption">
 Figure 4.5: Plot of several t-distributions with differing degrees of freedom.
 </p>
@@ -371,7 +404,7 @@ Figure 4.5: Plot of several t-distributions with differing degrees of freedom.
 {"columns":[{"label":["df"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["M"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["SD"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"03","2":"0","3":"2.00"},{"1":"05","2":"0","3":"1.50"},{"1":"10","2":"0","3":"1.22"},{"1":"25","2":"0","3":"1.08"},{"1":"z","2":"0","3":"1.00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>If we compare the means and SDs for these distributions, we find that the mean for all the <span class="math inline">\(t\)</span>-distributions is 0, same as the standard normal distribution. All <span class="math inline">\(t\)</span>-distributions are unimodal and symmetric around zero. The SD for every <span class="math inline">\(t\)</span>-distribution is higher than the SD for the standrad normal distribution. Student <span class="math inline">\(t\)</span>-distributions with higher <em>df</em> values have less variation. It turns out that the standard normal distribution is a <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(\infty\)</span> <em>df</em>. For the formula for the SD in a <span class="math inline">\(t\)</span>-distribution, see <span class="citation">Fox (<a href="#ref-Fox:2009">2009</a>)</span>.</p>
+<p>If we compare the means and SDs for these distributions, we find that the mean for all the <span class="math inline">\(t\)</span>-distributions is 0, same as the standard normal distribution. All <span class="math inline">\(t\)</span>-distributions are unimodal and symmetric around zero. The SD for every <span class="math inline">\(t\)</span>-distribution is higher than the SD for the standard normal distribution. Student <span class="math inline">\(t\)</span>-distributions with higher <em>df</em> values have less variation. It turns out that the standard normal distribution is a <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(\infty\)</span> <em>df</em>. For the formula for the SD in a <span class="math inline">\(t\)</span>-distribution, see <span class="citation">Fox (<a href="#ref-Fox:2009">2009</a>)</span>.</p>
 <p>There are four primary functions for working with Student’s <span class="math inline">\(t\)</span>-distribution:</p>
 <ul>
 <li><code>dt()</code> : To compute the probability density (point on the curve)</li>
@@ -399,8 +432,8 @@ Figure 4.5: Plot of several t-distributions with differing degrees of freedom.
 <span class="kw">pt</span>(<span class="dt">q =</span> <span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">25</span>)</code></pre></div>
 <pre><code>[1] 0.9718</code></pre>
 <p>We are essentially comparing the height of these distributions at <span class="math inline">\(X=2\)</span>.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-80"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-80-1.png" alt="Plot of several t-distributions with differing *degrees of freedom. The probability density for t=2 is also displayed for each of the distributions." width="80%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-101"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-101-1.png" alt="Plot of several t-distributions with differing *degrees of freedom. The probability density for t=2 is also displayed for each of the distributions." width="80%" />
 <p class="caption">
 Figure 4.6: Plot of several t-distributions with differing *degrees of freedom. The probability density for t=2 is also displayed for each of the distributions.
 </p>
@@ -408,7 +441,7 @@ Figure 4.6: Plot of several t-distributions with differing *degrees of freedom. 
 </div>
 <div id="comparing-cumulative-densities" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> Comparing Cumulative Densities</h3>
-<p>What if we wanted to look at cumulative density? Consider out hypothesis test of whether a population parameter is equal to 0. ALso consider that we observed a statistic (that has been standardized) of 2.5 using a sample size of <span class="math inline">\(n=15\)</span>.</p>
+<p>What if we wanted to look at cumulative density? Consider out hypothesis test of whether a population parameter is equal to 0. Also consider that we observed a statistic (that has been standardized) of 2.5 using a sample size of <span class="math inline">\(n=15\)</span>.</p>
 <p>If we can assume that the SAMPLING DISTRIBUTION is normally-distributed then we can use the cumulative density in a normal distribution to compute a <span class="math inline">\(p\)</span>-value:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q =</span> <span class="op">-</span><span class="fl">2.5</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>[1] 0.01242</code></pre>
@@ -477,7 +510,7 @@ t_{\mathrm{Seniority}} &amp;= \frac{739}{210} = 3.52 \\
 <span class="kw">glance</span>(lm.<span class="dv">1</span>)</code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.7418","2":"0.724","3":"7646","4":"41.65","5":"0.000000002977","6":"3","7":"-330","8":"667.9","9":"673.8","10":"1695313285","11":"29","_rn_":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.7418","2":"0.724","3":"7646","4":"41.65","5":"0.000000002977","6":"3","7":"-330","8":"667.9","9":"673.8","10":"1695313285","11":"29"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>In this example, the sample <span class="math inline">\(R^2\)</span> value is 0.742. Computation of the <span class="math inline">\(F\)</span>-statistic relies on two <em>df</em> values—the model degrees of freedom (2) and the error degrees of freedom (29). To compute the <span class="math inline">\(F\)</span>-statistics from <span class="math inline">\(R^2\)</span> we use:</p>
@@ -499,16 +532,16 @@ F &amp;= \frac{0.742}{1-0.742} \times \frac{29}{2} \\
 H_0:\rho^2 = 0
 \]</span></p>
 <p>Similar to the tests of the coefficients, we evaluate our test statistic (<span class="math inline">\(F\)</span> in this case) in the appropriate test distribution, in this case an <span class="math inline">\(F\)</span>-distribution with 2 and 29 degrees of freedom. (The shape of the <span class="math inline">\(F\)</span>-distribution is based on two <em>df</em> values.) The figure below, shows the <span class="math inline">\(F(2,29)\)</span>-distribution as a solid, black line.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-87"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-87-1.png" alt="Plot of several F-distributions with differing degrees of freedom. The F(2,29)-distribution is shown as a solid, black line." width="80%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-108"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-108-1.png" alt="Plot of several F-distributions with differing degrees of freedom. The F(2,29)-distribution is shown as a solid, black line." width="80%" />
 <p class="caption">
 Figure 4.7: Plot of several F-distributions with differing degrees of freedom. The F(2,29)-distribution is shown as a solid, black line.
 </p>
 </div>
-<p>The <span class="math inline">\(F\)</span>-distribution, like the <span class="math inline">\(t\)</span>-distribution is a family of distributions. They are positively skewed and generally have a lower-limit of 0. Because of this, when we use the <span class="math inline">\(F\)</span>-distribution to compute a <span class="math inline">\(p\)</span>-value, we only compute the cumulative density GREATER THAN OR EQUAL TO the value of the standradized test statistic.</p>
+<p>The <span class="math inline">\(F\)</span>-distribution, like the <span class="math inline">\(t\)</span>-distribution is a family of distributions. They are positively skewed and generally have a lower-limit of 0. Because of this, when we use the <span class="math inline">\(F\)</span>-distribution to compute a <span class="math inline">\(p\)</span>-value, we only compute the cumulative density GREATER THAN OR EQUAL TO the value of the standardized test statistic.</p>
 <div id="computing-f-from-the-anova-partitioning" class="section level4">
 <h4><span class="header-section-number">4.5.1.1</span> Computing F from the ANOVA Partitioning</h4>
-<p>We can also compute the model-level <span class="math inline">\(F\)</span>-statistic using the partititioning of variation from the ANOVA table.</p>
+<p>We can also compute the model-level <span class="math inline">\(F\)</span>-statistic using the partitioning of variation from the ANOVA table.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lm.<span class="dv">1</span>)</code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -557,8 +590,8 @@ F &amp;= \frac{R^2}{1-R^2} \times \frac{\mathrm{df}_{\mathrm{Error}}}{\mathrm{df
 \end{split}\]</span>
 <p>$$</p>
 <p>To test the null hypothesis, <span class="math inline">\(H_0:\rho^2=0\)</span>, we evaluate this observed <span class="math inline">\(F\)</span>-statistic in an <span class="math inline">\(F\)</span>-distribution with the 2 and 29 degrees of freedom.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-89"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-89-1.png" alt="Plot of the probability density function (PDF) for the F-distribution with 2 and 29 degrees of freedom. The cumulative density representing the p-value for a two-tailed test evaluating whether rho-squared=0 using an observed F-statistic of 41.7 is also displayed." width="80%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-110"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-110-1.png" alt="Plot of the probability density function (PDF) for the F-distribution with 2 and 29 degrees of freedom. The cumulative density representing the p-value for a two-tailed test evaluating whether rho-squared=0 using an observed F-statistic of 41.7 is also displayed." width="80%" />
 <p class="caption">
 Figure 4.8: Plot of the probability density function (PDF) for the F-distribution with 2 and 29 degrees of freedom. The cumulative density representing the p-value for a two-tailed test evaluating whether rho-squared=0 using an observed F-statistic of 41.7 is also displayed.
 </p>
@@ -575,9 +608,9 @@ Figure 4.8: Plot of the probability density function (PDF) for the F-distributio
 <p><span class="math display">\[
 \hat{\sigma}^2 = \frac{\sum(Y - \bar{Y})^2}{n-1}
 \]</span></p>
-<p>This is the total sum of squares divided by the total <em>df</em>. When we compute an <span class="math inline">\(F\)</span>-statistic, we are finding the ratio of two different variance estimates—one based on the model (explained variance) and one based on the error (unexplained variance). Under the null hypothesis that <span class="math inline">\(\rho^2 = 0\)</span>, we are assuming that all the variance is unexplained. In that case, our <span class="math inline">\(F\)</span>-statistic would be close to zero. When the model explains asignificant amount of variation, the numerator gets larger relative to the denominator and the <span class="math inline">\(F\)</span>-value is larger.</p>
+<p>This is the total sum of squares divided by the total <em>df</em>. When we compute an <span class="math inline">\(F\)</span>-statistic, we are finding the ratio of two different variance estimates—one based on the model (explained variance) and one based on the error (unexplained variance). Under the null hypothesis that <span class="math inline">\(\rho^2 = 0\)</span>, we are assuming that all the variance is unexplained. In that case, our <span class="math inline">\(F\)</span>-statistic would be close to zero. When the model explains a significant amount of variation, the numerator gets larger relative to the denominator and the <span class="math inline">\(F\)</span>-value is larger.</p>
 <p>The mean squared error (from the <code>anova()</code> output) plays a special role in regression analysis. It is the variance estimate for the conditional distributions of the residuals in our visual depiction of the distributional assumptions of the residuals underlying linear regression.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-91"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-112"></span>
 <img src="images/regression-assumptions-residuals.png" alt="Visual depiction of the distributional assumptions of the residuals underlying linear regression." width="70%" />
 <p class="caption">
 Figure 4.9: Visual depiction of the distributional assumptions of the residuals underlying linear regression.
@@ -591,10 +624,10 @@ Figure 4.9: Visual depiction of the distributional assumptions of the residuals 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(lm.<span class="dv">1</span>)</code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.7418","2":"0.724","3":"7646","4":"41.65","5":"0.000000002977","6":"3","7":"-330","8":"667.9","9":"673.8","10":"1695313285","11":"29","_rn_":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.7418","2":"0.724","3":"7646","4":"41.65","5":"0.000000002977","6":"3","7":"-330","8":"667.9","9":"673.8","10":"1695313285","11":"29"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>Why is this value important? It gives the expected variation in the distribution. For example, since all of the conditional distributions of the residuals are normally distribued, we would expect that 95% of the residuals would fall between <span class="math inline">\(\pm2\)</span> standard errors from 0; or, in this case, between <span class="math inline">\(-15292\)</span> and 15292. Observations with residuals that are more extreme may be regression outliers.</p>
+<p>Why is this value important? It gives the expected variation in the distribution. For example, since all of the conditional distributions of the residuals are normally distributed, we would expect that 95% of the residuals would fall between <span class="math inline">\(\pm2\)</span> standard errors from 0; or, in this case, between <span class="math inline">\(-15292\)</span> and 15292. Observations with residuals that are more extreme may be regression outliers.</p>
 
 </div>
 </div>

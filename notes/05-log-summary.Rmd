@@ -1,0 +1,228 @@
+# Log Transformations: Some Final Thoughts {-}
+
+```{r echo=FALSE, message=FALSE}
+library(knitr)
+
+opts_knit$set(
+  width = 85, 
+  tibble.print_max = Inf
+  )
+
+opts_chunk$set(
+  prompt = FALSE, 
+  comment = NA, 
+  message = FALSE, 
+  warning = FALSE, 
+  tidy = FALSE, 
+  fig.align = 'center',
+  out.width = '50%'
+  )
+```
+
+There are four general curvilinear, monotonic functions (shown below). 
+
+```{r fig.width = 6, fig.height = 6, out.width='80%', echo=FALSE, fig.cap='Four general monotonic, curvilinear shapes.'}
+library(ggplot2)
+
+fakedataMT = function(p = 1, q = 1, n = 99, s = .1){
+  set.seed(1)
+  X = seq(1/(n + 1), 1 - 1/(n + 1), length = n)
+  Y = (5 + 2 * X ^ p + rnorm(n, sd = s)) ^ (1 / q)
+  return(data.frame(x = X, y = Y))
+}
+
+d1 = cbind(fakedataMT(p = 0.5, q =  2), model = "Positive; Decelerating")
+d2 = cbind(fakedataMT(p = 3.0, q = -5), model = "Negative; Accelerating")
+d3 = cbind(fakedataMT(p = 0.5, q = -1), model = "Negative; Decelerating")
+d4 = cbind(fakedataMT(p = 3.0, q =  5), model = "Positive; Accelerating")
+
+fig_01 = rbind(d1, d2, d3, d4)
+
+ggplot(data = fig_01, aes(x = x, y = y)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  scale_x_continuous(name = "", breaks = NULL) +
+  scale_y_continuous(name = "", breaks = NULL) +
+  facet_wrap(~model, scales = "free")
+```
+
+In the previous two units you learned how to transform the data to "linearize" two of the four monotonic functions:
+
+- For positive, decelerating functions we log-transformed *X*; and
+- For positive, accelerating functions we log-transformed *Y*.
+
+To better understand how we can use transformations to straighten-out relationships, we will examine a set of transformations known as **power transformations**. 
+
+
+## Power Transformations {-}
+
+Consider a set of powers, $p$ that can be used in the exponent of a variable $X$ (the variable is irrelevant; it could also be $Y$) so that a transformation of the variable $X$ is:
+
+$$
+\mathrm{Transformed~Variable} = X^p
+$$
+
+Consider the following values for $p$:
+
+$$
+p = \{-3,-2,-1,0,1,2,3\}
+$$
+
+These all represent particular transformations of $X$. Note that when $p=1$, the variable $X$ is left untransformed ($X^1 = X$). Consider the following transformations:
+
+$$
+\begin{split}
+&X^3 \\
+&X^2 \\
+&X^1 \qquad \mathrm{Untransformed}
+\end{split}
+$$
+
+
+
+These are shown in the figure below.
+
+```{r echo=FALSE}
+x = seq(from = 1.25, to = 2, by = 0.001)
+
+fig_02 = data.frame(
+  x,
+  y_0 = log(x),
+  y_1 = x,
+  y_2 = x^2,
+  y_3 = x^3
+)
+
+ggplot(data = fig_02, aes(x = x, y = y_1)) +
+  geom_line(linetype = "dashed") +
+  geom_line(aes(y = y_2)) +
+  geom_line(aes(y = y_3)) +
+  theme_bw() +
+  scale_x_continuous(name = "X", limits = c(1.2, 2.1), breaks = NULL) +
+  scale_y_continuous(name = "Y", breaks = NULL) +
+  annotate(geom = "text", x = 2.05, y = 2.05, label = "p == 1", parse = TRUE) +
+  annotate(geom = "text", x = 2.05, y = 4.10, label = "p == 2", parse = TRUE) +
+  annotate(geom = "text", x = 2.05, y = 8.00, label = "p == 3", parse = TRUE)
+```
+
+
+Power transformations that are bigger than 1 ($p>1$) show positive acceleration. Powers larger than one are referred to as *upward* transformations as they increase the power (move it up) from one.
+
+Now consider these transformations:
+
+$$
+\begin{split}
+&X^{-1} \\
+&X^{-2} \\
+&X^{-3}
+\end{split}
+$$
+
+
+
+These are shown in the figure below.
+
+```{r echo=FALSE}
+x = seq(from = 0.01, to = 0.04, by = 0.001)
+
+fig_03 = data.frame(
+  x,
+  y_0 = - 1 / (x * 1/2),
+  y_1 = - 1 / x,
+  y_2 = - 1 / (x * 0.7)
+)
+
+ggplot(data = fig_03, aes(x = x, y = y_0)) +
+  geom_line(linetype = "dashed") +
+  geom_line(aes(y = y_2)) +
+  geom_line(aes(y = y_1)) +
+  theme_bw() +
+  scale_x_continuous(name = "X", limits = c(0.01, 0.045), breaks = NULL) +
+  scale_y_continuous(name = "Y", breaks = NULL) +
+  annotate(geom = "text", x = .042, y = -50, label = "p == -3", parse = TRUE) +
+  annotate(geom = "text", x = .042, y = -35.7, label = "p == -2", parse = TRUE) +
+  annotate(geom = "text", x = .042, y = -25, label = "p == -1", parse = TRUE)
+```
+
+For power transformations that are smaller than 1 ($p<1$), the function shows positive deceleration. Powers that are smaller than one are referred to as *downward* transformations as they decrease the power (move it down) from one.
+
+### Ladder of Transformations {-}
+
+If we order the different values of $p$, they form what statisticians call a "ladder of re-expression" or "ladder of transformations".
+
+$$
+\begin{split}
+& ~~~~~\vdots \\
+&Y^3,X^3 &\qquad \mathrm{Upward~Transformation}\\
+&Y^2,X^2 &\qquad \mathrm{Upward~Transformation}\\
+&Y^1,X^1  &\qquad \mathrm{Untransformed} \\
+&Y^{\frac{1}{2}},X^{\frac{1}{2}} &\qquad \mathrm{Downward~Transformation}\\
+&Y^0,X^0 \equiv \ln(X) &\qquad \mathrm{Downward~Transformation}\\
+&Y^{-1},X^{-1} &\qquad \mathrm{Downward~Transformation}\\
+&Y^{-2},X^{-2} &\qquad \mathrm{Downward~Transformation}\\
+&Y^{-3},X^{-3} &\qquad \mathrm{Downward~Transformation} \\
+& ~~~~~\vdots
+\end{split}
+$$
+
+### Rule of the Bulge {-}
+
+To determine how we need to transform data, we can rely on Mosteller and Tukey's 'Rule of the Bulge'. This rule, depicted visually below, has us "move on the ladder in the direction in which the bulge points". 
+
+```{r fig.width = 6, fig.height = 6, out.width='80%', echo=FALSE, fig.cap='Four general monotonic, curvilinear shapes. The Rule of the Bulge helps us identify how to transform the data to linearize any of these four shapes.'}
+d1 = cbind(fakedataMT(p = 0.5, q =  2), model = "Down in X; Up in Y")
+d2 = cbind(fakedataMT(p = 3.0, q = -5), model = "Up in X; Up in Y")
+d3 = cbind(fakedataMT(p = 0.5, q = -1), model = "Down in X; Down in Y")
+d4 = cbind(fakedataMT(p = 3.0, q =  5), model = "Up in X; Down in Y")
+
+fig_01 = rbind(d1, d2, d3, d4)
+
+ggplot(data = fig_01, aes(x = x, y = y)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  scale_x_continuous(name = "", breaks = NULL) +
+  scale_y_continuous(name = "", breaks = NULL) +
+  facet_wrap(~model, scales = "free")
+```
+
+For example, below we re-visit the `mn-schools.csv` data and again look at the relationship between median SAT score and six-year graduation rate.
+
+
+```{r echo=FALSE, out.width='50%', fig.cap='Scatterplot of the relationship between median SAT score and six-year graduation rate. The loess smoother is also displayed.'}
+mn = readr::read_csv(file = "~/Documents/github/epsy-8252/data/mn-schools.csv")
+
+ggplot(data = mn, aes(x = sat, y = grad)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  xlab("Median SAT score (in hundreds)") +
+  ylab("Six-year graduation rate")
+```
+
+This positive, decelerating relationship is similar to the one in the upper-lefthand quadrant of the 'Rule of the Bulge'. To linearize this we can either:
+
+- Transform $X$ using a DOWNWARD transformation; or
+- Transform $Y$ using an UPWARD transformation.
+
+In the Unit 2 notes, we linearized this by taking the natural logarithm of SAT; a downward transformation of $X$. What about the relationship between movie age and budget we looked at in Unit 3?
+
+```{r echo=FALSE, out.width='50%', fig.cap='Scatterplot between age and budget. The loess smoother is also displayed.'}
+movies = readr::read_csv(file = "~/Documents/github/epsy-8252/data/movies.csv")
+
+ggplot(data = movies, aes(x = age, y = budget)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  xlab("Movie age") +
+  ylab("Movie Budget (in millions of dollars)")
+```
+
+This negative, decelerating relationship is similar to the one in the lower-lefthand quadrant of the 'Rule of the Bulge'. To linearize this we can either:
+
+- Transform $X$ using a DOWNWARD transformation; or
+- Transform $Y$ using an DOWNWARD transformation.
+
+In the Unit 3 notes, we linearized this by taking the natural logarithm of budget; a downward transformation of $Y$. By transforming $Y$ instead of $X$, we also fixed a problem of heterogeneity of variance; a problem in the residuals (which is related to $Y$).
+

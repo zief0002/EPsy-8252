@@ -2,23 +2,53 @@
 
 The data codebooks provide information about the attributes and source of each of the datasets used in the notes.
 
-## ed-schools.csv {-#ed-schools}
+## ed-schools-2018.csv {-#ed-schools-2018}
 
-The data in *ed-schools.csv* come from @USNWR:2018 and contain 13 attributes collected from the $n=129$ graduate schools of education ranked in the *2018 Best Graduate Schools*. The attributes include:
+The data in *ed-schools-2018.csv* come from @USNWR:2018 and contain 13 attributes collected from the $n=129$ graduate schools of education ranked in the *2018 Best Graduate Schools*. The attributes include:
 
-- `rank`: Rank
+- `rank`: Rank in USNWR
 - `school`: Graduate program of Education
-- `score`: Years of seniority
+- `score`: Overall score given by USNWR
 - `peer`: Peer assessment score (5.0 = highest)
 - `expert_score`: Administrator/expert assessment score (5.0 = highest)
 - `gre_verbal`: Mean GRE verbal score in 2016
 - `gre_quant`: Mean GRE quantitative score in 2016
 - `doc_accept`: Acceptance rate for doctoral students in 2016
-- `student_faculty_ratio`: Ratio of doctoral students to faculty member in 2016
+- `student_faculty_ratio`: Ratio of doctoral students to faculty members in 2016
 - `phd_granted_per_faculty`: Doctorates granted per faculty member in 2015–16
 - `funded_research`: Funded research (in millions of dollars)
 - `funded_research_per_faculty`: Funded research per faculty member (in thousands of dollars)
 - `enroll`: Total graduate education enrollment in 2016
+
+## evaluations.csv {-#evaluations}
+
+This file contains data collected from student evaluations of instructors' beauty and teaching quality for several courses at the University of Texas. The teaching evaluations were conducted at the end of the semester, and the beauty judgments were made later, by six students who had not attended the classes and were not aware of the course evaluations. The variables are:
+
+- `prof_id`: Professor ID number
+- `avg_eval`: Average course rating
+- `num_courses`: Number of courses for which the professor has evaluations
+- `num_students`: Number of students enrolled in the professor's courses
+- `perc_evaluating`: Average percentage of enrolled students who completed an evaluation
+- `beauty`: Measure of the professor's beauty composed  of the average score on six standardized beauty ratings
+- `tenured`: Is the professor tenured? (0 = non-tenured; 1 = tenured)
+- `native_english`: Is the professor a native English speaker? (0 = non-native English speaker; 1 = native English speaker)
+- `age`: Professor's age (in years)
+- `female`: Is the professor female? (0 = male; 1 = female)
+
+These source of these data is: Hamermesh, D. S. &amp; Parker, A. M. (2005). Beauty in the classroom: Instructors' pulchritude and putative pedagogical productivity. *Economics of Education Review, 24*, 369&ndash;376. The data were made available by: Gelman, A., &amp; Hill, J. (2007). *Data analysis using regression and multilevel/hierarchical models*. New York: Cambridge University Press. 
+
+
+## fci-2015.csv {-#fci-2018}
+
+Each season, [Team Marketing Report (TMR)](http://www.teammarketing.com/) computes the cost of taking a family of four to a professional sports contest for each of the major sporting leagues. Costs are determined by telephone calls with representatives of the teams, venues and concessionaires. Identical questions were asked in all interviews. Prices for Canadian teams were converted to US dollars and comparison prices were converted using a recent exchange rate. Salary data were collected by Sporting Intelligence as part of their *Global Sports Salaries Survey 2015*.
+
+The data in *fci-2015.csv* include five attributes collected from from the 2014/2015 season for $n=122$ professional sports teams across the United States. The attributes include:
+
+- `team`: Name of professional sports team
+- `league`: Major sporting league the team plays in (MLB = Major Lague Baseball; NBA = National Basketball Association; NFL = National Football League; NHL = National Hockey League)
+- `fci`: Fan Cost Index (FCI). The FCI is a summary of what it costs to take a family of four to a game. It comprises the prices of four (4) adult average-price tickets, two (2) small draft beers, four (4) small soft drinks, four (4) regular-size hot dogs, parking for one (1) car, two (2) game programs and two (2) least expensive, adult-size adjustable caps.
+- `salary`: Average yearly salary for players on the active roster
+
 
 ## mn-schools.csv {-#mn-schools}
 
@@ -51,3 +81,15 @@ The data in *riverview.csv* come from @Lewis-Beck:2016 and contain five attribut
 - `gender`: Employee's gender
 - `male`: Dummy coded gender variable (0 = Female, 1 = Male)
 - `party`: Political party affiliation
+
+
+## wine.csv {-#wine}
+
+The data in *wine.csv* includes data on 200 different wines. These data are a subset of a larger database ($n = 6,613$) from [wine.com](https://www.wine.com/), one of the biggest e-commerce wine retailers in the U.S. It allows customers to buy wine according to any price range, grape variety, country of origin, etc. The data were made available at [http://insightmine.com/](http://insightmine.com/bring-your-own-data-analyzing-wine-market/). The attributes include:
+
+- `wine`: Wine name
+- `vintage`: Year the wine was produced (centered so that 0 = 2008, 1 = 2009, etc.) 
+- `region`: Region of the world where the wine was produced
+- `varietal`: Grape varietal (e.g., Cabernet Sauvignon)
+- `rating`: Wine rating on a 100 pt. scale (these are from sources such as *Wine Spectator*, the *Wine Advocate*, and the *Wine Enthusiast*)
+- `price`: Price in U.S. dollars

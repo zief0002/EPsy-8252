@@ -1,0 +1,593 @@
+# Information Criteria for Model Selection
+
+```{r echo=FALSE, message=FALSE}
+library(knitr)
+
+opts_knit$set(
+  width = 85, 
+  tibble.print_max = Inf
+  )
+
+opts_chunk$set(
+  prompt = FALSE, 
+  comment = NA, 
+  message = FALSE, 
+  warning = FALSE, 
+  tidy = FALSE, 
+  fig.align = 'center',
+  out.width = '50%'
+  )
+```
+
+
+
+In this set of notes, you will learn about using information criteria to select a model from a set of candidate models.
+
+---
+
+### Preparation {-}
+
+Before class you will need read the following:
+
+- Elliott, L. P., &amp; Brook, B. W. (2007). [Revisiting Chamberlin: Multiple working hypotheses for the 21st century](https://academic.oup.com/bioscience/article/57/7/608/238555). *BioScience, 57*(7), 608&ndash;614.
+
+
+<br />
+
+---
+
+
+
+## Dataset and Research Question
+
+In this set of notes, we will use the data in the *ed-schools-2018.csv* file (see the [data codebook](#ed-schools-2018) here). These data include institutional-level attributes for several graduate education schools/programs rated by *U.S. News and World Report* in 2018.
+
+```{r message=FALSE, paged.print=FALSE}
+# Load libraries
+library(broom)
+library(corrr)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(sm)
+library(tidyr)
+
+# Read in data
+ed = read_csv(file = "~/Documents/github/epsy-8252/data/ed-schools-2018.csv")
+head(ed)
+```
+
+Using these data, we will examine the factors our academic peers use to rate graduate programs. To gather the peer assessment data, *U.S. News* asked deans, program directors and senior faculty to judge the academic quality of programs in their field on a scale of 1 (marginal) to 5 (outstanding). Based on the substantive literature we have three **scientific working hypotheses** about how programs are rated:
+
+- **H1:** Student-related factors drive the perceived academic quality of graduate programs in education.
+- **H2:** Faculty-related factors drive the perceived academic quality of graduate programs in education.
+- **H3:** Institution-related factors drive the perceived academic quality of graduate programs in education.
+
+We need to translate these working hypotheses into statistical models that we can then fit to a set of data. The models are only proxies for the working hypotheses. However, that being said, the validity of using the models as proxies is dependent on whether we have measured well, whether the translation makes substantive sense given the literature base, etc. Here is how we are measuring the different attributes:
+
+- The student-related factors we will use are GRE scores.
+- The faculty-related factors we will use are funded research (per faculty member) and the number of Ph.D. graduates (per faculty member).
+- The institution-related factors we will use are the acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program.
+
+
+## Model-Building
+
+Before we begin the exploratory analysis associated with model-building, it is worth noting that there are missing data in the dataset.
+
+```{r}
+summary(ed)
+```
+
+This is a problem when we are comparing models that use different variables as the observations used to fit one model will be different than the observations used to fit another model. Since we are going to be using a likelihood-based method of comparing the models, this is problematic. Remember, likelihood-based methods find us the most likely model given a set of data. If the datasets used are different, we won't know whether a model with a higher likelihood is truly more likely or is more likely because of the dataset used.
+
+To alleviate this problem, we will eliminate any observations (rows in the dataset) that have missing data. This is called *listwise* or *row-wise* deletion. Any analyses performed on the remaining data constitute a *complete-cases* analysis, since these cases have no missing data. To select the complete cases, we will use the `drop_na()` function from the **tidyr** package.
+
+```{r}
+# Drop rows with missing data
+educ = ed %>%
+  drop_na()
+
+# Check resulting data
+nrow(educ)
+summary(educ)
+```
+
+After selecting the complete-cases, the usable, analytic sample size is $n=122$. Seven observations (5.4%) were eliminated from the original sample because of missing data.
+
+### Exploration of the Outcome
+
+The outcome variable we will use in each of the models is peer rating (`peer`). This variable can theoretically vary from 1 to 5, but in our sample has only ranges from 2.5 to 4.6. The density plot indicates that this variable is right-skewed. This may foreshadow problems meeting the normality assumption and we subsequently may consider log-transforming this variable.
+
+
+```{r fig.cap='Density plot of the outcome variable used in the different models.', echo=FALSE}
+sm.density(educ$peer, xlab = "Peer rating")
+```
+
+
+Below we show scatterplots of the outcome (peer ratings) versus each of the predictors we are considering in the three scientific models.
+
+```{r out.width='40%', fig.cap='Scatterplots of peer ratings versus the student-related factors; verbal and quantitative GRE scores. The loess smoother is also displayed.', fig.show='hold', echo=FALSE}
+ggplot(data = educ, aes(x = gre_verbal, y = peer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("Peer rating") +
+  xlab("Mean Verbal GRE score")
+
+ggplot(data = educ, aes(x = gre_quant, y = peer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("Peer rating") +
+  xlab("Mean Quantitative GRE score")
+```
+
+
+```{r out.width='40%', fig.cap='Scatterplots of peer ratings versus the faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed.', fig.show='hold', echo=FALSE}
+ggplot(data = educ, aes(x = funded_research_per_faculty, y = peer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("Peer rating") +
+  xlab("Funded research per faculty member (in thousands of dollars)")
+
+ggplot(data = educ, aes(x = phd_granted_per_faculty, y = peer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("Peer rating") +
+  xlab("Ph.D.s granted per faculty member")
+```
+
+
+```{r out.width='30%', fig.cap='Scatterplots of peer ratings versus the institution-related factors; acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program. The loess smoother is also displayed.', fig.show='hold', echo=FALSE}
+ggplot(data = educ, aes(x = doc_accept, y = peer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("Peer rating") +
+  xlab("Acceptance rate of Ph.D. students")
+
+ggplot(data = educ, aes(x = phd_student_faculty_ratio, y = peer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("Peer rating") +
+  xlab("Ph.D. student-to-faculty ratio")
+
+ggplot(data = educ, aes(x = enroll, y = peer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("Peer rating") +
+  xlab("Total enrollment")
+```
+
+
+Almost all of these plots show curvilinear patterns, some of which can be alleviated by log-transforming the outcome. Remember, log-transforming the outcome will also help with violations of homoskedasticity. Since we want to be able to compare the models at the end of the analysis, we NEED to use the same outcome in each of the models. Given the initial right-skewed nature of the outcome distribution and the evidence from the scatterplots, we will log-transform peer ratings and use that outcome in each model we fit.
+
+```{r}
+# Create log-transformed peer ratings
+educ = educ %>%
+  mutate(
+    Lpeer = log(peer)
+    )
+```
+
+
+### Building the Student-Related Factors Model
+
+To determine which of the student-related factors to include in the model, we will examine the scatterplots of each predictor against the log-transformed peer ratings and also examine the correlation matrix of the outcome and student-related predictors.
+
+
+```{r out.width='40%', fig.cap='Scatterplots of the log-transformed peer ratings versus the student-related factors; verbal and quantitative GRE scores. The loess smoother is also displayed.', fig.show='hold', echo=FALSE}
+ggplot(data = educ, aes(x = gre_verbal, y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("Peer rating") +
+  xlab("ln(Mean Verbal GRE score)")
+
+ggplot(data = educ, aes(x = gre_quant, y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("Peer rating") +
+  xlab("ln(Mean Quantitative GRE score)")
+```
+
+```{r}
+educ %>%
+  select(Lpeer, gre_verbal, gre_quant) %>%
+  correlate()
+```
+
+Not surprisingly, the mean GRE verbal and GRE quantitative scores are highly correlated. Since including highly correlated predictors in a model can lead to unstable estimates, we will drop one of the predictors from the model. Empirically, the quantitative GRE scores seem more highly correlated with the outcome, so we will drop the GRE verbal scores from the model.
+
+Focusing on the scatterplot of the GRE quantitative scores, the relationship with the log-transformed peer ratings looks curvilinear (non-monotonic). The empirical relationship seems to change direction twice, indicating that log-transformed peer ratings may be a cubic-function of the quantitative GRE scores.
+
+```{r out.width='40%', fig.cap='Residual plots for the fitted model using the student-related factors.', fig.show='hold'}
+# Fit cubic model
+lm.1 = lm(Lpeer ~ 1 + gre_quant + I(gre_quant^2) + I(gre_quant^3), data = educ)
+
+# Coefficient-level output
+tidy(lm.1)
+
+# Obtain residuals
+out_1 = augment(lm.1)
+
+# Examine residuals
+sm.density(out_1$.std.resid, xlab = "Standardized residuals", model = "normal")
+
+ggplot(data = out_1, aes(x = .fitted, y = .std.resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  xlab("Fitted values") +
+  ylab("Standardized residuals")
+```
+
+
+### Building the Faculty-Related Factors Model
+
+To determine which of the faculty-related factors to include in the model, we will examine the scatterplots of each predictor against the log-transformed peer ratings and also examine the correlation matrix of the outcome and faculty-related predictors.
+
+
+```{r out.width='40%', fig.cap='Scatterplots of log-transformed peer ratings versus the faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed.', fig.show='hold', echo=FALSE}
+ggplot(data = educ, aes(x = funded_research_per_faculty, y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("ln(Peer rating)") +
+  xlab("Funded research per faculty member (in thousands of dollars)")
+
+ggplot(data = educ, aes(x = phd_granted_per_faculty, y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("ln(Peer rating)") +
+  xlab("Ph.D.s granted per faculty member")
+```
+
+
+```{r}
+educ %>%
+  select(Lpeer, funded_research_per_faculty, phd_granted_per_faculty) %>%
+  correlate()
+```
+
+The two predictors are moderately correlated with each other and both are correlated with the outcome. The scatterplot of peer ratings versus funded research suggest a monotonic curvilinear relationship. The Rule of the Bulge indicates that log-transforming the predictor may help linearize this relationship. The scatterplot of peer ratings versus number of Ph.D.s granted suggests that the distribution of the predictor is right-skewed with a potential outlying observation. This relationship may also benefit from log-transforming the predictor.
+
+Before log-transforming these predictors, it is a good idea to check the distributions for zero or negative values.
+
+```{r}
+educ %>%
+  select(funded_research_per_faculty, phd_granted_per_faculty) %>%
+  summary()
+```
+
+The summary values for the `phd_granted_per_faculty` predictor indicates that there are some schools that have a value of 0 for this predictor and that 0 is the smallest value. Before we transform using a log-transformation, we need to make it so the smallest value in the predictor is 1, since the log of 0 (and any negative values) is undefined. To do this we will add some number (in our case 1) to each value for `phd_granted_per_faculty` prior to taking the log.
+
+```{r}
+#Create log of the faculty-related predictors
+educ = educ %>%
+  mutate(
+    Lfunded_research_per_faculty = log(funded_research_per_faculty),
+    Lphd_granted_per_faculty = log(phd_granted_per_faculty + 1)
+  )
+```
+
+
+
+```{r out.width='40%', fig.cap='Scatterplots of log-transformed peer ratings versus the log-transformed faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed.', fig.show='hold', echo=FALSE}
+ggplot(data = educ, aes(x = Lfunded_research_per_faculty, y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("ln(Peer rating)") +
+  xlab("ln(Funded research per faculty member)")
+
+ggplot(data = educ, aes(x = Lphd_granted_per_faculty, y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("ln(Peer rating)") +
+  xlab("ln(Ph.D.s granted per faculty member + 1)")
+```
+
+Although this helped, it did not "cure" the nonlinearity. We might want to further include a quadratic term for each of the predictors. To evaluate this, we will fit the model that includes the linear and quadratic log-transformed predictors and examine the coefficient-level output and residuals.
+
+```{r out.width='40%', fig.cap='Residual plots for the fitted model using the faculty-related factors.', fig.show='hold'}
+# Fit cubic model
+lm.2 = lm(Lpeer ~ 1 + Lfunded_research_per_faculty + I(Lfunded_research_per_faculty^2) + Lphd_granted_per_faculty  + I(Lphd_granted_per_faculty^2), data = educ)
+
+# Coefficient-level output
+tidy(lm.2)
+
+# Obtain residuals
+out_2 = augment(lm.1)
+
+# Examine residuals
+sm.density(out_2$.std.resid, xlab = "Standardized residuals", model = "normal")
+
+ggplot(data = out_2, aes(x = .fitted, y = .std.resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  xlab("Fitted values") +
+  ylab("Standardized residuals")
+```
+
+### Building the Institution-Related Factors Model
+
+To determine which of the institution-related factors to include in the model, we will examine the scatterplots of each predictor against the log-transformed peer ratings and also examine the correlation matrix of the outcome and institution-related predictors.
+
+
+```{r out.width='30%', fig.cap='Scatterplots of the log-transformed peer ratings versus the institution-related factors; acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program. The loess smoother is also displayed.', fig.show='hold', echo=FALSE}
+ggplot(data = educ, aes(x = doc_accept, y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("ln(Peer rating)") +
+  xlab("Acceptance rate of Ph.D. students")
+
+ggplot(data = educ, aes(x = phd_student_faculty_ratio, y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("ln(Peer rating)") +
+  xlab("Ph.D. student-to-faculty ratio")
+
+ggplot(data = educ, aes(x = enroll, y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("ln(Peer rating)") +
+  xlab("Total enrollment")
+```
+
+
+```{r}
+educ %>%
+  select(Lpeer, doc_accept, phd_student_faculty_ratio, enroll) %>%
+  correlate()
+```
+
+The three predictors are mostly uncorrelated with each other and all are correlated with the outcome, albeit enrollment is weakly correlated with peer ratings. Two of the three scatterplots suggest curvilinear relationships although with different functional forms---Ph.D. student-to-faculty ratio and total enrollment. The Rule of the Bulge indicates that log-transforming the Ph.D. student-to-faculty ratio predictor, and including quadratic may help linearize this relationship. The scatterplot of peer ratings versus total enrollment suggests that the distribution of the predictor is right-skewed with a potential outlying observations. This relationship may also benefit from log-transforming the predictor. Lastly, it is unclear whether any additional transformation or polynomial terms are necessary for modeling the relationship with doctoral acceptance rate; to double-check this we will also log-transform the total enrollment predictor.
+
+As before, prior to log-transforming any predictors, it is a good idea to check the distributions for zero or negative values.
+
+```{r}
+educ %>%
+  select(doc_accept, phd_student_faculty_ratio, enroll) %>%
+  summary()
+```
+
+We will need to add one to every value of the `phd_student_faculty_ratio` predictor (so that the minimum value becomes 1) prior to the log-transformation.
+
+```{r}
+#Create log of the faculty-related predictors
+educ = educ %>%
+  mutate(
+    Ldoc_accept = log(doc_accept),
+    Lphd_student_faculty_ratio = log(phd_student_faculty_ratio + 1),
+    Lenroll = log(enroll)
+  )
+```
+
+
+
+```{r out.width='30%', fig.cap='Scatterplots of the log-transformed peer ratings versus the log-transformed institution-related factors. The loess smoother is also displayed.', fig.show='hold', echo=FALSE}
+ggplot(data = educ, aes(x = Ldoc_accept, y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("ln(Peer rating)") +
+  xlab("ln(Acceptance rate of Ph.D. students)")
+
+ggplot(data = educ, aes(x = Lphd_student_faculty_ratio, y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("ln(Peer rating)") +
+  xlab("ln(Ph.D. student-to-faculty ratio + 1)")
+
+ggplot(data = educ, aes(x = Lenroll, y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("ln(Peer rating)") +
+  xlab("ln(Total enrollment)")
+```
+
+
+The scatterplots indicate that all three relationships were satisfactorily linearized. After fitting the institution-related factors model we will further examine the coefficient-level output and residuals.
+
+```{r out.width='40%', fig.cap='Residual plots for the fitted model using the institution-related factors.', fig.show='hold'}
+# Fit model
+lm.3 = lm(Lpeer ~ 1 + Ldoc_accept + Lenroll + Lphd_student_faculty_ratio, data = educ)
+
+# Coefficient-level output
+tidy(lm.3)
+
+# Obtain residuals
+out_3 = augment(lm.3)
+
+# Examine residuals
+sm.density(out_3$.std.resid, xlab = "Standardized residuals", model = "normal")
+
+ggplot(data = out_3, aes(x = .fitted, y = .std.resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  xlab("Fitted values") +
+  ylab("Standardized residuals")
+```
+
+The coefficient-level output indicates that the log-transformed enrollment predictor may be unnecessary ($p=0.287$). We will fit another model that omits this predictor, but we will also retain this initial model as it was suggested from the scientific research.
+
+
+```{r out.width='40%', fig.cap='Residual plots for the fitted model using the institution-related factors (enrollment omitted).', fig.show='hold'}
+# Fit model
+lm.4 = lm(Lpeer ~ 1 + Ldoc_accept + Lphd_student_faculty_ratio, data = educ)
+
+# Coefficient-level output
+tidy(lm.4)
+
+# Obtain residuals
+out_4 = augment(lm.4)
+
+# Examine residuals
+sm.density(out_4$.std.resid, xlab = "Standardized residuals", model = "normal")
+
+ggplot(data = out_4, aes(x = .fitted, y = .std.resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  xlab("Fitted values") +
+  ylab("Standardized residuals")
+```
+
+
+## Candidate Statistical Models
+
+
+Now that we have settled on the functional form for each of the three proposed models, we can write out the statistical models associated with the scientific hypotheses. These models using regression notation are:
+
+- **M1:** $\mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{GREQ}_i) + \beta_2(\mathrm{GREQ}^2_i) + \beta_3(\mathrm{GREQ}^3_i) + \epsilon_i$
+- **M2:** $\mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{Funded~research}_i) + \beta_2(\mathrm{Funded~research}^2_i) + \beta_3(\mathrm{PhDs~granted}_i) + \beta_4(\mathrm{PhDs~granted}^2_i) + \epsilon_i$
+- **M3:** $\mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{PhD~acceptance~rate}_i) + \beta_2(\mathrm{PhD~student\mbox{-}to\mbox{-}faculty~ratio}_i) + \beta_3(\mathrm{Enrollment}_i) + \epsilon_i$
+
+
+where peer rating, funded research, Ph.D.s granted, Ph.D. acceptance rate, enrollment, and Ph.D. student-to-faculty ratio have all been log-transformed. We will also consider a fourth model that omits enrollment from the institution-related factors model.
+
+- **M4:** $\mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{PhD~acceptance~rate}_i) + \beta_2(\mathrm{PhD~student\mbox{-}to\mbox{-}faculty~ratio}_i) + \epsilon_i$
+
+
+## Log-Likelihood
+
+Recall that the likelihood gives us the probability of a particular model given a set of data and assumptions about the model, and that the log-likelihood is just a mathematically convenient transformation of the likelihood. Log-likelihood values from different models can be compared, so long as:
+
+- The exact same data is used to fit the models, 
+- The exact same outcome is used to fit the models, and
+- The assumptions underlying the likelihood (independence, distributional assumptions) are met.
+
+
+In all four models we are using the same data set and outcome, and the assumptions seem reasonably tenable for each of the four fitted candidate models. This suggests that the likelihood (or log-likelihood) can provide some evidence as to which of the four candidate models is most probable. Below we compute the log-likelihood values for each of the four candidate models.
+
+```{r}
+logLik(lm.1)
+logLik(lm.2)
+logLik(lm.3)
+logLik(lm.4)
+```
+
+Note that the log-likelihood values are also available from the `glance()` function's output (in the `logLik` column).
+
+```{r}
+glance(lm.1)
+```
+
+These values suggest that the model with the highest probability given the data and set of assumptions is Model 3; it has the highest log-likelihood value.
+
+
+## Deviance: An Alternative Fit Value
+
+It is common to multiply the log-likelihood values by $-2$. This is called the *deviance*. Deviance is a measure of model-data error, so when evaluating deviance values, lower is better. (The square brackets in the syntax grab the log-likelihood value from the `logLik()` output.) 
+
+```{r}
+-2 * logLik(lm.1)[1] #Model 1
+-2 * logLik(lm.2)[1] #Model 2
+-2 * logLik(lm.3)[1] #Model 3
+-2 * logLik(lm.4)[1] #Model 4
+```
+
+
+Here, the model that produces the lowest amount of model-data error is Model 3; it has the lowest deviance value. Since the deviance just multiplies the log-likelihood values by a constant, it produces the same rank ordering of the candidate models. Thus, whether you evaluate using the likelihood, the log-likelihood, or the deviance, you will end up with the same ordering of candidate models. Using deviance, however, has the advantages of having a direct relationship to model error, so it is more interpretable. It is also more closely aligned with other model measures associated with error that we commonly use (e.g., SSE, $R^2$).
+
+
+## Akiake's Information Criteria (AIC)
+
+Remember that lower values of deviance indicate the model (as defined via the set of parameters) is more likely (lower model-data error) given the data and set of assumptions. However, in practice we cannot directly compare the deviances since the models include a different number of parameters. It was not coincidence that our most probable candidate model also had the highest number of predictors.
+
+To account for this, we will add a penalty term to the deviance based on the number of parameters estimated in the model. This penalty-adjusted value is called Akiake's Information Criteria (AIC). 
+
+$$
+AIC = \mathrm{Deviance} + 2(k)
+$$
+
+where $k$ is the number of parameters being estimated in the model (including the intercept and RMSE). The AIC adjusts the deviance based on the complexity of the model. Note that the value for $k$ is given as *df* in the `logLik()` output. For our four models, the *df* values are:
+
+- **M1:** 5 *df* ($\hat\beta_0$, $\hat\beta_1$, $\hat\beta_2$, $\hat\beta_3$, RMSE)
+- **M2:** 6 *df* ($\hat\beta_0$, $\hat\beta_1$, $\hat\beta_2$, $\hat\beta_3$, $\hat\beta_4$, RMSE)
+- **M3:** 5 *df* ($\hat\beta_0$, $\hat\beta_1$, $\hat\beta_2$, $\hat\beta_3$, RMSE)
+- **M4:** 4 *df* ($\hat\beta_0$, $\hat\beta_1$, $\hat\beta_2$, RMSE)
+
+Just as with the deviance, smaller AIC values indicate a more likely model.
+
+```{r}
+-2 * logLik(lm.1)[1] + 2*5 #Model 1
+-2 * logLik(lm.2)[1] + 2*6 #Model 2
+-2 * logLik(lm.3)[1] + 2*5 #Model 3
+-2 * logLik(lm.4)[1] + 2*4 #Model 4
+```
+
+
+Arranging these, we find that Model 4 (AIC = $-193.7$) is the most likely candidate model given the data and candidate set of models. This leads us to adopt Model 4 (the reduced model) over Model 3 (the full model) for the institution-related factors model.
+
+We can also compute the AIC via the `AIC()` function.
+
+```{r}
+# Compute AIC value for Model 4
+AIC(lm.4)
+```
+
+Lastly, we note that the AIC value is produced as a column in the model-level output. (Note that the `df` column from `glance()` does NOT give the number of model parameters.)
+
+```{r}
+# Model-level output for Model 4
+glance(lm.4)
+```
+
+## Empirical Support for Hypotheses
+
+Because the models are proxies for the scientific working hypotheses, the AIC ends up being a measure of empirical support for any particular hypothesis---after all, it takes into account the data (empirical evidence) and model complexity. In practice, we can use the AIC to rank order the models, which results in a rank ordering of the scientific working hypotheses based on the empirical support for each. Ranked in order of empirical support, the three scientific working hypotheses are:
+
+- Peer ratings are attributable to institution-related factors. This hypothesis has the most empirical support of the three working hypotheses, given the data and other candidate models.
+- Peer ratings are attributable to faculty-related factors.
+- Peer ratings are attributable to student-related factors. This hypothesis has the least amount of empirical support of the three working hypotheses, given the data and other candidate models.
+
+It is important to remember that the phrase "given the data and other candidate models" is highly important. Using AIC to rank order the models results in a *relative ranking of the models*. It is not able to rank any hypotheses that you didn't consider as part of the candidate set of scientific working hypotheses. Moreover, the AIC is a direct function of the likelihood which is based on the actual model fitted as a proxy for the scientific working hypothesis. If the predictors used in any of the models had been different, it would lead to different likelihood and AIC values, and potentially a different rank ordering of the hypotheses.
+
+As an example, consider if we had not done any exploration of the model's functional form, but instead had just included the linear main-effects for each model.
+
+```{r}
+# Fit models
+lm.1 = lm(peer ~ 1 + gre_quant + gre_verbal, data = educ)
+lm.2 = lm(peer ~ 1 + funded_research_per_faculty + phd_granted_per_faculty, data = educ)
+lm.3 = lm(peer ~ 1 + doc_accept + enroll + phd_student_faculty_ratio, data = educ)
+
+# Compute AIC values
+AIC(lm.1)
+AIC(lm.2)
+AIC(lm.3)
+```
+
+In this example, the rank-ordering of hypotheses ended up being the same, but the actual AIC values were quite different. This will play an even bigger role in the next set of notes where we compare the size of the different AIC values to look at how much more empirical support one hypothesis has versus another.
+
+Finally, it is important to mention that philosophically, the use of information-criteria for model selection is not compatible with using $p$-values for variable selection. As an example consider Model 3 and Model 4:
+
+$$
+\begin{split}
+\mathbf{Model~3:~} & \mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{PhD~acceptance~rate}_i) + \beta_2(\mathrm{PhD~student\mbox{-}to\mbox{-}faculty~ratio}_i) + \beta_3(\mathrm{Enrollment}_i) + \epsilon_i \\
+\mathbf{Model~4:~} & \mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{PhD~acceptance~rate}_i) + \beta_2(\mathrm{PhD~student\mbox{-}to\mbox{-}faculty~ratio}_i) + \epsilon_i
+\end{split}
+$$
+
+Using $p$-values for variable selection, we would have fitted Model 3, found that the $p$-value associated with the enrollment coefficient was non-significant, and dropped enrollment from the model. Using the AIC values however, we also dropped enrollment from the model as the AIC value for Model 4 was smaller than the AIC value for Model 3. 
+
+Although in this case we came to the same conclusion, these methods are based on two very different philosophies of measuring statistical evidence. The $p$-value is a measure of how rare an observed statistic (e.g., $\hat\beta_k$, $t$-value) is under the null hypothesis. The AIC, on the other hand, is a measure of the model-data compatibility accounting for the complexity of the model. 
+
+In general, the use of $p$-values is not compatible with the use of model-level selection methods such as information criteria; see @Anderson:2008 for more detail. Because of this, it is typical to not even report $p$-values when carrying out this type of analysis.
+
+
