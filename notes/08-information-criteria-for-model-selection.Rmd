@@ -298,7 +298,7 @@ ggplot(data = educ, aes(x = Lphd_granted_per_faculty, y = Lpeer)) +
 Although this helped, it did not "cure" the nonlinearity. We might want to further include a quadratic term for each of the predictors. To evaluate this, we will fit the model that includes the linear and quadratic log-transformed predictors and examine the coefficient-level output and residuals.
 
 ```{r out.width='40%', fig.cap='Residual plots for the fitted model using the faculty-related factors.', fig.show='hold'}
-# Fit cubic model
+# Fit model
 lm.2 = lm(Lpeer ~ 1 + Lfunded_research_per_faculty + I(Lfunded_research_per_faculty^2) + Lphd_granted_per_faculty  + I(Lphd_granted_per_faculty^2), data = educ)
 
 # Coefficient-level output

@@ -37,7 +37,7 @@ opts_knit$set(width = 85)
 
 Welcome to *EPsy 8252: Methods in Data Analysis for Educational Research II*. This is the second course of a two-semester sequence for students in education. Materials for the course can be found:
 
-- [Syllabus](https://github.com/zief0002/epsy-8252/raw/master/syllabus/s19-8252-syllabus.pdf)
+- [Syllabus](https://github.com/zief0002/epsy-8252/raw/master/syllabus/syllabus-8252-s19.pdf)
 - [Assignments, Data, and Script Files](https://github.com/zief0002/epsy-8252)
 - [Data Codebooks](#data-codebook)
 

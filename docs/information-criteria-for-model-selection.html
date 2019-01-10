@@ -515,7 +515,7 @@ Figure 6.8: Scatterplots of log-transformed peer ratings versus the log-transfor
 </p>
 </div>
 <p>Although this helped, it did not “cure” the nonlinearity. We might want to further include a quadratic term for each of the predictors. To evaluate this, we will fit the model that includes the linear and quadratic log-transformed predictors and examine the coefficient-level output and residuals.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit cubic model</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model</span>
 lm.<span class="dv">2</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Lfunded_research_per_faculty <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Lfunded_research_per_faculty<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>Lphd_granted_per_faculty  <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Lphd_granted_per_faculty<span class="op">^</span><span class="dv">2</span>), <span class="dt">data =</span> educ)
 
 <span class="co"># Coefficient-level output</span>

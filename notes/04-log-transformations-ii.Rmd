@@ -143,7 +143,7 @@ Remember, the logarithm answers the mathematical question:
 Now we will re-examine the scatterplot using the log-transformed outcome to see how this transformation affects the relationship.
 
 
-```{r fig.cap='Scatterplot between age and budget. The loess smoother is also displayed.'}
+```{r fig.cap='Scatterplot between age and log-transformed budget. The loess smoother is also displayed.'}
 # Scatterplot
 ggplot(data = movies, aes(x = age, y = Lbudget)) +
   geom_point() +
@@ -499,6 +499,7 @@ anova(lm.2, lm.4)
 
 
 The test suggests that there is a statistically significant effect of MPAA rating even after accounting for differences in age; $F(2, 1802)=89.21$, $p<.001$. 
+
 
 ### Coefficient-Level Interpretation
 
