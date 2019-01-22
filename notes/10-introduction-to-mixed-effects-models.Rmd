@@ -1,0 +1,220 @@
+# Introduction to Mixed-Effects Models: Conceptual Ideas {#intro-lmer-concepts}
+
+```{r echo=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+
+opts_knit$set(
+  width = 85,
+  tibble.print_max = Inf
+  )
+
+opts_chunk$set(
+  prompt = FALSE,
+  comment = NA,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  fig.align = 'center',
+  out.width = '50%'
+  )
+```
+
+
+
+In this set of notes, you will learn the conceptual ideas behind linear mixed-effects models, also called multilevel models or hierarchical linear models.
+
+---
+
+### Preparation {-}
+
+Before class you will need to read the [Relational data](https://r4ds.had.co.nz/relational-data.html) chapter from following:
+
+- Grolemund, G., &amp; Wickham, H. (2017). [R for Data Science: Visualize, model, transform, tidy, and import data](https://r4ds.had.co.nz/). **. Sebastopol, CA: O’Reilly.
+
+Focus on the information on mutating joins.
+
+<br />
+
+---
+
+
+
+## Dataset and Research Question
+
+In this set of notes, we will use data from two files, the *netherlands-students.csv* file and the *netherlands-schools.csv* files (see the [data codebook](#netherlands) here). These data include student- and school-level attributes, respectively, for $n_i=2287$ 8th-grade students in the Netherlands.
+
+```{r message=FALSE, paged.print=FALSE}
+# Load libraries
+library(broom)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(sm)
+
+# Read in student-level data
+student_data = read_csv(file = "~/Documents/github/epsy-8252/data/netherlands-students.csv")
+head(student_data)
+
+# Read in school-level data
+school_data = read_csv(file = "~/Documents/github/epsy-8252/data/netherlands-schools.csv")
+head(school_data)
+```
+
+We will use these data to explore the question of whether verbal IQ scores predict variation in post-test language scores.
+
+
+## Join the Student- and Classroom-Level Data
+
+Before analyzing the data, we need to join, or merge, the two datasets together. To do this, we will use the `left_join()` function from the **dplyr** package. **dplyr** includes six different join functions. You can read about several different join functions [here](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html).
+
+```{r}
+joined_data = left_join(student_data, school_data, by = "school_id")
+head(joined_data)
+```
+
+
+## Fixed-Effects Regression Model
+
+To examine the research question of whether verbal IQ scores predict variation in post-test language scores, we might regress language scores on the verbal IQ scores using the `lm()` function. The `lm()` function fits a *fixed-effects regression model*.
+
+```{r}
+lm.1 = lm(language_post ~ 1 + verbal_iq, data = joined_data)
+
+# Model-level output
+glance(lm.1)
+
+# Coefficient-level output
+tidy(lm.1)
+```
+
+The model-level summary information suggests that differences in verbal IQ scores explains 37.2\% of the variation in post-test language scores, $F(1,2285)=1352.84$, $p<0.001$. The estimated intercept suggests that the average predicted post-test language scores for students with a mean verbal IQ score (= 0) is 40.93 ($p<.001$). The estimated slope indicates that each one-point difference in verbal IQ score is associated with a difference in post-test language scores of $2.65$, on average ($p<.001$). To have faith in the analytic results from this model, we need to evaluate whether the assumptions are satisfied.
+
+
+### Residual Analysis
+
+```{r fig.width=6, fig.height=6, out.width='50%', fig.cap='Density plot of the standardized residuals and scatterplot of the standardized residuals versus the fitted values from the fixed-effects regression model.', fig.show='hold'}
+# Obtain the fortified data frame
+out = augment(lm.1)
+head(out)
+
+# Normality
+sm.density(out$.std.resid, model = "normal", xlab = "Standardized residuals")
+
+# All other assumptions
+ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
+	geom_point() +
+	geom_hline(yintercept = 0) +
+	theme_bw() +
+  xlab("Fitted values") +
+  ylab("Standardized residuals")
+```
+
+The assumption that the mean residual is 0 seems reasonably satisfied, however those of normality and homoscedasticity seem less feasible, especially given the large sample size. More importantly, the assumption of independence (which we don't evaluate from the common residual plots) is probably not tenable. Students' post-test language scores (and thus the residuals) are probably correlated within schools---this is a violation of independence which assumes that the correlation between student's residuals is 0. If we have a variable that identifies classroom, we can actually examine this by plotting the residuals separately for each classroom.
+
+In our case, we do have a variable that identifies classroom (`school_id`). We need to mutate this variable into the augmented dataset. This variable has 131 different levels, which means that we would be looking at 131 different residual plots. When we use `facet_wrap()` with that many levels each plot will be too small to see, so we will instead select a random sample of, say, 25 of the classrooms to evaluate.
+
+```{r fig.height=10, fig.width=12, out.width='90%', fig.cap='Scatterplots of the standardized residuals versus the fitted values from the fixed-effects regression model stratified by team.'}
+# Make random sample reproducible
+set.seed(100)
+
+# Draw random sample of 25 schools without replacement
+my_sample = sample(school_data$school_id, size = 25, replace = FALSE)
+
+# Mutate on school ID and draw random sample
+out = out %>%
+  mutate(school_id = joined_data$school_id) %>%
+  filter(school_id %in% my_sample)
+
+### Show residuals by school
+ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
+	geom_point() +
+	geom_hline(yintercept = 0) +
+	theme_bw() +
+  xlab("Fitted values") +
+  ylab("Studentized residuals") +
+	facet_wrap(~school_id, nrow = 5)
+```
+
+The residuals for several of the schools show a systematic trends of being primarily positive or negative within schools. For example, the residuals for several schools (e.g., 47, 256 258) are primarily negative. This is a sign of non-independence of the residuals. If we hadn't had the school ID variable we could have still made a logical argument about this non-independence via substantive knowledge. For example, students who attend a "high performing" will likely tend to have positive residuals (scores above average relative to the population), even after accounting for their verbal IQ scores. 
+
+To account for this within-school correlation we need to use a statistical model that accounts for the correlation among the residuals within schools. This is what *mixed-effects models* bring to the table. By correctly modeling the non-independence, we get more accurate standard errors and *p*-values. 
+
+Another benefit of using mixed-effects models is that we also get estimates of the variation accounted for at both the school- and student-levels. This disaggregating of the variation allows us to see which level is explaining more variation and to study predictors appropriate to explaining that variation. For example, suppose that you disaggregated the variation in language scores and found that:
+
+- 96\% of the variation in these scores was at the student-level, and 
+- 3\% of the variation in these scores was at the classroom-level, and 
+- 1\% of the variation in these scores was at the school-level. 
+
+By including school-level or classroom-level predictors in the model, you would only be "chipping away" at that 1\% or 3\%, respectively. You should focus your attention and resources on student-level predictors!
+
+
+## Conceptual Idea of Mixed-Effects Models
+
+In this section we will outline the conceptual ideas behind mixed-effects models by linking the ideas behind these models to the conventional, fixed-effects regression model. *It is important to realize that this is just conceptual in nature. Its purpose is only to help you understand the output you get from a mixed-effects model analysis.*
+
+To begin, we remind you of the fitted equation we obtained earlier from the fixed-effects regression:
+
+$$
+\hat{\mathrm{Language~Score}_i} = 34.19 + 2.04(\mathrm{Verbal~IQ}_i)
+$$
+
+Mixed-effects regression actually fits a global model (like the one above) AND a school-specific model for each school. Conceptually, this is like fitting a regression model for each school separately. Below I show the results (for 5 of the schools) of fitting a different regression model to each school, but keep in mind that this is only to help you understand.
+
+```{r}
+# Fit school models
+school_models = joined_data %>%
+  group_by(school_id) %>%
+  do(mod = lm(language_post  ~ 1 + verbal_iq, data = .)) %>%
+  tidy(mod) %>%
+  head(., 10)
+
+# View coefficients from fitted models
+school_models
+```
+
+As an example, let's focus on the fitted model for School 1.
+
+$$
+\hat{\mathrm{Language~Score}_i} = 39.79 + 2.24(\mathrm{Verbal~IQ}_i)
+$$
+
+Comparing this school-specific model to the global model, we find that School 1's intercept is higher than the intercept from the global model (by 5.65) and it's slope is also higher than the slope from the global model (by 0.20). We can actually re-write the school-specific model using these ideas:
+
+$$
+\hat{\mathrm{Language~Score}_i} = \bigg[34.19 + 5.65\bigg] + \bigg[2.04 + 0.20\bigg](\mathrm{Verbal~IQ}_i)
+$$
+
+In the language of mixed-effects modeling:
+
+- The global intercept and slope are referred to as *fixed-effects*. (These are also sometimes referred to as *between-groups* effects.)
+  + The fixed-effect of intercept is $34.19$; and
+  + The fixed effect of the slope is $2.04$.
+- The school-specific deviations from the fixed-effect values are referred to as *random-effects*. (These are also sometimes referred to as *within-groups* effects.)
+  + The random-effect of the intercept for School 1 is $+5.65$; and
+  + The random-effect of the slope for School 1 is  $+0.20$.
+
+
+Note, each school could potentially have a different random-effect for intercept and slope. For example, writing the team-specific fitted equation for School 2 in this manner,
+
+$$
+\begin{split}
+\hat{\mathrm{Language~Score}_i} &= 27.35 + 1.28(\mathrm{Verbal~IQ}_i)\\
+ &= \bigg[34.19 - 6.84\bigg] + \bigg[2.04 - 0.76\bigg](\mathrm{Verbal~IQ}_i).\\
+\end{split}
+$$
+
+In this model:
+
+- The fixed-effects (global effects) are the same as they were for School 1.
+  + The fixed-effect of intercept is $34.19$; and
+  + The fixed effect of the slope is $2.04$.
+- The random-effect of intercept for School 2 is $-6.84$.
+- The random-effect of slope for School 2 is $-0.76$.
+ 
+
+
+
+
+
+

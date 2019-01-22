@@ -25,14 +25,14 @@
 <meta name="author" content="Andrew Zieffler">
 
 
-<meta name="date" content="2019-01-09">
+<meta name="date" content="2019-01-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="moreinfocrit.html">
+<link rel="prev" href="intro-lmer-fitting.html">
 <link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,44 +54,71 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="print.css" type="text/css" />
 </head>
 
 <body>
@@ -145,7 +172,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.8" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#including-covariates"><i class="fa fa-check"></i><b>2.8</b> Including Covariates</a><ul>
 <li class="chapter" data-level="2.8.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#plot-of-the-model-results"><i class="fa fa-check"></i><b>2.8.1</b> Plot of the Model Results</a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#polynomial-effects-vs.log-transformations"><i class="fa fa-check"></i><b>2.9</b> Polynomial Effects vs. Log-Transformations</a></li>
+<li class="chapter" data-level="2.9" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#polynomial-effects-vs.-log-transformations"><i class="fa fa-check"></i><b>2.9</b> Polynomial Effects vs. Log-Transformations</a></li>
 <li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#other-resources-1"><i class="fa fa-check"></i>Other Resources</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html"><i class="fa fa-check"></i><b>3</b> Nonlinearity: Log-Transforming the Outcome</a><ul>
@@ -241,12 +268,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.8" data-path="moreinfocrit.html"><a href="moreinfocrit.html#pretty-printing-tables-of-model-evidence"><i class="fa fa-check"></i><b>7.8</b> Pretty Printing Tables of Model Evidence</a></li>
 <li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#other-resources-2"><i class="fa fa-check"></i>Other Resources</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html"><i class="fa fa-check"></i><b>8</b> Introduction to Mixed-Effects Models: Conceptual Ideas</a><ul>
+<li class="chapter" data-level="" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#preparation-7"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="8.1" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#dataset-and-research-question-6"><i class="fa fa-check"></i><b>8.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#join-the-student--and-classroom-level-data"><i class="fa fa-check"></i><b>8.2</b> Join the Student- and Classroom-Level Data</a></li>
+<li class="chapter" data-level="8.3" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#fixed-effects-regression-model"><i class="fa fa-check"></i><b>8.3</b> Fixed-Effects Regression Model</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#residual-analysis"><i class="fa fa-check"></i><b>8.3.1</b> Residual Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#conceptual-idea-of-mixed-effects-models"><i class="fa fa-check"></i><b>8.4</b> Conceptual Idea of Mixed-Effects Models</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html"><i class="fa fa-check"></i><b>9</b> Fitting and Interpreting Mixed-Effects Models</a><ul>
+<li class="chapter" data-level="" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#preparation-8"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="9.1" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#dataset-and-research-question-7"><i class="fa fa-check"></i><b>9.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#fitting-the-mixed-effects-regression-model-in-practice"><i class="fa fa-check"></i><b>9.2</b> Fitting the Mixed-Effects Regression Model in Practice</a></li>
+<li class="chapter" data-level="9.3" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#example-2-life-satisfaction-of-nba-players"><i class="fa fa-check"></i><b>9.3</b> Example 2: Life Satisfaction of NBA Players</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#fit-the-mixed-effects-model"><i class="fa fa-check"></i><b>9.3.1</b> Fit the Mixed-Effects Model</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools-2018"><i class="fa fa-check"></i>ed-schools-2018.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#evaluations"><i class="fa fa-check"></i>evaluations.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#fci-2018"><i class="fa fa-check"></i>fci-2015.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#mn-schools"><i class="fa fa-check"></i>mn-schools.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#movies"><i class="fa fa-check"></i>movies.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#nba"><i class="fa fa-check"></i>nba-player-data.csv and nba-team-data.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#netherlands"><i class="fa fa-check"></i>netherlands-students.csv and netherlands-schools.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#popular"><i class="fa fa-check"></i>popular-classroom.csv and popular-student.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#riverview"><i class="fa fa-check"></i>riverview.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#wine"><i class="fa fa-check"></i>wine.csv</a></li>
 </ul></li>
@@ -323,7 +370,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="mn-schools" class="section level2 unnumbered">
 <h2>mn-schools.csv</h2>
-<p>The data in <em>mnSchools.csv</em> were collected from <a href="http://www.collegeresults.org" class="uri">http://www.collegeresults.org</a> and contain 2011 institutional data for <span class="math inline">\(n=33\)</span> Minnesota colleges and universities. The attributes include:</p>
+<p>The data in <em>mnSchools.csv</em> were collected from <a href="http://www.collegeresults.org">http://www.collegeresults.org</a> and contain 2011 institutional data for <span class="math inline">\(n=33\)</span> Minnesota colleges and universities. The attributes include:</p>
 <ul>
 <li><code>name</code>: College/university name</li>
 <li><code>grad</code>: Six-year graduation rate, as a percentage</li>
@@ -342,9 +389,65 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>mpaa</code>: MPAA rating (PG, PG-13, R)</li>
 </ul>
 </div>
+<div id="nba" class="section level2 unnumbered">
+<h2>nba-player-data.csv and nba-team-data.csv</h2>
+<p>The data in <em>nba-player-data.csv</em> and <em>nba-team-data.csv</em>, inspired by <span class="citation">Woltman, Feldstein, MacKay, &amp; Rocchi (<a href="#ref-Woltman:2012">2012</a>)</span>, include player-level attributes for <span class="math inline">\(n=300\)</span> NBA players, and team-level attributes for <span class="math inline">\(N=30\)</span> different teams, respectively. The player-level attributes in <em>nba-player-data.csv</em> include:</p>
+<ul>
+<li><code>player</code>: Name of the NBA player</li>
+<li><code>team</code>: Name of the NBA team for each player</li>
+<li><code>success</code>: A proxy for player quality/success. This is the quantile for the player based on the player’s free-throw percentage relative to the other players in the league. Higher values indicate a more succesful player (e.g., 0 = lowest 20%; 4 = highest 20%).</li>
+<li><code>life_satisfaction</code>: Score on a survey of life satisfaction. Scores range from 5 to 25, with higher scores indicating more life satisfaction.</li>
+</ul>
+<p>The team-level attributes in <em>nba-team-data.csv</em> include:</p>
+<ul>
+<li><code>team</code>:Name of the NBA team</li>
+<li><code>coach</code>:Name of the team’s current coach</li>
+<li><code>coach_experience</code>: This is the tercile for the coach based on years of coaching experience in the NBA (e.g., 0 = lowest third; 2 = highest third).</li>
+</ul>
+</div>
+<div id="netherlands" class="section level2 unnumbered">
+<h2>netherlands-students.csv and netherlands-schools.csv</h2>
+<p>The data in <em>netherlands-students.csv</em> and <em>netherlands-schools.csv</em> include student- and school-level attributes, respectively, for <span class="math inline">\(n_i=2287\)</span> 8th-grade students in the Netherlands provided by <span class="citation">Snijders &amp; Bosker (<a href="#ref-Snijders:2012">2012</a>)</span>.</p>
+<p>The student-level attributes in <em>netherlands-students.csv</em> include:</p>
+<ul>
+<li><code>school_id</code>: The school ID number for each student</li>
+<li><code>language_pre</code>: Language pre-test score</li>
+<li><code>language_post</code>: Language post-test score</li>
+<li><code>ses</code>: Measure of the socio-economic status</li>
+<li><code>verbal_iq</code>: Student’s score on a verbal IQ test. The variable is centered to have a mean of 0.</li>
+<li><code>female</code>: Student’s sex (0 = male; 1 = female)</li>
+<li><code>minority</code>: Student’s minority status (0 = white; 1 = minority)</li>
+</ul>
+<p>The school-level attributes in <em>netherlands-schools.csv</em> include:</p>
+<ul>
+<li><code>school_id</code>: The school ID number</li>
+<li><code>school_type</code>: Indicates whether the school is a public school, a Protestant private school, a Catholic private school, or a non-denominational private school</li>
+<li><code>school_ses</code>: School’s average socio-economic status</li>
+<li><code>school_verbal_iq</code>: School’s average verbal IQ score</li>
+<li><code>school_minority</code>: Percentage of students at the school who are minority students</li>
+</ul>
+</div>
+<div id="popular" class="section level2 unnumbered">
+<h2>popular-classroom.csv and popular-student.csv</h2>
+<p>The data in <em>popular-classroom.csv</em> and <em>popular-student.csv</em> includes data on 2000 different students from 100 different classrooms. The data, provided by <span class="citation">Hox (<a href="#ref-Hox:2002">2002</a>)</span>, were simulated from data collected as part of a sociological study of student popularity. Student popularity, a rating on a scale of 1–10, was derived by a sociometric procedure in which all students in a class rate all the other students. Each students’ popularity is the average received popularity rating.</p>
+<p>The attributes in <em>popular-classroom.csv</em> include:</p>
+<ul>
+<li><code>class</code>: Classroom ID</li>
+<li><code>teacherExp</code>: Experience level of teacher, in years</li>
+</ul>
+<p>The attributes in <em>popular-student.csv</em> include:</p>
+<ul>
+<li><code>student</code>: Student ID (within a school)</li>
+<li><code>class</code>: Classroom ID</li>
+<li><code>popularity</code>: Popularity rating of the student (0-10 scale; where 0 = very unpopular and 10 = very popular) based on having all other students in the student’s class rate him/her and computing the average of those ratings.</li>
+<li><code>teachPop</code>: Student’s popularity as rated by the teacher. Higher values are indicative of higher popularity</li>
+<li><code>extra</code>: Extraversion of the student (measured on a 10-point scale)</li>
+<li><code>female</code>: Sex of the student (Male = 0; Female = 1)</li>
+</ul>
+</div>
 <div id="riverview" class="section level2 unnumbered">
 <h2>riverview.csv</h2>
-<p>The data in <em>riverview.csv</em> come from <span class="citation">C. Lewis-Beck &amp; Lewis-Beck (<a href="#ref-Lewis-Beck:2016">2016</a>)</span> and contain five attributes collected from a random sample of <span class="math inline">\(n=32\)</span> employees working for the city of Riverview, a hyopothetical midwestern city. The attributes include:</p>
+<p>The data in <em>riverview.csv</em> come from <span class="citation">Lewis-Beck &amp; Lewis-Beck (<a href="#ref-Lewis-Beck:2016">2016</a>)</span> and contain five attributes collected from a random sample of <span class="math inline">\(n=32\)</span> employees working for the city of Riverview, a hyopothetical midwestern city. The attributes include:</p>
 <ul>
 <li><code>education</code>: Years of formal education</li>
 <li><code>income</code>: Annual income (in thousands of U.S. dollars)</li>
@@ -362,7 +465,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>vintage</code>: Year the wine was produced (centered so that 0 = 2008, 1 = 2009, etc.)</li>
 <li><code>region</code>: Region of the world where the wine was produced</li>
 <li><code>varietal</code>: Grape varietal (e.g., Cabernet Sauvignon)</li>
-<li><code>rating</code>: Wine rating on a 100 pt. scale (these are from sources such as <em>Wine Spectator</em>, the <em>Wine Advocate</em>, and the <em>Wine Enthusiast</em>)</li>
+<li><code>rating</code>: Wine rating on a 100 pt. scale (these are from sources such as <em>Wine Spectator</em>, the <em>Wine Advocate</em>, and the <em>Wine Enthusiast</em>)</li>
 <li><code>price</code>: Price in U.S. dollars</li>
 </ul>
 
@@ -373,6 +476,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="ref-USNWR:2018">
 <p>U.S. News and World Report. (2018). Schools of education. <em>Best Graduate Schools</em>.</p>
 </div>
+<div id="ref-Woltman:2012">
+<p>Woltman, H., Feldstein, A., MacKay, J. C., &amp; Rocchi, M. (2012). An introduction to hierarchical linear modeling. <em>Tutorials in Quantitative Methods for Psychology</em>, <em>8</em>(1), 52–69.</p>
+</div>
+<div id="ref-Snijders:2012">
+<p>Snijders, T. A. B., &amp; Bosker, R. J. (2012). <em>Multilevel analysis: An introduction to basic and advanced multilevel modeling</em> (2nd ed.). Thousand Oaks, CA: Sage.</p>
+</div>
+<div id="ref-Hox:2002">
+<p>Hox, J. J. (2002). <em>Multilevel analysis: Techniques and applications</em>. Mahwah, NJ: Lawrence Erlbaum Associates.</p>
+</div>
 <div id="ref-Lewis-Beck:2016">
 <p>Lewis-Beck, C., &amp; Lewis-Beck, M. (2016). <em>Applied regression: An introduction</em> (2nd ed.). Thousand Oaks, CA: Sage.</p>
 </div>
@@ -382,7 +494,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="moreinfocrit.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="intro-lmer-fitting.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -438,7 +550,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

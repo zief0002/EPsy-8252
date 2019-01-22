@@ -25,7 +25,7 @@
 <meta name="author" content="Andrew Zieffler">
 
 
-<meta name="date" content="2019-01-09">
+<meta name="date" content="2019-01-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -54,44 +54,71 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="print.css" type="text/css" />
 </head>
 
 <body>
@@ -145,7 +172,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.8" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#including-covariates"><i class="fa fa-check"></i><b>2.8</b> Including Covariates</a><ul>
 <li class="chapter" data-level="2.8.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#plot-of-the-model-results"><i class="fa fa-check"></i><b>2.8.1</b> Plot of the Model Results</a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#polynomial-effects-vs.log-transformations"><i class="fa fa-check"></i><b>2.9</b> Polynomial Effects vs. Log-Transformations</a></li>
+<li class="chapter" data-level="2.9" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#polynomial-effects-vs.-log-transformations"><i class="fa fa-check"></i><b>2.9</b> Polynomial Effects vs. Log-Transformations</a></li>
 <li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#other-resources-1"><i class="fa fa-check"></i>Other Resources</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html"><i class="fa fa-check"></i><b>3</b> Nonlinearity: Log-Transforming the Outcome</a><ul>
@@ -241,12 +268,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.8" data-path="moreinfocrit.html"><a href="moreinfocrit.html#pretty-printing-tables-of-model-evidence"><i class="fa fa-check"></i><b>7.8</b> Pretty Printing Tables of Model Evidence</a></li>
 <li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#other-resources-2"><i class="fa fa-check"></i>Other Resources</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html"><i class="fa fa-check"></i><b>8</b> Introduction to Mixed-Effects Models: Conceptual Ideas</a><ul>
+<li class="chapter" data-level="" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#preparation-7"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="8.1" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#dataset-and-research-question-6"><i class="fa fa-check"></i><b>8.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#join-the-student--and-classroom-level-data"><i class="fa fa-check"></i><b>8.2</b> Join the Student- and Classroom-Level Data</a></li>
+<li class="chapter" data-level="8.3" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#fixed-effects-regression-model"><i class="fa fa-check"></i><b>8.3</b> Fixed-Effects Regression Model</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#residual-analysis"><i class="fa fa-check"></i><b>8.3.1</b> Residual Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#conceptual-idea-of-mixed-effects-models"><i class="fa fa-check"></i><b>8.4</b> Conceptual Idea of Mixed-Effects Models</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html"><i class="fa fa-check"></i><b>9</b> Fitting and Interpreting Mixed-Effects Models</a><ul>
+<li class="chapter" data-level="" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#preparation-8"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="9.1" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#dataset-and-research-question-7"><i class="fa fa-check"></i><b>9.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#fitting-the-mixed-effects-regression-model-in-practice"><i class="fa fa-check"></i><b>9.2</b> Fitting the Mixed-Effects Regression Model in Practice</a></li>
+<li class="chapter" data-level="9.3" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#example-2-life-satisfaction-of-nba-players"><i class="fa fa-check"></i><b>9.3</b> Example 2: Life Satisfaction of NBA Players</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#fit-the-mixed-effects-model"><i class="fa fa-check"></i><b>9.3.1</b> Fit the Mixed-Effects Model</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools-2018"><i class="fa fa-check"></i>ed-schools-2018.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#evaluations"><i class="fa fa-check"></i>evaluations.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#fci-2018"><i class="fa fa-check"></i>fci-2015.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#mn-schools"><i class="fa fa-check"></i>mn-schools.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#movies"><i class="fa fa-check"></i>movies.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#nba"><i class="fa fa-check"></i>nba-player-data.csv and nba-team-data.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#netherlands"><i class="fa fa-check"></i>netherlands-students.csv and netherlands-schools.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#popular"><i class="fa fa-check"></i>popular-classroom.csv and popular-student.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#riverview"><i class="fa fa-check"></i>riverview.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#wine"><i class="fa fa-check"></i>wine.csv</a></li>
 </ul></li>
@@ -287,7 +334,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="dataset-and-research-question-4" class="section level2">
 <h2><span class="header-section-number">6.1</span> Dataset and Research Question</h2>
 <p>In this set of notes, we will use the data in the <em>ed-schools-2018.csv</em> file (see the <a href="data-codebook.html#ed-schools-2018">data codebook</a> here). These data include institutional-level attributes for several graduate education schools/programs rated by <em>U.S. News and World Report</em> in 2018.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries</span>
 <span class="kw">library</span>(broom)
 <span class="kw">library</span>(corrr)
 <span class="kw">library</span>(dplyr)
@@ -298,7 +345,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="co"># Read in data</span>
 ed =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/ed-schools-2018.csv&quot;</span>)
-<span class="kw">head</span>(ed)</code></pre></div>
+<span class="kw">head</span>(ed)</code></pre>
 <pre><code># A tibble: 6 x 13
    rank school score  peer expert_score gre_verbal gre_quant doc_accept
   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
@@ -327,7 +374,7 @@ ed =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">f
 <div id="model-building" class="section level2">
 <h2><span class="header-section-number">6.2</span> Model-Building</h2>
 <p>Before we begin the exploratory analysis associated with model-building, it is worth noting that there are missing data in the dataset.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(ed)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(ed)</code></pre>
 <pre><code>      rank          school              score            peer     
  Min.   :  1.0   Length:129         Min.   : 38.0   Min.   :2.50  
  1st Qu.: 32.0   Class :character   1st Qu.: 42.0   1st Qu.:2.90  
@@ -355,14 +402,14 @@ ed =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">f
  [ reached getOption(&quot;max.print&quot;) -- omitted 2 rows ]</code></pre>
 <p>This is a problem when we are comparing models that use different variables as the observations used to fit one model will be different than the observations used to fit another model. Since we are going to be using a likelihood-based method of comparing the models, this is problematic. Remember, likelihood-based methods find us the most likely model given a set of data. If the datasets used are different, we won’t know whether a model with a higher likelihood is truly more likely or is more likely because of the dataset used.</p>
 <p>To alleviate this problem, we will eliminate any observations (rows in the dataset) that have missing data. This is called <em>listwise</em> or <em>row-wise</em> deletion. Any analyses performed on the remaining data constitute a <em>complete-cases</em> analysis, since these cases have no missing data. To select the complete cases, we will use the <code>drop_na()</code> function from the <strong>tidyr</strong> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Drop rows with missing data</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Drop rows with missing data</span>
 educ =<span class="st"> </span>ed <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">drop_na</span>()
 
 <span class="co"># Check resulting data</span>
-<span class="kw">nrow</span>(educ)</code></pre></div>
+<span class="kw">nrow</span>(educ)</code></pre>
 <pre><code>[1] 122</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(educ)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(educ)</code></pre>
 <pre><code>      rank          school              score            peer     
  Min.   :  1.0   Length:122         Min.   : 38.0   Min.   :2.50  
  1st Qu.: 31.2   Class :character   1st Qu.: 43.0   1st Qu.:2.90  
@@ -418,11 +465,11 @@ Figure 6.4: Scatterplots of peer ratings versus the institution-related factors;
 </p>
 </div>
 <p>Almost all of these plots show curvilinear patterns, some of which can be alleviated by log-transforming the outcome. Remember, log-transforming the outcome will also help with violations of homoskedasticity. Since we want to be able to compare the models at the end of the analysis, we NEED to use the same outcome in each of the models. Given the initial right-skewed nature of the outcome distribution and the evidence from the scatterplots, we will log-transform peer ratings and use that outcome in each model we fit.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create log-transformed peer ratings</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create log-transformed peer ratings</span>
 educ =<span class="st"> </span>educ <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">Lpeer =</span> <span class="kw">log</span>(peer)
-    )</code></pre></div>
+    )</code></pre>
 </div>
 <div id="building-the-student-related-factors-model" class="section level3">
 <h3><span class="header-section-number">6.2.2</span> Building the Student-Related Factors Model</h3>
@@ -433,9 +480,9 @@ educ =<span class="st"> </span>educ <span class="op">%&gt;%</span>
 Figure 6.5: Scatterplots of the log-transformed peer ratings versus the student-related factors; verbal and quantitative GRE scores. The loess smoother is also displayed.
 </p>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(Lpeer, gre_verbal, gre_quant) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">correlate</span>()</code></pre></div>
+<span class="st">  </span><span class="kw">correlate</span>()</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["rowname"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Lpeer"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["gre_verbal"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["gre_quant"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Lpeer","2":"NA","3":"0.4083","4":"0.4778"},{"1":"gre_verbal","2":"0.4083","3":"NA","4":"0.8084"},{"1":"gre_quant","2":"0.4778","3":"0.8084","4":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -443,18 +490,18 @@ Figure 6.5: Scatterplots of the log-transformed peer ratings versus the student-
 </div>
 <p>Not surprisingly, the mean GRE verbal and GRE quantitative scores are highly correlated. Since including highly correlated predictors in a model can lead to unstable estimates, we will drop one of the predictors from the model. Empirically, the quantitative GRE scores seem more highly correlated with the outcome, so we will drop the GRE verbal scores from the model.</p>
 <p>Focusing on the scatterplot of the GRE quantitative scores, the relationship with the log-transformed peer ratings looks curvilinear (non-monotonic). The empirical relationship seems to change direction twice, indicating that log-transformed peer ratings may be a cubic-function of the quantitative GRE scores.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit cubic model</span>
-lm.<span class="dv">1</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>gre_quant <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(gre_quant<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(gre_quant<span class="op">^</span><span class="dv">3</span>), <span class="dt">data =</span> educ)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit cubic model</span>
+lm<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>gre_quant <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(gre_quant<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(gre_quant<span class="op">^</span><span class="dv">3</span>), <span class="dt">data =</span> educ)
 
 <span class="co"># Coefficient-level output</span>
-<span class="kw">tidy</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<span class="kw">tidy</span>(lm<span class="fl">.1</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"779.665326","3":"175.92242333","4":"4.432","5":"0.00002104"},{"1":"gre_quant","2":"-15.426069","3":"3.43393874","4":"-4.492","5":"0.00001654"},{"1":"I(gre_quant^2)","2":"0.101684","3":"0.02232497","4":"4.555","5":"0.00001286"},{"1":"I(gre_quant^3)","2":"-0.000223","3":"0.00004834","4":"-4.612","5":"0.00001018"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain residuals</span>
-out_<span class="dv">1</span> =<span class="st"> </span><span class="kw">augment</span>(lm.<span class="dv">1</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain residuals</span>
+out_<span class="dv">1</span> =<span class="st"> </span><span class="kw">augment</span>(lm<span class="fl">.1</span>)
 
 <span class="co"># Examine residuals</span>
 <span class="kw">sm.density</span>(out_<span class="dv">1</span><span class="op">$</span>.std.resid, <span class="dt">xlab =</span> <span class="st">&quot;Standardized residuals&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;normal&quot;</span>)
@@ -464,7 +511,7 @@ out_<span class="dv">1</span> =<span class="st"> </span><span class="kw">augment
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-150"></span>
 <img src="epsy-8252-notes_files/figure-html/unnamed-chunk-150-1.png" alt="Residual plots for the fitted model using the student-related factors." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-150-2.png" alt="Residual plots for the fitted model using the student-related factors." width="40%" />
 <p class="caption">
@@ -481,9 +528,9 @@ Figure 6.6: Residual plots for the fitted model using the student-related factor
 Figure 6.7: Scatterplots of log-transformed peer ratings versus the faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed.
 </p>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(Lpeer, funded_research_per_faculty, phd_granted_per_faculty) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">correlate</span>()</code></pre></div>
+<span class="st">  </span><span class="kw">correlate</span>()</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["rowname"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Lpeer"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["funded_research_per_faculty"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["phd_granted_per_faculty"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Lpeer","2":"NA","3":"0.5965","4":"0.2172"},{"1":"funded_research_per_faculty","2":"0.5965","3":"NA","4":"0.4028"},{"1":"phd_granted_per_faculty","2":"0.2172","3":"0.4028","4":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -491,9 +538,9 @@ Figure 6.7: Scatterplots of log-transformed peer ratings versus the faculty-rela
 </div>
 <p>The two predictors are moderately correlated with each other and both are correlated with the outcome. The scatterplot of peer ratings versus funded research suggest a monotonic curvilinear relationship. The Rule of the Bulge indicates that log-transforming the predictor may help linearize this relationship. The scatterplot of peer ratings versus number of Ph.D.s granted suggests that the distribution of the predictor is right-skewed with a potential outlying observation. This relationship may also benefit from log-transforming the predictor.</p>
 <p>Before log-transforming these predictors, it is a good idea to check the distributions for zero or negative values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(funded_research_per_faculty, phd_granted_per_faculty) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summary</span>()</code></pre></div>
+<span class="st">  </span><span class="kw">summary</span>()</code></pre>
 <pre><code> funded_research_per_faculty phd_granted_per_faculty
  Min.   :   2.9              Min.   :0.000          
  1st Qu.:  77.8              1st Qu.:0.400          
@@ -502,12 +549,12 @@ Figure 6.7: Scatterplots of log-transformed peer ratings versus the faculty-rela
  3rd Qu.: 283.4              3rd Qu.:0.900          
  Max.   :1239.1              Max.   :8.400          </code></pre>
 <p>The summary values for the <code>phd_granted_per_faculty</code> predictor indicates that there are some schools that have a value of 0 for this predictor and that 0 is the smallest value. Before we transform using a log-transformation, we need to make it so the smallest value in the predictor is 1, since the log of 0 (and any negative values) is undefined. To do this we will add some number (in our case 1) to each value for <code>phd_granted_per_faculty</code> prior to taking the log.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Create log of the faculty-related predictors</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Create log of the faculty-related predictors</span>
 educ =<span class="st"> </span>educ <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">Lfunded_research_per_faculty =</span> <span class="kw">log</span>(funded_research_per_faculty),
     <span class="dt">Lphd_granted_per_faculty =</span> <span class="kw">log</span>(phd_granted_per_faculty <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)
-  )</code></pre></div>
+  )</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-155"></span>
 <img src="epsy-8252-notes_files/figure-html/unnamed-chunk-155-1.png" alt="Scatterplots of log-transformed peer ratings versus the log-transformed faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-155-2.png" alt="Scatterplots of log-transformed peer ratings versus the log-transformed faculty-related factors; funded research (per faculty member) and number of Ph.D.s granted (per faculty member). The loess smoother is also displayed." width="40%" />
 <p class="caption">
@@ -515,18 +562,18 @@ Figure 6.8: Scatterplots of log-transformed peer ratings versus the log-transfor
 </p>
 </div>
 <p>Although this helped, it did not “cure” the nonlinearity. We might want to further include a quadratic term for each of the predictors. To evaluate this, we will fit the model that includes the linear and quadratic log-transformed predictors and examine the coefficient-level output and residuals.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model</span>
-lm.<span class="dv">2</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Lfunded_research_per_faculty <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Lfunded_research_per_faculty<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>Lphd_granted_per_faculty  <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Lphd_granted_per_faculty<span class="op">^</span><span class="dv">2</span>), <span class="dt">data =</span> educ)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model</span>
+lm<span class="fl">.2</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Lfunded_research_per_faculty <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Lfunded_research_per_faculty<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>Lphd_granted_per_faculty  <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Lphd_granted_per_faculty<span class="op">^</span><span class="dv">2</span>), <span class="dt">data =</span> educ)
 
 <span class="co"># Coefficient-level output</span>
-<span class="kw">tidy</span>(lm.<span class="dv">2</span>)</code></pre></div>
+<span class="kw">tidy</span>(lm<span class="fl">.2</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"1.21391","3":"0.105724","4":"11.482","5":"6.759e-21"},{"1":"Lfunded_research_per_faculty","2":"-0.15078","3":"0.050902","4":"-2.962","5":"3.701e-03"},{"1":"I(Lfunded_research_per_faculty^2)","2":"0.02381","3":"0.005468","4":"4.355","5":"2.872e-05"},{"1":"Lphd_granted_per_faculty","2":"0.29984","3":"0.094800","4":"3.163","5":"1.991e-03"},{"1":"I(Lphd_granted_per_faculty^2)","2":"-0.13927","3":"0.050333","4":"-2.767","5":"6.579e-03"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain residuals</span>
-out_<span class="dv">2</span> =<span class="st"> </span><span class="kw">augment</span>(lm.<span class="dv">1</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain residuals</span>
+out_<span class="dv">2</span> =<span class="st"> </span><span class="kw">augment</span>(lm<span class="fl">.1</span>)
 
 <span class="co"># Examine residuals</span>
 <span class="kw">sm.density</span>(out_<span class="dv">2</span><span class="op">$</span>.std.resid, <span class="dt">xlab =</span> <span class="st">&quot;Standardized residuals&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;normal&quot;</span>)
@@ -536,7 +583,7 @@ out_<span class="dv">2</span> =<span class="st"> </span><span class="kw">augment
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-156"></span>
 <img src="epsy-8252-notes_files/figure-html/unnamed-chunk-156-1.png" alt="Residual plots for the fitted model using the faculty-related factors." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-156-2.png" alt="Residual plots for the fitted model using the faculty-related factors." width="40%" />
 <p class="caption">
@@ -553,9 +600,9 @@ Figure 6.9: Residual plots for the fitted model using the faculty-related factor
 Figure 6.10: Scatterplots of the log-transformed peer ratings versus the institution-related factors; acceptance rate of Ph.D. students, the Ph.D. student-to-faculty ratio, and the size of the program. The loess smoother is also displayed.
 </p>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(Lpeer, doc_accept, phd_student_faculty_ratio, enroll) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">correlate</span>()</code></pre></div>
+<span class="st">  </span><span class="kw">correlate</span>()</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["rowname"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Lpeer"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["doc_accept"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["phd_student_faculty_ratio"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["enroll"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Lpeer","2":"NA","3":"-0.53391","4":"0.422760","5":"0.096383"},{"1":"doc_accept","2":"-0.53391","3":"NA","4":"-0.234755","5":"-0.025585"},{"1":"phd_student_faculty_ratio","2":"0.42276","3":"-0.23475","4":"NA","5":"0.004505"},{"1":"enroll","2":"0.09638","3":"-0.02559","4":"0.004505","5":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -563,9 +610,9 @@ Figure 6.10: Scatterplots of the log-transformed peer ratings versus the institu
 </div>
 <p>The three predictors are mostly uncorrelated with each other and all are correlated with the outcome, albeit enrollment is weakly correlated with peer ratings. Two of the three scatterplots suggest curvilinear relationships although with different functional forms—Ph.D. student-to-faculty ratio and total enrollment. The Rule of the Bulge indicates that log-transforming the Ph.D. student-to-faculty ratio predictor, and including quadratic may help linearize this relationship. The scatterplot of peer ratings versus total enrollment suggests that the distribution of the predictor is right-skewed with a potential outlying observations. This relationship may also benefit from log-transforming the predictor. Lastly, it is unclear whether any additional transformation or polynomial terms are necessary for modeling the relationship with doctoral acceptance rate; to double-check this we will also log-transform the total enrollment predictor.</p>
 <p>As before, prior to log-transforming any predictors, it is a good idea to check the distributions for zero or negative values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r">educ <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(doc_accept, phd_student_faculty_ratio, enroll) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summary</span>()</code></pre></div>
+<span class="st">  </span><span class="kw">summary</span>()</code></pre>
 <pre><code>   doc_accept   phd_student_faculty_ratio     enroll    
  Min.   : 4.5   Min.   : 0.00             Min.   :  29  
  1st Qu.:25.5   1st Qu.: 1.70             1st Qu.: 562  
@@ -574,13 +621,13 @@ Figure 6.10: Scatterplots of the log-transformed peer ratings versus the institu
  3rd Qu.:51.6   3rd Qu.: 3.77             3rd Qu.:1312  
  Max.   :92.7   Max.   :11.70             Max.   :4892  </code></pre>
 <p>We will need to add one to every value of the <code>phd_student_faculty_ratio</code> predictor (so that the minimum value becomes 1) prior to the log-transformation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Create log of the faculty-related predictors</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Create log of the faculty-related predictors</span>
 educ =<span class="st"> </span>educ <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">Ldoc_accept =</span> <span class="kw">log</span>(doc_accept),
     <span class="dt">Lphd_student_faculty_ratio =</span> <span class="kw">log</span>(phd_student_faculty_ratio <span class="op">+</span><span class="st"> </span><span class="dv">1</span>),
     <span class="dt">Lenroll =</span> <span class="kw">log</span>(enroll)
-  )</code></pre></div>
+  )</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-161"></span>
 <img src="epsy-8252-notes_files/figure-html/unnamed-chunk-161-1.png" alt="Scatterplots of the log-transformed peer ratings versus the log-transformed institution-related factors. The loess smoother is also displayed." width="30%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-161-2.png" alt="Scatterplots of the log-transformed peer ratings versus the log-transformed institution-related factors. The loess smoother is also displayed." width="30%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-161-3.png" alt="Scatterplots of the log-transformed peer ratings versus the log-transformed institution-related factors. The loess smoother is also displayed." width="30%" />
 <p class="caption">
@@ -588,18 +635,18 @@ Figure 6.11: Scatterplots of the log-transformed peer ratings versus the log-tra
 </p>
 </div>
 <p>The scatterplots indicate that all three relationships were satisfactorily linearized. After fitting the institution-related factors model we will further examine the coefficient-level output and residuals.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model</span>
-lm.<span class="dv">3</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Ldoc_accept <span class="op">+</span><span class="st"> </span>Lenroll <span class="op">+</span><span class="st"> </span>Lphd_student_faculty_ratio, <span class="dt">data =</span> educ)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model</span>
+lm<span class="fl">.3</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Ldoc_accept <span class="op">+</span><span class="st"> </span>Lenroll <span class="op">+</span><span class="st"> </span>Lphd_student_faculty_ratio, <span class="dt">data =</span> educ)
 
 <span class="co"># Coefficient-level output</span>
-<span class="kw">tidy</span>(lm.<span class="dv">3</span>)</code></pre></div>
+<span class="kw">tidy</span>(lm<span class="fl">.3</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"1.30862","3":"0.10806","4":"12.110","5":"1.962e-22"},{"1":"Ldoc_accept","2":"-0.10890","3":"0.01562","4":"-6.970","5":"1.952e-10"},{"1":"Lenroll","2":"0.01452","3":"0.01357","4":"1.070","5":"2.868e-01"},{"1":"Lphd_student_faculty_ratio","2":"0.12867","3":"0.02474","4":"5.202","5":"8.419e-07"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain residuals</span>
-out_<span class="dv">3</span> =<span class="st"> </span><span class="kw">augment</span>(lm.<span class="dv">3</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain residuals</span>
+out_<span class="dv">3</span> =<span class="st"> </span><span class="kw">augment</span>(lm<span class="fl">.3</span>)
 
 <span class="co"># Examine residuals</span>
 <span class="kw">sm.density</span>(out_<span class="dv">3</span><span class="op">$</span>.std.resid, <span class="dt">xlab =</span> <span class="st">&quot;Standardized residuals&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;normal&quot;</span>)
@@ -609,7 +656,7 @@ out_<span class="dv">3</span> =<span class="st"> </span><span class="kw">augment
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-162"></span>
 <img src="epsy-8252-notes_files/figure-html/unnamed-chunk-162-1.png" alt="Residual plots for the fitted model using the institution-related factors." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-162-2.png" alt="Residual plots for the fitted model using the institution-related factors." width="40%" />
 <p class="caption">
@@ -617,18 +664,18 @@ Figure 6.12: Residual plots for the fitted model using the institution-related f
 </p>
 </div>
 <p>The coefficient-level output indicates that the log-transformed enrollment predictor may be unnecessary (<span class="math inline">\(p=0.287\)</span>). We will fit another model that omits this predictor, but we will also retain this initial model as it was suggested from the scientific research.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model</span>
-lm.<span class="dv">4</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Ldoc_accept <span class="op">+</span><span class="st"> </span>Lphd_student_faculty_ratio, <span class="dt">data =</span> educ)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model</span>
+lm<span class="fl">.4</span> =<span class="st"> </span><span class="kw">lm</span>(Lpeer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>Ldoc_accept <span class="op">+</span><span class="st"> </span>Lphd_student_faculty_ratio, <span class="dt">data =</span> educ)
 
 <span class="co"># Coefficient-level output</span>
-<span class="kw">tidy</span>(lm.<span class="dv">4</span>)</code></pre></div>
+<span class="kw">tidy</span>(lm<span class="fl">.4</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"1.3964","3":"0.07040","4":"19.834","5":"1.560e-39"},{"1":"Ldoc_accept","2":"-0.1072","3":"0.01555","4":"-6.892","5":"2.811e-10"},{"1":"Lphd_student_faculty_ratio","2":"0.1309","3":"0.02467","4":"5.305","5":"5.283e-07"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain residuals</span>
-out_<span class="dv">4</span> =<span class="st"> </span><span class="kw">augment</span>(lm.<span class="dv">4</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain residuals</span>
+out_<span class="dv">4</span> =<span class="st"> </span><span class="kw">augment</span>(lm<span class="fl">.4</span>)
 
 <span class="co"># Examine residuals</span>
 <span class="kw">sm.density</span>(out_<span class="dv">4</span><span class="op">$</span>.std.resid, <span class="dt">xlab =</span> <span class="st">&quot;Standardized residuals&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;normal&quot;</span>)
@@ -638,7 +685,7 @@ out_<span class="dv">4</span> =<span class="st"> </span><span class="kw">augment
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-163"></span>
 <img src="epsy-8252-notes_files/figure-html/unnamed-chunk-163-1.png" alt="Residual plots for the fitted model using the institution-related factors (enrollment omitted)." width="40%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-163-2.png" alt="Residual plots for the fitted model using the institution-related factors (enrollment omitted)." width="40%" />
 <p class="caption">
@@ -669,16 +716,16 @@ Figure 6.13: Residual plots for the fitted model using the institution-related f
 <li>The assumptions underlying the likelihood (independence, distributional assumptions) are met.</li>
 </ul>
 <p>In all four models we are using the same data set and outcome, and the assumptions seem reasonably tenable for each of the four fitted candidate models. This suggests that the likelihood (or log-likelihood) can provide some evidence as to which of the four candidate models is most probable. Below we compute the log-likelihood values for each of the four candidate models.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(lm<span class="fl">.1</span>)</code></pre>
 <pre><code>&#39;log Lik.&#39; 95.88 (df=5)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(lm.<span class="dv">2</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(lm<span class="fl">.2</span>)</code></pre>
 <pre><code>&#39;log Lik.&#39; 98.25 (df=6)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(lm.<span class="dv">3</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(lm<span class="fl">.3</span>)</code></pre>
 <pre><code>&#39;log Lik.&#39; 101.4 (df=5)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(lm.<span class="dv">4</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">logLik</span>(lm<span class="fl">.4</span>)</code></pre>
 <pre><code>&#39;log Lik.&#39; 100.8 (df=4)</code></pre>
 <p>Note that the log-likelihood values are also available from the <code>glance()</code> function’s output (in the <code>logLik</code> column).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(lm<span class="fl">.1</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.4086","2":"0.3936","3":"0.1121","4":"27.18","5":"1.957e-13","6":"4","7":"95.88","8":"-181.8","9":"-167.7","10":"1.483","11":"118"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -689,13 +736,13 @@ Figure 6.13: Residual plots for the fitted model using the institution-related f
 <div id="deviance-an-alternative-fit-value" class="section level2">
 <h2><span class="header-section-number">6.5</span> Deviance: An Alternative Fit Value</h2>
 <p>It is common to multiply the log-likelihood values by <span class="math inline">\(-2\)</span>. This is called the <em>deviance</em>. Deviance is a measure of model-data error, so when evaluating deviance values, lower is better. (The square brackets in the syntax grab the log-likelihood value from the <code>logLik()</code> output.)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">1</span>)[<span class="dv">1</span>] <span class="co">#Model 1</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm<span class="fl">.1</span>)[<span class="dv">1</span>] <span class="co">#Model 1</span></code></pre>
 <pre><code>[1] -191.8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">2</span>)[<span class="dv">1</span>] <span class="co">#Model 2</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm<span class="fl">.2</span>)[<span class="dv">1</span>] <span class="co">#Model 2</span></code></pre>
 <pre><code>[1] -196.5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">3</span>)[<span class="dv">1</span>] <span class="co">#Model 3</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm<span class="fl">.3</span>)[<span class="dv">1</span>] <span class="co">#Model 3</span></code></pre>
 <pre><code>[1] -202.8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">4</span>)[<span class="dv">1</span>] <span class="co">#Model 4</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm<span class="fl">.4</span>)[<span class="dv">1</span>] <span class="co">#Model 4</span></code></pre>
 <pre><code>[1] -201.7</code></pre>
 <p>Here, the model that produces the lowest amount of model-data error is Model 3; it has the lowest deviance value. Since the deviance just multiplies the log-likelihood values by a constant, it produces the same rank ordering of the candidate models. Thus, whether you evaluate using the likelihood, the log-likelihood, or the deviance, you will end up with the same ordering of candidate models. Using deviance, however, has the advantages of having a direct relationship to model error, so it is more interpretable. It is also more closely aligned with other model measures associated with error that we commonly use (e.g., SSE, <span class="math inline">\(R^2\)</span>).</p>
 </div>
@@ -714,22 +761,22 @@ AIC = \mathrm{Deviance} + 2(k)
 <li><strong>M4:</strong> 4 <em>df</em> (<span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\hat\beta_2\)</span>, RMSE)</li>
 </ul>
 <p>Just as with the deviance, smaller AIC values indicate a more likely model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">1</span>)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="dv">5</span> <span class="co">#Model 1</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm<span class="fl">.1</span>)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="dv">5</span> <span class="co">#Model 1</span></code></pre>
 <pre><code>[1] -181.8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">2</span>)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="dv">6</span> <span class="co">#Model 2</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm<span class="fl">.2</span>)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="dv">6</span> <span class="co">#Model 2</span></code></pre>
 <pre><code>[1] -184.5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">3</span>)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="dv">5</span> <span class="co">#Model 3</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm<span class="fl">.3</span>)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="dv">5</span> <span class="co">#Model 3</span></code></pre>
 <pre><code>[1] -192.8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm.<span class="dv">4</span>)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="dv">4</span> <span class="co">#Model 4</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span><span class="kw">logLik</span>(lm<span class="fl">.4</span>)[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="dv">4</span> <span class="co">#Model 4</span></code></pre>
 <pre><code>[1] -193.7</code></pre>
 <p>Arranging these, we find that Model 4 (AIC = <span class="math inline">\(-193.7\)</span>) is the most likely candidate model given the data and candidate set of models. This leads us to adopt Model 4 (the reduced model) over Model 3 (the full model) for the institution-related factors model.</p>
 <p>We can also compute the AIC via the <code>AIC()</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute AIC value for Model 4</span>
-<span class="kw">AIC</span>(lm.<span class="dv">4</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute AIC value for Model 4</span>
+<span class="kw">AIC</span>(lm<span class="fl">.4</span>)</code></pre>
 <pre><code>[1] -193.7</code></pre>
 <p>Lastly, we note that the AIC value is produced as a column in the model-level output. (Note that the <code>df</code> column from <code>glance()</code> does NOT give the number of model parameters.)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Model-level output for Model 4</span>
-<span class="kw">glance</span>(lm.<span class="dv">4</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Model-level output for Model 4</span>
+<span class="kw">glance</span>(lm<span class="fl">.4</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.4548","2":"0.4456","3":"0.1072","4":"49.63","5":"2.116e-16","6":"3","7":"100.8","8":"-193.7","9":"-182.5","10":"1.368","11":"119"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -746,17 +793,17 @@ AIC = \mathrm{Deviance} + 2(k)
 </ul>
 <p>It is important to remember that the phrase “given the data and other candidate models” is highly important. Using AIC to rank order the models results in a <em>relative ranking of the models</em>. It is not able to rank any hypotheses that you didn’t consider as part of the candidate set of scientific working hypotheses. Moreover, the AIC is a direct function of the likelihood which is based on the actual model fitted as a proxy for the scientific working hypothesis. If the predictors used in any of the models had been different, it would lead to different likelihood and AIC values, and potentially a different rank ordering of the hypotheses.</p>
 <p>As an example, consider if we had not done any exploration of the model’s functional form, but instead had just included the linear main-effects for each model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit models</span>
-lm.<span class="dv">1</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>gre_quant <span class="op">+</span><span class="st"> </span>gre_verbal, <span class="dt">data =</span> educ)
-lm.<span class="dv">2</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>funded_research_per_faculty <span class="op">+</span><span class="st"> </span>phd_granted_per_faculty, <span class="dt">data =</span> educ)
-lm.<span class="dv">3</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>doc_accept <span class="op">+</span><span class="st"> </span>enroll <span class="op">+</span><span class="st"> </span>phd_student_faculty_ratio, <span class="dt">data =</span> educ)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit models</span>
+lm<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>gre_quant <span class="op">+</span><span class="st"> </span>gre_verbal, <span class="dt">data =</span> educ)
+lm<span class="fl">.2</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>funded_research_per_faculty <span class="op">+</span><span class="st"> </span>phd_granted_per_faculty, <span class="dt">data =</span> educ)
+lm<span class="fl">.3</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>doc_accept <span class="op">+</span><span class="st"> </span>enroll <span class="op">+</span><span class="st"> </span>phd_student_faculty_ratio, <span class="dt">data =</span> educ)
 
 <span class="co"># Compute AIC values</span>
-<span class="kw">AIC</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<span class="kw">AIC</span>(lm<span class="fl">.1</span>)</code></pre>
 <pre><code>[1] 144.8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(lm.<span class="dv">2</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(lm<span class="fl">.2</span>)</code></pre>
 <pre><code>[1] 121.6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(lm.<span class="dv">3</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">AIC</span>(lm<span class="fl">.3</span>)</code></pre>
 <pre><code>[1] 121</code></pre>
 <p>In this example, the rank-ordering of hypotheses ended up being the same, but the actual AIC values were quite different. This will play an even bigger role in the next set of notes where we compare the size of the different AIC values to look at how much more empirical support one hypothesis has versus another.</p>
 <p>Finally, it is important to mention that philosophically, the use of information-criteria for model selection is not compatible with using <span class="math inline">\(p\)</span>-values for variable selection. As an example consider Model 3 and Model 4:</p>
@@ -839,7 +886,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

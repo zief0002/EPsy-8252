@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Pretty-Printing Tables in Markdown | EPsy 8252 Notes</title>
+  <title>Unit 9: Fitting and Interpreting Mixed-Effects Models | EPsy 8252 Notes</title>
   <meta name="description" content="These are the notes for EPsy 8252.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Pretty-Printing Tables in Markdown | EPsy 8252 Notes" />
+  <meta property="og:title" content="Unit 9: Fitting and Interpreting Mixed-Effects Models | EPsy 8252 Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Pretty-Printing Tables in Markdown | EPsy 8252 Notes" />
+  <meta name="twitter:title" content="Unit 9: Fitting and Interpreting Mixed-Effects Models | EPsy 8252 Notes" />
   
   <meta name="twitter:description" content="These are the notes for EPsy 8252." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="rmarkdown.html">
-<link rel="next" href="nonlinearity-log-transforming-the-predictor.html">
+<link rel="prev" href="intro-lmer-concepts.html">
+<link rel="next" href="data-codebook.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -318,664 +318,211 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="pretty-printing-tables-in-markdown" class="section level1 unnumbered">
-<h1>Pretty-Printing Tables in Markdown</h1>
-<p>Often it is useful to format table output to make it look good or to adhere a particular style (e.g., APA). There are several packages that help in this endeavor when working in an Rmarkdown document. Below the primary tools used are:</p>
+<div id="intro-lmer-fitting" class="section level1">
+<h1><span class="header-section-number">Unit 9:</span> Fitting and Interpreting Mixed-Effects Models</h1>
+<p>In this set of notes, you will learn how to fit and interpret the fixed- and random-effects from a linear mixed-effects model.</p>
+<hr />
+<div id="preparation-8" class="section level3 unnumbered">
+<h3>Preparation</h3>
+<p>Before class you will need to read the <a href="https://r4ds.had.co.nz/relational-data.html">Relational data</a> chapter from following:</p>
 <ul>
-<li>The <code>kable()</code> function from the <strong>knitr</strong> package; and</li>
-<li>Functions from the <strong>kableExtra</strong> package.</li>
+<li>Grolemund, G., &amp; Wickham, H. (2017). <a href="https://r4ds.had.co.nz/">R for Data Science: Visualize, model, transform, tidy, and import data</a>. **. Sebastopol, CA: O’Reilly.</li>
 </ul>
-<p>Other packages for formatting tables, among others, include the <a href="https://gt.rstudio.com/">gt package</a>, the <a href="https://hughjonesd.github.io/huxtable/">huxtable package</a>, and the <a href="https://gdemin.github.io/expss/">expss package</a>. For complete APA formatting check out the <a href="https://crsh.github.io/papaja_man/">papaja package</a>.</p>
-<p>The primary input to the <code>kable()</code> function is a data frame. This data frame will include the primary contents for you table. A data frame can either be created as the ouput of a function or directly using the <code>data.frame()</code> function. Below I will create and format a couple different common tables produced for statistical reports. To do so, I will use data from <em>ed-schools-2018.csv</em> file (see the <a href="data-codebook.html#ed-schools-2018">data codebook</a> here). These data include institutional-level attributes for several graduate education schools/programs rated by <em>U.S. News and World Report</em> in 2018.</p>
+<p>Focus on the information on mutating joins.</p>
+<p><br /></p>
+<hr />
+</div>
+<div id="dataset-and-research-question-7" class="section level2">
+<h2><span class="header-section-number">9.1</span> Dataset and Research Question</h2>
+<p>In this set of notes, we will use data from two files, the <em>netherlands-students.csv</em> file and the <em>netherlands-schools.csv</em> file (see the <a href="data-codebook.html#netherlands">data codebook</a> here). These data include student- and school-level attributes, respectively, for <span class="math inline">\(n_i=2287\)</span> 8th-grade students in the Netherlands.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries</span>
 <span class="kw">library</span>(AICcmodavg)
-<span class="kw">library</span>(corrr)
+<span class="kw">library</span>(broom)
 <span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(knitr)
-<span class="kw">library</span>(kableExtra)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(lme4) <span class="co">#for fitting mixed-effects models</span>
 <span class="kw">library</span>(readr)
-<span class="kw">library</span>(tidyr)
+<span class="kw">library</span>(sm)
 
-<span class="co"># Read in data</span>
-ed =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/ed-schools-2018.csv&quot;</span>)
+<span class="co"># Read in student-level data</span>
+student_data =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/netherlands-students.csv&quot;</span>)
 
-<span class="co"># Drop rows with missing data</span>
-educ =<span class="st"> </span>ed <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">drop_na</span>()
+<span class="co"># Read in school-level data</span>
+school_data =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/netherlands-schools.csv&quot;</span>)
 
-<span class="co"># Create log-transformed variables</span>
-educ =<span class="st"> </span>educ <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(
-    <span class="dt">Lpeer =</span> <span class="kw">log</span>(peer),
-    <span class="dt">Ldoc_accept =</span> <span class="kw">log</span>(doc_accept),
-    <span class="dt">Lenroll =</span> <span class="kw">log</span>(enroll)
-    )</code></pre>
-<div id="summary-statistics-table" class="section level2">
-<h2><span class="header-section-number">1.1</span> Summary Statistics Table</h2>
-<p>Say we wanted to produce a table of means and standard deviations for the variables: <code>peer</code>, <code>doc_accept</code>, and <code>enroll</code>. Furthermore, we want these for both the raw (untransformed) and log-transformed versions of these variables. Here is a sketch of what the table should look like:</p>
-<p>[INSERT SKETCH]</p>
-<p>To begin we will set up a data frame that includes the information from the table. We do this manually to illustrate use of the <code>data.frame()</code> function to set up a data frame.</p>
-<pre class="sourceCode r"><code class="sourceCode r">tab_<span class="dv">01</span> =<span class="st"> </span><span class="kw">data.frame</span>(
-  <span class="dt">Measure =</span> <span class="kw">c</span>(<span class="st">&quot;Peer rating&quot;</span>, <span class="st">&quot;Ph.D. acceptance rate&quot;</span>, <span class="st">&quot;Enrollment&quot;</span>),
-  <span class="dt">M_1  =</span> <span class="kw">c</span>(<span class="kw">mean</span>(educ<span class="op">$</span>peer), <span class="kw">mean</span>(educ<span class="op">$</span>doc_accept), <span class="kw">mean</span>(educ<span class="op">$</span>enroll)),
-  <span class="dt">SD_1 =</span> <span class="kw">c</span>(<span class="kw">sd</span>(educ<span class="op">$</span>peer), <span class="kw">sd</span>(educ<span class="op">$</span>doc_accept), <span class="kw">sd</span>(educ<span class="op">$</span>enroll)),
-  <span class="dt">M_2  =</span> <span class="kw">c</span>(<span class="kw">mean</span>(educ<span class="op">$</span>Lpeer), <span class="kw">mean</span>(educ<span class="op">$</span>Ldoc_accept), <span class="kw">mean</span>(educ<span class="op">$</span>Lenroll)),
-  <span class="dt">SD_2 =</span> <span class="kw">c</span>(<span class="kw">sd</span>(educ<span class="op">$</span>Lpeer), <span class="kw">sd</span>(educ<span class="op">$</span>Ldoc_accept), <span class="kw">sd</span>(educ<span class="op">$</span>Lenroll))
-)
-
-tab_<span class="dv">01</span></code></pre>
-<pre><code>                Measure        M_1        SD_1      M_2      SD_2
-1           Peer rating   3.312295   0.4893203 1.187198 0.1439847
-2 Ph.D. acceptance rate  40.113115  20.2276300 3.525419 0.6461164
-3            Enrollment 969.762295 664.9454219 6.657939 0.7228670</code></pre>
-<p>We can now use the <code>kable()</code> function to rename the columns, round the numeric values, and set a caption.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">kable</span>(
-  tab_<span class="dv">01</span>,
-  <span class="dt">col.names =</span> <span class="kw">c</span>(<span class="st">&quot;Measure&quot;</span>, <span class="st">&quot;*M*&quot;</span>, <span class="st">&quot;*SD*&quot;</span>, <span class="st">&quot;*M*&quot;</span>, <span class="st">&quot;*SD*&quot;</span>),
-  <span class="dt">digits =</span> <span class="dv">2</span>,
-  <span class="dt">caption =</span> <span class="st">&quot;Means and Standard Deviations of Three Measures of Graduate Programs of Education ($n=122$)&quot;</span>
-  )</code></pre>
-<table>
-<caption>
-<span id="tab:unnamed-chunk-11">Table 1.1: </span>Means and Standard Deviations of Three Measures of Graduate Programs of Education (<span class="math inline">\(n=122\)</span>)
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-Measure
-</th>
-<th style="text-align:right;">
-<em>M</em>
-</th>
-<th style="text-align:right;">
-<em>SD</em>
-</th>
-<th style="text-align:right;">
-<em>M</em>
-</th>
-<th style="text-align:right;">
-<em>SD</em>
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Peer rating
-</td>
-<td style="text-align:right;">
-3.31
-</td>
-<td style="text-align:right;">
-0.49
-</td>
-<td style="text-align:right;">
-1.19
-</td>
-<td style="text-align:right;">
-0.14
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Ph.D. acceptance rate
-</td>
-<td style="text-align:right;">
-40.11
-</td>
-<td style="text-align:right;">
-20.23
-</td>
-<td style="text-align:right;">
-3.53
-</td>
-<td style="text-align:right;">
-0.65
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Enrollment
-</td>
-<td style="text-align:right;">
-969.76
-</td>
-<td style="text-align:right;">
-664.95
-</td>
-<td style="text-align:right;">
-6.66
-</td>
-<td style="text-align:right;">
-0.72
-</td>
-</tr>
-</tbody>
-</table>
-<p>Finally, we use functions from the <strong>kableExtra</strong> package to add our top header row.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">kable</span>(
-  tab_<span class="dv">01</span>,
-  <span class="dt">col.names =</span> <span class="kw">c</span>(<span class="st">&quot;Measure&quot;</span>, <span class="st">&quot;*M*&quot;</span>, <span class="st">&quot;*SD*&quot;</span>, <span class="st">&quot;*M*&quot;</span>, <span class="st">&quot;*SD*&quot;</span>),
-  <span class="dt">align =</span> <span class="kw">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>),
-  <span class="dt">digits =</span> <span class="dv">2</span>,
-  <span class="dt">caption =</span> <span class="st">&quot;Means and Standard Deviations of Three Measures of Graduate Programs of Education ($n=122$)&quot;</span>
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">add_header_above</span>(
-    <span class="dt">header =</span> <span class="kw">c</span>(<span class="st">&quot; &quot;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;Untransformed&quot;</span> =<span class="st"> </span><span class="dv">2</span>, <span class="st">&quot;Log-transformed&quot;</span> =<span class="st"> </span><span class="dv">2</span>)
-    ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">footnote</span>(
-    <span class="dt">general =</span> <span class="st">&quot;Variables were log-transformed using the natural logarithm.&quot;</span>,
-    <span class="dt">general_title =</span> <span class="st">&quot;Note.&quot;</span>,
-    <span class="dt">footnote_as_chunk =</span> <span class="ot">TRUE</span>
-    )</code></pre>
-<table>
-<caption>
-<span id="tab:unnamed-chunk-12">Table 1.2: </span>Means and Standard Deviations of Three Measures of Graduate Programs of Education (<span class="math inline">\(n=122\)</span>)
-</caption>
-<thead>
-<tr>
-<th style="border-bottom:hidden" colspan="1">
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Untransformed
+<span class="co"># Join the two datasets together</span>
+joined_data =<span class="st"> </span><span class="kw">left_join</span>(student_data, school_data, <span class="dt">by =</span> <span class="st">&quot;school_id&quot;</span>)
+<span class="kw">head</span>(joined_data)</code></pre>
+<pre><code># A tibble: 6 x 12
+  student_id school_id language_pre language_post   ses verbal_iq female
+       &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+1      17001         1           36            46    23     3.17       0
+2      17002         1           36            45    10     2.67       0
+3      17003         1           33            33    15    -2.33       0
+4      17004         1           29            46    23    -0.834      0
+5      17005         1           19            20    10    -3.83       0
+6      17006         1           22            30    10    -2.33       0
+# … with 5 more variables: minority &lt;dbl&gt;, school_type &lt;chr&gt;,
+#   school_ses &lt;dbl&gt;, school_verbal_iq &lt;dbl&gt;, school_minority &lt;dbl&gt;</code></pre>
+<p>We will use these data to explore the question of whether verbal IQ scores predict variation in post-test language scores.</p>
 </div>
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Log-transformed
+<div id="fitting-the-mixed-effects-regression-model-in-practice" class="section level2">
+<h2><span class="header-section-number">9.2</span> Fitting the Mixed-Effects Regression Model in Practice</h2>
+<p>In practice, we use the <code>lmer()</code> function from the <strong>lme4</strong> library to fit mixed-effect regression models. This function will essentially do what we did in the previous section, but rather than independently fitting the team-specific models, it will fit all these models simultaneously and make use of the information in all the clusters (schools) to do this. This will result in better estimates for both the fixed- and random-effects.</p>
+<p>The syntax looks similar to the syntax we use in <code>lm()</code> except now we split it into two parts. The first part of the syntax gives a model formula to specify the outcome and fixed-effects included in the model. This is identical to the syntax we used in the <code>lm()</code> function. In our example: <code>language_post ~ 1 + verbal_iq</code> indicating that we want to fit a model that includes fixed-effects for both the intercept and the effect of verbal IQ score.</p>
+<p>We also have to declare that we want to fit a model for each school. To do this, we will include a random-effect for intercept. (We could also include a random-effect of verbal IQ, but to keep it simpler right now, we only include the RE of intercept.) The second part of the syntax declares this: <code>(1 | school_id)</code>. This says fit school-specific models that vary in their intercepts. This is literally added to the fixed-effects formula using <code>+</code>. The complete syntax is:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit mixed-effects regression model</span>
+lmer<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lmer</span>(language_post <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>verbal_iq <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school_id), <span class="dt">data =</span> joined_data)</code></pre>
+<p>To view the fixed-effects, we use the <code>fixef()</code> function.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fixef</span>(lmer<span class="fl">.1</span>)</code></pre>
+<pre><code>(Intercept)   verbal_iq 
+     40.608       2.488 </code></pre>
+<p>This gives the coefficients for the fixed-effects part of the model (i.e., the global model),</p>
+<p><span class="math display">\[
+\hat{\mathrm{Language~Score}_{ij}} = 40.61 + 2.49(\mathrm{Verbal~IQ}_{ij})
+\]</span></p>
+<p>Note that the notation now includes two subscripts. The <em>i</em> subscript still indicates the <em>i</em>th student, and the new <em>j</em> subscript indicates that the student was from the <em>j</em>th school. Since we accounted for school in the model (schools are allowed to have different intercepts) we need to now identify that in the equation. We interpret these coefficients from the fixed-effects equation exactly like <code>lm()</code> coefficients. Here,</p>
+<ul>
+<li>The predicted average post-test language score for students with a mean verbal IQ score (=0) is 40.61.</li>
+<li>Each one-point difference in verbal IQ score is associated with a 2.49-point difference in language scores, on average.</li>
+</ul>
+<p>To view the school-specific random-effects, we use the <code>ranef()</code> function (only the first 5 rows are shown).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ranef</span>(lmer<span class="fl">.1</span>)</code></pre>
+<pre><code>$school_id
+    (Intercept)
+1   -0.37573940
+2   -6.04469893
+10  -3.66481710
+12  -2.91463441
+15  -5.74351132</code></pre>
+<p>The random-effects indicate how the school-specific intercept differs from the overall average intercept. For example, the intercept for School 1 is approximately 0.38-points lower than the average intercept of 40.61 (the fixed-effect). This implies that, on average, students from School 1 with a mean verbal IQ score (=0) have an average post-test language score that is 0.38-points lower than their peers who also have a mean verbal IQ score.</p>
+<p>From the estimated fixed- and random-effects, we can re-construct each school-specific fitted equation if we are so inclined. For example, to construct the school-specific fitted equation for School 1, we combine the estimated coefficients for the fixed-effects and the estimated random-effect for School 1:</p>
+<p><span class="math display">\[
+\begin{split}
+\hat{\mathrm{Language~Score}_{i}} &amp;= \bigg[ 40.61 -0.376 \bigg]+ 2.49(\mathrm{Verbal~IQ}_{i}) \\[1ex]
+&amp;= 40.2 + 2.49(\mathrm{Verbal~IQ}_{i}) 
+\end{split}
+\]</span></p>
+<p>In this notation, the <em>j</em> part of the subscript is dropped since <em>j</em> is now fixed to a specific school; <span class="math inline">\(j=1\)</span>.</p>
 </div>
-</th>
-</tr>
-<tr>
-<th style="text-align:left;">
-Measure
-</th>
-<th style="text-align:center;">
-<em>M</em>
-</th>
-<th style="text-align:center;">
-<em>SD</em>
-</th>
-<th style="text-align:center;">
-<em>M</em>
-</th>
-<th style="text-align:center;">
-<em>SD</em>
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Peer rating
-</td>
-<td style="text-align:center;">
-3.31
-</td>
-<td style="text-align:center;">
-0.49
-</td>
-<td style="text-align:center;">
-1.19
-</td>
-<td style="text-align:center;">
-0.14
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Ph.D. acceptance rate
-</td>
-<td style="text-align:center;">
-40.11
-</td>
-<td style="text-align:center;">
-20.23
-</td>
-<td style="text-align:center;">
-3.53
-</td>
-<td style="text-align:center;">
-0.65
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Enrollment
-</td>
-<td style="text-align:center;">
-969.76
-</td>
-<td style="text-align:center;">
-664.95
-</td>
-<td style="text-align:center;">
-6.66
-</td>
-<td style="text-align:center;">
-0.72
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<span style="font-style: italic;">Note.</span> <sup></sup> Variables were log-transformed using the natural logarithm.
-</td>
-</tr>
-</tfoot>
-</table>
+<div id="example-2-life-satisfaction-of-nba-players" class="section level2">
+<h2><span class="header-section-number">9.3</span> Example 2: Life Satisfaction of NBA Players</h2>
+<p>As a second example, we will explore the question of whether NBA players’ success is related to life satisfaction. To do this, we will use two datasets, the <em>nba-player-data.csv</em> and <em>nba-team-data.csv</em> file (see the <a href="data-codebook.html#nba">data codebook</a> here). These data include player- and team-level attributes for <span class="math inline">\(n=300\)</span> players and <span class="math inline">\(n=30\)</span> teams, respectively. To begin, we will import both the player-level and team-level datasets and then join them together.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read in player-level data</span>
+nba_players =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/nba-player-data.csv&quot;</span>)
+
+<span class="co"># Read in team-level data</span>
+nba_teams =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/nba-team-data.csv&quot;</span>)
+
+<span class="co"># Join the datasets together</span>
+nba =<span class="st"> </span>nba_players <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(nba_teams, <span class="dt">by =</span> <span class="st">&quot;team&quot;</span>)
+
+<span class="kw">head</span>(nba)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["player"],"name":[1],"type":["chr"],"align":["left"]},{"label":["team"],"name":[2],"type":["chr"],"align":["left"]},{"label":["success"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["life_satisfaction"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["coach"],"name":[5],"type":["chr"],"align":["left"]},{"label":["coach_experience"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"Daniel Hamilton","2":"Atlanta Hawks","3":"0","4":"12.10","5":"Lloyd Pierce","6":"0"},{"1":"Alex Poythress","2":"Atlanta Hawks","3":"0","4":"13.49","5":"Lloyd Pierce","6":"0"},{"1":"Jaylen Adams","2":"Atlanta Hawks","3":"0","4":"18.80","5":"Lloyd Pierce","6":"0"},{"1":"Miles Plumlee","2":"Atlanta Hawks","3":"0","4":"18.00","5":"Lloyd Pierce","6":"0"},{"1":"PJ Dozier","2":"Boston Celtics","3":"0","4":"12.22","5":"Brad Stevens","6":"2"},{"1":"Ed Davis","2":"Brooklyn Nets","3":"0","4":"16.00","5":"Kenny Atkinson","6":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
-<div id="correlation-table" class="section level2">
-<h2><span class="header-section-number">1.2</span> Correlation Table</h2>
-<p>For our second example, say we wanted to produce a table of pairwise correlations for the variables: <code>peer</code>, <code>doc_accept</code>, and <code>enroll</code>. To begin we will again set up a data frame, but this time we will generate it using functions from the <strong>corrr</strong> package.</p>
-<pre class="sourceCode r"><code class="sourceCode r">tab_<span class="dv">02</span> =<span class="st"> </span>educ <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(peer, doc_accept, enroll) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">correlate</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">shave</span>(<span class="dt">upper =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">fashion</span>(<span class="dt">decimals =</span> <span class="dv">2</span>, <span class="dt">na_print =</span> <span class="st">&quot;—&quot;</span>) 
+<p>We want to fit a model that regresses the <code>life_satisfaction</code> scores on the <code>success</code> values. In these data, however, we might expect that the life satisfaction of players is correlated within team. To account for that fact, we can include a random-effect of intercept in our regression model.</p>
+<div id="fit-the-mixed-effects-model" class="section level3">
+<h3><span class="header-section-number">9.3.1</span> Fit the Mixed-Effects Model</h3>
+<p>Below we fit a mixed-effects regression model to predict variation in life satisfaction scores that includes success as a predictor. We also include a random-effect of intercept to account for the within-team correlation of life satisfaction scores. The statistical model is:</p>
+<p><span class="math display">\[
+\mathrm{Life~Satisfaction}_{ij} = \bigg[\beta_0 + b_{0j} \bigg] + \beta_1(\mathrm{Success}_{ij}) + \epsilon_{ij}
+\]</span></p>
+<p>We fit the model using <code>lmer()</code> as:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model</span>
+lmer<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lmer</span>(life_satisfaction <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>success <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>team), <span class="dt">data =</span> nba)</code></pre>
+<p>We can then extract the fixed-effects estimates using the <code>fixef()</code> function.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get fixed-effects</span>
+<span class="kw">fixef</span>(lmer<span class="fl">.1</span>)</code></pre>
+<pre><code>(Intercept)     success 
+     11.575       1.666 </code></pre>
+<p>We write the fitted fixed-effects model as:</p>
+<p><span class="math display">\[
+\hat{\mathrm{Life~Satisfaction}}_{ij} = 11.57 + 1.67(\mathrm{Success}_{ij})
+\]</span></p>
+<p>Again, we can interpret these fixed-effects estimates the same way we do any other regression coefficient.</p>
+<ul>
+<li>The predicted average life satisfaction for NBA players with a success score of 0 (free-throw percentage in the lowest 20%) is 11.57.</li>
+<li>Each one-unit difference in success (one-quantile difference) is associated with a 1.67-point difference in life satisfaction score, on average.</li>
+</ul>
+<p>If we are interested in the fitted model for a SPECIFIC team, we can extract the random-effect of intercept for that team and add it to the fixed-effect intercept estimate. For example, the equation for the Minnesota Timberwolves is:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain random-effects</span>
+<span class="kw">ranef</span>(lmer<span class="fl">.1</span>)</code></pre>
+<pre><code>$team
+                       (Intercept)
+Atlanta Hawks               2.7474
+Boston Celtics              5.3594
+Brooklyn Nets               4.1005
+Charlotte Hornets           1.1515
+Chicago Bulls              -3.4811
+Cleveland Cavaliers         0.9739
+Dallas Mavericks           -6.1708
+Denver Nuggets              4.0877
+Detroit Pistons            -2.3659
+Golden State Warriors      -1.8955
+Houston Rockets            -2.3038
+Indiana Pacers             -1.4244
+Los Angeles Clippers        5.5528
+Los Angeles Lakers         -5.0071
+Memphis Grizzlies           0.6391
+Miami Heat                  0.6749
+Milwaukee Bucks            -5.8198
+Minnesota Timberwolves      3.6616
+New Orleans Pelicans       -1.3426
+New York Knicks            -1.9479
+Oklahoma City Thunder      -1.5291
+Orlando Magic              -3.4961
+Philadelphia 76ers          4.6167
+Phoenix Suns               -6.1341
+Portland Trail Blazers      0.3600
+Sacramento Kings           -3.4140
+San Antonio Spurs           0.1794
+Toronto Raptors             3.8491
+Utah Jazz                   6.2954
+Washington Wizards          2.0828</code></pre>
+<p><span class="math display">\[
+\begin{split}
+\hat{\mathrm{Life~Satisfaction}}_{i} &amp;= \bigg[11.57 + 3.66 \bigg] + 1.67(\mathrm{Success}_{i}) \\[1ex]
+&amp;= 15.23 + 1.67(\mathrm{Success}_{i})
+\end{split}
+\]</span></p>
+<p>For Timberwolves players,</p>
+<ul>
+<li>The predicted average life satisfaction for Timberwolves players with a success score of 0 (free-throw percentage in the lowest 20%) is 15.23. This is a score that is 3.66 points above average for all NBA players with a success score of 0.</li>
+<li>Each one-unit difference in success is associated with a 1.67-point difference in life satisfaction score for Timberwolves players, on average. This is the same rate-of-change as for NBA players in general.</li>
+</ul>
+<p>As a comparison, we can also consider the equation for the Phoenix Suns:</p>
+<p><span class="math display">\[
+\begin{split}
+\hat{\mathrm{Life~Satisfaction}}_{i} &amp;= \bigg[11.57 - 6.13 \bigg] + 1.67(\mathrm{Success}_{i}) \\[1ex]
+&amp;= 5.44 + 1.67(\mathrm{Success}_{i})
+\end{split}
+\]</span></p>
+<ul>
+<li>The predicted average life satisfaction for Suns players with a success score of 0 (free-throw percentage in the lowest 20%) is 5.44. This is a score that is 6.13 points below average for all NBA players with a success score of 0.</li>
+<li>Each one-unit difference in success is associated with a 1.67-point difference in life satisfaction score for Suns players, on average. This is the same rate-of-change as for NBA players in general.</li>
+</ul>
+<p>Comparing these two team’s equations gives us some insight into why the effects are referred to as <em>fixed-effects</em> or <em>random-effects</em>.</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{Timberwolves:~}\hat{\mathrm{Life~Satisfaction}}_{i} &amp;= \bigg[11.57 + 3.66 \bigg] + 1.67(\mathrm{Success}_{i}) \\[1ex]
+\mathbf{Suns:~}\hat{\mathrm{Life~Satisfaction}}_{i} &amp;= \bigg[11.57 - 6.13 \bigg] + 1.67(\mathrm{Success}_{i}) \\[1ex]
+\end{split}
+\]</span></p>
+<p>In the two equations, the fixed-effects of intercept (11.57) and success (1.67) are represented in both equations; they are fixed. On the other hand, the random-effect is different for each team. Since we included a random-effect of intercept in out model, this means that the intercept value for each team equation will be different.</p>
+<!-- ## Other Resources {-} -->
+<!-- In addition to the notes and what we cover in class, there many other resources for learning information criteria for model selection. Here are some resources that may be helpful in that endeavor: -->
+<!-- - Anderson, David R. (2008). [Model based inference in the life sciences: A primer on evidence](https://link-springer-com.ezp3.lib.umn.edu/book/10.1007%2F978-0-387-74075-1). New York: Springer. -->
+<!-- - Burnham, Kenneth P., &amp; Anderson, David R. (2002). [Model selection and multimodel inference: A practical information-theoretic approach](http://ecologia.ib.usp.br/bie5782/lib/exe/fetch.php?media=bie5782:pdfs:burnham_anderson2002.pdf). New York: Springer. -->
+<!-- <br /> -->
+<!-- For **table formatting** using R Markdown, check out: -->
+<!-- - [kableExtra Documentation](https://haozhu233.github.io/kableExtra/) -->
+<!-- - [gt Documentation](https://gt.rstudio.com/) -->
 
-tab_<span class="dv">02</span></code></pre>
-<pre><code>     rowname peer doc_accept enroll
-1       peer    —          —      —
-2 doc_accept -.54          —      —
-3     enroll  .10       -.03      —</code></pre>
-<p>Now we change the values in the <code>rownames</code> column by mutating in new values, and pipe this into the <code>kable()</code> function, where we will change the column name and add a caption. Keeping the default alignment will align the decimal points within columns.</p>
-<pre class="sourceCode r"><code class="sourceCode r">tab_<span class="dv">02</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(
-    <span class="dt">rowname =</span> <span class="kw">c</span>(<span class="st">&quot;1. Peer rating&quot;</span>, <span class="st">&quot;2. Ph.D. acceptance rate&quot;</span>, <span class="st">&quot;3. Enrollment&quot;</span>)
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">kable</span>(
-    <span class="dt">caption =</span> <span class="st">&quot;Correlations between Three Measures of Graduate Programs of Education&quot;</span>,
-    <span class="dt">col.names =</span> <span class="kw">c</span>(<span class="st">&quot;Measure&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>)
-  )</code></pre>
-<table>
-<caption>
-<span id="tab:unnamed-chunk-15">Table 1.3: </span>Correlations between Three Measures of Graduate Programs of Education
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-Measure
-</th>
-<th style="text-align:left;">
-1
-</th>
-<th style="text-align:left;">
-2
-</th>
-<th style="text-align:left;">
-3
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-<ol style="list-style-type: decimal">
-<li>Peer rating
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
-—
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<ol start="2" style="list-style-type: decimal">
-<li>Ph.D. acceptance rate
-</td>
-<td style="text-align:left;">
--.54
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
-—
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<ol start="3" style="list-style-type: decimal">
-<li>Enrollment
-</td>
-<td style="text-align:left;">
-.10
-</td>
-<td style="text-align:left;">
--.03
-</td>
-<td style="text-align:left;">
-—
-</td>
-</tr>
-</tbody>
-</table></li>
-</ol></li>
-</ol></li>
-</ol>
 </div>
-<div id="regression-table" class="section level2">
-<h2><span class="header-section-number">1.3</span> Regression Table</h2>
-<p>There are several specific packages that help us create tables of regression results. The <a href="https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf">Stargazer package</a>, the <a href="https://cran.r-project.org/web/packages/texreg/vignettes/texreg.pdf">texreg package</a> and the <a href="http://www.datasurg.net/2018/05/16/elegant-regression-results-tables-and-plots-the-finalfit-package/">finalfit package</a> are but a few of these.</p>
-<p>I tend to use both the <strong>texreg</strong> package (more customizable) and the <strong>stargazer</strong> package (easier). Below I illustrate how to create a table of regression results using the <strong>stargazer</strong> package. First we fit a few models.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit candidate models</span>
-lm<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>doc_accept, <span class="dt">data =</span> educ)
-lm<span class="fl">.2</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>enroll, <span class="dt">data =</span> educ)
-lm<span class="fl">.3</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>doc_accept <span class="op">+</span><span class="st"> </span>enroll, <span class="dt">data =</span> educ)</code></pre>
-<p>After loading the <strong>stagazer</strong> package, the <code>stargazer()</code> function can be used to create a basic table of regression results. The <code>type=</code> argument defaults to <code>latex</code>, so if you are rendering to an HTML document, you need to change this to <code>type="html"</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stargazer)
-
-<span class="kw">stargazer</span>(lm<span class="fl">.1</span>, lm<span class="fl">.2</span>, lm<span class="fl">.3</span>, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</code></pre>
-<pre><code>
-&lt;table style=&quot;text-align:center&quot;&gt;&lt;tr&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td colspan=&quot;3&quot;&gt;&lt;em&gt;Dependent variable:&lt;/em&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td colspan=&quot;3&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td colspan=&quot;3&quot;&gt;peer&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;doc_accept&lt;/td&gt;&lt;td&gt;-0.013&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-0.013&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(0.002)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.002)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;enroll&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.0001&lt;/td&gt;&lt;td&gt;0.0001&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.0001)&lt;/td&gt;&lt;td&gt;(0.0001)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Constant&lt;/td&gt;&lt;td&gt;3.836&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;3.238&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;3.769&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(0.083)&lt;/td&gt;&lt;td&gt;(0.078)&lt;/td&gt;&lt;td&gt;(0.101)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Observations&lt;/td&gt;&lt;td&gt;122&lt;/td&gt;&lt;td&gt;122&lt;/td&gt;&lt;td&gt;122&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.292&lt;/td&gt;&lt;td&gt;0.011&lt;/td&gt;&lt;td&gt;0.300&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.286&lt;/td&gt;&lt;td&gt;0.003&lt;/td&gt;&lt;td&gt;0.288&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;0.414 (df = 120)&lt;/td&gt;&lt;td&gt;0.489 (df = 120)&lt;/td&gt;&lt;td&gt;0.413 (df = 119)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;F Statistic&lt;/td&gt;&lt;td&gt;49.400&lt;sup&gt;***&lt;/sup&gt; (df = 1; 120)&lt;/td&gt;&lt;td&gt;1.328 (df = 1; 120)&lt;/td&gt;&lt;td&gt;25.490&lt;sup&gt;***&lt;/sup&gt; (df = 2; 119)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan=&quot;3&quot; style=&quot;text-align:right&quot;&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;</code></pre>
-<p>The function outputs raw HTML (or LaTeX), so to get it to form into a table you need to include <code>results='asis'</code> in your Rmarkdown chunk.</p>
-<pre><code>```{r message=FALSE, results=&#39;asis&#39;} 
-library(stargazer)
-
-stargazer(lm.1, lm.2, lm.3, type = &quot;html&quot;)
-```</code></pre>
-<table style="text-align:center">
-<tr>
-<td colspan="4" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="3">
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="3">
-peer
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(1)
-</td>
-<td>
-(2)
-</td>
-<td>
-(3)
-</td>
-</tr>
-<tr>
-<td colspan="4" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-doc_accept
-</td>
-<td>
--0.013<sup>***</sup>
-</td>
-<td>
-</td>
-<td>
--0.013<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.002)
-</td>
-<td>
-</td>
-<td>
-(0.002)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-enroll
-</td>
-<td>
-</td>
-<td>
-0.0001
-</td>
-<td>
-0.0001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-(0.0001)
-</td>
-<td>
-(0.0001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-3.836<sup>***</sup>
-</td>
-<td>
-3.238<sup>***</sup>
-</td>
-<td>
-3.769<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.083)
-</td>
-<td>
-(0.078)
-</td>
-<td>
-(0.101)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="4" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-122
-</td>
-<td>
-122
-</td>
-<td>
-122
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.292
-</td>
-<td>
-0.011
-</td>
-<td>
-0.300
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.286
-</td>
-<td>
-0.003
-</td>
-<td>
-0.288
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Residual Std. Error
-</td>
-<td>
-0.414 (df = 120)
-</td>
-<td>
-0.489 (df = 120)
-</td>
-<td>
-0.413 (df = 119)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-49.400<sup>***</sup> (df = 1; 120)
-</td>
-<td>
-1.328 (df = 1; 120)
-</td>
-<td>
-25.490<sup>***</sup> (df = 2; 119)
-</td>
-</tr>
-<tr>
-<td colspan="4" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td colspan="3" style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-<p>There are several arguments in the <code>stargazer()</code> function to customize the table.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stargazer</span>(
-  lm<span class="fl">.1</span>, lm<span class="fl">.2</span>, lm<span class="fl">.3</span>, 
-  <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>,
-  <span class="dt">title =</span> <span class="st">&quot;Three Regression Models Predicting Variation in Peer Ratings&quot;</span>,
-  <span class="dt">column.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Model A&quot;</span>, <span class="st">&quot;Model B&quot;</span>, <span class="st">&quot;Model C&quot;</span>),
-  <span class="dt">colnames =</span> <span class="ot">FALSE</span>,
-  <span class="dt">model.numbers =</span> <span class="ot">FALSE</span>,
-  <span class="dt">dep.var.caption =</span> <span class="st">&quot; &quot;</span>,
-  <span class="dt">dep.var.labels =</span> <span class="st">&quot;Peer rating (1-5 scale)&quot;</span>,
-  <span class="dt">covariate.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Ph.D. acceptance rate&quot;</span>, <span class="st">&quot;Enrollment&quot;</span>),
-  <span class="dt">keep.stat =</span> <span class="kw">c</span>(<span class="st">&quot;rsq&quot;</span>, <span class="st">&quot;f&quot;</span>),
-  <span class="dt">notes.align =</span> <span class="st">&quot;l&quot;</span>,
-  <span class="dt">add.lines =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;Corrected AIC&quot;</span>, <span class="kw">round</span>(<span class="kw">AICc</span>(lm<span class="fl">.1</span>), <span class="dv">1</span>), <span class="kw">round</span>(<span class="kw">AICc</span>(lm<span class="fl">.2</span>), <span class="dv">1</span>), <span class="kw">round</span>(<span class="kw">AICc</span>(lm<span class="fl">.3</span>), <span class="dv">1</span>))),
-  <span class="dt">out =</span> <span class="st">&quot;images/table1.html&quot;</span>
-  )</code></pre>
-
-<table style="text-align:center"><caption><strong>Three Regression Models Predicting Variation in Peer Ratings</strong></caption>
-<tr><td colspan="4" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"></td><td colspan="3"></td></tr>
-<tr><td></td><td colspan="3" style="border-bottom: 1px solid black"></td></tr>
-<tr><td style="text-align:left"></td><td colspan="3">Peer rating (1-5 scale)</td></tr>
-<tr><td style="text-align:left"></td><td>Model A</td><td>Model B</td><td>Model C</td></tr>
-<tr><td colspan="4" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Ph.D. acceptance rate</td><td>-0.013<sup>***</sup></td><td></td><td>-0.013<sup>***</sup></td></tr>
-<tr><td style="text-align:left"></td><td>(0.002)</td><td></td><td>(0.002)</td></tr>
-<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
-<tr><td style="text-align:left">Enrollment</td><td></td><td>0.0001</td><td>0.0001</td></tr>
-<tr><td style="text-align:left"></td><td></td><td>(0.0001)</td><td>(0.0001)</td></tr>
-<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
-<tr><td style="text-align:left">Constant</td><td>3.836<sup>***</sup></td><td>3.238<sup>***</sup></td><td>3.769<sup>***</sup></td></tr>
-<tr><td style="text-align:left"></td><td>(0.083)</td><td>(0.078)</td><td>(0.101)</td></tr>
-<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
-<tr><td colspan="4" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Corrected AIC</td><td>135</td><td>175.7</td><td>135.7</td></tr>
-<tr><td style="text-align:left">R<sup>2</sup></td><td>0.292</td><td>0.011</td><td>0.300</td></tr>
-<tr><td style="text-align:left">F Statistic</td><td>49.400<sup>***</sup> (df = 1; 120)</td><td>1.328 (df = 1; 120)</td><td>25.490<sup>***</sup> (df = 2; 119)</td></tr>
-<tr><td colspan="4" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"><em>Note:</em></td><td colspan="3" style="text-align:left"><sup>*</sup>p<0.1; <sup>**</sup>p<0.05; <sup>***</sup>p<0.01</td></tr>
-</table>
-<p>There is a known bug with the stargazer table not printing the asterisks next to the significance values in the notes section of the table when outputting to HTML. The solution as <a href="https://stackoverflow.com/questions/51883610/p-values-significance-not-showed-in-stargazer-html-regression-table">documented here</a> is to output the html code to an external file using the <code>out=</code> argument in <code>stargazer()</code> and then inserting that html code in a new code chunk via the <code>includeHTML()</code> function from the <strong>htmltools</strong> package.</p>
-<p>The <code>add.lines=</code> argument adds a line to the bottom of the output. This argument takes a list that includes the name you want to output in the regression table and then the value to output for each of the models. Here we computed the corrected AIC value using the <code>AICc()</code> function from the <strong>AICmodavg</strong> package for each of the models. (Note: We will learn about this in the <a href="moreinfocrit.html#moreinfocrit">More Information Criteria for Model Selection unit</a>.)</p>
-
 </div>
 </div>
             </section>
@@ -983,8 +530,8 @@ F Statistic
           </div>
         </div>
       </div>
-<a href="rmarkdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="nonlinearity-log-transforming-the-predictor.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="intro-lmer-concepts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-codebook.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

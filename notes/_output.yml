@@ -1,6 +1,6 @@
 bookdown::gitbook:
   highlight: default
-  css: style.css
+  css: [style.css, print.css]
   pandoc_args: [ "--csl", "apa-single-spaced.csl" ]
   config:
     toc:

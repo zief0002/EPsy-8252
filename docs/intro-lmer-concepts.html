@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Pretty-Printing Tables in Markdown | EPsy 8252 Notes</title>
+  <title>Unit 8: Introduction to Mixed-Effects Models: Conceptual Ideas | EPsy 8252 Notes</title>
   <meta name="description" content="These are the notes for EPsy 8252.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Pretty-Printing Tables in Markdown | EPsy 8252 Notes" />
+  <meta property="og:title" content="Unit 8: Introduction to Mixed-Effects Models: Conceptual Ideas | EPsy 8252 Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Pretty-Printing Tables in Markdown | EPsy 8252 Notes" />
+  <meta name="twitter:title" content="Unit 8: Introduction to Mixed-Effects Models: Conceptual Ideas | EPsy 8252 Notes" />
   
   <meta name="twitter:description" content="These are the notes for EPsy 8252." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="rmarkdown.html">
-<link rel="next" href="nonlinearity-log-transforming-the-predictor.html">
+<link rel="prev" href="moreinfocrit.html">
+<link rel="next" href="intro-lmer-fitting.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -318,663 +318,212 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="pretty-printing-tables-in-markdown" class="section level1 unnumbered">
-<h1>Pretty-Printing Tables in Markdown</h1>
-<p>Often it is useful to format table output to make it look good or to adhere a particular style (e.g., APA). There are several packages that help in this endeavor when working in an Rmarkdown document. Below the primary tools used are:</p>
+<div id="intro-lmer-concepts" class="section level1">
+<h1><span class="header-section-number">Unit 8:</span> Introduction to Mixed-Effects Models: Conceptual Ideas</h1>
+<p>In this set of notes, you will learn the conceptual ideas behind linear mixed-effects models, also called multilevel models or hierarchical linear models.</p>
+<hr />
+<div id="preparation-7" class="section level3 unnumbered">
+<h3>Preparation</h3>
+<p>Before class you will need to read the <a href="https://r4ds.had.co.nz/relational-data.html">Relational data</a> chapter from following:</p>
 <ul>
-<li>The <code>kable()</code> function from the <strong>knitr</strong> package; and</li>
-<li>Functions from the <strong>kableExtra</strong> package.</li>
+<li>Grolemund, G., &amp; Wickham, H. (2017). <a href="https://r4ds.had.co.nz/">R for Data Science: Visualize, model, transform, tidy, and import data</a>. **. Sebastopol, CA: O’Reilly.</li>
 </ul>
-<p>Other packages for formatting tables, among others, include the <a href="https://gt.rstudio.com/">gt package</a>, the <a href="https://hughjonesd.github.io/huxtable/">huxtable package</a>, and the <a href="https://gdemin.github.io/expss/">expss package</a>. For complete APA formatting check out the <a href="https://crsh.github.io/papaja_man/">papaja package</a>.</p>
-<p>The primary input to the <code>kable()</code> function is a data frame. This data frame will include the primary contents for you table. A data frame can either be created as the ouput of a function or directly using the <code>data.frame()</code> function. Below I will create and format a couple different common tables produced for statistical reports. To do so, I will use data from <em>ed-schools-2018.csv</em> file (see the <a href="data-codebook.html#ed-schools-2018">data codebook</a> here). These data include institutional-level attributes for several graduate education schools/programs rated by <em>U.S. News and World Report</em> in 2018.</p>
+<p>Focus on the information on mutating joins.</p>
+<p><br /></p>
+<hr />
+</div>
+<div id="dataset-and-research-question-6" class="section level2">
+<h2><span class="header-section-number">8.1</span> Dataset and Research Question</h2>
+<p>In this set of notes, we will use data from two files, the <em>netherlands-students.csv</em> file and the <em>netherlands-schools.csv</em> files (see the <a href="data-codebook.html#netherlands">data codebook</a> here). These data include student- and school-level attributes, respectively, for <span class="math inline">\(n_i=2287\)</span> 8th-grade students in the Netherlands.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries</span>
-<span class="kw">library</span>(AICcmodavg)
-<span class="kw">library</span>(corrr)
+<span class="kw">library</span>(broom)
 <span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(knitr)
-<span class="kw">library</span>(kableExtra)
+<span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(readr)
-<span class="kw">library</span>(tidyr)
+<span class="kw">library</span>(sm)
 
-<span class="co"># Read in data</span>
-ed =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/ed-schools-2018.csv&quot;</span>)
-
-<span class="co"># Drop rows with missing data</span>
-educ =<span class="st"> </span>ed <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">drop_na</span>()
-
-<span class="co"># Create log-transformed variables</span>
-educ =<span class="st"> </span>educ <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(
-    <span class="dt">Lpeer =</span> <span class="kw">log</span>(peer),
-    <span class="dt">Ldoc_accept =</span> <span class="kw">log</span>(doc_accept),
-    <span class="dt">Lenroll =</span> <span class="kw">log</span>(enroll)
-    )</code></pre>
-<div id="summary-statistics-table" class="section level2">
-<h2><span class="header-section-number">1.1</span> Summary Statistics Table</h2>
-<p>Say we wanted to produce a table of means and standard deviations for the variables: <code>peer</code>, <code>doc_accept</code>, and <code>enroll</code>. Furthermore, we want these for both the raw (untransformed) and log-transformed versions of these variables. Here is a sketch of what the table should look like:</p>
-<p>[INSERT SKETCH]</p>
-<p>To begin we will set up a data frame that includes the information from the table. We do this manually to illustrate use of the <code>data.frame()</code> function to set up a data frame.</p>
-<pre class="sourceCode r"><code class="sourceCode r">tab_<span class="dv">01</span> =<span class="st"> </span><span class="kw">data.frame</span>(
-  <span class="dt">Measure =</span> <span class="kw">c</span>(<span class="st">&quot;Peer rating&quot;</span>, <span class="st">&quot;Ph.D. acceptance rate&quot;</span>, <span class="st">&quot;Enrollment&quot;</span>),
-  <span class="dt">M_1  =</span> <span class="kw">c</span>(<span class="kw">mean</span>(educ<span class="op">$</span>peer), <span class="kw">mean</span>(educ<span class="op">$</span>doc_accept), <span class="kw">mean</span>(educ<span class="op">$</span>enroll)),
-  <span class="dt">SD_1 =</span> <span class="kw">c</span>(<span class="kw">sd</span>(educ<span class="op">$</span>peer), <span class="kw">sd</span>(educ<span class="op">$</span>doc_accept), <span class="kw">sd</span>(educ<span class="op">$</span>enroll)),
-  <span class="dt">M_2  =</span> <span class="kw">c</span>(<span class="kw">mean</span>(educ<span class="op">$</span>Lpeer), <span class="kw">mean</span>(educ<span class="op">$</span>Ldoc_accept), <span class="kw">mean</span>(educ<span class="op">$</span>Lenroll)),
-  <span class="dt">SD_2 =</span> <span class="kw">c</span>(<span class="kw">sd</span>(educ<span class="op">$</span>Lpeer), <span class="kw">sd</span>(educ<span class="op">$</span>Ldoc_accept), <span class="kw">sd</span>(educ<span class="op">$</span>Lenroll))
-)
-
-tab_<span class="dv">01</span></code></pre>
-<pre><code>                Measure        M_1        SD_1      M_2      SD_2
-1           Peer rating   3.312295   0.4893203 1.187198 0.1439847
-2 Ph.D. acceptance rate  40.113115  20.2276300 3.525419 0.6461164
-3            Enrollment 969.762295 664.9454219 6.657939 0.7228670</code></pre>
-<p>We can now use the <code>kable()</code> function to rename the columns, round the numeric values, and set a caption.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">kable</span>(
-  tab_<span class="dv">01</span>,
-  <span class="dt">col.names =</span> <span class="kw">c</span>(<span class="st">&quot;Measure&quot;</span>, <span class="st">&quot;*M*&quot;</span>, <span class="st">&quot;*SD*&quot;</span>, <span class="st">&quot;*M*&quot;</span>, <span class="st">&quot;*SD*&quot;</span>),
-  <span class="dt">digits =</span> <span class="dv">2</span>,
-  <span class="dt">caption =</span> <span class="st">&quot;Means and Standard Deviations of Three Measures of Graduate Programs of Education ($n=122$)&quot;</span>
-  )</code></pre>
-<table>
-<caption>
-<span id="tab:unnamed-chunk-11">Table 1.1: </span>Means and Standard Deviations of Three Measures of Graduate Programs of Education (<span class="math inline">\(n=122\)</span>)
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-Measure
-</th>
-<th style="text-align:right;">
-<em>M</em>
-</th>
-<th style="text-align:right;">
-<em>SD</em>
-</th>
-<th style="text-align:right;">
-<em>M</em>
-</th>
-<th style="text-align:right;">
-<em>SD</em>
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Peer rating
-</td>
-<td style="text-align:right;">
-3.31
-</td>
-<td style="text-align:right;">
-0.49
-</td>
-<td style="text-align:right;">
-1.19
-</td>
-<td style="text-align:right;">
-0.14
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Ph.D. acceptance rate
-</td>
-<td style="text-align:right;">
-40.11
-</td>
-<td style="text-align:right;">
-20.23
-</td>
-<td style="text-align:right;">
-3.53
-</td>
-<td style="text-align:right;">
-0.65
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Enrollment
-</td>
-<td style="text-align:right;">
-969.76
-</td>
-<td style="text-align:right;">
-664.95
-</td>
-<td style="text-align:right;">
-6.66
-</td>
-<td style="text-align:right;">
-0.72
-</td>
-</tr>
-</tbody>
-</table>
-<p>Finally, we use functions from the <strong>kableExtra</strong> package to add our top header row.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">kable</span>(
-  tab_<span class="dv">01</span>,
-  <span class="dt">col.names =</span> <span class="kw">c</span>(<span class="st">&quot;Measure&quot;</span>, <span class="st">&quot;*M*&quot;</span>, <span class="st">&quot;*SD*&quot;</span>, <span class="st">&quot;*M*&quot;</span>, <span class="st">&quot;*SD*&quot;</span>),
-  <span class="dt">align =</span> <span class="kw">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>),
-  <span class="dt">digits =</span> <span class="dv">2</span>,
-  <span class="dt">caption =</span> <span class="st">&quot;Means and Standard Deviations of Three Measures of Graduate Programs of Education ($n=122$)&quot;</span>
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">add_header_above</span>(
-    <span class="dt">header =</span> <span class="kw">c</span>(<span class="st">&quot; &quot;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;Untransformed&quot;</span> =<span class="st"> </span><span class="dv">2</span>, <span class="st">&quot;Log-transformed&quot;</span> =<span class="st"> </span><span class="dv">2</span>)
-    ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">footnote</span>(
-    <span class="dt">general =</span> <span class="st">&quot;Variables were log-transformed using the natural logarithm.&quot;</span>,
-    <span class="dt">general_title =</span> <span class="st">&quot;Note.&quot;</span>,
-    <span class="dt">footnote_as_chunk =</span> <span class="ot">TRUE</span>
-    )</code></pre>
-<table>
-<caption>
-<span id="tab:unnamed-chunk-12">Table 1.2: </span>Means and Standard Deviations of Three Measures of Graduate Programs of Education (<span class="math inline">\(n=122\)</span>)
-</caption>
-<thead>
-<tr>
-<th style="border-bottom:hidden" colspan="1">
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Untransformed
+<span class="co"># Read in student-level data</span>
+student_data =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/netherlands-students.csv&quot;</span>)
+<span class="kw">head</span>(student_data)</code></pre>
+<pre><code># A tibble: 6 x 8
+  student_id school_id language_pre language_post   ses verbal_iq female
+       &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+1      17001         1           36            46    23     3.17       0
+2      17002         1           36            45    10     2.67       0
+3      17003         1           33            33    15    -2.33       0
+4      17004         1           29            46    23    -0.834      0
+5      17005         1           19            20    10    -3.83       0
+6      17006         1           22            30    10    -2.33       0
+# … with 1 more variable: minority &lt;dbl&gt;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read in school-level data</span>
+school_data =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/netherlands-schools.csv&quot;</span>)
+<span class="kw">head</span>(school_data)</code></pre>
+<pre><code># A tibble: 6 x 5
+  school_id school_type school_ses school_verbal_iq school_minority
+      &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;
+1         1 Public              11           -1.51               60
+2         2 Public              11           -2.83               10
+3        10 Public              15           -1.33                4
+4        12 Public              20           -2.40                5
+5        15 Catholic            18           -0.334              25
+6        16 Protestant          13           -0.147               0</code></pre>
+<p>We will use these data to explore the question of whether verbal IQ scores predict variation in post-test language scores.</p>
 </div>
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Log-transformed
+<div id="join-the-student--and-classroom-level-data" class="section level2">
+<h2><span class="header-section-number">8.2</span> Join the Student- and Classroom-Level Data</h2>
+<p>Before analyzing the data, we need to join, or merge, the two datasets together. To do this, we will use the <code>left_join()</code> function from the <strong>dplyr</strong> package. <strong>dplyr</strong> includes six different join functions. You can read about several different join functions <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html">here</a>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">joined_data =<span class="st"> </span><span class="kw">left_join</span>(student_data, school_data, <span class="dt">by =</span> <span class="st">&quot;school_id&quot;</span>)
+<span class="kw">head</span>(joined_data)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["student_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["school_id"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["language_pre"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["language_post"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["ses"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["verbal_iq"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["female"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["minority"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["school_type"],"name":[9],"type":["chr"],"align":["left"]},{"label":["school_ses"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["school_verbal_iq"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["school_minority"],"name":[12],"type":["dbl"],"align":["right"]}],"data":[{"1":"17001","2":"1","3":"36","4":"46","5":"23","6":"3.1659","7":"0","8":"0","9":"Public","10":"11","11":"-1.514","12":"60"},{"1":"17002","2":"1","3":"36","4":"45","5":"10","6":"2.6659","7":"0","8":"1","9":"Public","10":"11","11":"-1.514","12":"60"},{"1":"17003","2":"1","3":"33","4":"33","5":"15","6":"-2.3341","7":"0","8":"0","9":"Public","10":"11","11":"-1.514","12":"60"},{"1":"17004","2":"1","3":"29","4":"46","5":"23","6":"-0.8341","7":"0","8":"0","9":"Public","10":"11","11":"-1.514","12":"60"},{"1":"17005","2":"1","3":"19","4":"20","5":"10","6":"-3.8341","7":"0","8":"0","9":"Public","10":"11","11":"-1.514","12":"60"},{"1":"17006","2":"1","3":"22","4":"30","5":"10","6":"-2.3341","7":"0","8":"1","9":"Public","10":"11","11":"-1.514","12":"60"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
-</th>
-</tr>
-<tr>
-<th style="text-align:left;">
-Measure
-</th>
-<th style="text-align:center;">
-<em>M</em>
-</th>
-<th style="text-align:center;">
-<em>SD</em>
-</th>
-<th style="text-align:center;">
-<em>M</em>
-</th>
-<th style="text-align:center;">
-<em>SD</em>
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Peer rating
-</td>
-<td style="text-align:center;">
-3.31
-</td>
-<td style="text-align:center;">
-0.49
-</td>
-<td style="text-align:center;">
-1.19
-</td>
-<td style="text-align:center;">
-0.14
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Ph.D. acceptance rate
-</td>
-<td style="text-align:center;">
-40.11
-</td>
-<td style="text-align:center;">
-20.23
-</td>
-<td style="text-align:center;">
-3.53
-</td>
-<td style="text-align:center;">
-0.65
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Enrollment
-</td>
-<td style="text-align:center;">
-969.76
-</td>
-<td style="text-align:center;">
-664.95
-</td>
-<td style="text-align:center;">
-6.66
-</td>
-<td style="text-align:center;">
-0.72
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<span style="font-style: italic;">Note.</span> <sup></sup> Variables were log-transformed using the natural logarithm.
-</td>
-</tr>
-</tfoot>
-</table>
 </div>
-<div id="correlation-table" class="section level2">
-<h2><span class="header-section-number">1.2</span> Correlation Table</h2>
-<p>For our second example, say we wanted to produce a table of pairwise correlations for the variables: <code>peer</code>, <code>doc_accept</code>, and <code>enroll</code>. To begin we will again set up a data frame, but this time we will generate it using functions from the <strong>corrr</strong> package.</p>
-<pre class="sourceCode r"><code class="sourceCode r">tab_<span class="dv">02</span> =<span class="st"> </span>educ <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(peer, doc_accept, enroll) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">correlate</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">shave</span>(<span class="dt">upper =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">fashion</span>(<span class="dt">decimals =</span> <span class="dv">2</span>, <span class="dt">na_print =</span> <span class="st">&quot;—&quot;</span>) 
+<div id="fixed-effects-regression-model" class="section level2">
+<h2><span class="header-section-number">8.3</span> Fixed-Effects Regression Model</h2>
+<p>To examine the research question of whether verbal IQ scores predict variation in post-test language scores, we might regress language scores on the verbal IQ scores using the <code>lm()</code> function. The <code>lm()</code> function fits a <em>fixed-effects regression model</em>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lm</span>(language_post <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>verbal_iq, <span class="dt">data =</span> joined_data)
 
-tab_<span class="dv">02</span></code></pre>
-<pre><code>     rowname peer doc_accept enroll
-1       peer    —          —      —
-2 doc_accept -.54          —      —
-3     enroll  .10       -.03      —</code></pre>
-<p>Now we change the values in the <code>rownames</code> column by mutating in new values, and pipe this into the <code>kable()</code> function, where we will change the column name and add a caption. Keeping the default alignment will align the decimal points within columns.</p>
-<pre class="sourceCode r"><code class="sourceCode r">tab_<span class="dv">02</span> <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(
-    <span class="dt">rowname =</span> <span class="kw">c</span>(<span class="st">&quot;1. Peer rating&quot;</span>, <span class="st">&quot;2. Ph.D. acceptance rate&quot;</span>, <span class="st">&quot;3. Enrollment&quot;</span>)
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">kable</span>(
-    <span class="dt">caption =</span> <span class="st">&quot;Correlations between Three Measures of Graduate Programs of Education&quot;</span>,
-    <span class="dt">col.names =</span> <span class="kw">c</span>(<span class="st">&quot;Measure&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>)
-  )</code></pre>
-<table>
-<caption>
-<span id="tab:unnamed-chunk-15">Table 1.3: </span>Correlations between Three Measures of Graduate Programs of Education
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-Measure
-</th>
-<th style="text-align:left;">
-1
-</th>
-<th style="text-align:left;">
-2
-</th>
-<th style="text-align:left;">
-3
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-<ol style="list-style-type: decimal">
-<li>Peer rating
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
-—
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<ol start="2" style="list-style-type: decimal">
-<li>Ph.D. acceptance rate
-</td>
-<td style="text-align:left;">
--.54
-</td>
-<td style="text-align:left;">
-—
-</td>
-<td style="text-align:left;">
-—
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<ol start="3" style="list-style-type: decimal">
-<li>Enrollment
-</td>
-<td style="text-align:left;">
-.10
-</td>
-<td style="text-align:left;">
--.03
-</td>
-<td style="text-align:left;">
-—
-</td>
-</tr>
-</tbody>
-</table></li>
-</ol></li>
-</ol></li>
-</ol>
+<span class="co"># Model-level output</span>
+<span class="kw">glance</span>(lm<span class="fl">.1</span>)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.3719","2":"0.3716","3":"7.137","4":"1353","5":"5.021e-233","6":"2","7":"-7739","8":"15484","9":"15501","10":"116402","11":"2285"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
-<div id="regression-table" class="section level2">
-<h2><span class="header-section-number">1.3</span> Regression Table</h2>
-<p>There are several specific packages that help us create tables of regression results. The <a href="https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf">Stargazer package</a>, the <a href="https://cran.r-project.org/web/packages/texreg/vignettes/texreg.pdf">texreg package</a> and the <a href="http://www.datasurg.net/2018/05/16/elegant-regression-results-tables-and-plots-the-finalfit-package/">finalfit package</a> are but a few of these.</p>
-<p>I tend to use both the <strong>texreg</strong> package (more customizable) and the <strong>stargazer</strong> package (easier). Below I illustrate how to create a table of regression results using the <strong>stargazer</strong> package. First we fit a few models.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit candidate models</span>
-lm<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>doc_accept, <span class="dt">data =</span> educ)
-lm<span class="fl">.2</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>enroll, <span class="dt">data =</span> educ)
-lm<span class="fl">.3</span> =<span class="st"> </span><span class="kw">lm</span>(peer <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>doc_accept <span class="op">+</span><span class="st"> </span>enroll, <span class="dt">data =</span> educ)</code></pre>
-<p>After loading the <strong>stagazer</strong> package, the <code>stargazer()</code> function can be used to create a basic table of regression results. The <code>type=</code> argument defaults to <code>latex</code>, so if you are rendering to an HTML document, you need to change this to <code>type="html"</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stargazer)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Coefficient-level output</span>
+<span class="kw">tidy</span>(lm<span class="fl">.1</span>)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"40.935","3":"0.14925","4":"274.28","5":"0.000e+00"},{"1":"verbal_iq","2":"2.654","3":"0.07215","4":"36.78","5":"5.021e-233"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>The model-level summary information suggests that differences in verbal IQ scores explains 37.2% of the variation in post-test language scores, <span class="math inline">\(F(1,2285)=1352.84\)</span>, <span class="math inline">\(p&lt;0.001\)</span>. The estimated intercept suggests that the average predicted post-test language scores for students with a mean verbal IQ score (= 0) is 40.93 (<span class="math inline">\(p&lt;.001\)</span>). The estimated slope indicates that each one-point difference in verbal IQ score is associated with a difference in post-test language scores of <span class="math inline">\(2.65\)</span>, on average (<span class="math inline">\(p&lt;.001\)</span>). To have faith in the analytic results from this model, we need to evaluate whether the assumptions are satisfied.</p>
+<div id="residual-analysis" class="section level3">
+<h3><span class="header-section-number">8.3.1</span> Residual Analysis</h3>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain the fortified data frame</span>
+out =<span class="st"> </span><span class="kw">augment</span>(lm<span class="fl">.1</span>)
+<span class="kw">head</span>(out)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["language_post"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["verbal_iq"],"name":[2],"type":["dbl"],"align":["right"]},{"label":[".fitted"],"name":[3],"type":["dbl"],"align":["right"]},{"label":[".se.fit"],"name":[4],"type":["dbl"],"align":["right"]},{"label":[".resid"],"name":[5],"type":["dbl"],"align":["right"]},{"label":[".hat"],"name":[6],"type":["dbl"],"align":["right"]},{"label":[".sigma"],"name":[7],"type":["dbl"],"align":["right"]},{"label":[".cooksd"],"name":[8],"type":["dbl"],"align":["right"]},{"label":[".std.resid"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"46","2":"3.1659","3":"49.34","4":"0.2729","5":"-3.337","6":"0.0014616","7":"7.139","8":"0.00016021","9":"-0.4679"},{"1":"45","2":"2.6659","3":"48.01","4":"0.2435","5":"-3.010","6":"0.0011636","7":"7.139","8":"0.00010371","9":"-0.4220"},{"1":"33","2":"-2.3341","3":"34.74","4":"0.2250","5":"-1.740","6":"0.0009940","7":"7.139","8":"0.00002961","9":"-0.2440"},{"1":"46","2":"-0.8341","3":"38.72","4":"0.1609","5":"7.279","6":"0.0005084","7":"7.137","8":"0.00026461","9":"1.0201"},{"1":"20","2":"-3.8341","3":"30.76","4":"0.3143","5":"-10.760","6":"0.0019396","7":"7.135","8":"0.00221254","9":"-1.5090"},{"1":"30","2":"-2.3341","3":"34.74","4":"0.2250","5":"-4.740","6":"0.0009940","7":"7.138","8":"0.00021969","9":"-0.6645"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Normality</span>
+<span class="kw">sm.density</span>(out<span class="op">$</span>.std.resid, <span class="dt">model =</span> <span class="st">&quot;normal&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Standardized residuals&quot;</span>)
 
-<span class="kw">stargazer</span>(lm<span class="fl">.1</span>, lm<span class="fl">.2</span>, lm<span class="fl">.3</span>, <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</code></pre>
-<pre><code>
-&lt;table style=&quot;text-align:center&quot;&gt;&lt;tr&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td colspan=&quot;3&quot;&gt;&lt;em&gt;Dependent variable:&lt;/em&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td colspan=&quot;3&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td colspan=&quot;3&quot;&gt;peer&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;doc_accept&lt;/td&gt;&lt;td&gt;-0.013&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-0.013&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(0.002)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.002)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;enroll&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.0001&lt;/td&gt;&lt;td&gt;0.0001&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.0001)&lt;/td&gt;&lt;td&gt;(0.0001)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Constant&lt;/td&gt;&lt;td&gt;3.836&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;3.238&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;3.769&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(0.083)&lt;/td&gt;&lt;td&gt;(0.078)&lt;/td&gt;&lt;td&gt;(0.101)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Observations&lt;/td&gt;&lt;td&gt;122&lt;/td&gt;&lt;td&gt;122&lt;/td&gt;&lt;td&gt;122&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.292&lt;/td&gt;&lt;td&gt;0.011&lt;/td&gt;&lt;td&gt;0.300&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.286&lt;/td&gt;&lt;td&gt;0.003&lt;/td&gt;&lt;td&gt;0.288&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;0.414 (df = 120)&lt;/td&gt;&lt;td&gt;0.489 (df = 120)&lt;/td&gt;&lt;td&gt;0.413 (df = 119)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;F Statistic&lt;/td&gt;&lt;td&gt;49.400&lt;sup&gt;***&lt;/sup&gt; (df = 1; 120)&lt;/td&gt;&lt;td&gt;1.328 (df = 1; 120)&lt;/td&gt;&lt;td&gt;25.490&lt;sup&gt;***&lt;/sup&gt; (df = 2; 119)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan=&quot;3&quot; style=&quot;text-align:right&quot;&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;</code></pre>
-<p>The function outputs raw HTML (or LaTeX), so to get it to form into a table you need to include <code>results='asis'</code> in your Rmarkdown chunk.</p>
-<pre><code>```{r message=FALSE, results=&#39;asis&#39;} 
-library(stargazer)
+<span class="co"># All other assumptions</span>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> out, <span class="kw">aes</span>(<span class="dt">x =</span> .fitted, <span class="dt">y =</span> .std.resid)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-196"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-196-1.png" alt="Density plot of the standardized residuals and scatterplot of the standardized residuals versus the fitted values from the fixed-effects regression model." width="50%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-196-2.png" alt="Density plot of the standardized residuals and scatterplot of the standardized residuals versus the fitted values from the fixed-effects regression model." width="50%" />
+<p class="caption">
+Figure 8.1: Density plot of the standardized residuals and scatterplot of the standardized residuals versus the fitted values from the fixed-effects regression model.
+</p>
+</div>
+<p>The assumption that the mean residual is 0 seems reasonably satisfied, however those of normality and homoscedasticity seem less feasible, especially given the large sample size. More importantly, the assumption of independence (which we don’t evaluate from the common residual plots) is probably not tenable. Students’ post-test language scores (and thus the residuals) are probably correlated within schools—this is a violation of independence which assumes that the correlation between student’s residuals is 0. If we have a variable that identifies classroom, we can actually examine this by plotting the residuals separately for each classroom.</p>
+<p>In our case, we do have a variable that identifies classroom (<code>school_id</code>). We need to mutate this variable into the augmented dataset. This variable has 131 different levels, which means that we would be looking at 131 different residual plots. When we use <code>facet_wrap()</code> with that many levels each plot will be too small to see, so we will instead select a random sample of, say, 25 of the classrooms to evaluate.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make random sample reproducible</span>
+<span class="kw">set.seed</span>(<span class="dv">100</span>)
 
-stargazer(lm.1, lm.2, lm.3, type = &quot;html&quot;)
-```</code></pre>
-<table style="text-align:center">
-<tr>
-<td colspan="4" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="3">
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="3">
-peer
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(1)
-</td>
-<td>
-(2)
-</td>
-<td>
-(3)
-</td>
-</tr>
-<tr>
-<td colspan="4" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-doc_accept
-</td>
-<td>
--0.013<sup>***</sup>
-</td>
-<td>
-</td>
-<td>
--0.013<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.002)
-</td>
-<td>
-</td>
-<td>
-(0.002)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-enroll
-</td>
-<td>
-</td>
-<td>
-0.0001
-</td>
-<td>
-0.0001
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-(0.0001)
-</td>
-<td>
-(0.0001)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-3.836<sup>***</sup>
-</td>
-<td>
-3.238<sup>***</sup>
-</td>
-<td>
-3.769<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.083)
-</td>
-<td>
-(0.078)
-</td>
-<td>
-(0.101)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="4" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-122
-</td>
-<td>
-122
-</td>
-<td>
-122
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.292
-</td>
-<td>
-0.011
-</td>
-<td>
-0.300
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.286
-</td>
-<td>
-0.003
-</td>
-<td>
-0.288
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Residual Std. Error
-</td>
-<td>
-0.414 (df = 120)
-</td>
-<td>
-0.489 (df = 120)
-</td>
-<td>
-0.413 (df = 119)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-49.400<sup>***</sup> (df = 1; 120)
-</td>
-<td>
-1.328 (df = 1; 120)
-</td>
-<td>
-25.490<sup>***</sup> (df = 2; 119)
-</td>
-</tr>
-<tr>
-<td colspan="4" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td colspan="3" style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
-</td>
-</tr>
-</table>
-<p>There are several arguments in the <code>stargazer()</code> function to customize the table.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stargazer</span>(
-  lm<span class="fl">.1</span>, lm<span class="fl">.2</span>, lm<span class="fl">.3</span>, 
-  <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>,
-  <span class="dt">title =</span> <span class="st">&quot;Three Regression Models Predicting Variation in Peer Ratings&quot;</span>,
-  <span class="dt">column.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Model A&quot;</span>, <span class="st">&quot;Model B&quot;</span>, <span class="st">&quot;Model C&quot;</span>),
-  <span class="dt">colnames =</span> <span class="ot">FALSE</span>,
-  <span class="dt">model.numbers =</span> <span class="ot">FALSE</span>,
-  <span class="dt">dep.var.caption =</span> <span class="st">&quot; &quot;</span>,
-  <span class="dt">dep.var.labels =</span> <span class="st">&quot;Peer rating (1-5 scale)&quot;</span>,
-  <span class="dt">covariate.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Ph.D. acceptance rate&quot;</span>, <span class="st">&quot;Enrollment&quot;</span>),
-  <span class="dt">keep.stat =</span> <span class="kw">c</span>(<span class="st">&quot;rsq&quot;</span>, <span class="st">&quot;f&quot;</span>),
-  <span class="dt">notes.align =</span> <span class="st">&quot;l&quot;</span>,
-  <span class="dt">add.lines =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;Corrected AIC&quot;</span>, <span class="kw">round</span>(<span class="kw">AICc</span>(lm<span class="fl">.1</span>), <span class="dv">1</span>), <span class="kw">round</span>(<span class="kw">AICc</span>(lm<span class="fl">.2</span>), <span class="dv">1</span>), <span class="kw">round</span>(<span class="kw">AICc</span>(lm<span class="fl">.3</span>), <span class="dv">1</span>))),
-  <span class="dt">out =</span> <span class="st">&quot;images/table1.html&quot;</span>
-  )</code></pre>
+<span class="co"># Draw random sample of 25 schools without replacement</span>
+my_sample =<span class="st"> </span><span class="kw">sample</span>(school_data<span class="op">$</span>school_id, <span class="dt">size =</span> <span class="dv">25</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)
 
-<table style="text-align:center"><caption><strong>Three Regression Models Predicting Variation in Peer Ratings</strong></caption>
-<tr><td colspan="4" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"></td><td colspan="3"></td></tr>
-<tr><td></td><td colspan="3" style="border-bottom: 1px solid black"></td></tr>
-<tr><td style="text-align:left"></td><td colspan="3">Peer rating (1-5 scale)</td></tr>
-<tr><td style="text-align:left"></td><td>Model A</td><td>Model B</td><td>Model C</td></tr>
-<tr><td colspan="4" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Ph.D. acceptance rate</td><td>-0.013<sup>***</sup></td><td></td><td>-0.013<sup>***</sup></td></tr>
-<tr><td style="text-align:left"></td><td>(0.002)</td><td></td><td>(0.002)</td></tr>
-<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
-<tr><td style="text-align:left">Enrollment</td><td></td><td>0.0001</td><td>0.0001</td></tr>
-<tr><td style="text-align:left"></td><td></td><td>(0.0001)</td><td>(0.0001)</td></tr>
-<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
-<tr><td style="text-align:left">Constant</td><td>3.836<sup>***</sup></td><td>3.238<sup>***</sup></td><td>3.769<sup>***</sup></td></tr>
-<tr><td style="text-align:left"></td><td>(0.083)</td><td>(0.078)</td><td>(0.101)</td></tr>
-<tr><td style="text-align:left"></td><td></td><td></td><td></td></tr>
-<tr><td colspan="4" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Corrected AIC</td><td>135</td><td>175.7</td><td>135.7</td></tr>
-<tr><td style="text-align:left">R<sup>2</sup></td><td>0.292</td><td>0.011</td><td>0.300</td></tr>
-<tr><td style="text-align:left">F Statistic</td><td>49.400<sup>***</sup> (df = 1; 120)</td><td>1.328 (df = 1; 120)</td><td>25.490<sup>***</sup> (df = 2; 119)</td></tr>
-<tr><td colspan="4" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"><em>Note:</em></td><td colspan="3" style="text-align:left"><sup>*</sup>p<0.1; <sup>**</sup>p<0.05; <sup>***</sup>p<0.01</td></tr>
-</table>
-<p>There is a known bug with the stargazer table not printing the asterisks next to the significance values in the notes section of the table when outputting to HTML. The solution as <a href="https://stackoverflow.com/questions/51883610/p-values-significance-not-showed-in-stargazer-html-regression-table">documented here</a> is to output the html code to an external file using the <code>out=</code> argument in <code>stargazer()</code> and then inserting that html code in a new code chunk via the <code>includeHTML()</code> function from the <strong>htmltools</strong> package.</p>
-<p>The <code>add.lines=</code> argument adds a line to the bottom of the output. This argument takes a list that includes the name you want to output in the regression table and then the value to output for each of the models. Here we computed the corrected AIC value using the <code>AICc()</code> function from the <strong>AICmodavg</strong> package for each of the models. (Note: We will learn about this in the <a href="moreinfocrit.html#moreinfocrit">More Information Criteria for Model Selection unit</a>.)</p>
+<span class="co"># Mutate on school ID and draw random sample</span>
+out =<span class="st"> </span>out <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">school_id =</span> joined_data<span class="op">$</span>school_id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(school_id <span class="op">%in%</span><span class="st"> </span>my_sample)
+
+<span class="co">### Show residuals by school</span>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> out, <span class="kw">aes</span>(<span class="dt">x =</span> .fitted, <span class="dt">y =</span> .std.resid)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Studentized residuals&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>school_id, <span class="dt">nrow =</span> <span class="dv">5</span>)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-197"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-197-1.png" alt="Scatterplots of the standardized residuals versus the fitted values from the fixed-effects regression model stratified by team." width="90%" />
+<p class="caption">
+Figure 8.2: Scatterplots of the standardized residuals versus the fitted values from the fixed-effects regression model stratified by team.
+</p>
+</div>
+<p>The residuals for several of the schools show a systematic trends of being primarily positive or negative within schools. For example, the residuals for several schools (e.g., 47, 256 258) are primarily negative. This is a sign of non-independence of the residuals. If we hadn’t had the school ID variable we could have still made a logical argument about this non-independence via substantive knowledge. For example, students who attend a “high performing” will likely tend to have positive residuals (scores above average relative to the population), even after accounting for their verbal IQ scores.</p>
+<p>To account for this within-school correlation we need to use a statistical model that accounts for the correlation among the residuals within schools. This is what <em>mixed-effects models</em> bring to the table. By correctly modeling the non-independence, we get more accurate standard errors and <em>p</em>-values.</p>
+<p>Another benefit of using mixed-effects models is that we also get estimates of the variation accounted for at both the school- and student-levels. This disaggregating of the variation allows us to see which level is explaining more variation and to study predictors appropriate to explaining that variation. For example, suppose that you disaggregated the variation in language scores and found that:</p>
+<ul>
+<li>96% of the variation in these scores was at the student-level, and</li>
+<li>3% of the variation in these scores was at the classroom-level, and</li>
+<li>1% of the variation in these scores was at the school-level.</li>
+</ul>
+<p>By including school-level or classroom-level predictors in the model, you would only be “chipping away” at that 1% or 3%, respectively. You should focus your attention and resources on student-level predictors!</p>
+</div>
+</div>
+<div id="conceptual-idea-of-mixed-effects-models" class="section level2">
+<h2><span class="header-section-number">8.4</span> Conceptual Idea of Mixed-Effects Models</h2>
+<p>In this section we will outline the conceptual ideas behind mixed-effects models by linking the ideas behind these models to the conventional, fixed-effects regression model. <em>It is important to realize that this is just conceptual in nature. Its purpose is only to help you understand the output you get from a mixed-effects model analysis.</em></p>
+<p>To begin, we remind you of the fitted equation we obtained earlier from the fixed-effects regression:</p>
+<p><span class="math display">\[
+\hat{\mathrm{Language~Score}_i} = 34.19 + 2.04(\mathrm{Verbal~IQ}_i)
+\]</span></p>
+<p>Mixed-effects regression actually fits a global model (like the one above) AND a school-specific model for each school. Conceptually, this is like fitting a regression model for each school separately. Below I show the results (for 5 of the schools) of fitting a different regression model to each school, but keep in mind that this is only to help you understand.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit school models</span>
+school_models =<span class="st"> </span>joined_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(school_id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">do</span>(<span class="dt">mod =</span> <span class="kw">lm</span>(language_post  <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>verbal_iq, <span class="dt">data =</span> .)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidy</span>(mod) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(., <span class="dv">10</span>)
+
+<span class="co"># View coefficients from fitted models</span>
+school_models</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["school_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"(Intercept)","3":"39.789","4":"1.5831","5":"25.133","6":"3.155e-18"},{"1":"1","2":"verbal_iq","3":"2.238","4":"0.5408","5":"4.139","6":"3.979e-04"},{"1":"2","2":"(Intercept)","3":"27.350","4":"4.1790","5":"6.545","6":"1.247e-03"},{"1":"2","2":"verbal_iq","3":"1.283","4":"1.2156","5":"1.055","6":"3.395e-01"},{"1":"10","2":"(Intercept)","3":"38.087","4":"2.8208","5":"13.502","6":"8.786e-04"},{"1":"10","2":"verbal_iq","3":"5.762","4":"1.4321","5":"4.023","6":"2.758e-02"},{"1":"12","2":"(Intercept)","3":"36.106","4":"3.8181","5":"9.456","6":"3.428e-07"},{"1":"12","2":"verbal_iq","3":"2.182","4":"1.4204","5":"1.536","6":"1.484e-01"},{"1":"15","2":"(Intercept)","3":"32.114","4":"3.8494","5":"8.343","6":"1.611e-04"},{"1":"15","2":"verbal_iq","3":"3.709","4":"1.7131","5":"2.165","6":"7.357e-02"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>As an example, let’s focus on the fitted model for School 1.</p>
+<p><span class="math display">\[
+\hat{\mathrm{Language~Score}_i} = 39.79 + 2.24(\mathrm{Verbal~IQ}_i)
+\]</span></p>
+<p>Comparing this school-specific model to the global model, we find that School 1’s intercept is higher than the intercept from the global model (by 5.65) and it’s slope is also higher than the slope from the global model (by 0.20). We can actually re-write the school-specific model using these ideas:</p>
+<p><span class="math display">\[
+\hat{\mathrm{Language~Score}_i} = \bigg[34.19 + 5.65\bigg] + \bigg[2.04 + 0.20\bigg](\mathrm{Verbal~IQ}_i)
+\]</span></p>
+<p>In the language of mixed-effects modeling:</p>
+<ul>
+<li>The global intercept and slope are referred to as <em>fixed-effects</em>. (These are also sometimes referred to as <em>between-groups</em> effects.)
+<ul>
+<li>The fixed-effect of intercept is <span class="math inline">\(34.19\)</span>; and</li>
+<li>The fixed effect of the slope is <span class="math inline">\(2.04\)</span>.</li>
+</ul></li>
+<li>The school-specific deviations from the fixed-effect values are referred to as <em>random-effects</em>. (These are also sometimes referred to as <em>within-groups</em> effects.)
+<ul>
+<li>The random-effect of the intercept for School 1 is <span class="math inline">\(+5.65\)</span>; and</li>
+<li>The random-effect of the slope for School 1 is <span class="math inline">\(+0.20\)</span>.</li>
+</ul></li>
+</ul>
+<p>Note, each school could potentially have a different random-effect for intercept and slope. For example, writing the team-specific fitted equation for School 2 in this manner,</p>
+<p><span class="math display">\[
+\begin{split}
+\hat{\mathrm{Language~Score}_i} &amp;= 27.35 + 1.28(\mathrm{Verbal~IQ}_i)\\
+ &amp;= \bigg[34.19 - 6.84\bigg] + \bigg[2.04 - 0.76\bigg](\mathrm{Verbal~IQ}_i).\\
+\end{split}
+\]</span></p>
+<p>In this model:</p>
+<ul>
+<li>The fixed-effects (global effects) are the same as they were for School 1.
+<ul>
+<li>The fixed-effect of intercept is <span class="math inline">\(34.19\)</span>; and</li>
+<li>The fixed effect of the slope is <span class="math inline">\(2.04\)</span>.</li>
+</ul></li>
+<li>The random-effect of intercept for School 2 is <span class="math inline">\(-6.84\)</span>.</li>
+<li>The random-effect of slope for School 2 is <span class="math inline">\(-0.76\)</span>.</li>
+</ul>
 
 </div>
 </div>
@@ -983,8 +532,8 @@ F Statistic
           </div>
         </div>
       </div>
-<a href="rmarkdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="nonlinearity-log-transforming-the-predictor.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="moreinfocrit.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="intro-lmer-fitting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

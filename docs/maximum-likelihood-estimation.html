@@ -25,7 +25,7 @@
 <meta name="author" content="Andrew Zieffler">
 
 
-<meta name="date" content="2019-01-09">
+<meta name="date" content="2019-01-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -54,44 +54,71 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="print.css" type="text/css" />
 </head>
 
 <body>
@@ -145,7 +172,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.8" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#including-covariates"><i class="fa fa-check"></i><b>2.8</b> Including Covariates</a><ul>
 <li class="chapter" data-level="2.8.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#plot-of-the-model-results"><i class="fa fa-check"></i><b>2.8.1</b> Plot of the Model Results</a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#polynomial-effects-vs.log-transformations"><i class="fa fa-check"></i><b>2.9</b> Polynomial Effects vs. Log-Transformations</a></li>
+<li class="chapter" data-level="2.9" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#polynomial-effects-vs.-log-transformations"><i class="fa fa-check"></i><b>2.9</b> Polynomial Effects vs. Log-Transformations</a></li>
 <li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#other-resources-1"><i class="fa fa-check"></i>Other Resources</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html"><i class="fa fa-check"></i><b>3</b> Nonlinearity: Log-Transforming the Outcome</a><ul>
@@ -241,12 +268,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.8" data-path="moreinfocrit.html"><a href="moreinfocrit.html#pretty-printing-tables-of-model-evidence"><i class="fa fa-check"></i><b>7.8</b> Pretty Printing Tables of Model Evidence</a></li>
 <li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#other-resources-2"><i class="fa fa-check"></i>Other Resources</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html"><i class="fa fa-check"></i><b>8</b> Introduction to Mixed-Effects Models: Conceptual Ideas</a><ul>
+<li class="chapter" data-level="" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#preparation-7"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="8.1" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#dataset-and-research-question-6"><i class="fa fa-check"></i><b>8.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#join-the-student--and-classroom-level-data"><i class="fa fa-check"></i><b>8.2</b> Join the Student- and Classroom-Level Data</a></li>
+<li class="chapter" data-level="8.3" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#fixed-effects-regression-model"><i class="fa fa-check"></i><b>8.3</b> Fixed-Effects Regression Model</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#residual-analysis"><i class="fa fa-check"></i><b>8.3.1</b> Residual Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#conceptual-idea-of-mixed-effects-models"><i class="fa fa-check"></i><b>8.4</b> Conceptual Idea of Mixed-Effects Models</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html"><i class="fa fa-check"></i><b>9</b> Fitting and Interpreting Mixed-Effects Models</a><ul>
+<li class="chapter" data-level="" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#preparation-8"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="9.1" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#dataset-and-research-question-7"><i class="fa fa-check"></i><b>9.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#fitting-the-mixed-effects-regression-model-in-practice"><i class="fa fa-check"></i><b>9.2</b> Fitting the Mixed-Effects Regression Model in Practice</a></li>
+<li class="chapter" data-level="9.3" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#example-2-life-satisfaction-of-nba-players"><i class="fa fa-check"></i><b>9.3</b> Example 2: Life Satisfaction of NBA Players</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#fit-the-mixed-effects-model"><i class="fa fa-check"></i><b>9.3.1</b> Fit the Mixed-Effects Model</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools-2018"><i class="fa fa-check"></i>ed-schools-2018.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#evaluations"><i class="fa fa-check"></i>evaluations.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#fci-2018"><i class="fa fa-check"></i>fci-2015.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#mn-schools"><i class="fa fa-check"></i>mn-schools.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#movies"><i class="fa fa-check"></i>movies.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#nba"><i class="fa fa-check"></i>nba-player-data.csv and nba-team-data.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#netherlands"><i class="fa fa-check"></i>netherlands-students.csv and netherlands-schools.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#popular"><i class="fa fa-check"></i>popular-classroom.csv and popular-student.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#riverview"><i class="fa fa-check"></i>riverview.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#wine"><i class="fa fa-check"></i>wine.csv</a></li>
 </ul></li>
@@ -288,13 +335,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="dataset-and-research-question-3" class="section level2">
 <h2><span class="header-section-number">5.1</span> Dataset and Research Question</h2>
 <p>In this set of notes, we will not be using a specific dataset.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries</span>
 <span class="kw">library</span>(broom)
 <span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(readr)
 <span class="kw">library</span>(sm)
-<span class="kw">library</span>(tidyr)</code></pre></div>
+<span class="kw">library</span>(tidyr)</code></pre>
 </div>
 <div id="joint-probability-density" class="section level2">
 <h2><span class="header-section-number">5.2</span> Joint Probability Density</h2>
@@ -304,10 +351,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots \times p(x_k)
 \]</span></p>
 <p>Say we had three independent observations from our <span class="math inline">\(\sim\mathcal{N}(50,10)\)</span> distribution, namely <span class="math inline">\(x =\{60, 65, 67\}\)</span>. Then the joint density would be,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="dv">60</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="dv">65</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="dv">67</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="dv">60</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="dv">65</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="dv">67</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>)</code></pre>
 <pre><code>[1] 0.000002947</code></pre>
 <p>We could also shortcut this computation,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prod</span>(<span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">67</span>), <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prod</span>(<span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">67</span>), <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>))</code></pre>
 <pre><code>[1] 0.000002947</code></pre>
 <p>This value is the joint probability density. The joint probability density indicates the probability of observing the data (<span class="math inline">\(x =\{60, 65, 67\}\)</span>) GIVEN (1) they are drawn from a normal distribution and (2) the normal distribution has a mean of 50 and a standard deviation of 10. In other words:</p>
 <blockquote>
@@ -330,10 +377,10 @@ p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots
 \]</span></p>
 <p>Note that although we need to specify the distribution (e.g., normal), this is typically not included in the symbolic notation; instead it is typically included in the assumptions.</p>
 <p>The likelihood allows us to answer probability questions about a set of parameters. For example, what is the likelihood (probability) that the data (<span class="math inline">\(x = \{30, 20, 24, 27\}\)</span>) were generated from a normal distribution with a mean of 20 and standard deviation of 4? To compute the likelihood we compute the joint probability density of the data under that particular set of parameters.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prod</span>(<span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>), <span class="dt">mean =</span> <span class="dv">20</span>, <span class="dt">sd =</span> <span class="dv">4</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prod</span>(<span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>), <span class="dt">mean =</span> <span class="dv">20</span>, <span class="dt">sd =</span> <span class="dv">4</span>))</code></pre>
 <pre><code>[1] 0.0000005703</code></pre>
 <p>What is the likelihood (probability) that the data (<span class="math inline">\(x = \{30, 20, 24, 27\}\)</span>) were generated from a normal distribution with a mean of 25 and standard deviation of 4?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prod</span>(<span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>), <span class="dt">mean =</span> <span class="dv">25</span>, <span class="dt">sd =</span> <span class="dv">4</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prod</span>(<span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>), <span class="dt">mean =</span> <span class="dv">25</span>, <span class="dt">sd =</span> <span class="dv">4</span>))</code></pre>
 <pre><code>[1] 0.00001774</code></pre>
 <p>It is important to note that although we use the joint probability under a set of parameters to compute the likelihood of those parameters, theoretically joint density and likelihood are very different. Likelihood refers to the probability of the parameters and joint probability density refers to the probability of the data.</p>
 </div>
@@ -346,7 +393,7 @@ p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots
 <h3><span class="header-section-number">5.4.1</span> Method 1: Grid Search</h3>
 <p>One method for finding the parameters (in our example, the mean and standard deviation) that produce the maximum likelihood, is to substitute several parameter values in the <code>dnorm()</code> function, compute the likelihood for each set of parameters, and determine which set produces the highest (maximum) likelihood.</p>
 <p>In computer science, this method for finding the MLE is referred to as a <em>grid search</em>. Below is some syntax to carry out a grid search. The syntax creates several sets of parameter values (called the search space), computes the likelihood for each combination of parameter values, and then arranges the likelihoods in descending order.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">crossing</span>(
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">crossing</span>(
   <span class="dt">mu =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">10</span>, <span class="dt">to =</span> <span class="dv">30</span>, <span class="dt">by =</span> <span class="fl">0.1</span>),
   <span class="dt">sigma =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
   ) <span class="op">%&gt;%</span>
@@ -354,7 +401,7 @@ p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">L =</span> <span class="kw">prod</span>(<span class="kw">dnorm</span>(<span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>), <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma))
     ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(L))</code></pre></div>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(L))</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["mu"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["L"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"25.2","2":"3.7","3":"0.00001829"},{"1":"25.3","2":"3.7","3":"0.00001829"},{"1":"25.3","2":"3.8","3":"0.00001824"},{"1":"25.2","2":"3.8","3":"0.00001824"},{"1":"25.4","2":"3.7","3":"0.00001824"},{"1":"25.1","2":"3.7","3":"0.00001824"},{"1":"25.2","2":"3.6","3":"0.00001824"},{"1":"25.3","2":"3.6","3":"0.00001824"},{"1":"25.1","2":"3.8","3":"0.00001819"},{"1":"25.4","2":"3.8","3":"0.00001819"},{"1":"25.1","2":"3.6","3":"0.00001818"},{"1":"25.4","2":"3.6","3":"0.00001818"},{"1":"25.0","2":"3.7","3":"0.00001813"},{"1":"25.5","2":"3.7","3":"0.00001813"},{"1":"25.2","2":"3.9","3":"0.00001810"},{"1":"25.3","2":"3.9","3":"0.00001810"},{"1":"25.0","2":"3.8","3":"0.00001809"},{"1":"25.5","2":"3.8","3":"0.00001809"},{"1":"25.0","2":"3.6","3":"0.00001807"},{"1":"25.5","2":"3.6","3":"0.00001807"},{"1":"25.2","2":"3.5","3":"0.00001806"},{"1":"25.3","2":"3.5","3":"0.00001806"},{"1":"25.1","2":"3.9","3":"0.00001805"},{"1":"25.4","2":"3.9","3":"0.00001805"},{"1":"25.1","2":"3.5","3":"0.00001800"},{"1":"25.4","2":"3.5","3":"0.00001800"},{"1":"25.6","2":"3.7","3":"0.00001797"},{"1":"24.9","2":"3.7","3":"0.00001797"},{"1":"25.0","2":"3.9","3":"0.00001795"},{"1":"25.5","2":"3.9","3":"0.00001795"},{"1":"24.9","2":"3.8","3":"0.00001794"},{"1":"25.6","2":"3.8","3":"0.00001794"},{"1":"25.6","2":"3.6","3":"0.00001790"},{"1":"24.9","2":"3.6","3":"0.00001790"},{"1":"25.5","2":"3.5","3":"0.00001788"},{"1":"25.0","2":"3.5","3":"0.00001788"},{"1":"25.3","2":"4.0","3":"0.00001787"},{"1":"25.2","2":"4.0","3":"0.00001787"},{"1":"25.1","2":"4.0","3":"0.00001783"},{"1":"25.4","2":"4.0","3":"0.00001783"},{"1":"25.6","2":"3.9","3":"0.00001781"},{"1":"24.9","2":"3.9","3":"0.00001781"},{"1":"24.8","2":"3.7","3":"0.00001776"},{"1":"25.7","2":"3.7","3":"0.00001776"},{"1":"25.2","2":"3.4","3":"0.00001775"},{"1":"25.3","2":"3.4","3":"0.00001775"},{"1":"24.8","2":"3.8","3":"0.00001774"},{"1":"25.7","2":"3.8","3":"0.00001774"},{"1":"25.0","2":"4.0","3":"0.00001774"},{"1":"25.5","2":"4.0","3":"0.00001774"},{"1":"25.6","2":"3.5","3":"0.00001771"},{"1":"24.9","2":"3.5","3":"0.00001771"},{"1":"25.1","2":"3.4","3":"0.00001768"},{"1":"25.4","2":"3.4","3":"0.00001768"},{"1":"24.8","2":"3.6","3":"0.00001768"},{"1":"25.7","2":"3.6","3":"0.00001768"},{"1":"24.8","2":"3.9","3":"0.00001763"},{"1":"25.7","2":"3.9","3":"0.00001763"},{"1":"25.6","2":"4.0","3":"0.00001761"},{"1":"24.9","2":"4.0","3":"0.00001761"},{"1":"25.2","2":"4.1","3":"0.00001758"},{"1":"25.3","2":"4.1","3":"0.00001758"},{"1":"25.0","2":"3.4","3":"0.00001756"},{"1":"25.5","2":"3.4","3":"0.00001756"},{"1":"25.4","2":"4.1","3":"0.00001754"},{"1":"25.1","2":"4.1","3":"0.00001754"},{"1":"24.7","2":"3.7","3":"0.00001751"},{"1":"25.8","2":"3.7","3":"0.00001751"},{"1":"24.7","2":"3.8","3":"0.00001750"},{"1":"25.8","2":"3.8","3":"0.00001750"},{"1":"24.8","2":"3.5","3":"0.00001748"},{"1":"25.7","2":"3.5","3":"0.00001748"},{"1":"25.0","2":"4.1","3":"0.00001746"},{"1":"25.5","2":"4.1","3":"0.00001746"},{"1":"24.8","2":"4.0","3":"0.00001743"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -365,7 +412,7 @@ p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots
 <div id="log-likelihood" class="section level3">
 <h3><span class="header-section-number">5.4.2</span> Log-Likelihood</h3>
 <p>The likelihood values are quite small since we are multiplying several probabilities together. We could take the natural logarithm of the likelihood to alleviate this issue. So in our example, <span class="math inline">\(\mathcal{L} = .00001829129\)</span> and the log-likelihood would be</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(.<span class="dv">00001829129</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(.<span class="dv">00001829129</span>)</code></pre>
 <pre><code>[1] -10.91</code></pre>
 <p>We typically denote log-likelihood using a scripted lower-case “l” (<span class="math inline">\(\mathcal{l}\)</span>). Going back to how we compute the likelihood, we assumed a set of parameters and then found the joint probability density, which assuming normality and independence is the product of the individual densities.</p>
 <p><span class="math display">\[
@@ -380,7 +427,7 @@ p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots
 = \ln \Bigl(p(x_1)\Bigr) + \ln \Bigl(p(x_2)\Bigr) + \ldots + \ln \Bigl(p(x_n)\Bigr)
 \]</span></p>
 <p>The log-likelihood is the <em>sum of the log-transformed densities</em>. This means we could re-write our grid search syntax to compute the log-likelihood. Since finding the log of the densities is so useful, there is even an argument in <code>dnorm()</code> of <code>log=TRUE</code> that does this for us. Our revised grid search syntax is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">crossing</span>(
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">crossing</span>(
   <span class="dt">mu =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">10</span>, <span class="dt">to =</span><span class="dv">30</span>, <span class="dt">by =</span> <span class="fl">0.1</span>),
   <span class="dt">sigma =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
   ) <span class="op">%&gt;%</span>
@@ -388,7 +435,7 @@ p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">log_L =</span> <span class="kw">sum</span>(<span class="kw">dnorm</span>(<span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>), <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma, <span class="dt">log =</span> <span class="ot">TRUE</span>))
     ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(log_L))</code></pre></div>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(log_L))</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["mu"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["log_L"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"25.2","2":"3.7","3":"-10.91"},{"1":"25.3","2":"3.7","3":"-10.91"},{"1":"25.3","2":"3.8","3":"-10.91"},{"1":"25.2","2":"3.8","3":"-10.91"},{"1":"25.1","2":"3.7","3":"-10.91"},{"1":"25.4","2":"3.7","3":"-10.91"},{"1":"25.3","2":"3.6","3":"-10.91"},{"1":"25.2","2":"3.6","3":"-10.91"},{"1":"25.1","2":"3.8","3":"-10.91"},{"1":"25.4","2":"3.8","3":"-10.91"},{"1":"25.1","2":"3.6","3":"-10.92"},{"1":"25.4","2":"3.6","3":"-10.92"},{"1":"25.0","2":"3.7","3":"-10.92"},{"1":"25.5","2":"3.7","3":"-10.92"},{"1":"25.2","2":"3.9","3":"-10.92"},{"1":"25.3","2":"3.9","3":"-10.92"},{"1":"25.0","2":"3.8","3":"-10.92"},{"1":"25.5","2":"3.8","3":"-10.92"},{"1":"25.5","2":"3.6","3":"-10.92"},{"1":"25.0","2":"3.6","3":"-10.92"},{"1":"25.2","2":"3.5","3":"-10.92"},{"1":"25.3","2":"3.5","3":"-10.92"},{"1":"25.1","2":"3.9","3":"-10.92"},{"1":"25.4","2":"3.9","3":"-10.92"},{"1":"25.1","2":"3.5","3":"-10.93"},{"1":"25.4","2":"3.5","3":"-10.93"},{"1":"24.9","2":"3.7","3":"-10.93"},{"1":"25.6","2":"3.7","3":"-10.93"},{"1":"25.0","2":"3.9","3":"-10.93"},{"1":"25.5","2":"3.9","3":"-10.93"},{"1":"24.9","2":"3.8","3":"-10.93"},{"1":"25.6","2":"3.8","3":"-10.93"},{"1":"24.9","2":"3.6","3":"-10.93"},{"1":"25.6","2":"3.6","3":"-10.93"},{"1":"25.5","2":"3.5","3":"-10.93"},{"1":"25.0","2":"3.5","3":"-10.93"},{"1":"25.3","2":"4.0","3":"-10.93"},{"1":"25.2","2":"4.0","3":"-10.93"},{"1":"25.1","2":"4.0","3":"-10.93"},{"1":"25.4","2":"4.0","3":"-10.93"},{"1":"24.9","2":"3.9","3":"-10.94"},{"1":"25.6","2":"3.9","3":"-10.94"},{"1":"24.8","2":"3.7","3":"-10.94"},{"1":"25.7","2":"3.7","3":"-10.94"},{"1":"25.2","2":"3.4","3":"-10.94"},{"1":"25.3","2":"3.4","3":"-10.94"},{"1":"24.8","2":"3.8","3":"-10.94"},{"1":"25.7","2":"3.8","3":"-10.94"},{"1":"25.0","2":"4.0","3":"-10.94"},{"1":"25.5","2":"4.0","3":"-10.94"},{"1":"24.9","2":"3.5","3":"-10.94"},{"1":"25.6","2":"3.5","3":"-10.94"},{"1":"25.1","2":"3.4","3":"-10.94"},{"1":"25.4","2":"3.4","3":"-10.94"},{"1":"25.7","2":"3.6","3":"-10.94"},{"1":"24.8","2":"3.6","3":"-10.94"},{"1":"24.8","2":"3.9","3":"-10.95"},{"1":"25.7","2":"3.9","3":"-10.95"},{"1":"24.9","2":"4.0","3":"-10.95"},{"1":"25.6","2":"4.0","3":"-10.95"},{"1":"25.2","2":"4.1","3":"-10.95"},{"1":"25.3","2":"4.1","3":"-10.95"},{"1":"25.5","2":"3.4","3":"-10.95"},{"1":"25.0","2":"3.4","3":"-10.95"},{"1":"25.1","2":"4.1","3":"-10.95"},{"1":"25.4","2":"4.1","3":"-10.95"},{"1":"24.7","2":"3.7","3":"-10.95"},{"1":"25.8","2":"3.7","3":"-10.95"},{"1":"24.7","2":"3.8","3":"-10.95"},{"1":"25.8","2":"3.8","3":"-10.95"},{"1":"24.8","2":"3.5","3":"-10.95"},{"1":"25.7","2":"3.5","3":"-10.95"},{"1":"25.0","2":"4.1","3":"-10.96"},{"1":"25.5","2":"4.1","3":"-10.96"},{"1":"24.8","2":"4.0","3":"-10.96"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -407,13 +454,13 @@ p(x_1, x_2, x_3, \ldots, x_K) = p(x_1) \times p(x_2) \times p(x_3) \times \ldots
   </script>
 </div>
 <p>To begin, we can enter these observations into two vectors, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Enter data into vectors</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Enter data into vectors</span>
 x =<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)
-y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>, <span class="dv">56</span>, <span class="dv">37</span>, <span class="dv">55</span>, <span class="dv">50</span>, <span class="dv">36</span>, <span class="dv">22</span>, <span class="dv">75</span>, <span class="dv">37</span>, <span class="dv">42</span>)</code></pre></div>
+y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>, <span class="dv">56</span>, <span class="dv">37</span>, <span class="dv">55</span>, <span class="dv">50</span>, <span class="dv">36</span>, <span class="dv">22</span>, <span class="dv">75</span>, <span class="dv">37</span>, <span class="dv">42</span>)</code></pre>
 <p>Next, we will write a function to compute the log-likelihood (or likelihood) of the residuals given particular <code>b0</code> and <code>b1</code> estimates that will be inputted to the function.</p>
 <p>One issue is that in using the <code>dnorm()</code> function we need to specify the mean and standard deviation. The regression assumptions help with this task. The conditional mean residual value is 0. So we will set the mean value to 0. The assumption about the standard deviation is that the conditional distributions all have the same SD, but it doesn’t specify what that is. However, the SD of the errors seems like a reasonable value, so let’s use that.</p>
 <p>Below, we will write a function called <code>log_likelihood()</code> that takes two arguments as input, <code>b0=</code> and <code>b1=</code>, and outputs the log-likelihood.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log_likelihood =<span class="st"> </span><span class="cf">function</span>(b0, b1){
+<pre class="sourceCode r"><code class="sourceCode r">log_likelihood =<span class="st"> </span><span class="cf">function</span>(b0, b1){
   <span class="co"># Use the following x and y values</span>
   x =<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)
   y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>, <span class="dv">56</span>, <span class="dv">37</span>, <span class="dv">55</span>, <span class="dv">50</span>, <span class="dv">36</span>, <span class="dv">22</span>, <span class="dv">75</span>, <span class="dv">37</span>, <span class="dv">42</span>)
@@ -430,47 +477,47 @@ y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>
   
   <span class="co"># Output the log-likelihood</span>
   <span class="kw">return</span>(log_lik)
-}</code></pre></div>
+}</code></pre>
 <p>Now we read in our function by highlighting the whole thing and running it. Once it has been read in, we can use it just like any other function. For example to find the log-likelihood for the parameters <span class="math inline">\(\beta_0=10\)</span> and <span class="math inline">\(\beta_1=3\)</span> we use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log_likelihood</span>(<span class="dt">b0 =</span> <span class="dv">10</span>, <span class="dt">b1 =</span> <span class="dv">3</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log_likelihood</span>(<span class="dt">b0 =</span> <span class="dv">10</span>, <span class="dt">b1 =</span> <span class="dv">3</span>)</code></pre>
 <pre><code>[1] -64.29</code></pre>
 <p>We can also use our function in a grid search.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">crossing</span>(
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">crossing</span>(
   <span class="dt">b0 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">30</span>, <span class="dt">to =</span> <span class="dv">50</span>, <span class="dt">by =</span> <span class="fl">0.1</span>),
-  <span class="dt">b1 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="op">-</span><span class="dv">5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
+  <span class="dt">b1 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">-5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
 ) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">log_L =</span> <span class="kw">log_likelihood</span>(<span class="dt">b0 =</span> b0, <span class="dt">b1 =</span> b1)
     ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(log_L))</code></pre></div>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(log_L))</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["b0"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["b1"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["log_L"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"40.1","2":"2.7","3":"-39.48"},{"1":"40.0","2":"2.7","3":"-39.48"},{"1":"40.2","2":"2.7","3":"-39.48"},{"1":"39.9","2":"2.8","3":"-39.48"},{"1":"39.8","2":"2.8","3":"-39.48"},{"1":"40.0","2":"2.8","3":"-39.48"},{"1":"39.9","2":"2.7","3":"-39.48"},{"1":"39.7","2":"2.8","3":"-39.48"},{"1":"40.3","2":"2.7","3":"-39.48"},{"1":"40.1","2":"2.8","3":"-39.48"},{"1":"39.6","2":"2.8","3":"-39.48"},{"1":"39.8","2":"2.7","3":"-39.48"},{"1":"40.4","2":"2.7","3":"-39.48"},{"1":"40.3","2":"2.6","3":"-39.48"},{"1":"40.4","2":"2.6","3":"-39.48"},{"1":"40.2","2":"2.6","3":"-39.48"},{"1":"40.5","2":"2.6","3":"-39.49"},{"1":"40.2","2":"2.8","3":"-39.49"},{"1":"39.6","2":"2.9","3":"-39.49"},{"1":"39.5","2":"2.8","3":"-39.49"},{"1":"40.1","2":"2.6","3":"-39.49"},{"1":"39.7","2":"2.9","3":"-39.49"},{"1":"39.7","2":"2.7","3":"-39.49"},{"1":"39.5","2":"2.9","3":"-39.49"},{"1":"40.5","2":"2.7","3":"-39.49"},{"1":"39.8","2":"2.9","3":"-39.49"},{"1":"40.6","2":"2.6","3":"-39.49"},{"1":"39.4","2":"2.9","3":"-39.49"},{"1":"40.0","2":"2.6","3":"-39.49"},{"1":"40.3","2":"2.8","3":"-39.49"},{"1":"39.9","2":"2.9","3":"-39.49"},{"1":"39.4","2":"2.8","3":"-39.49"},{"1":"39.6","2":"2.7","3":"-39.49"},{"1":"40.7","2":"2.6","3":"-39.49"},{"1":"39.3","2":"2.9","3":"-39.49"},{"1":"40.6","2":"2.7","3":"-39.49"},{"1":"39.9","2":"2.6","3":"-39.49"},{"1":"40.0","2":"2.9","3":"-39.49"},{"1":"40.5","2":"2.5","3":"-39.49"},{"1":"40.6","2":"2.5","3":"-39.49"},{"1":"40.4","2":"2.8","3":"-39.49"},{"1":"39.2","2":"2.9","3":"-39.49"},{"1":"40.4","2":"2.5","3":"-39.49"},{"1":"40.7","2":"2.5","3":"-39.49"},{"1":"40.8","2":"2.6","3":"-39.49"},{"1":"39.3","2":"2.8","3":"-39.49"},{"1":"39.5","2":"2.7","3":"-39.49"},{"1":"40.1","2":"2.9","3":"-39.49"},{"1":"40.3","2":"2.5","3":"-39.49"},{"1":"40.8","2":"2.5","3":"-39.49"},{"1":"39.8","2":"2.6","3":"-39.49"},{"1":"40.7","2":"2.7","3":"-39.49"},{"1":"39.4","2":"3.0","3":"-39.49"},{"1":"39.3","2":"3.0","3":"-39.49"},{"1":"39.5","2":"3.0","3":"-39.49"},{"1":"39.2","2":"3.0","3":"-39.49"},{"1":"39.6","2":"3.0","3":"-39.49"},{"1":"39.1","2":"2.9","3":"-39.49"},{"1":"40.5","2":"2.8","3":"-39.49"},{"1":"40.2","2":"2.5","3":"-39.49"},{"1":"40.9","2":"2.5","3":"-39.49"},{"1":"40.9","2":"2.6","3":"-39.49"},{"1":"39.2","2":"2.8","3":"-39.49"},{"1":"40.2","2":"2.9","3":"-39.49"},{"1":"39.1","2":"3.0","3":"-39.49"},{"1":"39.7","2":"3.0","3":"-39.49"},{"1":"39.4","2":"2.7","3":"-39.50"},{"1":"39.7","2":"2.6","3":"-39.50"},{"1":"40.8","2":"2.7","3":"-39.50"},{"1":"40.1","2":"2.5","3":"-39.50"},{"1":"41.0","2":"2.5","3":"-39.50"},{"1":"39.0","2":"2.9","3":"-39.50"},{"1":"39.0","2":"3.0","3":"-39.50"},{"1":"39.8","2":"3.0","3":"-39.50"},{"1":"41.0","2":"2.6","3":"-39.50"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>Here the parameter values that maximize the likelihood are <span class="math inline">\(\beta_0 = 40.1\)</span> and <span class="math inline">\(\beta_1=2.7\)</span>. We can also compute what the standard deviation for the residual distributions was using the estimated parameter values. Remember, this value is an estimate of the RMSE.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">errors =<span class="st"> </span>y <span class="op">-</span><span class="st"> </span><span class="fl">40.1</span> <span class="op">-</span><span class="st"> </span><span class="fl">2.7</span><span class="op">*</span>x
-<span class="kw">sd</span>(errors)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">errors =<span class="st"> </span>y <span class="op">-</span><span class="st"> </span><span class="fl">40.1</span> <span class="op">-</span><span class="st"> </span><span class="fl">2.7</span><span class="op">*</span>x
+<span class="kw">sd</span>(errors)</code></pre>
 <pre><code>[1] 13.19</code></pre>
 <p>In practice, there are a couple subtle differences, namely that the estimate for the SD value we use in <code>dnorm()</code> is slightly different. This generally does not have an effect on the coefficient estimates, but does impact the estimate of the RMSE. We will talk more about this when we talk about <em>Restricted Maximum Likelihood Estimation</em> (REML).</p>
 <div id="large-search-spaces" class="section level3">
 <h3><span class="header-section-number">5.5.1</span> Large Search Spaces</h3>
 <p>So far, we have been using a very finite search space that has been defined for us. For example, we limited the search space to 20,301 combinations of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(
   <span class="kw">crossing</span>(
     <span class="dt">b0 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">30</span>, <span class="dt">to =</span> <span class="dv">50</span>, <span class="dt">by =</span> <span class="fl">0.1</span>),
-    <span class="dt">b1 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="op">-</span><span class="dv">5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
+    <span class="dt">b1 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">-5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
   )
-)</code></pre></div>
+)</code></pre>
 <pre><code>[1] 20301</code></pre>
 <p>This allowed us to find the coefficient estimates to the nearest tenth. If we instead needed to find the estimates to the nearest hundredth, we would need to expand the number of combinations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(
   <span class="kw">crossing</span>(
     <span class="dt">b0 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">30</span>, <span class="dt">to =</span> <span class="dv">50</span>, <span class="dt">by =</span> <span class="fl">0.01</span>),
-    <span class="dt">b1 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="op">-</span><span class="dv">5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)
+    <span class="dt">b1 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">-5</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)
   )
-)</code></pre></div>
+)</code></pre>
 <pre><code>[1] 2003001</code></pre>
 <p>This leads to a search space of 2,003,001 parameter combinations. If we need them to the nearest thousandth, the search space is 200,030,001 combinations.</p>
 <p>Furthermore, in practice you would not have any idea which values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> to limit the search space to. Essentially you would need to search an infinite number of values unless you could limit the search space in some way. For many common methods (e.g., linear regression) finding the ML estimates is mathematically pretty easy (if we know calculus; see the section <a href="maximum-likelihood-estimation.html#way-too-much-math">Way, Way, Way too Much Mathematics</a>). For more complex methods (e.g., mixed-effect models) there is not a mathematical solution. Instead, mathematics is used to help limit the search space and then a grid search is used to hone in on the estimates.</p>
@@ -479,17 +526,17 @@ y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>
 <div id="ml-estimation-in-regression-using-r" class="section level2">
 <h2><span class="header-section-number">5.6</span> ML Estimation in Regression Using R</h2>
 <p>Recall that the <code>lm()</code> function uses Ordinary Least Squares (OLS) estimation—it finds the coefficient estimates and RMSE that minimize the sum of squared residuals.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">1</span> =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x)
+<pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x)
 
 <span class="co"># Get coefficient estimates</span>
-<span class="kw">tidy</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<span class="kw">tidy</span>(lm<span class="fl">.1</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"40.006","3":"6.342","4":"6.308","5":"0.0002307"},{"1":"x","2":"2.737","3":"1.976","4":"1.385","5":"0.2034786"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get estimate for RMSE</span>
-<span class="kw">glance</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get estimate for RMSE</span>
+<span class="kw">glance</span>(lm<span class="fl">.1</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.1934","2":"0.09255","3":"13.99","4":"1.918","5":"0.2035","6":"2","7":"-39.45","8":"84.91","9":"85.82","10":"1565","11":"8"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -503,7 +550,7 @@ y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>
 </ul>
 <p>To compute ML estimates of the coefficients we will use the <code>mle2()</code> function from the <strong>bbmle</strong> package. To use the <code>mle2()</code> function, we need to provide a user-written function that returns the <em>negative log-likelihood</em> given a set of parameter inputs.</p>
 <p>For simple regression, recall that we need to estimate three parameters: <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\sigma_{\epsilon}\)</span> (RMSE). Below we have a function that inputs values for each of the three parameters, uses the inputted coefficient values to compute the residuals given the data, and returns the negative log-likelihood value assuming normality, independence, and homoscedasticity.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">regress.ll =<span class="st"> </span><span class="cf">function</span>(b0, b1, rmse) { 
+<pre class="sourceCode r"><code class="sourceCode r">regress.ll =<span class="st"> </span><span class="cf">function</span>(b0, b1, rmse) { 
   <span class="co"># Use the following x and y values</span>
   x =<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)
   y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>, <span class="dv">56</span>, <span class="dv">37</span>, <span class="dv">55</span>, <span class="dv">50</span>, <span class="dv">36</span>, <span class="dv">22</span>, <span class="dv">75</span>, <span class="dv">37</span>, <span class="dv">42</span>)
@@ -515,14 +562,14 @@ y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">53</span>
   <span class="co"># Compute the negative log-likelihood</span>
   neg_log_L =<span class="st"> </span><span class="op">-</span><span class="kw">sum</span>(<span class="kw">dnorm</span>(errors, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> rmse, <span class="dt">log =</span> <span class="ot">TRUE</span>))
   <span class="kw">return</span>(neg_log_L)
-} </code></pre></div>
+} </code></pre>
 <p>Now we can implement the <code>mle2()</code> function. This function requires the argument, <code>minuslogl=</code>, which takes the user written function returning the negative log-likelihood. It also requires a list of starting values for the input parameters in the user-written function. (Here we give values close to the OLS estimates as starting values.)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model using ML</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model using ML</span>
 <span class="kw">library</span>(bbmle)
 mle.results =<span class="st"> </span><span class="kw">mle2</span>(<span class="dt">minuslogl =</span> regress.ll, <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">b0 =</span> <span class="fl">40.0</span>, <span class="dt">b1 =</span> <span class="fl">2.7</span>, <span class="dt">rmse =</span> <span class="fl">13.98</span>))
 
 <span class="co"># View results</span>
-<span class="kw">summary</span>(mle.results)</code></pre></div>
+<span class="kw">summary</span>(mle.results)</code></pre>
 <pre><code>Maximum likelihood estimation
 
 Call:
@@ -558,11 +605,11 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <div id="using-r-to-directly-compute-the-likelihood-and-log-likelihood" class="section level3">
 <h3><span class="header-section-number">5.6.1</span> Using R to Directly Compute the Likelihood and Log-Likelihood</h3>
 <p>We can use R to directly compute the log-likelihood after we fit a model using the <code>lm()</code> function. To do this, we use the <code>logLik()</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">1</span> =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x)
-<span class="kw">logLik</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x)
+<span class="kw">logLik</span>(lm<span class="fl">.1</span>)</code></pre>
 <pre><code>&#39;log Lik.&#39; -39.45 (df=3)</code></pre>
 <p>To compute the likelihood, we can use the <code>exp()</code> function to back-transform the log-likelihood to the likelihood (although generally we will work with the log-likelihood).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="op">-</span><span class="fl">39.45442</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="op">-</span><span class="fl">39.45442</span>)</code></pre>
 <pre><code>[1] 7.331e-18</code></pre>
 </div>
 </div>
@@ -677,7 +724,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

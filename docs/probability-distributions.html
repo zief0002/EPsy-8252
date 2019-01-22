@@ -25,7 +25,7 @@
 <meta name="author" content="Andrew Zieffler">
 
 
-<meta name="date" content="2019-01-09">
+<meta name="date" content="2019-01-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -54,44 +54,71 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="print.css" type="text/css" />
 </head>
 
 <body>
@@ -145,7 +172,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.8" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#including-covariates"><i class="fa fa-check"></i><b>2.8</b> Including Covariates</a><ul>
 <li class="chapter" data-level="2.8.1" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#plot-of-the-model-results"><i class="fa fa-check"></i><b>2.8.1</b> Plot of the Model Results</a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#polynomial-effects-vs.log-transformations"><i class="fa fa-check"></i><b>2.9</b> Polynomial Effects vs. Log-Transformations</a></li>
+<li class="chapter" data-level="2.9" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#polynomial-effects-vs.-log-transformations"><i class="fa fa-check"></i><b>2.9</b> Polynomial Effects vs. Log-Transformations</a></li>
 <li class="chapter" data-level="" data-path="nonlinearity-log-transforming-the-predictor.html"><a href="nonlinearity-log-transforming-the-predictor.html#other-resources-1"><i class="fa fa-check"></i>Other Resources</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="nonlinearity-log-transforming-the-outcome.html"><a href="nonlinearity-log-transforming-the-outcome.html"><i class="fa fa-check"></i><b>3</b> Nonlinearity: Log-Transforming the Outcome</a><ul>
@@ -241,12 +268,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.8" data-path="moreinfocrit.html"><a href="moreinfocrit.html#pretty-printing-tables-of-model-evidence"><i class="fa fa-check"></i><b>7.8</b> Pretty Printing Tables of Model Evidence</a></li>
 <li class="chapter" data-level="" data-path="moreinfocrit.html"><a href="moreinfocrit.html#other-resources-2"><i class="fa fa-check"></i>Other Resources</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html"><i class="fa fa-check"></i><b>8</b> Introduction to Mixed-Effects Models: Conceptual Ideas</a><ul>
+<li class="chapter" data-level="" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#preparation-7"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="8.1" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#dataset-and-research-question-6"><i class="fa fa-check"></i><b>8.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#join-the-student--and-classroom-level-data"><i class="fa fa-check"></i><b>8.2</b> Join the Student- and Classroom-Level Data</a></li>
+<li class="chapter" data-level="8.3" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#fixed-effects-regression-model"><i class="fa fa-check"></i><b>8.3</b> Fixed-Effects Regression Model</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#residual-analysis"><i class="fa fa-check"></i><b>8.3.1</b> Residual Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="intro-lmer-concepts.html"><a href="intro-lmer-concepts.html#conceptual-idea-of-mixed-effects-models"><i class="fa fa-check"></i><b>8.4</b> Conceptual Idea of Mixed-Effects Models</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html"><i class="fa fa-check"></i><b>9</b> Fitting and Interpreting Mixed-Effects Models</a><ul>
+<li class="chapter" data-level="" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#preparation-8"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="9.1" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#dataset-and-research-question-7"><i class="fa fa-check"></i><b>9.1</b> Dataset and Research Question</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#fitting-the-mixed-effects-regression-model-in-practice"><i class="fa fa-check"></i><b>9.2</b> Fitting the Mixed-Effects Regression Model in Practice</a></li>
+<li class="chapter" data-level="9.3" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#example-2-life-satisfaction-of-nba-players"><i class="fa fa-check"></i><b>9.3</b> Example 2: Life Satisfaction of NBA Players</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="intro-lmer-fitting.html"><a href="intro-lmer-fitting.html#fit-the-mixed-effects-model"><i class="fa fa-check"></i><b>9.3.1</b> Fit the Mixed-Effects Model</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools-2018"><i class="fa fa-check"></i>ed-schools-2018.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#evaluations"><i class="fa fa-check"></i>evaluations.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#fci-2018"><i class="fa fa-check"></i>fci-2015.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#mn-schools"><i class="fa fa-check"></i>mn-schools.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#movies"><i class="fa fa-check"></i>movies.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#nba"><i class="fa fa-check"></i>nba-player-data.csv and nba-team-data.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#netherlands"><i class="fa fa-check"></i>netherlands-students.csv and netherlands-schools.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#popular"><i class="fa fa-check"></i>popular-classroom.csv and popular-student.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#riverview"><i class="fa fa-check"></i>riverview.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#wine"><i class="fa fa-check"></i>wine.csv</a></li>
 </ul></li>
@@ -289,13 +336,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="dataset-and-research-question-2" class="section level2">
 <h2><span class="header-section-number">4.1</span> Dataset and Research Question</h2>
 <p>In this set of notes, we will not be using a specific dataset.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries</span>
 <span class="kw">library</span>(broom)
 <span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(readr)
 <span class="kw">library</span>(sm)
-<span class="kw">library</span>(tidyr)</code></pre></div>
+<span class="kw">library</span>(tidyr)</code></pre>
 </div>
 <div id="normal-distribution" class="section level2">
 <h2><span class="header-section-number">4.2</span> Normal Distribution</h2>
@@ -308,13 +355,13 @@ p(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left[-\frac{(x-\mu)^2}{2\sigma^2}\right]
 p(65) = \frac{1}{10\sqrt{2\pi}}\exp\left[-\frac{(65-50)^2}{2\times10^2}\right] = 0.01295176
 \]</span></p>
 <p>Using R, we can carry out the computation,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi))) <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(<span class="dv">225</span>) <span class="op">/</span><span class="st"> </span><span class="dv">200</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi))) <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(<span class="dv">225</span>) <span class="op">/</span><span class="st"> </span><span class="dv">200</span>)</code></pre>
 <pre><code>[1] 0.01295</code></pre>
 <p>There is also a more direct way to compute this using the <code>dnorm()</code> function. This function computes the density of <code>x</code> from a normal distribution with a specified <code>mean</code> and <code>sd</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="dv">65</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dnorm</span>(<span class="dt">x =</span> <span class="dv">65</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>)</code></pre>
 <pre><code>[1] 0.01295</code></pre>
 <p>If we compute the density for several <span class="math inline">\(x\)</span> values and plot them, we get the familiar normal shape; the graphical depiction of the mathematical equation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create dataset</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create dataset</span>
 fig_<span class="dv">01</span> =<span class="st"> </span><span class="kw">data.frame</span>(
   <span class="dt">X =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">10</span>, <span class="dt">to =</span> <span class="dv">90</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)
   ) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -327,7 +374,7 @@ fig_<span class="dv">01</span> =<span class="st"> </span><span class="kw">data.f
 <span class="kw">ggplot</span>(<span class="dt">data =</span> fig_<span class="dv">01</span>, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">x =</span> <span class="dv">65</span>, <span class="dt">y =</span> <span class="fl">0.01295176</span>, <span class="dt">size =</span> <span class="dv">3</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">x =</span> <span class="dv">65</span>, <span class="dt">y =</span> <span class="fl">0.01295176</span>, <span class="dt">size =</span> <span class="dv">3</span>)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-91"></span>
 <img src="epsy-8252-notes_files/figure-html/unnamed-chunk-91-1.png" alt="Plot of the probability density function (PDF) for a Normal distribution with mean of 50 and standard deviation of 10. The density value for $x=65$, $p(65)= 0.01295176$, is also displayed on the PDF." width="50%" />
 <p class="caption">
@@ -348,7 +395,7 @@ Figure 4.1: Plot of the probability density function (PDF) for a Normal distribu
 <div id="finding-cumulative-probability" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Finding Cumulative Probability</h3>
 <p>The function <code>pnorm()</code> gives the probability <span class="math inline">\(x\)</span> is less than or equal to some quantile value in the distribution; the cumulative probability. For example, to find the probability that <span class="math inline">\(x \leq 65\)</span> we would use,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pnorm</span>(<span class="dt">q =</span> <span class="dv">65</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pnorm</span>(<span class="dt">q =</span> <span class="dv">65</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>)</code></pre>
 <pre><code>[1] 0.9332</code></pre>
 <p>This is akin to finding the proportion of the area under the normal PDF that is to the left of 65.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-93"></span>
@@ -374,13 +421,13 @@ Figure 4.3: Plot of the probability density function (PDF) for the standard norm
 </div>
 <p>In most hypothesis tests, we test whether the parameter IS EQUAL to 0. Thus the values in the standard normal distribution more extreme than 2.5 encompass evidence against the hypothesis; those values greater than 2.5 and also those values less than <span class="math inline">\(-2.5\)</span>. (This is akin to testing a fair coin when both 8 heads OR 8 tails would provide evidence against fairness we have to consider evidence in both directions).</p>
 <p>To compute this we use <code>pnorm()</code>. Remember, it computes the proportion of the area under the curve TO THE LEFT of a particular value. Here we will compute the are to the left of <span class="math inline">\(-2.5\)</span> and then double it to produce the actual <span class="math inline">\(p\)</span>-value.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q =</span> <span class="op">-</span><span class="fl">2.5</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q =</span> <span class="fl">-2.5</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</code></pre>
 <pre><code>[1] 0.01242</code></pre>
 </div>
 <div id="finding-quantiles" class="section level3">
 <h3><span class="header-section-number">4.2.4</span> Finding Quantiles</h3>
 <p>The <code>qnorm()</code> function is essentially the inverse of the <code>pnorm()</code> function. The <code>p</code> functions find the cumulative probability GIVEN a particular quantile. The <code>q</code> functions find the quantile GIVEN a cumulative probability. For example, in the normal distribution we defined earlier, half of the area is below the quantile value of 50 (the mean).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qnorm</span>(<span class="dt">p =</span> <span class="fl">0.5</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qnorm</span>(<span class="dt">p =</span> <span class="fl">0.5</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">10</span>)</code></pre>
 <pre><code>[1] 50</code></pre>
 </div>
 </div>
@@ -419,20 +466,20 @@ Figure 4.5: Plot of several t-distributions with differing degrees of freedom.
 <div id="comparing-probability-densities" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Comparing Probability Densities</h3>
 <p>How do the probability densities for a value of <span class="math inline">\(X\)</span> compare across these distributions? Let’s examine the <span class="math inline">\(X\)</span> value of 2.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Standard normal distribution</span>
-<span class="kw">pnorm</span>(<span class="dt">q =</span> <span class="dv">2</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Standard normal distribution</span>
+<span class="kw">pnorm</span>(<span class="dt">q =</span> <span class="dv">2</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</code></pre>
 <pre><code>[1] 0.9772</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># t-distribution with 3 df</span>
-<span class="kw">pt</span>(<span class="dt">q =</span> <span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">3</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># t-distribution with 3 df</span>
+<span class="kw">pt</span>(<span class="dt">q =</span> <span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">3</span>)</code></pre>
 <pre><code>[1] 0.9303</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># t-distribution with 5 df</span>
-<span class="kw">pt</span>(<span class="dt">q =</span> <span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">5</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># t-distribution with 5 df</span>
+<span class="kw">pt</span>(<span class="dt">q =</span> <span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">5</span>)</code></pre>
 <pre><code>[1] 0.949</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># t-distribution with 10 df</span>
-<span class="kw">pt</span>(<span class="dt">q =</span> <span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">10</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># t-distribution with 10 df</span>
+<span class="kw">pt</span>(<span class="dt">q =</span> <span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">10</span>)</code></pre>
 <pre><code>[1] 0.9633</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># t-distribution with 25 df</span>
-<span class="kw">pt</span>(<span class="dt">q =</span> <span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">25</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># t-distribution with 25 df</span>
+<span class="kw">pt</span>(<span class="dt">q =</span> <span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">25</span>)</code></pre>
 <pre><code>[1] 0.9718</code></pre>
 <p>We are essentially comparing the height of these distributions at <span class="math inline">\(X=2\)</span>.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-101"></span>
@@ -446,10 +493,10 @@ Figure 4.6: Plot of several t-distributions with differing *degrees of freedom. 
 <h3><span class="header-section-number">4.3.2</span> Comparing Cumulative Densities</h3>
 <p>What if we wanted to look at cumulative density? Consider out hypothesis test of whether a population parameter is equal to 0. Also consider that we observed a statistic (that has been standardized) of 2.5 using a sample size of <span class="math inline">\(n=15\)</span>.</p>
 <p>If we can assume that the SAMPLING DISTRIBUTION is normally-distributed then we can use the cumulative density in a normal distribution to compute a <span class="math inline">\(p\)</span>-value:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q =</span> <span class="op">-</span><span class="fl">2.5</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q =</span> <span class="fl">-2.5</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</code></pre>
 <pre><code>[1] 0.01242</code></pre>
 <p>If, however, the SAMPLING DISTRIBUTION is <span class="math inline">\(t\)</span>-distributed then we need to use the cumulative density for a <span class="math inline">\(t\)</span>-distribution with the appropriate <em>df</em> to compute a <span class="math inline">\(p\)</span>-value. For example if we use <span class="math inline">\(df=n-1\)</span>, the two-tailed <span class="math inline">\(p\)</span>-value would be:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pt</span>(<span class="dt">q =</span> <span class="op">-</span><span class="fl">2.5</span>, <span class="dt">df =</span> <span class="dv">14</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pt</span>(<span class="dt">q =</span> <span class="fl">-2.5</span>, <span class="dt">df =</span> <span class="dv">14</span>)</code></pre>
 <pre><code>[1] 0.02547</code></pre>
 <p>The <span class="math inline">\(p\)</span>-value using the <span class="math inline">\(t\)</span>-distribution is larger than the <span class="math inline">\(p\)</span>-value computed based on the standard normal distribution. This is again because of the increased error (uncertainty) we are introducing when we estimate from sample. This added uncertainty makes it harder for us to reject a hypothesis.</p>
 </div>
@@ -457,19 +504,19 @@ Figure 4.6: Plot of several t-distributions with differing *degrees of freedom. 
 <div id="using-the-t-distribution-in-regression" class="section level2">
 <h2><span class="header-section-number">4.4</span> Using the <span class="math inline">\(t\)</span>-Distribution in Regression</h2>
 <p>To illustrate how probability distributions are used in practice, we will will use the <em>riverview.csv</em> (see the <a href="data-codebook.html#riverview">data codebook</a> here) and fit a regression model that uses education level and seniority to predict variation in employee income.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read in data</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read in data</span>
 city =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/riverview.csv&quot;</span>)
-<span class="kw">head</span>(city)</code></pre></div>
+<span class="kw">head</span>(city)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["education"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["income"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["seniority"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["gender"],"name":[4],"type":["chr"],"align":["left"]},{"label":["male"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["party"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"8","2":"37449","3":"7","4":"male","5":"1","6":"Democrat"},{"1":"8","2":"26430","3":"9","4":"female","5":"0","6":"Independent"},{"1":"10","2":"47034","3":"14","4":"male","5":"1","6":"Democrat"},{"1":"10","2":"34182","3":"16","4":"female","5":"0","6":"Independent"},{"1":"10","2":"25479","3":"1","4":"female","5":"0","6":"Republican"},{"1":"12","2":"46488","3":"11","4":"female","5":"0","6":"Democrat"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit regression model</span>
-lm.<span class="dv">1</span> =<span class="st"> </span><span class="kw">lm</span>(income <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>seniority, <span class="dt">data =</span> city)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit regression model</span>
+lm<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lm</span>(income <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>seniority, <span class="dt">data =</span> city)
 
 <span class="co"># Coefficient-level output</span>
-<span class="kw">tidy</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<span class="kw">tidy</span>(lm<span class="fl">.1</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"6769.2","3":"5372.9","4":"1.260","5":"0.2177593429"},{"1":"education","2":"2251.8","3":"334.6","4":"6.729","5":"0.0000002203"},{"1":"seniority","2":"738.8","3":"210.1","4":"3.516","5":"0.0014597774"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -489,7 +536,7 @@ n &amp;= 32 \\
 \end{split}
 \]</span></p>
 <p>Using the <span class="math inline">\(t\)</span>-distribution with 29 <em>df</em>,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pt</span>(<span class="dt">q =</span> <span class="op">-</span><span class="fl">6.72</span>, <span class="dt">df =</span> <span class="dv">29</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pt</span>(<span class="dt">q =</span> <span class="fl">-6.72</span>, <span class="dt">df =</span> <span class="dv">29</span>)</code></pre>
 <pre><code>[1] 0.0000002257</code></pre>
 <p>For seniority (and the intercept), we would use the same <span class="math inline">\(t\)</span>-distribution, but our test statistic would differ:</p>
 <p><span class="math display">\[
@@ -499,18 +546,18 @@ t_{\mathrm{Seniority}} &amp;= \frac{739}{210} = 3.52 \\
 \end{split}
 \]</span></p>
 <p>The associated <span class="math inline">\(p\)</span>-values are:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Intercept p-value</span>
-<span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pt</span>(<span class="dt">q =</span> <span class="op">-</span><span class="fl">1.26</span>, <span class="dt">df =</span> <span class="dv">29</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Intercept p-value</span>
+<span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pt</span>(<span class="dt">q =</span> <span class="fl">-1.26</span>, <span class="dt">df =</span> <span class="dv">29</span>)</code></pre>
 <pre><code>[1] 0.2177</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Seniority p-value</span>
-<span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pt</span>(<span class="dt">q =</span> <span class="op">-</span><span class="fl">3.52</span>, <span class="dt">df =</span> <span class="dv">29</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Seniority p-value</span>
+<span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pt</span>(<span class="dt">q =</span> <span class="fl">-3.52</span>, <span class="dt">df =</span> <span class="dv">29</span>)</code></pre>
 <pre><code>[1] 0.001446</code></pre>
 </div>
 <div id="model-level-inference-the-f-distribution" class="section level2">
 <h2><span class="header-section-number">4.5</span> Model-Level Inference: The <span class="math inline">\(F\)</span>-Distribution</h2>
 <p>The model-level inference for regression is based on an <span class="math inline">\(F\)</span>-statistic, which is a standardized measure of <span class="math inline">\(R^2\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Model-level output</span>
-<span class="kw">glance</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Model-level output</span>
+<span class="kw">glance</span>(lm<span class="fl">.1</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.7418","2":"0.724","3":"7646","4":"41.65","5":"0.000000002977","6":"3","7":"-330","8":"667.9","9":"673.8","10":"1695313285","11":"29"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -545,7 +592,7 @@ Figure 4.7: Plot of several F-distributions with differing degrees of freedom. T
 <div id="computing-f-from-the-anova-partitioning" class="section level4">
 <h4><span class="header-section-number">4.5.1.1</span> Computing F from the ANOVA Partitioning</h4>
 <p>We can also compute the model-level <span class="math inline">\(F\)</span>-statistic using the partitioning of variation from the ANOVA table.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lm<span class="fl">.1</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["Sum Sq"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Mean Sq"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["F value"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"4147330492","3":"4147330492","4":"70.94","5":"0.000000002781","_rn_":"education"},{"1":"1","2":"722883649","3":"722883649","4":"12.37","5":"0.001459777426","_rn_":"seniority"},{"1":"29","2":"1695313285","3":"58459079","4":"NA","5":"NA","_rn_":"Residuals"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -581,17 +628,16 @@ F &amp;= \frac{\mathrm{MS}_{\mathrm{Model}}}{\mathrm{MS}_{\mathrm{Error}}} \\
 \end{split}
 \]</span></p>
 <p>This is the observed <span class="math inline">\(F\)</span>-statistic for the model. Note that this is an identical computation (although reframed) as the initial computation for <span class="math inline">\(F\)</span>.</p>
-$$
-<span class="math display">\[\begin{split}
-F &amp;= \frac{R^2}{1-R^2} \times \frac{\mathrm{df}_{\mathrm{Error}}}{\mathrm{df}_{\mathrm{Model}}} \\[1em]
-&amp;= \frac{\frac{\mathrm{SS}_{\mathrm{Model}}}{\mathrm{SS}_{\mathrm{Total}}}}{\frac{\mathrm{SS}_{\mathrm{Error}}}{\mathrm{SS}_{\mathrm{Total}}}} \times \frac{\mathrm{df}_{\mathrm{Error}}}{\mathrm{df}_{\mathrm{Model}}} \\[1em]
-&amp;= \frac{\mathrm{SS}_{\mathrm{Model}}}{\mathrm{SS}_{\mathrm{Error}}} \times \frac{\mathrm{df}_{\mathrm{Error}}}{\mathrm{df}_{\mathrm{Model}}} \\[1em]
-&amp;= \frac{\mathrm{SS}_{\mathrm{Model}}}{\mathrm{df}_{\mathrm{Model}}} \times \frac{\mathrm{df}_{\mathrm{Error}}}{\mathrm{SS}_{\mathrm{Error}}} \\[1em]
-
-&amp;= \mathrm{MS}_{\mathrm{Model}} \times \frac{1}{\mathrm{MS}_{\mathrm{Error}}}\\[1em]
-&amp;= \frac{\mathrm{MS}_{\mathrm{Model}}}{\mathrm{MS}_{\mathrm{Error}}}
-\end{split}\]</span>
-<p>$$</p>
+<p>$$
+\begin{split}
+F &amp;=   \[1em]
+&amp;=   \[1em]
+&amp;=   \[1em]
+&amp;=   \[1em]</p>
+<p>&amp;= _{} \[1em]
+&amp;= 
+\end{split}
+$$</p>
 <p>To test the null hypothesis, <span class="math inline">\(H_0:\rho^2=0\)</span>, we evaluate this observed <span class="math inline">\(F\)</span>-statistic in an <span class="math inline">\(F\)</span>-distribution with the 2 and 29 degrees of freedom.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-110"></span>
 <img src="epsy-8252-notes_files/figure-html/unnamed-chunk-110-1.png" alt="Plot of the probability density function (PDF) for the F-distribution with 2 and 29 degrees of freedom. The cumulative density representing the p-value for a two-tailed test evaluating whether rho-squared=0 using an observed F-statistic of 41.7 is also displayed." width="80%" />
@@ -600,7 +646,7 @@ Figure 4.8: Plot of the probability density function (PDF) for the F-distributio
 </p>
 </div>
 <p>The computation using the cumulative density function, <code>pf()</code>, to obtain the <span class="math inline">\(p\)</span>-value is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pf</span>(<span class="fl">41.7</span>, <span class="dt">df1 =</span> <span class="dv">2</span>, <span class="dt">df2 =</span> <span class="dv">29</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pf</span>(<span class="fl">41.7</span>, <span class="dt">df1 =</span> <span class="dv">2</span>, <span class="dt">df2 =</span> <span class="dv">29</span>)</code></pre>
 <pre><code>[1] 0.000000002942</code></pre>
 </div>
 </div>
@@ -621,10 +667,10 @@ Figure 4.9: Visual depiction of the distributional assumptions of the residuals 
 </div>
 <p>Recall that we made implicit assumptions about the conditional distributions of the residuals, namely that they were identically and normally distributed with a mean of zero and some variance. Based on the estimate of the mean squared error, the variance of each of these distributions is 58,459,079.</p>
 <p>While the variance is a mathematical convenience, the standard deviation is a better descriptor of the variation in these distributions. The standard deviation is 7646.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="dv">58459079</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="dv">58459079</span>)</code></pre>
 <pre><code>[1] 7646</code></pre>
 <p>We can also obtain this value from the model-level regression output. Here it is typically referred to as the <em>Root Mean Squared Error</em> (RMSE). In the <code>glance()</code> output this value is in the <code>sigma</code> column.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(lm.<span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(lm<span class="fl">.1</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.7418","2":"0.724","3":"7646","4":"41.65","5":"0.000000002977","6":"3","7":"-330","8":"667.9","9":"673.8","10":"1695313285","11":"29"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -701,7 +747,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
