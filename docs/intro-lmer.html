@@ -25,7 +25,7 @@
 <meta name="author" content="Andrew Zieffler">
 
 
-<meta name="date" content="2019-01-16">
+<meta name="date" content="2019-01-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -50,6 +50,7 @@
 
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -117,6 +118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="print.css" type="text/css" />
 </head>
 
 <body>
@@ -269,13 +271,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="intro-lmer.html"><a href="intro-lmer.html"><i class="fa fa-check"></i><b>8</b> Introduction to Mixed-Effects Models</a><ul>
 <li class="chapter" data-level="" data-path="intro-lmer.html"><a href="intro-lmer.html#preparation-7"><i class="fa fa-check"></i>Preparation</a></li>
 <li class="chapter" data-level="8.1" data-path="intro-lmer.html"><a href="intro-lmer.html#dataset-and-research-question-6"><i class="fa fa-check"></i><b>8.1</b> Dataset and Research Question</a></li>
-<li class="chapter" data-level="8.2" data-path="intro-lmer.html"><a href="intro-lmer.html#merge-the-player--and-team-level-data"><i class="fa fa-check"></i><b>8.2</b> Merge the Player- and Team-Level Data</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-lmer.html"><a href="intro-lmer.html#join-the-student--and-classroom-level-data"><i class="fa fa-check"></i><b>8.2</b> Join the Student- and Classroom-Level Data</a></li>
 <li class="chapter" data-level="8.3" data-path="intro-lmer.html"><a href="intro-lmer.html#fixed-effects-regression-model"><i class="fa fa-check"></i><b>8.3</b> Fixed-Effects Regression Model</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="intro-lmer.html"><a href="intro-lmer.html#residual-analysis"><i class="fa fa-check"></i><b>8.3.1</b> Residual Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="intro-lmer.html"><a href="intro-lmer.html#conceptual-idea-of-mixed-effects-models"><i class="fa fa-check"></i><b>8.4</b> Conceptual Idea of Mixed-Effects Models</a></li>
 <li class="chapter" data-level="8.5" data-path="intro-lmer.html"><a href="intro-lmer.html#fitting-the-mixed-effects-regression-model-in-practice"><i class="fa fa-check"></i><b>8.5</b> Fitting the Mixed-Effects Regression Model in Practice</a></li>
-<li class="chapter" data-level="" data-path="intro-lmer.html"><a href="intro-lmer.html#other-resources-3"><i class="fa fa-check"></i>Other Resources</a></li>
+<li class="chapter" data-level="8.6" data-path="intro-lmer.html"><a href="intro-lmer.html#example-2-life-satisfaction-of-nba-players"><i class="fa fa-check"></i><b>8.6</b> Example 2: Life Satisfaction of NBA Players</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="intro-lmer.html"><a href="intro-lmer.html#fit-the-mixed-effects-model"><i class="fa fa-check"></i><b>8.6.1</b> Fit the Mixed-Effects Model</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html"><i class="fa fa-check"></i>Data Codebooks</a><ul>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#ed-schools-2018"><i class="fa fa-check"></i>ed-schools-2018.csv</a></li>
@@ -283,7 +287,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#fci-2018"><i class="fa fa-check"></i>fci-2015.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#mn-schools"><i class="fa fa-check"></i>mn-schools.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#movies"><i class="fa fa-check"></i>movies.csv</a></li>
-<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#nba"><i class="fa fa-check"></i>nba-level-01.sav and nba-level-02.sav</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#nba"><i class="fa fa-check"></i>nba-player-data.csv and nba-team-data.csv</a></li>
+<li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#netherlands"><i class="fa fa-check"></i>netherlands-students.csv and netherlands-schools.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#popular"><i class="fa fa-check"></i>popular-classroom.csv and popular-student.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#riverview"><i class="fa fa-check"></i>riverview.csv</a></li>
 <li class="chapter" data-level="" data-path="data-codebook.html"><a href="data-codebook.html#wine"><i class="fa fa-check"></i>wine.csv</a></li>
@@ -311,23 +316,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="intro-lmer" class="section level1">
 <h1><span class="header-section-number">Unit 8:</span> Introduction to Mixed-Effects Models</h1>
-<p>In this set of notes, you will learn more about using information criteria to select a model from a set of candidate models.</p>
+<p>In this set of notes, you will learn the conceptual ideas behind linear mixed-effects models, also called multilevel models or hierarchical linear models.</p>
 <hr />
 <div id="preparation-7" class="section level3 unnumbered">
 <h3>Preparation</h3>
-<p>Before class you will need read the following:</p>
+<p>Before class you will need to read the <a href="https://r4ds.had.co.nz/relational-data.html">Relational data</a> chapter from following:</p>
 <ul>
-<li>Burnham, K. P., Anderson, D. R., &amp; Huyvaert, K. P. (2010). <a href="https://link-springer-com.ezp3.lib.umn.edu/article/10.1007/s00265-010-1029-6">AIC model selection and multimodel inference in behavioral ecology: Some background, observations, and comparisons</a>. <em>Behavioral Ecology and Sociobiology, 65</em>(1), 23–35.</li>
+<li>Grolemund, G., &amp; Wickham, H. (2017). <a href="https://r4ds.had.co.nz/">R for Data Science: Visualize, model, transform, tidy, and import data</a>. **. Sebastopol, CA: O’Reilly.</li>
 </ul>
+<p>Focus on the information on mutating joins.</p>
 <p><br /></p>
 <hr />
 </div>
 <div id="dataset-and-research-question-6" class="section level2">
 <h2><span class="header-section-number">8.1</span> Dataset and Research Question</h2>
-<p>In this set of notes, we will use data from two files, the <em>nba-level-01.csv</em> file and the <em>nba-level-02.csv</em> file (see the <a href="data-codebook.html#nba">data codebook</a> here). These data include player-level attributes for <span class="math inline">\(n=300\)</span> NBA players, and team-level attributes for <span class="math inline">\(N=30\)</span> different teams..</p>
+<p>In this set of notes, we will use data from two files, the <em>netherlands-students.csv</em> file and the <em>netherlands-schools.csv</em> files (see the <a href="data-codebook.html#netherlands">data codebook</a> here). These data include student- and school-level attributes, respectively, for <span class="math inline">\(n_i=2287\)</span> 8th-grade students in the Netherlands.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries</span>
-<span class="kw">library</span>(AICcmodavg)
-<span class="kw">library</span>(arm)
 <span class="kw">library</span>(broom)
 <span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(ggplot2)
@@ -335,63 +339,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="kw">library</span>(readr)
 <span class="kw">library</span>(sm)
 
-<span class="co"># Read in player-level data</span>
-nba_players =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/nba-players.csv&quot;</span>)
-<span class="kw">head</span>(nba_players)</code></pre>
-<pre><code># A tibble: 6 x 3
-   team success life_satisfaction
-  &lt;dbl&gt;   &lt;dbl&gt;             &lt;dbl&gt;
-1     1       3              18.8
-2     1       3              18  
-3     1       4              21  
-4     1       4              20.5
-5     1       3              19  
-6     1       2              12.1</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read in team-level data</span>
-nba_teams =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/nba-teams.csv&quot;</span>)
-<span class="kw">head</span>(nba_teams)</code></pre>
-<pre><code># A tibble: 6 x 2
-   team coach_experience
-  &lt;dbl&gt;            &lt;dbl&gt;
-1     1                2
-2     2                3
-3     3                2
-4     4                2
-5     5                1
-6     6                2</code></pre>
-<p>We will use these data to explore the question of whether player success predicts variation in life satisfaction.</p>
+<span class="co"># Read in student-level data</span>
+student_data =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/netherlands-students.csv&quot;</span>)
+<span class="kw">head</span>(student_data)</code></pre>
+<pre><code># A tibble: 6 x 8
+  student_id school_id language_pre language_post   ses verbal_iq female
+       &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+1      17001         1           36            46    23     3.17       0
+2      17002         1           36            45    10     2.67       0
+3      17003         1           33            33    15    -2.33       0
+4      17004         1           29            46    23    -0.834      0
+5      17005         1           19            20    10    -3.83       0
+6      17006         1           22            30    10    -2.33       0
+# … with 1 more variable: minority &lt;dbl&gt;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read in school-level data</span>
+school_data =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/netherlands-schools.csv&quot;</span>)
+<span class="kw">head</span>(school_data)</code></pre>
+<pre><code># A tibble: 6 x 5
+  school_id school_type school_ses school_verbal_iq school_minority
+      &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;
+1         1 Public              11           -1.51               60
+2         2 Public              11           -2.83               10
+3        10 Public              15           -1.33                4
+4        12 Public              20           -2.40                5
+5        15 Catholic            18           -0.334              25
+6        16 Protestant          13           -0.147               0</code></pre>
+<p>We will use these data to explore the question of whether verbal IQ scores predict variation in post-test language scores.</p>
 </div>
-<div id="merge-the-player--and-team-level-data" class="section level2">
-<h2><span class="header-section-number">8.2</span> Merge the Player- and Team-Level Data</h2>
-<p>Before analyzing the data, we need to merge, or join, the two datasets together. To do this, we will use the <code>left_join()</code> function from the <strong>dplyr</strong> package. <strong>dplyr</strong> includes six different join functions. You can read about several different join functions <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html">here</a>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">nba =<span class="st"> </span><span class="kw">left_join</span>(nba_players, nba_teams, <span class="dt">by =</span> <span class="st">&quot;team&quot;</span>)
-<span class="kw">head</span>(nba)</code></pre>
+<div id="join-the-student--and-classroom-level-data" class="section level2">
+<h2><span class="header-section-number">8.2</span> Join the Student- and Classroom-Level Data</h2>
+<p>Before analyzing the data, we need to join, or merge, the two datasets together. To do this, we will use the <code>left_join()</code> function from the <strong>dplyr</strong> package. <strong>dplyr</strong> includes six different join functions. You can read about several different join functions <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html">here</a>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">joined_data =<span class="st"> </span><span class="kw">left_join</span>(student_data, school_data, <span class="dt">by =</span> <span class="st">&quot;school_id&quot;</span>)
+<span class="kw">head</span>(joined_data)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["team"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["success"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["life_satisfaction"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["coach_experience"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"3","3":"18.804","4":"2"},{"1":"1","2":"3","3":"18.000","4":"2"},{"1":"1","2":"4","3":"21.000","4":"2"},{"1":"1","2":"4","3":"20.500","4":"2"},{"1":"1","2":"3","3":"19.000","4":"2"},{"1":"1","2":"2","3":"12.100","4":"2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["student_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["school_id"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["language_pre"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["language_post"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["ses"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["verbal_iq"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["female"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["minority"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["school_type"],"name":[9],"type":["chr"],"align":["left"]},{"label":["school_ses"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["school_verbal_iq"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["school_minority"],"name":[12],"type":["dbl"],"align":["right"]}],"data":[{"1":"17001","2":"1","3":"36","4":"46","5":"23","6":"3.1659","7":"0","8":"0","9":"Public","10":"11","11":"-1.514","12":"60"},{"1":"17002","2":"1","3":"36","4":"45","5":"10","6":"2.6659","7":"0","8":"1","9":"Public","10":"11","11":"-1.514","12":"60"},{"1":"17003","2":"1","3":"33","4":"33","5":"15","6":"-2.3341","7":"0","8":"0","9":"Public","10":"11","11":"-1.514","12":"60"},{"1":"17004","2":"1","3":"29","4":"46","5":"23","6":"-0.8341","7":"0","8":"0","9":"Public","10":"11","11":"-1.514","12":"60"},{"1":"17005","2":"1","3":"19","4":"20","5":"10","6":"-3.8341","7":"0","8":"0","9":"Public","10":"11","11":"-1.514","12":"60"},{"1":"17006","2":"1","3":"22","4":"30","5":"10","6":"-2.3341","7":"0","8":"1","9":"Public","10":"11","11":"-1.514","12":"60"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 <div id="fixed-effects-regression-model" class="section level2">
 <h2><span class="header-section-number">8.3</span> Fixed-Effects Regression Model</h2>
-<p>To examine the research question of whether player success predicts variation in life satisfaction, we might regress life satisfaction on the success variable using the <code>lm()</code> function. The <code>lm()</code> function fits a <em>fixed-effects regression model</em>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lm</span>(life_satisfaction <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>success, <span class="dt">data =</span> nba)
+<p>To examine the research question of whether verbal IQ scores predict variation in post-test language scores, we might regress language scores on the verbal IQ scores using the <code>lm()</code> function. The <code>lm()</code> function fits a <em>fixed-effects regression model</em>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lm</span>(language_post <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>verbal_iq, <span class="dt">data =</span> joined_data)
 
 <span class="co"># Model-level output</span>
 <span class="kw">glance</span>(lm<span class="fl">.1</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.7954431","2":"0.7947566","3":"2.444498","4":"1158.807","5":"1.059518e-104","6":"2","7":"-692.8301","8":"1391.66","9":"1402.772","10":"1780.72","11":"298"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["int"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]}],"data":[{"1":"0.3719","2":"0.3716","3":"7.137","4":"1353","5":"5.021e-233","6":"2","7":"-7739","8":"15484","9":"15501","10":"116402","11":"2285"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Coefficient-level output</span>
 <span class="kw">tidy</span>(lm<span class="fl">.1</span>)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"5.693659","3":"0.3026293","4":"18.81397","5":"1.363463e-52"},{"1":"success","2":"3.659844","3":"0.1075120","4":"34.04126","5":"1.059518e-104"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"40.935","3":"0.14925","4":"274.28","5":"0.000e+00"},{"1":"verbal_iq","2":"2.654","3":"0.07215","4":"36.78","5":"5.021e-233"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>To have faith in the analytic results from this model, we need to evaluate whether the assumptions are satisfied.</p>
+<p>The model-level summary information suggests that differences in verbal IQ scores explains 37.2% of the variation in post-test language scores, <span class="math inline">\(F(1,2285)=1352.84\)</span>, <span class="math inline">\(p&lt;0.001\)</span>. The estimated intercept suggests that the average predicted post-test language scores for students with a mean verbal IQ score (= 0) is 40.93 (<span class="math inline">\(p&lt;.001\)</span>). The estimated slope indicates that each one-point difference in verbal IQ score is associated with a difference in post-test language scores of <span class="math inline">\(2.65\)</span>, on average (<span class="math inline">\(p&lt;.001\)</span>). To have faith in the analytic results from this model, we need to evaluate whether the assumptions are satisfied.</p>
 <div id="residual-analysis" class="section level3">
 <h3><span class="header-section-number">8.3.1</span> Residual Analysis</h3>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain the fortified data frame</span>
@@ -399,7 +404,7 @@ out =<span class="st"> </span><span class="kw">augment</span>(lm<span class="fl"
 <span class="kw">head</span>(out)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["life_satisfaction"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["success"],"name":[2],"type":["dbl"],"align":["right"]},{"label":[".fitted"],"name":[3],"type":["dbl"],"align":["right"]},{"label":[".se.fit"],"name":[4],"type":["dbl"],"align":["right"]},{"label":[".resid"],"name":[5],"type":["dbl"],"align":["right"]},{"label":[".hat"],"name":[6],"type":["dbl"],"align":["right"]},{"label":[".sigma"],"name":[7],"type":["dbl"],"align":["right"]},{"label":[".cooksd"],"name":[8],"type":["dbl"],"align":["right"]},{"label":[".std.resid"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"18.804","2":"3","3":"16.67319","4":"0.1514101","5":"2.1308104","6":"0.003836457","7":"2.445474","8":"1.468755e-03","9":"0.87335305"},{"1":"18.000","2":"3","3":"16.67319","4":"0.1514101","5":"1.3268096","6":"0.003836457","7":"2.447394","8":"5.694780e-04","9":"0.54381806"},{"1":"21.000","2":"4","3":"20.33303","4":"0.2151136","5":"0.6669657","6":"0.007743841","7":"2.448301","8":"2.927564e-04","9":"0.27390624"},{"1":"20.500","2":"4","3":"20.33303","4":"0.2151136","5":"0.1669657","6":"0.007743841","7":"2.448590","8":"1.834653e-05","9":"0.06856866"},{"1":"19.000","2":"3","3":"16.67319","4":"0.1514101","5":"2.3268096","6":"0.003836457","7":"2.444870","8":"1.751384e-03","9":"0.95368701"},{"1":"12.100","2":"2","3":"13.01335","4":"0.1506448","5":"-0.9133465","6":"0.003797770","7":"2.448034","8":"2.671133e-04","9":"-0.37434510"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["language_post"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["verbal_iq"],"name":[2],"type":["dbl"],"align":["right"]},{"label":[".fitted"],"name":[3],"type":["dbl"],"align":["right"]},{"label":[".se.fit"],"name":[4],"type":["dbl"],"align":["right"]},{"label":[".resid"],"name":[5],"type":["dbl"],"align":["right"]},{"label":[".hat"],"name":[6],"type":["dbl"],"align":["right"]},{"label":[".sigma"],"name":[7],"type":["dbl"],"align":["right"]},{"label":[".cooksd"],"name":[8],"type":["dbl"],"align":["right"]},{"label":[".std.resid"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"46","2":"3.1659","3":"49.34","4":"0.2729","5":"-3.337","6":"0.0014616","7":"7.139","8":"0.00016021","9":"-0.4679"},{"1":"45","2":"2.6659","3":"48.01","4":"0.2435","5":"-3.010","6":"0.0011636","7":"7.139","8":"0.00010371","9":"-0.4220"},{"1":"33","2":"-2.3341","3":"34.74","4":"0.2250","5":"-1.740","6":"0.0009940","7":"7.139","8":"0.00002961","9":"-0.2440"},{"1":"46","2":"-0.8341","3":"38.72","4":"0.1609","5":"7.279","6":"0.0005084","7":"7.137","8":"0.00026461","9":"1.0201"},{"1":"20","2":"-3.8341","3":"30.76","4":"0.3143","5":"-10.760","6":"0.0019396","7":"7.135","8":"0.00221254","9":"-1.5090"},{"1":"30","2":"-2.3341","3":"34.74","4":"0.2250","5":"-4.740","6":"0.0009940","7":"7.138","8":"0.00021969","9":"-0.6645"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Normality</span>
@@ -412,32 +417,42 @@ out =<span class="st"> </span><span class="kw">augment</span>(lm<span class="fl"
 <span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Standardized residuals&quot;</span>)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-6"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-6-1.png" alt="Density plot of the standardized residuals and scatterplot of the standardized residuals versus the fitted values from the fixed-effects regression model." width="50%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-6-2.png" alt="Density plot of the standardized residuals and scatterplot of the standardized residuals versus the fitted values from the fixed-effects regression model." width="50%" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-196"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-196-1.png" alt="Density plot of the standardized residuals and scatterplot of the standardized residuals versus the fitted values from the fixed-effects regression model." width="50%" /><img src="epsy-8252-notes_files/figure-html/unnamed-chunk-196-2.png" alt="Density plot of the standardized residuals and scatterplot of the standardized residuals versus the fitted values from the fixed-effects regression model." width="50%" />
 <p class="caption">
 Figure 8.1: Density plot of the standardized residuals and scatterplot of the standardized residuals versus the fitted values from the fixed-effects regression model.
 </p>
 </div>
-<p>The assumptions of linearity, normality, and homoscedasticity seem reasonably satisfied. The assumption of independnece, however, is probably not tenable. The life satisfaction scores (and thus the residuals) are probably more correlated within teams than between teams—this is a violation of independence. If we have a variable that identifies team, we can actually examine this by plotting the residuals separately for each team.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add team ID variable to augmented data</span>
-out<span class="op">$</span>team =<span class="st"> </span>nba<span class="op">$</span>team
+<p>The assumption that the mean residual is 0 seems reasonably satisfied, however those of normality and homoscedasticity seem less feasible, especially given the large sample size. More importantly, the assumption of independence (which we don’t evaluate from the common residual plots) is probably not tenable. Students’ post-test language scores (and thus the residuals) are probably correlated within schools—this is a violation of independence which assumes that the correlation between student’s residuals is 0. If we have a variable that identifies classroom, we can actually examine this by plotting the residuals separately for each classroom.</p>
+<p>In our case, we do have a variable that identifies classroom (<code>school_id</code>). We need to mutate this variable into the augmented dataset. This variable has 131 different levels, which means that we would be looking at 131 different residual plots. When we use <code>facet_wrap()</code> with that many levels each plot will be too small to see, so we will instead select a random sample of, say, 25 of the classrooms to evaluate.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make random sample reproducible</span>
+<span class="kw">set.seed</span>(<span class="dv">100</span>)
 
-<span class="co">### Show residuals by team</span>
+<span class="co"># Draw random sample of 25 schools without replacement</span>
+my_sample =<span class="st"> </span><span class="kw">sample</span>(school_data<span class="op">$</span>school_id, <span class="dt">size =</span> <span class="dv">25</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)
+
+<span class="co"># Mutate on school ID and draw random sample</span>
+out =<span class="st"> </span>out <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">school_id =</span> joined_data<span class="op">$</span>school_id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(school_id <span class="op">%in%</span><span class="st"> </span>my_sample)
+
+<span class="co">### Show residuals by school</span>
 <span class="kw">ggplot</span>(<span class="dt">data =</span> out, <span class="kw">aes</span>(<span class="dt">x =</span> .fitted, <span class="dt">y =</span> .std.resid)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Studentized residuals&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>team, <span class="dt">nrow =</span> <span class="dv">5</span>)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-7"></span>
-<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-7-1.png" alt="Scatterplots of the standardized residuals versus the fitted values from the fixed-effects regression model stratified by team." width="90%" />
+<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>school_id, <span class="dt">nrow =</span> <span class="dv">5</span>)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-197"></span>
+<img src="epsy-8252-notes_files/figure-html/unnamed-chunk-197-1.png" alt="Scatterplots of the standardized residuals versus the fitted values from the fixed-effects regression model stratified by team." width="90%" />
 <p class="caption">
 Figure 8.2: Scatterplots of the standardized residuals versus the fitted values from the fixed-effects regression model stratified by team.
 </p>
 </div>
-<p>The residuals show a systematic (non-random) pattern within teams (e.g., Team 02, Team 28). This is a sign of non-independence of the residuals. To account for this we need to use a statistical model that accounts for the correlation among the residuals within teams. This is what <em>mixed-effects models</em> bring to the table. By correctly modeling the non-independence, we get more accurate standard errors and <em>p</em>-values.</p>
-<p>Another benefit of using mixed-effects models is that we also get estimates of the variation accounted for at both the team- and player-levels. This disaggregating of the variation allows us to see which level is explaining more variation and to study predictors appropriate to explaining that variation. For example, suppose that in an educational study you disaggregated the variation in student achievement scores and found that:</p>
+<p>The residuals for several of the schools show a systematic trends of being primarily positive or negative within schools. For example, the residuals for several schools (e.g., 47, 256 258) are primarily negative. This is a sign of non-independence of the residuals. If we hadn’t had the school ID variable we could have still made a logical argument about this non-independence via substantive knowledge. For example, students who attend a “high performing” will likely tend to have positive residuals (scores above average relative to the population), even after accounting for their verbal IQ scores.</p>
+<p>To account for this within-school correlation we need to use a statistical model that accounts for the correlation among the residuals within schools. This is what <em>mixed-effects models</em> bring to the table. By correctly modeling the non-independence, we get more accurate standard errors and <em>p</em>-values.</p>
+<p>Another benefit of using mixed-effects models is that we also get estimates of the variation accounted for at both the school- and student-levels. This disaggregating of the variation allows us to see which level is explaining more variation and to study predictors appropriate to explaining that variation. For example, suppose that you disaggregated the variation in language scores and found that:</p>
 <ul>
 <li>96% of the variation in these scores was at the student-level, and</li>
 <li>3% of the variation in these scores was at the classroom-level, and</li>
@@ -451,107 +466,373 @@ Figure 8.2: Scatterplots of the standardized residuals versus the fitted values 
 <p>In this section we will outline the conceptual ideas behind mixed-effects models by linking the ideas behind these models to the conventional, fixed-effects regression model. <em>It is important to realize that this is just conceptual in nature. Its purpose is only to help you understand the output you get from a mixed-effects model analysis.</em></p>
 <p>To begin, we remind you of the fitted equation we obtained earlier from the fixed-effects regression:</p>
 <p><span class="math display">\[
-\hat{\mathrm{Life~Satisfaction}_i} = 5.70 + 3.66(\mathrm{Player~Success}_i)
+\hat{\mathrm{Language~Score}_i} = 34.19 + 2.04(\mathrm{Verbal~IQ}_i)
 \]</span></p>
-<p>Mixed-effects regression actually fits a global model (like the one above) AND a team-specific model for each team. Conceptually this is akin to fitting a regression model for each team separately. Below I will do this, but keep in mind that this is only to help you understand.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit team models</span>
-team_models =<span class="st"> </span>nba <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(team) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">do</span>( <span class="dt">mod =</span> <span class="kw">lm</span>(life_satisfaction <span class="op">~</span><span class="st"> </span>success, <span class="dt">data =</span> .) ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tidy</span>(mod)
+<p>Mixed-effects regression actually fits a global model (like the one above) AND a school-specific model for each school. Conceptually, this is like fitting a regression model for each school separately. Below I show the results (for 5 of the schools) of fitting a different regression model to each school, but keep in mind that this is only to help you understand.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit school models</span>
+school_models =<span class="st"> </span>joined_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(school_id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">do</span>(<span class="dt">mod =</span> <span class="kw">lm</span>(language_post  <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>verbal_iq, <span class="dt">data =</span> .)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tidy</span>(mod) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>(., <span class="dv">10</span>)
 
 <span class="co"># View coefficients from fitted models</span>
-team_models</code></pre>
+school_models</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["team"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"(Intercept)","3":"4.7259001","4":"3.0408175","5":"1.5541545","6":"1.587542e-01"},{"1":"1","2":"success","3":"3.9775000","4":"0.9918053","5":"4.0103637","6":"3.893084e-03"},{"1":"2","2":"(Intercept)","3":"9.9555372","4":"1.8031076","5":"5.5213217","6":"5.595109e-04"},{"1":"2","2":"success","3":"2.9666116","4":"0.4671201","5":"6.3508546","6":"2.204084e-04"},{"1":"3","2":"(Intercept)","3":"9.0336364","4":"1.5037390","5":"6.0074497","6":"3.207207e-04"},{"1":"3","2":"success","3":"3.2004132","4":"0.4322946","5":"7.4033158","6":"7.595398e-05"},{"1":"4","2":"(Intercept)","3":"5.6576796","4":"1.2571223","5":"4.5005007","6":"2.000768e-03"},{"1":"4","2":"success","3":"3.3752486","4":"0.3527570","5":"9.5681971","6":"1.178981e-05"},{"1":"5","2":"(Intercept)","3":"7.0408571","4":"1.2505969","5":"5.6299972","6":"4.927339e-04"},{"1":"5","2":"success","3":"2.3347619","4":"0.6884309","5":"3.3914250","6":"9.479950e-03"},{"1":"6","2":"(Intercept)","3":"4.6310638","4":"1.5745189","5":"2.9412564","6":"1.867372e-02"},{"1":"6","2":"success","3":"4.1888652","4":"0.5338119","5":"7.8470809","6":"5.016319e-05"},{"1":"7","2":"(Intercept)","3":"6.9032653","4":"1.2363674","5":"5.5835065","6":"5.201649e-04"},{"1":"7","2":"success","3":"1.1661224","4":"0.9482505","5":"1.2297620","6":"2.537227e-01"},{"1":"8","2":"(Intercept)","3":"6.1158621","4":"2.5704276","5":"2.3793170","6":"4.459319e-02"},{"1":"8","2":"success","3":"3.6568966","4":"0.6944566","5":"5.2658391","6":"7.591110e-04"},{"1":"9","2":"(Intercept)","3":"8.9687755","4":"2.1624312","5":"4.1475427","6":"3.219825e-03"},{"1":"9","2":"success","3":"1.5395918","4":"1.0679486","5":"1.4416347","6":"1.873805e-01"},{"1":"10","2":"(Intercept)","3":"5.6341035","4":"1.9798660","5":"2.8456994","6":"2.162158e-02"},{"1":"10","2":"success","3":"3.5268621","4":"0.8082769","5":"4.3634330","6":"2.401553e-03"},{"1":"11","2":"(Intercept)","3":"3.6982759","4":"1.2383586","5":"2.9864338","6":"1.742849e-02"},{"1":"11","2":"success","3":"4.1339655","4":"0.5055578","5":"8.1770388","6":"3.728984e-05"},{"1":"12","2":"(Intercept)","3":"3.0890000","4":"1.7136231","5":"1.8026134","6":"1.091162e-01"},{"1":"12","2":"success","3":"4.9025000","4":"0.7821584","5":"6.2679122","6":"2.409914e-04"},{"1":"13","2":"(Intercept)","3":"16.2468966","4":"2.8606830","5":"5.6793768","6":"4.653269e-04"},{"1":"13","2":"success","3":"1.0831034","4":"0.7266142","5":"1.4906170","6":"1.743970e-01"},{"1":"14","2":"(Intercept)","3":"8.1723333","4":"0.8486189","5":"9.6301566","6":"1.123817e-05"},{"1":"14","2":"success","3":"0.4166667","4":"0.6708922","5":"0.6210635","6":"5.518383e-01"},{"1":"15","2":"(Intercept)","3":"12.5200000","4":"4.1249100","5":"3.0352177","6":"1.618051e-02"},{"1":"15","2":"success","3":"0.6525000","4":"1.6839875","5":"0.3874732","6":"7.085110e-01"},{"1":"16","2":"(Intercept)","3":"6.2700000","4":"2.4210500","5":"2.5897854","6":"3.212383e-02"},{"1":"16","2":"success","3":"3.5700000","4":"1.0617007","5":"3.3625296","6":"9.894585e-03"},{"1":"17","2":"(Intercept)","3":"7.3907143","4":"1.1344751","5":"6.5146556","6":"1.852233e-04"},{"1":"17","2":"success","3":"1.2510714","4":"0.8021950","5":"1.5595602","6":"1.574834e-01"},{"1":"18","2":"(Intercept)","3":"9.9685366","4":"1.7730394","5":"5.6222872","6":"4.971710e-04"},{"1":"18","2":"success","3":"2.5471951","4":"0.4880130","5":"5.2195228","6":"8.030526e-04"},{"1":"19","2":"(Intercept)","3":"5.8455000","4":"2.1282616","5":"2.7466078","6":"2.519063e-02"},{"1":"19","2":"success","3":"3.4590000","4":"0.8044073","5":"4.3000605","6":"2.615541e-03"},{"1":"20","2":"(Intercept)","3":"6.2084564","4":"1.1819558","5":"5.2526975","6":"7.713052e-04"},{"1":"20","2":"success","3":"3.6644966","4":"0.5233788","5":"7.0016141","6":"1.124572e-04"},{"1":"21","2":"(Intercept)","3":"6.3113793","4":"1.3386534","5":"4.7147226","6":"1.512427e-03"},{"1":"21","2":"success","3":"3.7803448","4":"0.6381780","5":"5.9236531","6":"3.522418e-04"},{"1":"22","2":"(Intercept)","3":"8.0525000","4":"1.7228713","5":"4.6738836","6":"1.594467e-03"},{"1":"22","2":"success","3":"1.8375000","4":"0.8838143","5":"2.0790566","6":"7.121955e-02"},{"1":"23","2":"(Intercept)","3":"11.8758621","4":"1.6948386","5":"7.0070755","6":"1.118462e-04"},{"1":"23","2":"success","3":"2.2668966","4":"0.4578973","5":"4.9506661","6":"1.119946e-03"},{"1":"24","2":"(Intercept)","3":"7.0228571","4":"0.9116329","5":"7.7036024","6":"5.724545e-05"},{"1":"24","2":"success","3":"1.0928571","4":"0.6991905","5":"1.5630320","6":"1.566722e-01"},{"1":"25","2":"(Intercept)","3":"5.7506577","4":"2.1860047","5":"2.6306703","6":"3.014679e-02"},{"1":"25","2":"success","3":"3.2918523","4":"0.6561296","5":"5.0170767","6":"1.030626e-03"},{"1":"26","2":"(Intercept)","3":"7.2809615","4":"1.7633198","5":"4.1291214","6":"3.302449e-03"},{"1":"26","2":"success","3":"2.1428846","4":"1.0180532","5":"2.1048848","6":"6.841565e-02"},{"1":"27","2":"(Intercept)","3":"2.8625000","4":"2.8361003","5":"1.0093085","6":"3.423759e-01"},{"1":"27","2":"success","3":"4.5225000","4":"0.9059590","5":"4.9919477","6":"1.063475e-03"},{"1":"28","2":"(Intercept)","3":"7.0252308","4":"1.8106848","5":"3.8798751","6":"4.675611e-03"},{"1":"28","2":"success","3":"3.7530769","4":"0.5041363","5":"7.4445676","6":"7.302178e-05"},{"1":"29","2":"(Intercept)","3":"16.4887755","4":"3.6970346","5":"4.4600004","6":"2.111063e-03"},{"1":"29","2":"success","3":"1.3087755","4":"0.9330474","5":"1.4026893","6":"1.983048e-01"},{"1":"30","2":"(Intercept)","3":"9.8260526","4":"2.4663778","5":"3.9840015","6":"4.039034e-03"},{"1":"30","2":"success","3":"2.4260526","4":"0.8410278","5":"2.8846282","6":"2.036634e-02"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["school_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"(Intercept)","3":"39.789","4":"1.5831","5":"25.133","6":"3.155e-18"},{"1":"1","2":"verbal_iq","3":"2.238","4":"0.5408","5":"4.139","6":"3.979e-04"},{"1":"2","2":"(Intercept)","3":"27.350","4":"4.1790","5":"6.545","6":"1.247e-03"},{"1":"2","2":"verbal_iq","3":"1.283","4":"1.2156","5":"1.055","6":"3.395e-01"},{"1":"10","2":"(Intercept)","3":"38.087","4":"2.8208","5":"13.502","6":"8.786e-04"},{"1":"10","2":"verbal_iq","3":"5.762","4":"1.4321","5":"4.023","6":"2.758e-02"},{"1":"12","2":"(Intercept)","3":"36.106","4":"3.8181","5":"9.456","6":"3.428e-07"},{"1":"12","2":"verbal_iq","3":"2.182","4":"1.4204","5":"1.536","6":"1.484e-01"},{"1":"15","2":"(Intercept)","3":"32.114","4":"3.8494","5":"8.343","6":"1.611e-04"},{"1":"15","2":"verbal_iq","3":"3.709","4":"1.7131","5":"2.165","6":"7.357e-02"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<p>As an example, let’s focus on the fitted model for Team 01.</p>
+<p>As an example, let’s focus on the fitted model for School 1.</p>
 <p><span class="math display">\[
-\hat{\mathrm{Life~Satisfaction}_i} = 4.73 + 3.98(\mathrm{Player~Success}_i)
+\hat{\mathrm{Language~Score}_i} = 39.79 + 2.24(\mathrm{Verbal~IQ}_i)
 \]</span></p>
-<p>Comparing this team-specific model to the global model, we find that Team 01’s intercept is lower than the intercept from the global model (by 0.97) and it’s slope is higher than the slope from the global model (by 0.32). We can actually re-write Team 01’s team-specific model using these ideas:</p>
+<p>Comparing this school-specific model to the global model, we find that School 1’s intercept is higher than the intercept from the global model (by 5.65) and it’s slope is also higher than the slope from the global model (by 0.20). We can actually re-write the school-specific model using these ideas:</p>
 <p><span class="math display">\[
-\hat{\mathrm{Life~Satisfaction}_i} = \bigg[5.70 - 0.97\bigg] + \bigg[3.66 + 0.32\bigg](\mathrm{Player~Success}_i)
+\hat{\mathrm{Language~Score}_i} = \bigg[34.19 + 5.65\bigg] + \bigg[2.04 + 0.20\bigg](\mathrm{Verbal~IQ}_i)
 \]</span></p>
 <p>In the language of mixed-effects modeling:</p>
 <ul>
-<li>The global intercept and slope are referred to as <em>fixed-effects</em>. These are also sometimes referred to as <em>between-groups</em> effects.
+<li>The global intercept and slope are referred to as <em>fixed-effects</em>. (These are also sometimes referred to as <em>between-groups</em> effects.)
 <ul>
-<li>The fixed-effect of intercept is <span class="math inline">\(5.70\)</span>; and</li>
-<li>The fixed effect of the slope is <span class="math inline">\(3.66\)</span>.</li>
+<li>The fixed-effect of intercept is <span class="math inline">\(34.19\)</span>; and</li>
+<li>The fixed effect of the slope is <span class="math inline">\(2.04\)</span>.</li>
 </ul></li>
-<li>The team-specific deviations from the fixed-effect values are referred to as <em>random-effects</em>. These are also sometimes referred to as <em>within-groups</em> effects.
+<li>The school-specific deviations from the fixed-effect values are referred to as <em>random-effects</em>. (These are also sometimes referred to as <em>within-groups</em> effects.)
 <ul>
-<li>The random-effect of the intercept for Team 01 is <span class="math inline">\(-0.97\)</span>; and</li>
-<li>The random-effect of the slope for Team 01 is <span class="math inline">\(+0.32\)</span>.</li>
+<li>The random-effect of the intercept for School 1 is <span class="math inline">\(+5.65\)</span>; and</li>
+<li>The random-effect of the slope for School 1 is <span class="math inline">\(+0.20\)</span>.</li>
 </ul></li>
 </ul>
-<p>Note, each team could potentially have a different random-effect for intercept and slope. For example, writing the team-specific fitted equation for Team 02 in this manner,</p>
+<p>Note, each school could potentially have a different random-effect for intercept and slope. For example, writing the team-specific fitted equation for School 2 in this manner,</p>
 <p><span class="math display">\[
 \begin{split}
-\hat{\mathrm{Life~Satisfaction}_i} &amp;= 9.96 + 2.97(\mathrm{Player~Success}_i)\\
- &amp;= \bigg[5.70 + 4.26 \bigg] + \bigg[3.66 + 0.69\bigg](\mathrm{Player~Success}_i),\\
-\end{split} 
+\hat{\mathrm{Language~Score}_i} &amp;= 27.35 + 1.28(\mathrm{Verbal~IQ}_i)\\
+ &amp;= \bigg[34.19 - 6.84\bigg] + \bigg[2.04 - 0.76\bigg](\mathrm{Verbal~IQ}_i).\\
+\end{split}
 \]</span></p>
-<p>we find that:</p>
+<p>In this model:</p>
 <ul>
-<li>The fixed-effects (global model effects) are the same as they were for Team 01.</li>
-<li>The random-effect of intercept for Team 02 is <span class="math inline">\(4.26\)</span>.</li>
-<li>The random-effect of slope for Team 02 is <span class="math inline">\(0.69\)</span>.</li>
+<li>The fixed-effects (global effects) are the same as they were for School 1.
+<ul>
+<li>The fixed-effect of intercept is <span class="math inline">\(34.19\)</span>; and</li>
+<li>The fixed effect of the slope is <span class="math inline">\(2.04\)</span>.</li>
+</ul></li>
+<li>The random-effect of intercept for School 2 is <span class="math inline">\(-6.84\)</span>.</li>
+<li>The random-effect of slope for School 2 is <span class="math inline">\(-0.76\)</span>.</li>
 </ul>
 </div>
 <div id="fitting-the-mixed-effects-regression-model-in-practice" class="section level2">
 <h2><span class="header-section-number">8.5</span> Fitting the Mixed-Effects Regression Model in Practice</h2>
-<p>In practice, we use the <code>lmer()</code> function from the <strong>lme4</strong> library to fit mixed-effect regression models. This function will essentially do what we did in the previous section, but rather than independently fitting the team-specific models, it will fit all these models simultaneously and make use of the information in all the clusters (teams) to do this. This will result in better estimates for both the fixed- and random-effects.</p>
-<p>The syntax looks similar to the syntax we use in <code>lm()</code> except now we split it into two parts. The first part of the syntax gives a model formula to specify the outcome and fixed-effects included in the model. This is identical to the syntax we used in the <code>lm()</code> function. In our example: <code>Life_Satisfaction ~ 1 + Shots_on_five</code> indicating that we want to fit a model that includes fixed-effects for both the intercept and the slope (the fixed-effect of player success).</p>
-<p>We also have to declare that we want random-effects for these two coefficients. The second part of the syntax declares this: <code>(1 + Shots_on_five | Team_ID)</code>. This says fit random-effects for the intercept and slope and do so for each team. This is literally added (using <code>+</code>) to the fixed-effects formula.</p>
+<p>In practice, we use the <code>lmer()</code> function from the <strong>lme4</strong> library to fit mixed-effect regression models. This function will essentially do what we did in the previous section, but rather than independently fitting the team-specific models, it will fit all these models simultaneously and make use of the information in all the clusters (schools) to do this. This will result in better estimates for both the fixed- and random-effects.</p>
+<p>The syntax looks similar to the syntax we use in <code>lm()</code> except now we split it into two parts. The first part of the syntax gives a model formula to specify the outcome and fixed-effects included in the model. This is identical to the syntax we used in the <code>lm()</code> function. In our example: <code>language_post ~ 1 + verbal_iq</code> indicating that we want to fit a model that includes fixed-effects for both the intercept and the effect of verbal IQ score.</p>
+<p>We also have to declare that we want to fit a model for each school. To do this, we will include a random-effect for intercept. (We could also include a random-effect of verbal IQ, but to keep it simpler right now, we only include the RE of intercept.) The second part of the syntax declares this: <code>(1 | school_id)</code>. This says fit school-specific models that vary in their intercepts. This is literally added to the fixed-effects formula using <code>+</code>. The complete syntax is:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit mixed-effects regression model</span>
-lmer<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lmer</span>(life_satisfaction <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>success <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>success <span class="op">|</span><span class="st"> </span>team), <span class="dt">data =</span> nba)</code></pre>
+lmer<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lmer</span>(language_post <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>verbal_iq <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>school_id), <span class="dt">data =</span> joined_data)</code></pre>
 <p>To view the fixed-effects, we use the <code>fixef()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># View fixed-effects (global effects)</span>
-<span class="kw">fixef</span>(lmer<span class="fl">.1</span>)</code></pre>
-<pre><code>(Intercept)     success 
-   6.429643    3.288667 </code></pre>
-<p>To view the team-specific random-effects, we use the <code>ranef()</code> function (only the first 6 rows are shown).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># View random-effects (team-specific effects)</span>
-<span class="kw">ranef</span>(lmer<span class="fl">.1</span>)</code></pre>
-<pre><code>$team
-   (Intercept)     success
-1   0.07792006  0.08053479
-2   0.36112543  0.37324356
-3   0.38440610  0.39730545
-4  -0.07373230 -0.07620650
-5  -0.23807522 -0.24606421
-     ...
-30  0.14632753  0.15123778</code></pre>
-<p>From these two sets of information, we can re-construct each team-specific fitted equation if we are so inclined. For example, we first write the fitted equation for the fixed-effects (global equation):</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fixef</span>(lmer<span class="fl">.1</span>)</code></pre>
+<pre><code>(Intercept)   verbal_iq 
+     40.608       2.488 </code></pre>
+<p>This gives the coefficients for the fixed-effects part of the model (i.e., the global model),</p>
 <p><span class="math display">\[
-\hat{\mathrm{Life~Satisfaction}_i} = 6.43 + 3.29(\mathrm{Player~Success}_i)
+\hat{\mathrm{Language~Score}_{ij}} = 40.61 + 2.49(\mathrm{Verbal~IQ}_{ij})
 \]</span></p>
-<p>To construct the team-specific fitted equation for Team 30, we add the estimated random-effects for Team 30 to the respective fixed-effects from the global model:</p>
+<p>Note that the notation now includes two subscripts. The <em>i</em> subscript still indicates the <em>i</em>th student, and the new <em>j</em> subscript indicates that the student was from the <em>j</em>th school. Since we accounted for school in the model (schools are allowed to have different intercepts) we need to now identify that in the equation. We interpret these coefficients from the fixed-effects equation exactly like <code>lm()</code> coefficients. Here,</p>
+<ul>
+<li>The predicted average post-test language score for students with a mean verbal IQ score (=0) is 40.61.</li>
+<li>Each one-point difference in verbal IQ score is associated with a 2.49-point difference in language scores, on average.</li>
+</ul>
+<p>To view the school-specific random-effects, we use the <code>ranef()</code> function (only the first 5 rows are shown).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ranef</span>(lmer<span class="fl">.1</span>)</code></pre>
+<pre><code>$school_id
+    (Intercept)
+1   -0.37573940
+2   -6.04469893
+10  -3.66481710
+12  -2.91463441
+15  -5.74351132</code></pre>
+<p>The random-effects indicate how the school-specific intercept differs from the overall average intercept. For example, the intercept for School 1 is approximately 0.38-points lower than the average intercept of 40.61 (the fixed-effect). This implies that, on average, students from School 1 with a mean verbal IQ score (=0) have an average post-test language score that is 0.38-points lower than their peers who also have a mean verbal IQ score.</p>
+<p>From the estimated fixed- and random-effects, we can re-construct each school-specific fitted equation if we are so inclined. For example, to construct the school-specific fitted equation for School 1, we combine the estimated coefficients for the fixed-effects and the estimated random-effect for School 1:</p>
 <p><span class="math display">\[
 \begin{split}
-\hat{\mathrm{Life~Satisfaction}_i} &amp;= \bigg[6.43 + 0.1463 \bigg] + \bigg[3.29 + 0.1512\bigg](\mathrm{Player~Success}_i)\\
-&amp;= 6.58 + 3.44(\mathrm{Player~Success}_i)\\
-\end{split} 
+\hat{\mathrm{Language~Score}_{i}} &amp;= \bigg[ 40.61 -0.376 \bigg]+ 2.49(\mathrm{Verbal~IQ}_{i}) \\[1ex]
+&amp;= 40.2 + 2.49(\mathrm{Verbal~IQ}_{i}) 
+\end{split}
 \]</span></p>
+<p>In this notation, the <em>j</em> part of the subscript is dropped since <em>j</em> is now fixed to a specific school; <span class="math inline">\(j=1\)</span>.</p>
 </div>
-<div id="other-resources-3" class="section level2 unnumbered">
-<h2>Other Resources</h2>
-<p>In addition to the notes and what we cover in class, there many other resources for learning information criteria for model selection. Here are some resources that may be helpful in that endeavor:</p>
-<ul>
-<li>Anderson, David R. (2008). <a href="https://link-springer-com.ezp3.lib.umn.edu/book/10.1007%2F978-0-387-74075-1">Model based inference in the life sciences: A primer on evidence</a>. New York: Springer.</li>
-<li>Burnham, Kenneth P., &amp; Anderson, David R. (2002). <a href="http://ecologia.ib.usp.br/bie5782/lib/exe/fetch.php?media=bie5782:pdfs:burnham_anderson2002.pdf">Model selection and multimodel inference: A practical information-theoretic approach</a>. New York: Springer.</li>
-</ul>
-<p><br /></p>
-<p>For <strong>table formatting</strong> using R Markdown, check out:</p>
-<ul>
-<li><a href="https://haozhu233.github.io/kableExtra/">kableExtra Documentation</a></li>
-<li><a href="https://gt.rstudio.com/">gt Documentation</a></li>
-</ul>
+<div id="example-2-life-satisfaction-of-nba-players" class="section level2">
+<h2><span class="header-section-number">8.6</span> Example 2: Life Satisfaction of NBA Players</h2>
+<p>As a second example, we will explore the question of whether NBA players’ success is related to life satisfaction. To do this, we will use two datasets, the <em>nba-player-data.csv</em> and <em>nba-team-data.csv</em> file (see the <a href="data-codebook.html#nba">data codebook</a> here). These data include player- and team-level attributes for <span class="math inline">\(n=300\)</span> players and <span class="math inline">\(n=30\)</span> teams, respectively. To begin, we will import both the player-level and team-level datasets and then join them together.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read in player-level data</span>
+nba_players =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/nba-player-data.csv&quot;</span>)
 
+<span class="co"># Read in team-level data</span>
+nba_teams =<span class="st"> </span><span class="kw">read_csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/Documents/github/epsy-8252/data/nba-team-data.csv&quot;</span>)
+
+<span class="co"># Join the datasets together</span>
+nba =<span class="st"> </span>nba_players <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(nba_teams, <span class="dt">by =</span> <span class="st">&quot;team&quot;</span>)
+
+<span class="kw">head</span>(nba)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["player"],"name":[1],"type":["chr"],"align":["left"]},{"label":["team"],"name":[2],"type":["chr"],"align":["left"]},{"label":["success"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["life_satisfaction"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["coach"],"name":[5],"type":["chr"],"align":["left"]},{"label":["coach_experience"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"Daniel Hamilton","2":"Atlanta Hawks","3":"0","4":"12.10","5":"Lloyd Pierce","6":"0"},{"1":"Alex Poythress","2":"Atlanta Hawks","3":"0","4":"13.49","5":"Lloyd Pierce","6":"0"},{"1":"Jaylen Adams","2":"Atlanta Hawks","3":"0","4":"18.80","5":"Lloyd Pierce","6":"0"},{"1":"Miles Plumlee","2":"Atlanta Hawks","3":"0","4":"18.00","5":"Lloyd Pierce","6":"0"},{"1":"PJ Dozier","2":"Boston Celtics","3":"0","4":"12.22","5":"Brad Stevens","6":"2"},{"1":"Ed Davis","2":"Brooklyn Nets","3":"0","4":"16.00","5":"Kenny Atkinson","6":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>We want to fit a model that regresses the <code>life_satisfaction</code> scores on the <code>success</code> values. In these data, however, we might expect that the life satisfaction of players is correlated within team. To account for that fact, we can include a random-effect of intercept in our regression model.</p>
+<div id="fit-the-mixed-effects-model" class="section level3">
+<h3><span class="header-section-number">8.6.1</span> Fit the Mixed-Effects Model</h3>
+<p>Below we fit a mixed-effects regression model to predict variation in life satisfaction scores that includes success as a predictor. We also include a random-effect of intercept to account for the within-team correlation of life satisfaction scores. The statistical model is:</p>
+<p><span class="math display">\[
+\mathrm{Life~Satisfaction}_{ij} = \bigg[\beta_0 + b_{0j} \bigg] + \beta_1(\mathrm{Success}_{ij}) + \epsilon_{ij}
+\]</span></p>
+<p>We fit the model using <code>lmer()</code> as:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit model</span>
+lmer<span class="fl">.1</span> =<span class="st"> </span><span class="kw">lmer</span>(life_satisfaction <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>success <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>team), <span class="dt">data =</span> nba)</code></pre>
+<p>We can then extract the fixed-effects estimates using the <code>fixef()</code> function.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get fixed-effects</span>
+<span class="kw">fixef</span>(lmer<span class="fl">.1</span>)</code></pre>
+<pre><code>(Intercept)     success 
+     11.575       1.666 </code></pre>
+<p>We write the fitted fixed-effects model as:</p>
+<p><span class="math display">\[
+\hat{\mathrm{Life~Satisfaction}}_{ij} = 11.57 + 1.67(\mathrm{Success}_{ij})
+\]</span></p>
+<p>Again, we can interpret these fixed-effects estimates the same way we do any other regression coefficient.</p>
+<ul>
+<li>The predicted average life satisfaction for NBA players with a success score of 0 (free-throw percentage in the lowest 20%) is 11.57.</li>
+<li>Each one-unit difference in success (one-quantile difference) is associated with a 1.67-point difference in life satisfaction score, on average.</li>
+</ul>
+<p>If we are interested in the fitted model for a SPECIFIC team, we can extract the random-effect of intercept for that team and add it to the fixed-effect intercept estimate. For example, the equation for the Minnesota Timberwolves is:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Obtain random-effects</span>
+<span class="kw">ranef</span>(lmer<span class="fl">.1</span>)</code></pre>
+<pre><code>$team
+                       (Intercept)
+Atlanta Hawks               2.7474
+Boston Celtics              5.3594
+Brooklyn Nets               4.1005
+Charlotte Hornets           1.1515
+Chicago Bulls              -3.4811
+Cleveland Cavaliers         0.9739
+Dallas Mavericks           -6.1708
+Denver Nuggets              4.0877
+Detroit Pistons            -2.3659
+Golden State Warriors      -1.8955
+Houston Rockets            -2.3038
+Indiana Pacers             -1.4244
+Los Angeles Clippers        5.5528
+Los Angeles Lakers         -5.0071
+Memphis Grizzlies           0.6391
+Miami Heat                  0.6749
+Milwaukee Bucks            -5.8198
+Minnesota Timberwolves      3.6616
+New Orleans Pelicans       -1.3426
+New York Knicks            -1.9479
+Oklahoma City Thunder      -1.5291
+Orlando Magic              -3.4961
+Philadelphia 76ers          4.6167
+Phoenix Suns               -6.1341
+Portland Trail Blazers      0.3600
+Sacramento Kings           -3.4140
+San Antonio Spurs           0.1794
+Toronto Raptors             3.8491
+Utah Jazz                   6.2954
+Washington Wizards          2.0828</code></pre>
+<p><span class="math display">\[
+\begin{split}
+\hat{\mathrm{Life~Satisfaction}}_{i} &amp;= \bigg[11.57 + 3.66 \bigg] + 1.67(\mathrm{Success}_{i}) \\[1ex]
+&amp;= 15.23 + 1.67(\mathrm{Success}_{i})
+\end{split}
+\]</span></p>
+<p>For Timberwolves players,</p>
+<ul>
+<li>The predicted average life satisfaction for Timberwolves players with a success score of 0 (free-throw percentage in the lowest 20%) is 15.23. This is a score that is 3.66 points above average for all NBA players with a success score of 0.</li>
+<li>Each one-unit difference in success is associated with a 1.67-point difference in life satisfaction score for Timberwolves players, on average. This is the same rate-of-change as for NBA players in general.</li>
+</ul>
+<p>As a comparison, we can also consider the equation for the Phoenix Suns:</p>
+<p><span class="math display">\[
+\begin{split}
+\hat{\mathrm{Life~Satisfaction}}_{i} &amp;= \bigg[11.57 - 6.13 \bigg] + 1.67(\mathrm{Success}_{i}) \\[1ex]
+&amp;= 5.44 + 1.67(\mathrm{Success}_{i})
+\end{split}
+\]</span></p>
+<ul>
+<li>The predicted average life satisfaction for Suns players with a success score of 0 (free-throw percentage in the lowest 20%) is 5.44. This is a score that is 6.13 points below average for all NBA players with a success score of 0.</li>
+<li>Each one-unit difference in success is associated with a 1.67-point difference in life satisfaction score for Suns players, on average. This is the same rate-of-change as for NBA players in general.</li>
+</ul>
+<p>Comparing these two team’s equations gives us some insight into why the effects are referred to as <em>fixed-effects</em> or <em>random-effects</em>.</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{Timberwolves:~}\hat{\mathrm{Life~Satisfaction}}_{i} &amp;= \bigg[11.57 + 3.66 \bigg] + 1.67(\mathrm{Success}_{i}) \\[1ex]
+\mathbf{Suns:~}\hat{\mathrm{Life~Satisfaction}}_{i} &amp;= \bigg[11.57 - 6.13 \bigg] + 1.67(\mathrm{Success}_{i}) \\[1ex]
+\end{split}
+\]</span></p>
+<p>In the two equations, the fixed-effects of intercept (11.57) and success (1.67) are represented in both equations; they are fixed. On the other hand, the random-effect is different for each team. Since we included a random-effect of intercept in out model, this means that the intercept value for each team equation will be different.</p>
+
+<!-- # Fitting and Interpreting Mixed-Effects Models {#intro-lmer-fitting} -->
+<!-- ```{r echo=FALSE, message=FALSE} -->
+<!-- library(knitr) -->
+<!-- library(kableExtra) -->
+<!-- opts_knit$set( -->
+<!--   width = 85, -->
+<!--   tibble.print_max = Inf -->
+<!--   ) -->
+<!-- opts_chunk$set( -->
+<!--   prompt = FALSE, -->
+<!--   comment = NA, -->
+<!--   message = FALSE, -->
+<!--   warning = FALSE, -->
+<!--   tidy = FALSE, -->
+<!--   fig.align = 'center', -->
+<!--   out.width = '50%' -->
+<!--   ) -->
+<!-- ``` -->
+<!-- In this set of notes, you will learn how to fit and interpret the fixed- and random-effects from a linear mixed-effects model. -->
+<!-- --- -->
+<!-- ### Preparation {-} -->
+<!-- Before class you will need to read the [Relational data](https://r4ds.had.co.nz/relational-data.html) chapter from following: -->
+<!-- - Grolemund, G., &amp; Wickham, H. (2017). [R for Data Science: Visualize, model, transform, tidy, and import data](https://r4ds.had.co.nz/). **. Sebastopol, CA: O’Reilly. -->
+<!-- Focus on the information on mutating joins. -->
+<!-- <br /> -->
+<!-- --- -->
+<!-- ## Dataset and Research Question -->
+<!-- In this set of notes, we will use data from two files, the *netherlands-students.csv* file and the *netherlands-schools.csv* file (see the [data codebook](#netherlands) here). These data include student- and school-level attributes, respectively, for $n_i=2287$ 8th-grade students in the Netherlands. -->
+<!-- ```{r message=FALSE, paged.print=FALSE} -->
+<!-- # Load libraries -->
+<!-- library(AICcmodavg) -->
+<!-- library(broom) -->
+<!-- library(dplyr) -->
+<!-- library(ggplot2) -->
+<!-- library(lme4) #for fitting mixed-effects models -->
+<!-- library(readr) -->
+<!-- library(sm) -->
+<!-- # Read in student-level data -->
+<!-- student_data = read_csv(file = "~/Documents/github/epsy-8252/data/netherlands-students.csv") -->
+<!-- # Read in school-level data -->
+<!-- school_data = read_csv(file = "~/Documents/github/epsy-8252/data/netherlands-schools.csv") -->
+<!-- # Join the two datasets together -->
+<!-- joined_data = left_join(student_data, school_data, by = "school_id") -->
+<!-- head(joined_data) -->
+<!-- ``` -->
+<!-- We will use these data to explore the question of whether verbal IQ scores predict variation in post-test language scores. -->
+<!-- ## Fitting the Mixed-Effects Regression Model in Practice -->
+<!-- In practice, we use the `lmer()` function from the **lme4** library to fit mixed-effect regression models. This function will essentially do what we did in the previous section, but rather than independently fitting the team-specific models, it will fit all these models simultaneously and make use of the information in all the clusters (schools) to do this. This will result in better estimates for both the fixed- and random-effects. -->
+<!-- The syntax looks similar to the syntax we use in `lm()` except now we split it into two parts. The first part of the syntax gives a model formula to specify the outcome and fixed-effects included in the model. This is identical to the syntax we used in the `lm()` function. In our example: `language_post ~ 1 + verbal_iq` indicating that we want to fit a model that includes fixed-effects for both the intercept and the effect of verbal IQ score. -->
+<!-- We also have to declare that we want to fit a model for each school. To do this, we will include a random-effect for intercept. (We could also include a random-effect of verbal IQ, but to keep it simpler right now, we only include the RE of intercept.) The second part of the syntax declares this: `(1 | school_id)`. This says fit school-specific models that vary in their intercepts. This is literally added to the fixed-effects formula using `+`. The complete syntax is: -->
+<!-- ```{r message=FALSE} -->
+<!-- # Fit mixed-effects regression model -->
+<!-- lmer.1 = lmer(language_post ~ 1 + verbal_iq + (1 | school_id), data = joined_data) -->
+<!-- ``` -->
+<!-- To view the fixed-effects, we use the `fixef()` function. -->
+<!-- ```{r} -->
+<!-- fixef(lmer.1) -->
+<!-- ``` -->
+<!-- This gives the coefficients for the fixed-effects part of the model (i.e., the global model), -->
+<!-- $$ -->
+<!-- \hat{\mathrm{Language~Score}_{ij}} = 40.61 + 2.49(\mathrm{Verbal~IQ}_{ij}) -->
+<!-- $$ -->
+<!-- Note that the notation now includes two subscripts. The *i* subscript still indicates the *i*th student, and the new *j* subscript indicates that the student was from the *j*th school. Since we accounted for school in the model (schools are allowed to have different intercepts) we need to now identify that in the equation. We interpret these coefficients from the fixed-effects equation exactly like `lm()` coefficients. Here, -->
+<!-- - The predicted average post-test language score for students with a mean verbal IQ score (=0) is 40.61. -->
+<!-- - Each one-point difference in verbal IQ score is associated with a 2.49-point difference in language scores, on average. -->
+<!-- To view the school-specific random-effects, we use the `ranef()` function (only the first 5 rows are shown). -->
+<!-- ```{r eval=FALSE} -->
+<!-- ranef(lmer.1) -->
+<!-- ``` -->
+<!-- ``` -->
+<!-- $school_id -->
+<!--     (Intercept) -->
+<!-- 1   -0.37573940 -->
+<!-- 2   -6.04469893 -->
+<!-- 10  -3.66481710 -->
+<!-- 12  -2.91463441 -->
+<!-- 15  -5.74351132 -->
+<!-- ``` -->
+<!-- The random-effects indicate how the school-specific intercept differs from the overall average intercept. For example, the intercept for School 1 is approximately 0.38-points lower than the average intercept of 40.61 (the fixed-effect). This implies that, on average, students from School 1 with a mean verbal IQ score (=0) have an average post-test language score that is 0.38-points lower than their peers who also have a mean verbal IQ score.  -->
+<!-- From the estimated fixed- and random-effects, we can re-construct each school-specific fitted equation if we are so inclined. For example, to construct the school-specific fitted equation for School 1, we combine the estimated coefficients for the fixed-effects and the estimated random-effect for School 1: -->
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \hat{\mathrm{Language~Score}_{i}} &= \bigg[ 40.61 -0.376 \bigg]+ 2.49(\mathrm{Verbal~IQ}_{i}) \\[1ex] -->
+<!-- &= 40.2 + 2.49(\mathrm{Verbal~IQ}_{i})  -->
+<!-- \end{split} -->
+<!-- $$ -->
+<!-- In this notation, the *j* part of the subscript is dropped since *j* is now fixed to a specific school; $j=1$. -->
+<!-- ## Example 2: Life Satisfaction of NBA Players -->
+<!-- As a second example, we will explore the question of whether NBA players' success is related to life satisfaction. To do this, we will use two datasets, the *nba-player-data.csv* and *nba-team-data.csv* file (see the [data codebook](#nba) here). These data include player- and team-level attributes for $n=300$ players and $n=30$ teams, respectively. To begin, we will import both the player-level and team-level datasets and then join them together. -->
+<!-- ```{r} -->
+<!-- # Read in player-level data -->
+<!-- nba_players = read_csv(file = "~/Documents/github/epsy-8252/data/nba-player-data.csv") -->
+<!-- # Read in team-level data -->
+<!-- nba_teams = read_csv(file = "~/Documents/github/epsy-8252/data/nba-team-data.csv") -->
+<!-- # Join the datasets together -->
+<!-- nba = nba_players %>% -->
+<!--   left_join(nba_teams, by = "team") -->
+<!-- head(nba) -->
+<!-- ``` -->
+<!-- We want to fit a model that regresses the `life_satisfaction` scores on the `success` values. In these data, however, we might expect that the life satisfaction of players is correlated within team. To account for that fact, we can include a random-effect of intercept in our regression model. -->
+<!-- ### Fit the Mixed-Effects Model -->
+<!-- Below we fit a mixed-effects regression model to predict variation in life satisfaction scores that includes success as a predictor. We also include a random-effect of intercept to account for the within-team correlation of life satisfaction scores. The statistical model is: -->
+<!-- $$ -->
+<!-- \mathrm{Life~Satisfaction}_{ij} = \bigg[\beta_0 + b_{0j} \bigg] + \beta_1(\mathrm{Success}_{ij}) + \epsilon_{ij} -->
+<!-- $$ -->
+<!-- We fit the model using `lmer()` as: -->
+<!-- ```{r} -->
+<!-- # Fit model -->
+<!-- lmer.1 = lmer(life_satisfaction ~ 1 + success + (1 | team), data = nba) -->
+<!-- ``` -->
+<!-- We can then extract the fixed-effects estimates using the `fixef()` function.  -->
+<!-- ```{r} -->
+<!-- # Get fixed-effects -->
+<!-- fixef(lmer.1) -->
+<!-- ``` -->
+<!-- We write the fitted fixed-effects model as: -->
+<!-- $$ -->
+<!-- \hat{\mathrm{Life~Satisfaction}}_{ij} = 11.57 + 1.67(\mathrm{Success}_{ij}) -->
+<!-- $$ -->
+<!-- Again, we can interpret these fixed-effects estimates the same way we do any other regression coefficient. -->
+<!-- - The predicted average life satisfaction for NBA players with a success score of 0 (free-throw percentage in the lowest 20\%) is 11.57. -->
+<!-- - Each one-unit difference in success (one-quantile difference) is associated with a 1.67-point difference in life satisfaction score, on average. -->
+<!-- If we are interested in the fitted model for a SPECIFIC team, we can extract the random-effect of intercept for that team and add it to the fixed-effect intercept estimate. For example, the equation for the Minnesota Timberwolves is: -->
+<!-- ```{r} -->
+<!-- # Obtain random-effects -->
+<!-- ranef(lmer.1) -->
+<!-- ``` -->
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \hat{\mathrm{Life~Satisfaction}}_{i} &= \bigg[11.57 + 3.66 \bigg] + 1.67(\mathrm{Success}_{i}) \\[1ex] -->
+<!-- &= 15.23 + 1.67(\mathrm{Success}_{i}) -->
+<!-- \end{split} -->
+<!-- $$ -->
+<!-- For Timberwolves players, -->
+<!-- - The predicted average life satisfaction for Timberwolves players with a success score of 0 (free-throw percentage in the lowest 20\%) is 15.23. This is a score that is 3.66 points above average for all NBA players with a success score of 0. -->
+<!-- - Each one-unit difference in success is associated with a 1.67-point difference in life satisfaction score for Timberwolves players, on average. This is the same rate-of-change as for NBA players in general. -->
+<!-- As a comparison, we can also consider the equation for the Phoenix Suns: -->
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \hat{\mathrm{Life~Satisfaction}}_{i} &= \bigg[11.57 - 6.13 \bigg] + 1.67(\mathrm{Success}_{i}) \\[1ex] -->
+<!-- &= 5.44 + 1.67(\mathrm{Success}_{i}) -->
+<!-- \end{split} -->
+<!-- $$ -->
+<!-- - The predicted average life satisfaction for Suns players with a success score of 0 (free-throw percentage in the lowest 20\%) is 5.44. This is a score that is 6.13 points below average for all NBA players with a success score of 0. -->
+<!-- - Each one-unit difference in success is associated with a 1.67-point difference in life satisfaction score for Suns players, on average. This is the same rate-of-change as for NBA players in general. -->
+<!-- Comparing these two team's equations gives us some insight into why the effects are referred to as *fixed-effects* or *random-effects*.  -->
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \mathbf{Timberwolves:~}\hat{\mathrm{Life~Satisfaction}}_{i} &= \bigg[11.57 + 3.66 \bigg] + 1.67(\mathrm{Success}_{i}) \\[1ex] -->
+<!-- \mathbf{Suns:~}\hat{\mathrm{Life~Satisfaction}}_{i} &= \bigg[11.57 - 6.13 \bigg] + 1.67(\mathrm{Success}_{i}) \\[1ex] -->
+<!-- \end{split} -->
+<!-- $$ -->
+<!-- In the two equations, the fixed-effects of intercept (11.57) and success (1.67) are represented in both equations; they are fixed. On the other hand, the random-effect is different for each team. Since we included a random-effect of intercept in out model, this means that the intercept value for each team equation will be different. -->
+<!-- ## Other Resources {-} -->
+<!-- In addition to the notes and what we cover in class, there many other resources for learning information criteria for model selection. Here are some resources that may be helpful in that endeavor: -->
+<!-- - Anderson, David R. (2008). [Model based inference in the life sciences: A primer on evidence](https://link-springer-com.ezp3.lib.umn.edu/book/10.1007%2F978-0-387-74075-1). New York: Springer. -->
+<!-- - Burnham, Kenneth P., &amp; Anderson, David R. (2002). [Model selection and multimodel inference: A practical information-theoretic approach](http://ecologia.ib.usp.br/bie5782/lib/exe/fetch.php?media=bie5782:pdfs:burnham_anderson2002.pdf). New York: Springer. -->
+<!-- <br /> -->
+<!-- For **table formatting** using R Markdown, check out: -->
+<!-- - [kableExtra Documentation](https://haozhu233.github.io/kableExtra/) -->
+<!-- - [gt Documentation](https://gt.rstudio.com/) -->
+
+</div>
 </div>
 </div>
             </section>
