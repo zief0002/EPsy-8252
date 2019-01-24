@@ -42,7 +42,7 @@ The notes and files you will need can be found at:
 
 
 ```{r echo=FALSE}
-knitr::include_url("http://www.datadreaming.org/files/01-introduction-to-r.html#1")
+knitr::include_url("http://www.datadreaming.org/files/epsy-8252-rmarkdown/index.html")
 ```
 
 
