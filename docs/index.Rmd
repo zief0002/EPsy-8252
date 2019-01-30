@@ -1,0 +1,407 @@
+---
+title: "EPsy 8252"
+output:
+  rmdformats::material:
+    highlight: kate
+    css: website-style.css
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+# Welcome
+
+
+Welcome to *EPsy 8252: Methods in Data Analysis for Educational Research II*. This is the second course of a two-semester sequence for students in education. The materials for the course can be accessed via:
+
+- **Syllabus, assignments, data, and script files:** [github repository](https://github.com/zief0002/epsy-8252)
+- **Course notes and readings:** [website](https://zief0002.github.io/book-8252/) | [github repository](https://github.com/zief0002/book-8252)
+
+
+<br />
+
+### Instructor {-}
+
+Andrew Zieffler ([zief0002@umn.edu](mailto://zief0002@umn.edu)) <br />
+**Office:** [Education Sciences Building 178](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />
+**Office Hours:** Tuesday 9:30 AM&ndash;10:30 AM; and by appointment
+
+
+### Teaching Assistant {-}
+
+Jonathan Brown ([brow3019@umn.edu](mailto://brow3019@umn.edu))  <br />
+**Office:** [Education Sciences Building 192](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />
+**Office Hours:** Thursdays 1:00 PM&ndash;3:00 PM; and by appointment
+
+<br />
+
+### Classroom
+
+- Monday/Wednesday (2:30&ndash;3:45): [Ford Hall 151](http://campusmaps.umn.edu/ford-hall)
+- Tuesday/Thursday (11:15&ndash;12:30): [Burton Hall 125](http://campusmaps.umn.edu/burton-hall)
+
+<br />
+
+
+### Course Content and Syllabus {-}
+
+The statistical content for EPsy 8252 includes: (1) likelihood estimation and inference, (2) information criteria for model selection, (3) mixed-effects/multi-level models for analysis of cross-sectional data, (4) mixed-effects/multi-level models for analysis of longitudinal data, and (5) logistic models for analyzing dichotomous outcomes. Time permitting, miscellaneous topics (e.g., design weights, empirical Bayes estimation, semi-parametric models) will also be introduced.
+
+The course syllabus is available  [here](https://github.com/zief0002/epsy-8252/raw/master/syllabus/syllabus-8252-s19.pdf).
+
+<br />
+
+### Books and Other Reading Materials {-}
+
+This website will serve as the primary set of course notes. In addition, the following textbook is required:
+
+- Fox, J. (2009). [A mathematical primer for social statistics.](http://dx.doi.org.ezp1.lib.umn.edu/10.4135/9781412983228) Thousand Oaks, CA: Sage.
+
+There are also two optional textbooks:
+
+- Anderson, D. R. (2008). [Model based inference in the life sciences: A primer on evidence.](http://login.ezproxy.lib.umn.edu/login?url=http://link.springer.com/10.1007/978-0-387-74075-1) New York: Springer.
+- Dunteman, G. H., \& Ho, M.-H. R. (2006). [An introduction to generalized linear models.](http://login.ezproxy.lib.umn.edu/login?url=http://methods.sagepub.com/book/an-introduction-to-generalized-linear-models) Thousand Oaks, CA: Sage.
+
+<br />
+
+### Prerequisites {-}
+
+Prerequisites include *EPsy 8251: Methods in Data Analysis for Educational Research I*, or a sound conceptual understanding of the topics of: 
+
+- Foundational topics in data analysis;
+  + Design (e.g., random assignment and random sampling)
+  + Descriptive statistics and plots
+  + One- and two-sample tests
+- Correlation;
+- Simple regression analysis;
+  + Model-level and coefficient-level interpretation
+  + Ordinary least squares estimation
+  + Model-level and coefficient-level inference
+  + Assumption checking/residual analysis
+- Multiple linear regression
+  + Model-level and coefficient-level interpretation and inference
+  + Assumption checking/residual analysis
+  + Working with categorical predictors (including adjusting *p*-values for multiple tests)
+  + Interaction effects
+
+For the topics listed, students would be expected to be able to carry out an appropriate data analysis and properly interpret the results. It is also assumed that everyone enrolled in the course has some familiarity with using R. If you need a refresher on any of these topics, see the [EPsy 8251 course notes](https://zief0002.github.io/epsy-8251/).
+
+
+# Schedule
+
+Below is the tenative schedule for the class. The dates, which represent the start date for each of the units, are subject to change at the instructor's discretion. Readings (Unit Preparation) should be completed prior to class.
+
+<br />
+
+## Calendar
+
+<br />
+
+<table class="table">
+
+<thead>
+<tr>
+<th style="width:15%;">Date (M/W)</th>
+<th style="width:15%;">Date (T/R)</th>
+<th style="width:40%;">Topic</th>
+<th style="width:10%;text-align:center">Reading</th>
+<th style="width:10%;text-align:center">Notes</th>
+<th style="width:10%;text-align:center">R Script</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Jan. 23</td>
+<td>Jan. 22</td>
+<td>Welcome to Epsy 8252</td>
+<td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
+<td align="center">`r fa("file", height = 20, fill = "#f1f1f1")`</td>
+<td align="center">`r fa("code", height = 20, fill = "#f1f1f1")`</td>
+</tr>
+
+<tr>
+<td>Jan. 28</td>
+<td>Jan. 24</td>
+<td>Unit 01: Introduction to R Markdown</td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/rmarkdown.html#preparation">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/rmarkdown.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center">`r fa("code", height = 20, fill = "#f1f1f1")`</td>
+</tr>
+
+<tr>
+<td>Feb. 04</td>
+<td>Feb. 05</td>
+<td>Unit 02: Log-Transforming the Predictor</td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/nonlinearity-log-transforming-the-predictor.html#preparation-1">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/nonlinearity-log-transforming-the-predictor.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/02-log-transformations-predictor.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Feb. 11</td>
+<td>Feb. 12</td>
+<td>Unit 03: Log-Transforming the Outcome</td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/nonlinearity-log-transforming-the-outcome.html#preparation-2">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/nonlinearity-log-transforming-the-outcome.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/03-log-transformations-outcome.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Feb. 18</td>
+<td>Feb. 19</td>
+<td>Unit 04: Probability Distributions</td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/probability-distributions.html#preparation-3">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/probability-distributions.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/04-probability-distributions.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Feb. 25</td>
+<td>Feb. 26</td>
+<td>Unit 05: Maximum Likelihood Estimation</td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/maximum-likelihood-estimation.html#preparation-4">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/maximum-likelihood-estimation.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/05-maximum-likelihood-estimation.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Mar. 04</td>
+<td>Mar. 05</td>
+<td>Unit 06: Information Criteria for Model Selection</td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/information-criteria-for-model-selection.html#preparation-5">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/information-criteria-for-model-selection.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/06-information-criteria-for-model-selection.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Mar. 11</td>
+<td>Mar. 12</td>
+<td>Unit 07: Model Evidence</td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/moreinfocrit.html#preparation-6">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/moreinfocrit.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/07-model-evidence.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Mar. 25</td>
+<td>Mar. 26</td>
+<td>Unit 08: Introduction to Linear Mixed-Effects Models</td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/intro-lmer.html#preparation-7">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/intro-lmer.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/08-introduction-to-mixed-effects-models.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+
+</tbody>
+</table>    
+
+
+# Assignments
+
+Below are the due dates for the assignments, as well as links to PDF files for each assignment. The due dates may change at the instructor's discretion. Any revised due dates will be announced in class and posted to the website.
+
+<br />
+
+<table class="table">
+
+<thead>
+<tr>
+<th style="width:50%;">Assignment</th>
+<th style="width:15%;">Due Date (M/W)</th>
+<th style="width:15%;">Due Date (T/R)</th>
+<th style="width:10%;text-align:center">RMD</th>
+<th style="width:10%;text-align:center">PDF</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Assignment \#1: *R Markdown*</td>
+<td>Feb. 04</td>
+<td>Jan. 31</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-01-r-markdown.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-01-r-markdown.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+
+
+<tr>
+<td>Assignment \#2: *Log-Transformations*</td>
+<td>Feb. 20</td>
+<td>Feb. 21</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-02-transformations.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-02-transformations.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Assignment \#3: *Probability Distributions*</td>
+<td>Mar. 06</td>
+<td>Mar. 07</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-03-probability-distributions.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-03-probability-distributions.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Assignment \#4: *Evidence and Model Selection*</td>
+<td>Mar. 27</td>
+<td>Mar. 28</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-04-evidence-and-model-selection.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-04-evidence-and-model-selection.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Assignment \#5: *Mixed-Effects Regression Models: Cross-Sectional Analysis*</td>
+<td>Apr. 15</td>
+<td>Apr. 16</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-05-mixed-effects-models.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-05-mixed-effects-models.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+
+<!--
+<tr>
+<td>Assignment \#6: *Mixed-Effects Regression Models: Longitudinal Analysis*</td>
+<td>Apr. 24</td>
+<td>Apr. 25</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-01-r-markdown.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8251/raw/master/assignments/assignment-06-ancova.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Assignment \#7: *Logistic Regression*</td>
+<td>May 01</td>
+<td>May 02</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-01-r-markdown.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8251/raw/master/assignments/assignment-07-ancova-part-ii.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Assignment \#8: *Poisson Regression* <br />12:00 p.m. in EdSciB 250</td>
+<td>May 09</td>
+<td>May 09</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-01-r-markdown.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8251/raw/master/assignments/assignment-08-interactions.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+-->
+
+</tbody>
+</table>
+
+
+# Data
+
+Below are the links to the data sets and data codebooks used in the notes, scripts, and assignments. 
+
+<br />
+
+<table class="table">
+
+<thead>
+<tr>
+<th style="width:50%;">Name</th>
+<th style="width:25%;text-align:center;">Data</th>
+<th style="width:25%;text-align:center;">Codebook</th>
+</tr>
+</thead>
+
+
+<tbody>
+
+<tr>
+<td>ed-schools-2018.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/ed-schools-2018.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#ed-schools-2018">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+
+<tr>
+<td>fci-2015.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/fci-2015.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#fci-2015">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+
+<tr>
+<td>mn-schools.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/mn-schools.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#mn-schools">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>movies.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/movies.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#movies">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>nba-player-data.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/nba-player-data.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#nba">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>nba-team-data.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/nba-team-data.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#nba">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>netherlands-schools.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/netherlands-schools.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#netherlands">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>netherlands-students.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/netherlands-students.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#netherlands">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>popular-classroom.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/popular-classroom.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#popular">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>popular-student.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/popular-student.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#popular">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>riverview.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/riverview.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#riverview">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>wine.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/wine.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#wine">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+-->
+</tbody>
+</table>
+
+
+
