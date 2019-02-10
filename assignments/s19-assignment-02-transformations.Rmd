@@ -36,7 +36,7 @@ Create the variable `lfci` by log-transforming the `fci` variable using the natu
 
 5. Create and examine the scatterplot of the relationship between transformed average player salary (based on your suggestion in Question 4) and log-transformed FCI. Add the loess smoother to this plot. Did this transformation "fix" the non-linearity? Include the plot as evidence of your response.
 
-6. Fit both the linear and quadratic models using the transformed transformed average player salary (based on your suggestion in Question 4) to predict variation in the log-transformed FCI (do not include sporting league in these models). Use the test for nested models (the $\Delta F$ test) to examine whether the quadratic term is necessary. Provide the output of the test, and comment on whether the results suggest the quadratic term is warranted.
+6. Fit the model based on your suggestion in Question 4 to predict variation in the log-transformed FCI (do not include sporting league in these models). Use the test for nested models (the $\Delta$F test) to examine whether the any higher-order terms are necessary. Provide the output of the test, and comment on whether the results suggest whether the higher-order terms tested are warranted. 
 
 
 ## Model 3: League and Stadium Capacity (Main Effects)
