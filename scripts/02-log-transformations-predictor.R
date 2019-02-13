@@ -25,11 +25,35 @@ head(mn)
 ##################################################
 
 ggplot(data = mn, aes(x = sat, y = grad)) +
-  geom_point() +
+  geom_point(size = 5) +
   geom_smooth(se = FALSE) +
+  #geom_smooth(aes(x = log(sat, base = 10)), se = FALSE, color = "red") +
   theme_bw() +
   xlab("Median SAT score (in hundreds)") +
   ylab("Six-year graduation rate")
+
+
+
+
+##################################################
+### Fit untransformed model
+##################################################
+
+lm.2 = lm(grad ~ 1 + sat + I(sat^2), data = mn)
+glance(lm.2)
+tidy(lm.2)
+
+
+# Check assumptions
+out = augment(lm.1)
+
+sm.density(out$.std.resid, model = "normal")
+
+ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
+  geom_point(size = 5) +
+  geom_hline(yintercept = 0) +
+  geom_smooth() +
+  theme_bw()
 
 
 
@@ -65,7 +89,7 @@ head(mn)
 ##################################################
 
 ggplot(data = mn, aes(x = L2sat, y = grad)) +
-  geom_point() +
+  geom_point(size = 5) +
   geom_smooth(se = FALSE) +
   theme_bw() +
   xlab("Log-transformed SAT score") +
@@ -90,12 +114,12 @@ out = augment(lm.1)
 
 
 # Check normality assumption
-sm.density(out$.std.resid)
+sm.density(out$.std.resid, model = "normal")
 
 
 # Check linearity and homogeneity of variance assumptions
 ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
-  geom_point() +
+  geom_point(size =5) +
   geom_hline(yintercept = 0) +
   geom_smooth() +
   theme_bw()
@@ -186,7 +210,7 @@ head(mn)
 
 
 # Fit regression model
-lm.2 = lm(grad ~ 1 + log(sat, base = 10), data = mn)
+lm.2 = lm(grad ~ 1 + L10sat, data = mn)
 
 
 # Model-level output
