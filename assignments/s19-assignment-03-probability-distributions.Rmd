@@ -17,7 +17,7 @@ This goal of this assignment is to give you experience using probability distrib
 - Any typed mathematics (equations, matrices, vectors, etc.) should be appropriately typeset within the document.
 - All syntax should be hidden (i.e., not displayed) unless specifically asked for. Any messages or warnings produced from loading packages should also be hidden.
 
-In this assignment, you will use the data from the file *evaluations.csv* (see the [data codebook](http://zief0002.github.io/epsy-8252/data-codebook.html#evaluations) to explain variation in students' course ratings. Each question is worth one point unless otherwise noted. The entire assignment is worth 10 points.
+In this assignment, you will use the data from the file *evaluations.csv* (see the [data codebook](https://zief0002.github.io/book-8252/data-codebook.html#evaluations) to explain variation in students' course ratings. Each question is worth one point unless otherwise noted. The entire assignment is worth 10 points.
 
 \rule{0.5\linewidth}{\linethickness}  
 

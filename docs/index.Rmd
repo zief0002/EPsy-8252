@@ -334,6 +334,13 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 
 
 <tr>
+<td>evaluations.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/evaluations.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#evaluations">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+
+<tr>
 <td>fci-2015.csv</td>
 <td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/fci-2015.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
 <td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#fci-2015">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
@@ -399,7 +406,7 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 <td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/wine.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
 <td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#wine">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
 </tr>
--->
+
 </tbody>
 </table>
 

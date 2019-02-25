@@ -1,5 +1,5 @@
 ##################################################
-### Model interpretation
+### Load libraries
 ##################################################
 
 library(broom)
@@ -17,8 +17,9 @@ library(tidyr)
 
 (1 / (10 * sqrt(2 * pi))) * exp(-(225) / 200)
 
-dnorm(x = 65, mean = 50, sd = 10)
 
+dnorm(x = 50, mean = 50, sd = 10)
+dnorm(x = 30, mean = 50, sd = 10)
 
 
 ##################################################
@@ -57,9 +58,9 @@ pnorm(q = 65, mean = 50, sd = 10)
 ### Compute quantile
 ##################################################
 
-qnorm(p = 0.5, mean = 50, sd = 10)
+qnorm(p = 0.93, mean = 50, sd = 10)
 
-
+qnorm(p =.25, mean = 0, sd = 1)
 
 ##################################################
 ### Compare probability densities from different distributions
@@ -106,6 +107,7 @@ pt(q = 2, df = 25)
 # Read in data
 city = read_csv(file = "~/Documents/github/epsy-8252/data/riverview.csv")
 head(city)
+nrow(city)
 
 
 # Fit regression model
@@ -163,6 +165,9 @@ anova(lm.1)
 
 # p-value
 1 - pf(41.7, df1 = 2, df2 = 29)
+
+
+
 
 
 
