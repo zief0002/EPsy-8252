@@ -88,11 +88,17 @@ y = c(53, 56, 37, 55, 50, 36, 22, 75, 37, 42)
 ### Function to compute log-likelihood
 ##################################################
 
-log_likelihood = function(b0, b1){
-  # Use the following x and y values
-  x = c(4, 0, 3, 4, 7, 0, 0, 3, 0, 2)
-  y = c(53, 56, 37, 55, 50, 36, 22, 75, 37, 42)
+# Use the following x and y values
+x = c(4, 0, 3, 4, 7, 0, 0, 3, 0, 2)
+y = c(53, 56, 37, 55, 50, 36, 22, 75, 37, 42)
 
+
+x = data$x_variable
+
+
+
+log_likelihood = function(b0, b1){
+  
   # Compute the yhat and residuals based on the two input values
   yhats = b0 + b1*x
   errors = y - yhats
@@ -114,7 +120,7 @@ log_likelihood = function(b0, b1){
 ##################################################
 
 log_likelihood(b0 = 10, b1 = 3)
-
+log_likelihood(b0 = 20, b1 = 10)
 
 
 ##################################################
@@ -164,10 +170,12 @@ regress.ll = function(b0, b1, rmse) {
 }
 
 
+library(bbmle)
+
 # Use function to compute ML estiates
 mle.results = mle2(
   minuslogl = regress.ll,
-  start = list(b0 = 40.0, b1 = 2.7, rmse = 13.98)
+  start = list(b0 = 10, b1 = 1, rmse = 10)
   )
 
 
