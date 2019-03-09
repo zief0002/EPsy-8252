@@ -235,7 +235,7 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td>Unit 09: Linear Mixed-Effects Models: Cross-Sectional Analysis</td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/lmer-cross-sectional.html#preparation-8">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/09-lmer-cross-sectional.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/09-lmer-cross-setional.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/09-lmer-cross-sectional.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/09-lmer-cross-sectional.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
