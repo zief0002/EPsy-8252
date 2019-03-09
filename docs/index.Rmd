@@ -117,11 +117,12 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 
 <thead>
 <tr>
-<th style="width:15%;">Date (M/W)</th>
-<th style="width:15%;">Date (T/R)</th>
+<th style="width:10%;">M/W</th>
+<th style="width:10%;">T/R</th>
 <th style="width:40%;">Topic</th>
 <th style="width:10%;text-align:center">Reading</th>
 <th style="width:10%;text-align:center">Notes</th>
+<th style="width:10%;text-align:center">Rmd File</th>
 <th style="width:10%;text-align:center">R Script</th>
 </tr>
 </thead>
@@ -134,6 +135,7 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td>Welcome to Epsy 8252</td>
 <td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
 <td align="center">`r fa("file", height = 20, fill = "#f1f1f1")`</td>
+<td align="center">`r fa("file-code", height = 20, fill = "#f1f1f1")`</td>
 <td align="center">`r fa("code", height = 20, fill = "#f1f1f1")`</td>
 </tr>
 
@@ -143,6 +145,7 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td>Unit 01: Introduction to R Markdown</td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/rmarkdown.html#preparation">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/rmarkdown.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"></td>
 <td align="center">`r fa("code", height = 20, fill = "#f1f1f1")`</td>
 </tr>
 
@@ -152,6 +155,7 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td>Unit 02: Log-Transforming the Predictor</td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/nonlinearity-log-transforming-the-predictor.html#preparation-1">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/nonlinearity-log-transforming-the-predictor.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/02-log-transformations-predictor.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
@@ -161,6 +165,7 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td>Unit 03: Log-Transforming the Outcome</td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/nonlinearity-log-transforming-the-outcome.html#preparation-2">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/nonlinearity-log-transforming-the-outcome.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/03-log-transformations-outcome.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
@@ -170,6 +175,7 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td>Unit 04: Probability Distributions</td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/probability-distributions.html#preparation-3">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/probability-distributions.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/04-probability-distributions.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
@@ -179,6 +185,7 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td>Unit 05: Maximum Likelihood Estimation</td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/maximum-likelihood-estimation.html#preparation-4">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/maximum-likelihood-estimation.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/05-maximum-likelihood-estimation.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
@@ -188,6 +195,7 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td>Unit 06: Information Criteria for Model Selection</td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/information-criteria-for-model-selection.html#preparation-5">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/information-criteria-for-model-selection.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/06-information-criteria-for-model-selection.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
@@ -197,7 +205,18 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td>Unit 07: Model Evidence</td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/moreinfocrit.html#preparation-6">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/moreinfocrit.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/07-model-evidence.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Mar. 18</td>
+<td>Mar. 19</td>
+<td>SPRING BREAK &mdash; NO CLASS</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
 </tr>
 
 <tr>
@@ -206,7 +225,38 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td>Unit 08: Introduction to Linear Mixed-Effects Models</td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/intro-lmer.html#preparation-7">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/intro-lmer.html">`r fa("file", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/08-introduction-to-mixed-effects-models.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Apr. 01</td>
+<td>Apr. 02</td>
+<td>Unit 09: Linear Mixed-Effects Models: Cross-Sectional Analysis</td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/lmer-cross-sectional.html#preparation-8">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/09-lmer-cross-sectional.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/09-lmer-cross-setional.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/09-lmer-cross-sectional.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Apr. 08</td>
+<td>Apr. 09</td>
+<td>Unit 10: Linear Mixed-Effects Models: Assumptions</td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/lmer-assumptions.html#preparation-9">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/10-lmer-assumptions.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/10-lmer-assumptions.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/10-lmer-assumptions.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Apr. 15</td>
+<td>Apr. 16</td>
+<td>Unit 11: Linear Mixed-Effects Models: Longitudinal Analysis</td>
+<td align="center"><a href="https://zief0002.github.io/book-8252/lmer-longitudinal.html#preparation-10">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/11-lmer-longitudinal.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/11-lmer-longitudinal.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/11-lmer-longitudinal.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
 
@@ -276,16 +326,16 @@ Below are the due dates for the assignments, as well as links to PDF files for e
 <td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-05-mixed-effects-models.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
-
-<!--
 <tr>
 <td>Assignment \#6: *Mixed-Effects Regression Models: Longitudinal Analysis*</td>
 <td>Apr. 24</td>
 <td>Apr. 25</td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-01-r-markdown.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8251/raw/master/assignments/assignment-06-ancova.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-06-longitudinal-models.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-06-longitudinal-models.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
+
+<!--
 <tr>
 <td>Assignment \#7: *Logistic Regression*</td>
 <td>May 01</td>
@@ -384,6 +434,12 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 </tr>
 
 <tr>
+<td>nhl-fci.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/nhl.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#nhl">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
 <td>popular-classroom.csv</td>
 <td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/popular-classroom.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
 <td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#popular">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
@@ -399,6 +455,12 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 <td>riverview.csv</td>
 <td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/riverview.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
 <td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#riverview">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>vocabulary.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/vocabulary.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#vocabulary">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
 <tr>
