@@ -250,8 +250,8 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 </tr>
 
 <tr>
-<td>Apr. 03</td>
-<td>Apr. 04</td>
+<td>Apr. 01</td>
+<td>Apr. 02</td>
 <td>Unit 10: Linear Mixed-Effects Models: Assumptions</td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/lmer-assumptions.html#preparation-9">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/10-lmer-assumptions.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
@@ -260,13 +260,54 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 </tr>
 
 <tr>
-<td>Apr. 10</td>
-<td>Apr. 11</td>
+<td>Apr. 03</td>
+<td>Apr. 04</td>
 <td>Unit 11: Linear Mixed-Effects Models: Longitudinal Analysis</td>
 <td align="center"><a href="https://zief0002.github.io/book-8252/lmer-longitudinal.html#preparation-10">`r fa("book", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/11-lmer-longitudinal.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/11-lmer-longitudinal.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/11-lmer-longitudinal.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+
+<tr>
+<td>Apr. 10</td>
+<td>Apr. 11</td>
+<td>Unit 12: Linear Mixed-Effects Models: Longitudinal Analysis II</td>
+<td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/12-lmer-longitudinal-ii.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/12-lmer-longitudinal-ii.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/12-lmer-longitudinal-ii.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Apr. 15</td>
+<td>Apr. 16</td>
+<td>Unit 13: Linear Probability Models</td>
+<td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/13-linear-probability-models.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/13-linear-probability-models.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/13-linear-probability-models.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Apr. 17</td>
+<td>Apr. 18</td>
+<td>Unit 14: Logistic Regression Models</td>
+<td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/14-logistic-regression.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/14-logistic-regression.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/14-logistic-regression.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>Apr. 22</td>
+<td>Apr. 23</td>
+<td>Unit 15: Generalized Linear Models</td>
+<td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/15-generalized-linear-models.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/15-generalized-linear-models.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center">`r fa("code", height = 20, fill = "#f1f1f1")`</td>
 </tr>
 
 
@@ -399,13 +440,17 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 <td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#evaluations">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
-
 <tr>
 <td>fci-2015.csv</td>
 <td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/fci-2015.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
 <td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#fci-2015">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
+<tr>
+<td>graduation.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/graduation.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#graduation">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
 
 <tr>
 <td>mn-schools.csv</td>
@@ -465,6 +510,12 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 <td>riverview.csv</td>
 <td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/riverview.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
 <td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#riverview">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
+</tr>
+
+<tr>
+<td>same-sex-marriage.csv</td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/data/same-sex-marriage.csv">`r fa("database", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://zief0002.github.io/book-8252/data-codebook.html#same-sex-marriage">`r fa("bookmark", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
 <tr>

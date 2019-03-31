@@ -491,7 +491,7 @@ data.frame(
     booktabs = TRUE,
     align = "c"
     )  %>%
-  kable_styling(full_width = FALSE, "HOLD_position") %>%
+  kable_styling(full_width = FALSE, latex_options = "HOLD_position") %>%
   column_spec(1:4, width = "1in")
 ```
 
