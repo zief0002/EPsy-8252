@@ -271,8 +271,8 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 
 
 <tr>
-<td>Apr. 10</td>
-<td>Apr. 11</td>
+<td>Apr. 08</td>
+<td>Apr. 09</td>
 <td>Unit 12: Linear Mixed-Effects Models: Longitudinal Analysis II</td>
 <td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/12-lmer-longitudinal-ii.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
@@ -281,7 +281,7 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 </tr>
 
 <tr>
-<td>Apr. 15</td>
+<td>Apr. 11</td>
 <td>Apr. 16</td>
 <td>Unit 13: Linear Probability Models</td>
 <td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
@@ -291,8 +291,8 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 </tr>
 
 <tr>
-<td>Apr. 17</td>
-<td>Apr. 18</td>
+<td>Apr. 15</td>
+<td>Apr. 16</td>
 <td>Unit 14: Logistic Regression Models</td>
 <td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/14-logistic-regression.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
@@ -308,6 +308,16 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/15-generalized-linear-models.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
 <td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/15-generalized-linear-models.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
 <td align="center">`r fa("code", height = 20, fill = "#f1f1f1")`</td>
+</tr>
+
+<tr>
+<td>Apr. 24</td>
+<td>Apr. 25</td>
+<td>Unit 16: Poisson Regression Models</td>
+<td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/16-poisson-regression.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/16-poisson-regression.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/16-poisson-regression.R">`r fa("code", height = 20, fill = "#f1f1f1")`</a></td>
 </tr>
 
 
@@ -386,14 +396,17 @@ Below are the due dates for the assignments, as well as links to PDF files for e
 </tr>
 
 
-<!--
+
 <tr>
 <td>Assignment \#7: *Logistic Regression*</td>
 <td>May 01</td>
 <td>May 02</td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-01-r-markdown.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8251/raw/master/assignments/assignment-07-ancova-part-ii.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-07-logistic-regression.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/assignment-07-logistic-regression.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
 </tr>
+
+
+<!--
 
 <tr>
 <td>Assignment \#8: *Poisson Regression* <br />12:00 p.m. in EdSciB 250</td>
