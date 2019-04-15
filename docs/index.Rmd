@@ -402,7 +402,7 @@ Below are the due dates for the assignments, as well as links to PDF files for e
 <td>May 01</td>
 <td>May 02</td>
 <td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-07-logistic-regression.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/assignment-07-logistic-regression.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-07-logistic-regression.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
 </tr>
 
 
