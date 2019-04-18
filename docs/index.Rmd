@@ -316,10 +316,24 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td>Apr. 24</td>
 <td>Apr. 25</td>
 <td>Unit 16: Poisson Regression Models</td>
-<td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/16-poisson-regression.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/16-poisson-regression.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/16-poisson-regression.R">`r fa("code", height = 20, fill = "#f1f1f1")`</a></td>
+<td align="center" style="vertical-align:middle;">
+    <span class="fa fa-book" style="color: #f1f1f1; font-size: 20px;"></span>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/16-poisson-regression.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/16-poisson-regression.Rmd">
+    <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/16-poisson-regression.R">
+    <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
 </tr>
 
 
@@ -351,8 +365,15 @@ Below are the due dates for the assignments, as well as links to PDF files for e
 <td>Assignment \#1: *R Markdown*</td>
 <td>Feb. 04</td>
 <td>Jan. 31</td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-01-r-markdown.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-01-r-markdown.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-01-r-markdown.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-01-r-markdown.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
 </tr>
 
 
@@ -361,40 +382,75 @@ Below are the due dates for the assignments, as well as links to PDF files for e
 <td>Assignment \#2: *Log-Transformations*</td>
 <td>Feb. 20</td>
 <td>Feb. 21</td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-02-transformations.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-02-transformations.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-02-transformations.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-02-transformations.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
 </tr>
 
 <tr>
 <td>Assignment \#3: *Probability Distributions*</td>
 <td>Mar. 06</td>
 <td>Mar. 07</td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-03-probability-distributions.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-03-probability-distributions.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-03-probability-distributions.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-03-probability-distributions.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
 </tr>
 
 <tr>
 <td>Assignment \#4: *Evidence and Model Selection*</td>
 <td>Mar. 27</td>
 <td>Mar. 28</td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-04-evidence-and-model-selection.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-04-evidence-and-model-selection.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-04-evidence-and-model-selection.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-04-evidence-and-model-selection.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
 </tr>
 
 <tr>
 <td>Assignment \#5: *Mixed-Effects Regression Models: Cross-Sectional Analysis*</td>
 <td>Apr. 15</td>
 <td>Apr. 16</td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-05-mixed-effects-models.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-05-mixed-effects-models.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-05-mixed-effects-models.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-05-mixed-effects-models.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
 </tr>
 
 <tr>
 <td>Assignment \#6: *Mixed-Effects Regression Models: Longitudinal Analysis*</td>
 <td>Apr. 24</td>
 <td>Apr. 25</td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-06-longitudinal-models.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-06-longitudinal-models.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-06-longitudinal-models.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-06-longitudinal-models.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
 </tr>
 
 
@@ -403,8 +459,15 @@ Below are the due dates for the assignments, as well as links to PDF files for e
 <td>Assignment \#7: *Logistic Regression*</td>
 <td>May 01</td>
 <td>May 02</td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-07-logistic-regression.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-07-logistic-regression.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-07-logistic-regression.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-07-logistic-regression.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
 </tr>
 
 
@@ -412,8 +475,15 @@ Below are the due dates for the assignments, as well as links to PDF files for e
 <td>Assignment \#8: *Poisson Regression*</td>
 <td>May 08</td>
 <td>May 09</td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-08-poisson-regression.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-08-poisson-regression.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span></a></td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-08-poisson-regression.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-08-poisson-regression.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
 </tr>
 
 </tbody>
