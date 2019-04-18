@@ -46,6 +46,7 @@ Fit the following three conditinal random intercepts models listed below. Again,
 - Model 3: Fixed effects of extraversion and sex 
 
 3. Compute and report the AICc value for each of these models and for the unconditional random intercepts model (Model 0). 
+
 4. Using the AICc values you computed in Question \#3, write the fitted equation for the model that has the most empirical support. (For the remainder of this section, this will be referred to as your adopted model.)
 
 5. Based on the coefficient $t$-values for your adopted model, is there evidence to support the inclusion of the fixed effect for extraversion? What about that for sex? Explain.

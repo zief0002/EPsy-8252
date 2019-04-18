@@ -4,6 +4,8 @@ output:
   rmdformats::material:
     highlight: kate
     css: website-style.css
+    includes:
+      in_header: header.html
 ---
 
 
@@ -406,16 +408,13 @@ Below are the due dates for the assignments, as well as links to PDF files for e
 </tr>
 
 
-<!--
-
 <tr>
-<td>Assignment \#8: *Poisson Regression* <br />12:00 p.m. in EdSciB 250</td>
+<td>Assignment \#8: *Poisson Regression*</td>
+<td>May 08</td>
 <td>May 09</td>
-<td>May 09</td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-01-r-markdown.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8251/raw/master/assignments/assignment-08-interactions.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-08-poisson-regression.Rmd">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;"><a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s19-assignment-08-poisson-regression.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span></a></td>
 </tr>
--->
 
 </tbody>
 </table>
