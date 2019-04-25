@@ -132,9 +132,9 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <tbody>
 
 <tr>
-<td>Jan. 23</td>
+<td>Jan. 23<br/>Jan. 22</td>
 <td>Jan. 22</td>
-<td>Welcome to Epsy 8252</td>
+<td style="vertical-align:middle;">Welcome to Epsy 8252</td>
 <td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
 <td align="center">`r fa("file", height = 20, fill = "#f1f1f1")`</td>
 <td align="center">`r fa("file-code", height = 20, fill = "#f1f1f1")`</td>
@@ -276,40 +276,94 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 <td>Apr. 08</td>
 <td>Apr. 09</td>
 <td>Unit 12: Linear Mixed-Effects Models: Longitudinal Analysis II</td>
-<td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/12-lmer-longitudinal-ii.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/12-lmer-longitudinal-ii.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/12-lmer-longitudinal-ii.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;">
+    <span class="fa fa-book" style="color: #f1f1f1; font-size: 20px;"></span>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/12-lmer-longitudinal-ii.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/12-lmer-longitudinal-ii.Rmd">
+    <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/12-lmer-longitudinal-ii.R">
+    <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
 </tr>
 
 <tr>
 <td>Apr. 11</td>
 <td>Apr. 16</td>
 <td>Unit 13: Linear Probability Models</td>
-<td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/13-linear-probability-models.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/13-linear-probability-models.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/13-linear-probability-models.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;">
+    <span class="fa fa-book" style="color: #f1f1f1; font-size: 20px;"></span>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/13-linear-probability-models.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/13-linear-probability-models.Rmd">
+    <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/13-linear-probability-models.R">
+    <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
 </tr>
 
 <tr>
 <td>Apr. 15</td>
 <td>Apr. 16</td>
 <td>Unit 14: Logistic Regression Models</td>
-<td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/14-logistic-regression.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/14-logistic-regression.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/14-logistic-regression.R">`r fa("code", height = 20, fill = "#ff2600")`</a></td>
+<td align="center" style="vertical-align:middle;">
+    <span class="fa fa-book" style="color: #f1f1f1; font-size: 20px;"></span>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/14-logistic-regression.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/14-logistic-regression.Rmd">
+    <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/14-logistic-regression.R">
+    <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
 </tr>
 
 <tr>
 <td>Apr. 22</td>
 <td>Apr. 23</td>
 <td>Unit 15: Generalized Linear Models</td>
-<td align="center">`r fa("book", height = 20, fill = "#f1f1f1")`</td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/15-generalized-linear-models.pdf">`r fa("file-pdf", height = 20, fill = "#ff2600")`</a></td>
-<td align="center"><a href="https://github.com/zief0002/epsy-8252/raw/master/notes/15-generalized-linear-models.Rmd">`r fa("file-code", height = 20, fill = "#ff2600")`</a></td>
-<td align="center">`r fa("code", height = 20, fill = "#f1f1f1")`</td>
+<td align="center" style="vertical-align:middle;">
+    <span class="fa fa-book" style="color: #f1f1f1; font-size: 20px;"></span>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/15-generalized-linear-models.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/15-generalized-linear-models.Rmd">
+    <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <span class="fa fa-code" style="color: #f1f1f1; font-size: 20px;"></span>
+</td>
 </tr>
 
 <tr>
