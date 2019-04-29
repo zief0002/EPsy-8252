@@ -1,0 +1,461 @@
+---
+title: "Logistic Regression: Mixed-Effects Models"
+date: "`r Sys.Date()`"
+header-includes:
+   - \usepackage{xcolor}
+   - \usepackage[framemethod=tikz]{mdframed}
+   - \usepackage{graphicx}
+   - \usepackage{rotating}
+   - \usepackage{booktabs}
+   - \usepackage{float}
+   - \usepackage{array}
+   - \definecolor{umn}{RGB}{153, 0, 85}
+   - \definecolor{umn2}{rgb}{0.1843137, 0.4509804, 0.5372549}
+   - \definecolor{myorange}{HTML}{EA6153}
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    highlight: zenburn
+    fig_width: 6
+    fig_height: 6
+mainfont: "Sabon"
+sansfont: "Futura"
+monofont: Inconsolata
+urlcolor: "umn2"
+bibliography: epsy8252.bib
+csl: apa-single-spaced.csl
+always_allow_html: yes
+---
+
+
+```{r setup, include=FALSE}
+options(digits = 3, scipen = 99)
+
+library(knitr)
+knitr::opts_chunk$set(
+  prompt = FALSE,
+  comment = NA,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  fig.align = 'center',
+  fig.width = 6,
+  fig.height = 6,
+  out.width = '3in',
+  echo = TRUE
+  )
+
+#library(printr)
+
+options(kableExtra.latex.load_packages = FALSE)
+library(kableExtra)
+```
+
+\frenchspacing
+
+
+In this set of notes, you will learn about generalized mixed-effects models and how we can extend the logistic regression model to account for non-independence.
+
+
+# Dataset and Research Question
+
+In this set of notes, we will use data from the file *math.csv*. These data include the responses (correct = 1; incoreect = 0) for 10 items on a standardized math test for $n=30$ examineess.
+
+```{r message=FALSE}
+# Load libraries
+library(AICcmodavg)
+library(broom)
+library(corrr)
+library(dplyr)
+library(ggplot2)
+library(lme4)
+library(readr)
+library(sm)
+library(tidyr)
+
+# Read in data
+math = read_csv(file = "~/Documents/github/epsy-8252/data/math.csv")
+
+# View data
+head(math)
+```
+
+Item response theory (IRT) is the dominant psychometric paradigm for analysis of assessment data. It also is the primary vehicle by which assessments are designed and scored. It is based on the simple idea that the probability of an examinee providing a correct response to an assessment item is a function of the examinee's "ability" and properties of the item. IRT has many useful characteristics including:
+
+- Examinee's "ability" estimates are invariant with respect to the assessment.
+- Item characteristics are estimated to be independnet of the sample of examinees.
+- It allows for variation in the reliability across the entire range of ability estimates
+
+# Rasch Model
+
+In the 1950's, Georg Rasch was working on how to measure reading ability for the Danish military. He developed a theory of measurement (Rasch measurement) that laid out a probabilistic model for observing an examinee's response. In this model, the probability of an observed response (e.g. correct/incorrect answer) is modeled as a function of the examinee's ability (on some latent trait) and the test items' parameters. Specifically, the probability of a correct response is modeled as a logistic function of the difference between the examinee's ability and the item's difficulty parameter. 
+
+$$
+\pi_{ij} = \frac{e^{\theta_i - \beta_j}}{1 + e^{\theta_i - \beta_j}}
+$$
+
+where, $\pi_{ij}$ is the probability of examinee *i* responding correctly to item $j$, $\theta_i$ is examinee *i*'s ability level on the latent trait, and $\beta_j$ is the difficulty paramter of item *j*. Note this statistical model is often referrred to as the *one-parameter logistic model* (1PL-model) to differentiate it from the more general philosophical approach that is "Rasch modeling". 
+
+## Log-Odds of a Correct Response
+
+We can also write this as log-odds,
+
+$$
+\begin{split}
+\ln\bigg[\frac{\pi_{ij}}{1 - \pi_{ij}}\bigg] &= \ln\bigg[\frac{\frac{e^{\theta_i - \beta_j}}{1 + e^{\theta_i - \beta_j}}}{1 -\frac{e^{\theta_i - \beta_j}}{1 + e^{\theta_i - \beta_j}}}\bigg] \\[2ex]
+&= \ln\bigg[\frac{\frac{e^{\theta_i - \beta_j}}{1 + e^{\theta_i - \beta_j}}}{\frac{1 + e^{\theta_i - \beta_j}}{1 + e^{\theta_i - \beta_j}} - \frac{e^{\theta_i - \beta_j}}{1 + e^{\theta_i - \beta_j}}}\bigg] \\[2ex]
+&= \ln\bigg[\frac{\frac{e^{\theta_i - \beta_j}}{1 + e^{\theta_i - \beta_j}}}{\frac{1}{1 + e^{\theta_i - \beta_j}}}\bigg] \\[2ex]
+&= \ln\bigg[e^{\theta_i - \beta_j}\bigg] \\[2ex]
+&= \theta_i - \beta_j
+\end{split}
+$$
+
+Thus, the log-odds of answering an item correctly is the difference between the examinee's ability level and the difficulty of the item.
+
+# Expressing the Rasch Model using a Mixed-Effects Model
+
+Consider a generalized mixed-effects model that includes a set of dummy variables indicating the item (no fixed-effect of intercept) and a random-effect of intercept. This model will use a binomial error structure and the logit link function to predict log-odds of answering the item correctly. For example, the model for three items will include three dummy variables:
+
+- `item_01` = 1 if the item is the first item and 0 otherwise
+- `item_02` = 1 if the item is the second item and 0 otherwise
+- `item_03` = 1 if the item is the third item and 0 otherwise
+
+We can include effects for all three dummy variables in the model if we omit the intercept from the model. Mathematically, we can write the link function as:
+
+$$
+\ln\bigg[\frac{\pi_{ij}}{1 - \pi_{ij}}\bigg] = \beta_1(\mathtt{Item\_01}_{ij}) + \beta_2(\mathtt{Item\_02}_{ij}) + \beta_3(\mathtt{Item\_03}_{ij}) + b_{0j}
+$$
+
+where *i* represents the *i*th item and *j* is the *j*th examinee. (Here item responses are clustered in examinees.)
+
+
+Substituting the appropriate 0/1 values into the equation we end up with three equations, one for each item:
+
+$$
+\begin{split}
+\mathbf{Item~1:~}&\ln\bigg[\frac{\pi_{ij}}{1 - \pi_{ij}}\bigg] = b_{0j} + \beta_1 \\[2ex]
+\mathbf{Item~2:~}&\ln\bigg[\frac{\pi_{ij}}{1 - \pi_{ij}}\bigg] = b_{0j} + \beta_2 \\[2ex]
+\mathbf{Item~3:~}&\ln\bigg[\frac{\pi_{ij}}{1 - \pi_{ij}}\bigg] = b_{0j} + \beta_3 \\[2ex]
+\end{split}
+$$
+
+Notice that this is essentially the same equation as is produced by Rasch. The ability paramater is equivalent to the random-effect in the mixed-effect model. The $\beta$-terms are related to the difficulty parameters in the Rasch model. The only difference is that Rasch expressed his model as a *difference* and the mixed-effects model is expressed as a *sum*. In the mixed-effects models, the $\beta$-terms represent **item easiness** rather than item difficulty.
+
+We can easily re-express the mixed-effects model using a difference rather than a sum:
+
+$$
+\begin{split}
+\mathbf{Item~1:~}&\ln\bigg[\frac{\pi_{ij}}{1 - \pi_{ij}}\bigg] = b_{0j} - (-\beta_1) \\[2ex]
+\mathbf{Item~2:~}&\ln\bigg[\frac{\pi_{ij}}{1 - \pi_{ij}}\bigg] = b_{0j} - (-\beta_2) \\[2ex]
+\mathbf{Item~3:~}&\ln\bigg[\frac{\pi_{ij}}{1 - \pi_{ij}}\bigg] = b_{0j} - (-\beta_3) \\[2ex]
+\end{split}
+$$
+
+Thus, if we want item difficulties, we simply need to take the negative of the $\beta$-terms.
+
+# Fitting the Rasch Model using `glmer()`
+
+Prior to fitting the mixed-effects model we need to convert our data from the wide to the long/tidy format.
+
+```{r}
+# Re-structure to long format
+math_long = math %>%
+  gather(key = "item", value = "correct", item_01:item_10) %>%
+  arrange(examinee, item)
+
+# View data
+head(math_long, 15)
+```
+
+Now, we fit a model using the `glmer()` function that includes fixed-effects (dummy variables) for each of the five items and a random-effect of intercept. Importantly, we also omit the fixed-effect of intercept from the model. To do this we use `-1` rather than `1` in the fixed-effects part of the model formula. We define this model to incorporate a binomial error structure and use the logit link function.
+
+```{r}
+# The -1 omits the intercept
+glmer.1 = glmer(correct ~ -1 + item + (1|examinee), data = math_long, family = binomial(link = "logit"))
+summary(glmer.1)
+```
+
+Here the coefficient estimates represent item-easiness. To obtain the difficulty values we take the negative of each estimate.
+
+```{r}
+-fixef(glmer.1)
+```
+
+In Rasch's interpretation of item-difficulties, these represent the ability level of the examinee needed to have a greater than 50/50 chance (odds = 1) of answering the item correctly. (Remember that ability is equivalent to the random-effect in the model and is therefore assumed to be normally distributed with a mean of 0; average ability = 0) 
+
+For example, intepreting the item-difficulty estimate associated with Item 01:
+
+> An examinee with ability of $1.38$ (higher than average ability) would have a probability of 0.5 of answering Item 01 correctly. Examinees with ability levels below $1.38$ would have a probability of less than 0.5 of answering the item correctly, and those with ability levels above $1.38$ would have a probability higher than 0.5 of answering the item correctly.
+
+Based on the diffiulty levels, Items 03, 04, 05, 06, 09, and 10 would be considered "easy" as the item-difficulty values are negative, indicating that an examinee of average ability (=0) would all have a greater than 50/50 chance of answering them correctly. Items 01, 02, 07, and 08 would be considered "difficult" as the item-difficulty values are npositive; an examinee of average ability (=0) would all have a less than 50/50 chance of answering them correctly.
+
+## Examinee Ability-Levels
+
+To obtain the ability-levels for the examinees, we need to ouput the estimated random-effects.
+
+```{r}
+# Extract the ability-levels
+abilities = ranef(glmer.1)$examinee[ , 1]
+
+# Output the first six examinees' ability-levels
+head(abilities)
+```
+
+Negative values for ability indicate the examinee is below average on the latent trait (math ability) and a positive abilitiy value indicates the examinee has higher than average math ability. Below is a dotplot of the 30 examinee's ability levels:
+
+```{r echo=FALSE, fig.cap='Dotplot showing the ability-levels for the 30 examinees.'}
+# Put abilities into a data frame for plotting
+examinees = data.frame(
+  examinee = 1:30,
+  theta = abilities
+  )
+
+ggplot(data = examinees, aes(x = theta)) +
+  geom_dotplot() +
+  theme_bw() +
+  scale_y_continuous(name = "", labels = NULL) +
+  scale_x_continuous(name = "Ability-level", limits = c(-2, 2))
+```
+
+## Wright Map
+
+One really great feature of using IRT is that the item difficulties and the examinee abilities are on the same scale. Because of that, we can display both sets of estimates in the same plot.
+
+```{r}
+# Put abilities into a data frame for plotting
+difficulties = data.frame(
+  item = 1:10,
+  beta = -fixef(glmer.1)
+  )
+
+ggplot(data = examinees, aes(x = theta)) +
+  geom_dotplot() +
+  theme_bw() +
+  scale_y_continuous(name = "", labels = NULL, limits = c(-0.3, 1)) +
+  scale_x_continuous(name = "Ability-level", limits = c(-2, 2)) +
+  geom_hline(yintercept = -0.02) +
+  geom_segment(data = difficulties, aes(x = beta, xend = beta, y = -.04, yend = -0.1)) +
+  geom_text(data = difficulties, aes(x = beta, y = -0.14, label = item))
+```
+
+This display is called a *Wright Map* and gives us information about the ability levels of our sample of examines and also which ability levels the items on the assessment are tapping. For example, we would expect that the six highest ability students would have a greater than 50\% chance of responding correctly to all of the items except Item 01 and Item 02. While the lowest ability student would have a greater than 50\% chance of responding correctly to only Items 10 and 06. 
+
+In thinking about assessment design, the first two items are the most difficult; it may be better to start the assessment with easier items. It may also be beneficial to write (1) some more difficult items (there do not seem to be any items that tap ability levels higher than 1 SD above the average ability) and (2) some easy items that fill in the gaps around ability-levels at 1 SD below average. Writing items for a particular ability-level is easier said than done.
+
+
+# Item Characteristic Curve (ICC)
+
+It can be useful to plot the probability of answering each item correctly for a range of examinee ability levels. This plot is referred to as an *item characteristic curve*. Below we outline the steps to create such a plot for Item 01.
+
+- Compute the log-odds of answering Item 01 correctly for a range of ability levels using the item equation:
+
+$$
+\ln\bigg[\frac{\hat\pi_{ij}}{1 - \hat\pi_{ij}}\bigg] = b_{0j} - \hat\beta_1 
+$$
+
+where $\hat\beta_1$ is the estimated item *difficulty* level. For Item 01, since the difficulty level is $-(-1.378)=+1.378$,
+
+$$
+\ln\bigg[\frac{\hat\pi_{ij}}{1 - \hat\pi_{ij}}\bigg] = b_{0j} - 1.378 
+$$
+
+Then we,
+
+- Convert the predicted log-odds to odds and then to probability.
+- Plot the predicted probabilities versus the ability levels.
+
+Here is some syntax to do this for Item 01.
+
+```{r}
+data.frame(
+  b = seq(from = -4, to = 4, by = 0.1)
+) %>%
+  mutate(
+    log_odds = b - 1.378,
+    odds = exp(log_odds),
+    prob = odds / (1 + odds)
+  ) %>%
+  ggplot(aes(x = b, y = prob)) +
+    geom_line() +
+    theme_bw() +
+    xlab("Ability level") +
+    ylab("Probability of answering correctly") +
+    ylim(0, 1)
+    ggtitle("Item 01")
+```
+
+From this plot we see,
+
+- The ability-level that corresponds to answering Item 01 correctly 50\% of the time (probability = 0.5) is 1.378; the item's difficulty level.
+- The "slope" of the curve represents how well the item can differentiate between examinees of different ability levels; the steeper the "slope" the better it can differentiate. This is referred to as *item discrimination*. In the Rasch model this is constrained to the value 1 for all items.
+
+### ICC for all Items
+
+Typically we want to show the ICC for each item on the assessment. To do this we need to create these estimates for each item. 
+
+
+```{r}
+# Create individual vectors
+item = unique(math_long$item)
+beta = -fixef(glmer.1)
+b = seq(from = -4, to = 4, by = 0.1)
+
+# Cross abilities with item names/difficulties
+all_items = crossing(b, nesting(item, beta))
+
+# Obtain probability of answering correctly for each item and ability  
+all_items = all_items %>%
+  mutate(
+    log_odds = b - beta,
+    odds = exp(log_odds),
+    prob = odds / (1 + odds)
+  )
+
+# View data
+head(all_items)
+```
+
+Now we show two plots of all 10 item ICCs. The first, which is more difficult to differentiate the items, places all of the ICCs on the same plot. This is pedagogically useful as you can see that the discrimination ("slope") for all 10 curves are the same. The difference is how far to the left or right each curve is on the plot. Since the horizontal axis is ability-level, that corresponds to how difficult each item is; what is the ability-level need to have aprobability of 0.5 of answering the item correctly.
+
+
+```{r fig.cap='ICC for each of the 10 items.', fig.width=8, fig.height=6, out.width='4in'}
+ggplot(data = all_items, aes(x = b, y = prob, color = item)) +
+  geom_line() +
+  theme_bw() +
+  xlab("Ability level") +
+  ylab("Probability of answering correctly") +
+  ylim(0, 1) 
+```
+
+The second plot shows each of the different ICC curves in a sepaerate panel. This makes it easier to explore the separate items.
+
+```{r fig.cap='ICC for each of the 10 items.', out.width='5in'}
+ggplot(data = all_items, aes(x = b, y = prob)) +
+  geom_line() +
+  theme_bw() +
+  xlab("Ability level") +
+  ylab("Probability of answering correctly") +
+  ylim(0, 1) +
+  facet_wrap(~item)
+```
+
+
+# Item Information
+
+Another common plot in Rasch analysis is the item information plot. Information is akin to reliability in the classical test theory paradigm. The advantage is that with IRT we obtain information at the item-level rather than only at the test-level. And moreover, we can obtain information at each ability level to see if the test is "reliable" for examinees of varying ability-levels.
+
+Information for Item $j$ at a particular ability-level ($\theta$) is simply computed as
+
+$$
+I_j(\theta) = p_{j\theta}(1 - p_{j\theta}) 
+$$
+
+where $p_{j\theta}$ is the probability of an examinee with ability-level $\theta$ responding correctly to Item *j*. Since we have the probability of responding correctly to each of the different items already, it is easy to compute the information as well.
+
+```{r}
+# Obtain item information
+all_items = all_items %>%
+  mutate(
+    info = prob * (1 - prob)
+  )
+```
+
+Below we plot the information curves for each of the 10 items
+
+
+```{r fig.cap='Item information curve for each of the 10 items.', out.width='5in'}
+ggplot(data = all_items, aes(x = b, y = info)) +
+  geom_line() +
+  theme_bw() +
+  xlab("Ability level") +
+  ylab("Information") +
+  ylim(0, 1) +
+  facet_wrap(~item)
+```
+
+Examining the information curve for Item 01 we see see that this item is giving us the most information when examinees have an ability-level near 1.378 (the item's difficulty level). It is not giving us a lot of information when the examinee has an ability-level that is really low. Item 10, on the other hand, gives us more information about low-ability examinees and not a lot of information about high-ability examinees.
+
+## Test-Level Information
+
+We can sum the item-level information at each ability-level to get an indication of the total information encompassed in the assessment. 
+
+```{r}
+# Obtain total information at each ability-level  
+test_info = all_items %>%
+  group_by(b) %>%
+  summarize(
+    total_info = sum(info)
+  )
+
+# View data
+head(test_info)
+```
+
+Plotting the test information curve
+
+```{r fig.cap='Total information curve for all 10 items.'}
+ggplot(data = test_info, aes(x = b, y = total_info)) +
+  geom_line() +
+  theme_bw() +
+  xlab("Ability level") +
+  ylab("Information")
+```
+
+From this curve we see that the test is giving us more information about the low ability-level examinees than the high ability-level examinees. 
+
+## Standard Error of Ability
+
+Information has an inverse relationship with the uncertainty associated with estimating examinees' ability-levels. If we wanted to give an uncertainty estimate we could compute the SE associated with each ability-estimate using,
+
+$$
+SE = \sqrt{\frac{1}{I(\theta)}}
+$$
+
+where $I(\theta)$ is the total information for a given ability-level $\theta$. 
+
+```{r}
+# Compute uncertainty for each ability-level
+test_info = test_info %>%
+  mutate(
+    se = sqrt(1 / total_info)
+  )
+
+# View data
+head(test_info)
+```
+
+Plotting this we can see that the uncertainty varies by ability estimate. The least amount of uncertainty is for slightly lower than average ability-level examinees (where we have the most information). We have much more uncertainty for examinees that have really low or really high ability-levels.
+
+```{r fig.cap='Uncertainty by ability-level.'}
+ggplot(data = test_info, aes(x = b, y = se)) +
+  geom_line() +
+  theme_bw() +
+  xlab("Ability level") +
+  ylab("Uncertainty/Standard Error of Measurement)")
+```
+
+In application, a test score (or ability estimate) is a point estimate of the examinee's true ability level. Because of the information in the test, we are more certain about some of these scores or ability estimates than others. Just like in statistics, we can indicate this uncertainty by computing a confidence interval for the score/ability level. Based on the plot, the CIs for examinees twith high ability estimates will be wider (more uncertainty) than the CIs for examinees with low ability estimates.
+
+
+
+
+<!-- ```{r} -->
+<!-- # Compute uncertainty for each ability-level -->
+<!-- test_info = test_info %>% -->
+<!--   mutate( -->
+<!--     se_score = sqrt(1 / total_info) * 0.87 -->
+<!--   ) -->
+
+<!-- # View data -->
+<!-- head(test_info) -->
+<!-- ``` -->
+
+
+
+# Other Resources
+
+In addition to the notes and what we cover in class, there many other resources for learning about using mixed-effects binomial logistic regression models for analyzing test data. Here are some resources that may be helpful in that endeavor:
+
+- De Boeck, P., Bakker, M., Zwitser, R., Nivard, M., Hofman, A., Tuerlinckz, F., \& Partchev, I. (2011). [The estimation of item response models with the lmer Function from the lme4 package in R.](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwiI2tO-5vPhAhVHA6wKHYxfB5oQFjAAegQIARAC&url=https%3A%2F%2Fwww.jstatsoft.org%2Farticle%2Fview%2Fv039i12%2Fv39i12.pdf&usg=AOvVaw0cMtsVKnaXCRf7k6U-cNNK) *Journal of Statstical Software, 39*(12), 1--28.
+- Rijmen, F., Tuerlinckx, F., De Boeck, P., \& Kuppens, P. (2003). [A nonlinear mixed model framework for item response theory.](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.467.1897&rep=rep1&type=pdf) *Psychological Methods, 8*(2), 185--205.
+

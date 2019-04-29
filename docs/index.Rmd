@@ -598,6 +598,30 @@ Below is the tenative schedule for the class. The dates, which represent the sta
 </td>
 </tr>
 
+<tr>
+<td>Apr. 29</td>
+<td>Apr. 30</td>
+<td>Unit 17: Mixed-Effects Logistic Regression Models</td>
+<td align="center" style="vertical-align:middle;">
+    <span class="fa fa-book" style="color: #f1f1f1; font-size: 20px;"></span>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/17-glmer-logistic-regression.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/17-glmer-logistic-regression.Rmd">
+    <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/17-glmer-logistic-regression.R">
+    <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
+
 
 </tbody>
 </table>    
@@ -734,7 +758,7 @@ Below are the due dates for the assignments, as well as links to PDF files for e
 
 
 <tr>
-<td>Assignment \#8: *Poisson Regression*</td>
+<td>Optional Assignment \#8: *Poisson Regression*</td>
 <td>May 08</td>
 <td>May 09</td>
 <td align="center" style="vertical-align:middle;">
@@ -825,6 +849,18 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
   <a href="https://zief0002.github.io/book-8252/data-codebook.html#graduation">
     <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span>
   </a>
+</td>
+</tr>
+
+<tr>
+<td>math.csv</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/data/math.csv">
+    <span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <span class="fas fa-book-open" style="color: #f1f1f1; font-size: 20px;"></span>
 </td>
 </tr>
 
@@ -968,6 +1004,17 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 </td>
 </tr>
 
+<tr>
+<td>risky-behavior.csv</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/data/risky-behavior.csv">
+    <span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <span class="fas fa-book-open" style="color: #f1f1f1; font-size: 20px;"></span>
+</td>
+</tr>
 
 <tr>
 <td>same-sex-marriage.csv</td>
