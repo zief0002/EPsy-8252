@@ -143,13 +143,13 @@ Below is the tenative schedule for the class. The dates are subject to change at
 </td>
 <td style="vertical-align:middle;" rowspan="2">Log-Transforming the Outcome</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
-  <a href="https://zief0002.github.io/book-8252/nonlinearity-log-transforming-the-outcome.html"><span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span></a>
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/04-logarithmic-transformations-outcome.pdf"><span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
-  <a href="https://github.com/zief0002/book-8252/raw/master/04-log-transformations-ii.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span></a>
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/04-logarithmic-transformations-outcome.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
-  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/03-log-transformations-outcome.R"><span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span></a>
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/04-logarithmic-transformations-outcome.R"><span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
 </tr>
 
