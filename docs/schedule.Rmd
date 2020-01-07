@@ -36,7 +36,7 @@ Below is the tenative schedule for the class. The dates are subject to change at
 </td>
 <td>Welcome to Epsy 8252</td>
 <td align="center" style="vertical-align:middle;">
-  <span class="fas fa-link" style="color: #f1f1f1; font-size: 20px;"></span>
+  <span class="fa fa-file-pdf" style="color: #f1f1f1; font-size: 20px;"></span>
 </td>
 <td align="center" style="vertical-align:middle;">
   <span class="fab fa-markdown" style="color: #f1f1f1; font-size: 20px;"></span>
@@ -62,7 +62,7 @@ Below is the tenative schedule for the class. The dates are subject to change at
 </td>
 <td style="vertical-align:middle;">Introduction to R Markdown</td>
 <td align="center" style="vertical-align:middle;">
-  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/01-r-markdown/01-rmarkdown.pdf"><span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span></a>
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/01-rmarkdown/01-rmarkdown.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
 <td align="center" style="vertical-align:middle;">
   <span class="fab fa-markdown" style="color: #f1f1f1; font-size: 20px;"></span>
@@ -89,7 +89,7 @@ Below is the tenative schedule for the class. The dates are subject to change at
 </td>
 <td style="vertical-align:middle;" rowspan="2">Polynomial Regression</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
-  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/02-polynomial-regression.pdf"><span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span></a>
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/02-polynomial-regression.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/02-polynomial-regression.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span></a>
@@ -111,11 +111,11 @@ Below is the tenative schedule for the class. The dates are subject to change at
 <td>Feb. 04</td>
 <td>Feb. 05</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
-  <a href="preparation.html#rmarkdown"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
+  <a href="preparation.html#logpredictor"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
 <td style="vertical-align:middle;" rowspan="2">Log-Transforming the Predictor</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
-  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/03-logarithmic-transformations-predictor.pdf"><span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span></a>
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/03-logarithmic-transformations-predictor.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/03-logarithmic-transformations-predictor.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span></a>
@@ -139,11 +139,11 @@ Below is the tenative schedule for the class. The dates are subject to change at
 <td>Feb. 11</td>
 <td>Feb. 12</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
-  <a href="preparation.html#rmarkdown"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
+  <a href="preparation.html#logoutcome"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
 <td style="vertical-align:middle;" rowspan="2">Log-Transforming the Outcome</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
-  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/04-logarithmic-transformations-outcome.pdf"><span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span></a>
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/04-logarithmic-transformations-outcome.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/04-logarithmic-transformations-outcome.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span></a>
@@ -171,7 +171,7 @@ Below is the tenative schedule for the class. The dates are subject to change at
 <!-- </td> -->
 <!-- <td align="center" style="vertical-align:middle;"> -->
 <!--   <a href="https://zief0002.github.io/book-8252/probability-distributions.html"> -->
-<!--     <span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
 <!--   </a> -->
 <!-- </td> -->
 <!-- <td align="center" style="vertical-align:middle;"> -->
@@ -197,7 +197,7 @@ Below is the tenative schedule for the class. The dates are subject to change at
 <!-- </td> -->
 <!-- <td align="center" style="vertical-align:middle;"> -->
 <!--   <a href="https://zief0002.github.io/book-8252/maximum-likelihood-estimation.html"> -->
-<!--     <span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
 <!--   </a> -->
 <!-- </td> -->
 <!-- <td align="center" style="vertical-align:middle;"> -->
@@ -223,7 +223,7 @@ Below is the tenative schedule for the class. The dates are subject to change at
 <!-- </td> -->
 <!-- <td align="center" style="vertical-align:middle;"> -->
 <!--   <a href="https://zief0002.github.io/book-8252/information-criteria-for-model-selection.html"> -->
-<!--     <span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
 <!--   </a> -->
 <!-- </td> -->
 <!-- <td align="center" style="vertical-align:middle;"> -->
@@ -249,7 +249,7 @@ Below is the tenative schedule for the class. The dates are subject to change at
 <!-- </td> -->
 <!-- <td align="center" style="vertical-align:middle;"> -->
 <!--   <a href="https://zief0002.github.io/book-8252/moreinfocrit.html"> -->
-<!--     <span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
 <!--   </a> -->
 <!-- </td> -->
 <!-- <td align="center" style="vertical-align:middle;"> -->

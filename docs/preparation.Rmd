@@ -47,7 +47,7 @@ Download and install R and RStudio:
 
 **Required**
 
-- Download the [sample BibTeX file](https://github.com/zief0002/epsy-8252/raw/master/notes/01-r-markdown/myBibliography.bib)
+- Download the [sample BibTeX file](https://github.com/zief0002/epsy-8252/raw/master/notes/01-rmarkdown/myBibliography.bib)
 - Download the CSL style file for the [American Psychological Association 7th edition (single-spaced bibliography)](https://www.zotero.org/styles). Make sure you save this so that it has the *.csl* extension.
 - Install the R package **tinytex**. This package will allow you to compile to PDF. Once you have the package installed run `tinytex::install_tinytex()` in the RStudio Console. You can read more of the [documentation here](https://yihui.name/tinytex/). 
 
@@ -55,7 +55,7 @@ Download and install R and RStudio:
 
 Read the following:
 
-- [Unit 01: Intorduction to RMarkdown Notes](https://github.com/zief0002/epsy-8252/raw/master/notes/01-r-markdown/01-rmarkdown.pdf)
+- [Unit 01: Introduction to RMarkdown Notes](https://github.com/zief0002/epsy-8252/raw/master/notes/01-rmarkdown/01-rmarkdown.pdf)
 
 
 **Additional Resources**
