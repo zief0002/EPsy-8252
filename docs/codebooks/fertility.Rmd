@@ -1,0 +1,63 @@
+---
+title: "fertility.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+bibliography: '../../notes/epsy8251.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+Human overpopulation is a growing concern and has been associated with depletion of Earth's natural resources (water is a big one that ) and degredation of the environment. This, in turn, has social and economic consequences such as global tension over resources such as water and food, higher cost of living and higher unemployment rates. The data in [fertility.csv](https://github.com/zief0002/epsy-8251/raw/master/data/fertility.csv) were collected from several sources (e.g., World Bank) and are thought to correlate with fertility rates, a measure directly linked to population. The variables are:
+
+- `country`: Country name
+- `region`: Region of the world
+- `fertility_rate`: Average number of children that would be born to a woman if she were to live to the end of her childbearing years and bear children in accordance with age-specific fertility rates.
+- `educ_female`: Average number of years of formal education (schooling) for females
+- `infant_mortality`: Number of infants dying before reaching one year of age, per 1,000 live births in a given year.
+- `contraceptive`: Percentage of women who are practicing, or whose sexual partners are practicing, any form of contraception. It is usually measured for women ages 15&ndash;49 who are married or in union.
+- `gni_class`: Categorization based on country's gross national income per capita (calculated using the World Bank Atlas method)
+  + `Low`: Low-income economies; GNI per capita of \$1,025 or less; 
+  + `Low/Middle`: Lower-middle-income economies; GNI per capita between \$1,026 and \$3,995; 
+  + `Upper/Middle`: Upper middle-income economies; GNI per capita between \$3,996 and \$12,375; 
+  + `Upper`: High-income economies; GNI per capita of \$12,376 or more.
+- `high_gni`: Dummy variable indicating if the country is has an upper-middle or high income economy (low- or low/middle-income = 0; upper/middle or upper income = 1)
+
+
+
+
+### Preview
+
+```{r}
+fertility = readr::read_csv(file = "~/Documents/github/epsy-8251/data/fertility.csv")
+head(fertility)
+```
+
+
+### References
+
+
+Roser, M. (2017). [Fertility rate](https://ourworldindata.org/fertility-rate#empowerment-of-women). *Our world in data*.
+
+UNICEF. (2016). [State of the world's children 2016](https://www.unicef.org/publications/files/UNICEF_SOWC_2016.pdf). *United Nations Population Division's World Contraceptive Use, household surveys including Demographic and Health Surveys and Multiple Indicator Cluster Surveys.*
+
+World Bank (2019). [World Bank open data](https://data.worldbank.org/). 
+

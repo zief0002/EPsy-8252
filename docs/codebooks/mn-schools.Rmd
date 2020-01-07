@@ -1,0 +1,51 @@
+---
+title: "mn-schools.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+    # includes:
+    #   after_body: doc-suffix.html
+bibliography: '../../notes/epsy8251.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+The data in [mnSchools.csv](https://github.com/zief0002/epsy-8251/raw/master/data/mn-schools.csv) were collected from [http://www.collegeresults.org](http://www.collegeresults.org) and contain 2011 institutional data for $n=33$ Minnesota colleges and universities. The attributes include:
+
+- `name`: College/university name
+- `grad`: Six-year graduation rate (as a percentage)
+- `public`: Sector (1 = public college/university, 0 = private college/university)
+- `sat`: Estimated median composite SAT score (in hundreds)
+- `tuition`: Amount of tuition and required fees covering a full academic year for a typical student (in thousands of U.S. dollars)
+
+
+### Preview
+
+```{r}
+options(dplyr.width = Inf, width = 85)
+mn = readr::read_csv(file = "~/Documents/github/epsy-8251/data/mn-schools.csv")
+head(mn)
+```
+
+
+<!-- ### References -->
+
+

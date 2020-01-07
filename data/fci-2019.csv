@@ -1,0 +1,124 @@
+team,fci,league,payroll
+Arizona Cardinals,445.3,NFL,1.90890802
+Atlanta Falcons,507.4,NFL,1.83952262
+Baltimore Ravens,519.74,NFL,1.84514644
+Buffalo Bills,435.32,NFL,1.73981862
+Carolina Panthers,492.93,NFL,1.79277338
+Chicago Bears,647.52,NFL,1.77330224
+Cincinnati Bengals,403.2,NFL,1.82864515
+Cleveland Browns,418.62,NFL,2.12985109
+Dallas Cowboys,616.06,NFL,1.78843473
+Denver Broncos,533.43,NFL,1.78792085
+Detroit Lions,493.53,NFL,1.76218987
+Green Bay Packers,631.62,NFL,1.91332742
+Houston Texans,575.91,NFL,1.92650126
+Indianapolis Colts,502.72,NFL,1.94991197
+Jacksonville Jaguars,453.76,NFL,1.90256119
+Kansas City Chiefs,476.58,NFL,1.6688075
+Los Angeles Chargers,820.56,NFL,1.84144272
+Los Angeles Rams,628.87,NFL,1.80998619
+Miami Dolphins,469.02,NFL,1.74048026
+Minnesota Vikings,546.3,NFL,1.90016955
+New England Patriots,645.14,NFL,1.93644322
+New Orleans Saints,527.36,NFL,1.8704993
+New York Giants,577.16,NFL,1.94207923
+New York Jets,526.57,NFL,1.88683729
+Oakland Raiders,492.1,NFL,1.71782566
+Philadelphia Eagles,627.84,NFL,1.6949909
+Pittsburgh Steelers,550.3,NFL,2.06460628
+San Francisco 49ers,606.44,NFL,2.19163223
+Seattle Seahawks,573.26,NFL,1.83574364
+Tampa Bay Buccaneers,460.4,NFL,1.85339238
+Tennessee Titans,469.17,NFL,1.93548055
+Washington Redskins,575.54,NFL,1.80350519
+Arizona Diamondbacks,142.42,MLB,1.16038416
+Atlanta Braves,222.74,MLB,0.83306041
+Baltimore Orioles,187.8,MLB,1.41814118
+Boston Red Sox,354.54,MLB,2.06247686
+Chicago Cubs,370.12,MLB,1.75310002
+Chicago White Sox,223.5,MLB,0.73050333
+Cincinnati Reds,204.56,MLB,0.98801785
+Cleveland Indians,219.64,MLB,1.11952167
+Colorado Rockies,214.64,MLB,1.17328498
+Detroit Tigers,212.22,MLB,1.11286
+Houston Astros,313.38,MLB,1.720389
+Kansas City Royals,230.34,MLB,1.15483116
+Los Angeles Angels of Anaheim,197.66,MLB,1.71248332
+Los Angeles Dodgers,274.98,MLB,1.57496785
+Miami Marlins,175.68,MLB,0.85843
+Milwaukee Brewers,209.76,MLB,0.83827856
+Minnesota Twins,210.72,MLB,1.2956
+New York Mets,247.38,MLB,1.66261459
+New York Yankees,293.96,MLB,1.61305917
+Oakland Athletics,212.1,MLB,0.626525
+Philadelphia Phillies,250.16,MLB,0.74688166
+Pittsburgh Pirates,182.42,MLB,0.81335833
+San Diego Padres,195.88,MLB,0.73716532
+San Francisco Giants,278.2,MLB,1.84499166
+Seattle Mariners,258.06,MLB,1.41303943
+St. Louis Cardinals,254.46,MLB,1.01583666
+Tampa Bay Rays,160.12,MLB,0.63147666
+Texas Rangers,220.98,MLB,1.10154583
+Toronto Blue Jays,216.51,MLB,1.441222
+Washington Nationals,296.48,MLB,1.416222
+Anaheim Ducks,386.14,NHL,0.79417667
+Arizona Coyotes,325.46,NHL,0.7532016
+Boston Bruins,560.12,NHL,0.79305362
+Buffalo Sabres,336.19,NHL,0.78663594
+Calgary Flames,317.01,NHL,0.80658921
+Carolina Hurricanes,356.26,NHL,0.79876398
+Chicago Blackhawks,565.8,NHL,0.66065918
+Colorado Avalanche,339.98,NHL,0.74391642
+Columbus Blue Jackets,341.19,NHL,0.76285685
+Dallas Stars,349.34,NHL,0.76147453
+Detroit Red Wings,469.7,NHL,0.70806447
+Edmonton Oilers,430.2,NHL,0.79392913
+Florida Panthers,285.74,NHL,0.80978693
+Los Angeles Kings,468.3,NHL,0.7699981
+Minnesota Wild,458.65,NHL,0.79342641
+Montreal Canadiens,470.78,NHL,0.7755446
+Nashville Predators,425.74,NHL,0.7914215
+New Jersey Devils,385.26,NHL,0.73214833
+New York Islanders,383.57,NHL,0.75313647
+New York Rangers,619.2,NHL,0.77737677
+Ottawa Senators,332.95,NHL,0.69225249
+Philadelphia Flyers,447.18,NHL,0.79140093
+Pittsburgh Penguins,460.54,NHL,0.80048371
+San Jose Sharks,393.76,NHL,0.80311846
+St. Louis Blues,374.57,NHL,0.75625083
+Tampa Bay Lightning,374.53,NHL,0.79618386
+Toronto Maple Leafs,617.44,NHL,0.79950236
+Vancouver Canucks,442.59,NHL,0.78201416
+Vegas Golden Knights,559.42,NHL,0.81634328
+Washington Capitals,504.11,NHL,0.80542478
+Winnipeg Jets,381.42,NHL,0.76625666
+Atlanta Hawks,342.36,NBA,1.03808591
+Boston Celtics,562.77,NBA,1.19147133
+Brooklyn Nets,404.6,NBA,1.264949
+Charlottes Hornets,224.18,NBA,1.24235791
+Chicago Bulls,586.16,NBA,1.13930997
+Cleveland Cavaliers,478.08,NBA,1.3135686
+Dallas Mavericks,420.65,NBA,1.2039121
+Denver Nuggets,338.52,NBA,1.31648234
+Detroit Pistons,341.9,NBA,1.32623332
+Golden State Warriors,663.72,NBA,1.38553076
+Houston Rockets,549.64,NBA,1.40075852
+Indiana Pacers,322.64,NBA,1.14591944
+Los Angeles Clippers,483.4,NBA,1.30766746
+Los Angeles Lakers,690.81,NBA,1.2056966
+Memphis Grizzlies,255.06,NBA,1.25491931
+Miami Heat,434.58,NBA,1.36120586
+Milwaukee Bucks,384.56,NBA,1.29625386
+Minnesota Timberwolves,296.28,NBA,1.24758092
+New Orleans Pelicans,264.42,NBA,1.17626046
+New York Knicks,900.1,NBA,1.12598829
+Oklahoma City Thunder,337.26,NBA,1.33377251
+Orlando Magic,335.57,NBA,1.30362486
+Philadelphia 76ers,390.29,NBA,1.28394366
+Phoenix Suns,349.88,NBA,1.20859344
+Portland Trail Blazers,388.82,NBA,1.45474004
+Sacramento Kings,480.3,NBA,1.14002043
+San Antonio Spurs,383.06,NBA,1.23807109
+Toronto Raptors,399.44,NBA,1.2515436
+Utah Jazz,316.5,NBA,1.16291342
+Washington Wizards,291.74,NBA,1.28000547

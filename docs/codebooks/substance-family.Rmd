@@ -1,0 +1,51 @@
+---
+title: "substance-family.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+    # includes:
+    #   after_body: doc-suffix.html
+bibliography: '../../notes/epsy8251.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+This data, stored in [substance-family.csv](https://github.com/zief0002/epsy-8251/raw/master/data/substance-family.csv) includes four attributes on $n = 910$ 10th-grade students. These data come from @Keith:2015. The attributes are:
+
+- `substance_use`: Composite based on student-reported use of cigarettes (How many cigarettes smoked per day), alcohol (In lifetime, number of times had alcohol to drink), and marijuana (In lifetime, number of times used marijuana). To compute this composite index, the three self-reported values were standardized and then averaged. 
+- `family_structure`: Adult composition of the household with three levels (`Two-parent family`, `One-parent, one guardian`, and`Single-parent family`)
+- `female`: Dummy-coded sex variable (0 = male; 1 = female)
+- `gpa`: Composite GPA on a 10-pt scale
+
+
+### Preview
+
+```{r}
+options(dplyr.width = Inf, width = 85)
+family = readr::read_csv(file = "~/Documents/github/epsy-8251/data/substance-family.csv")
+head(family)
+```
+
+
+### References
+
+<!-- <p style="padding-left: 50px; text-indent: -50px;"> -->
+

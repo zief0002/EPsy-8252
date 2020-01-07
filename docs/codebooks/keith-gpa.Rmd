@@ -1,0 +1,50 @@
+---
+title: "keith-gpa.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+    # includes:
+    #   after_body: doc-suffix.html
+bibliography: '../../notes/epsy8251.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+This data, stored in [keith-gpa.csv](https://github.com/zief0002/epsy-8251/raw/master/data/keith-gpa.csv) includes three attributes on $n = 100$ 8th-grade students. These data come from @Keith:2015. The attributes are:
+
+- `gpa`: Overall Grade-point average (GPA) in all subjects (on a standard 100-point scale)
+- `homework`: Average time spent on homework per week across all subjects (in hours)
+- `parent_ed`: Education-level (in years of schooling) for the parent with the highest level of education
+
+
+### Preview
+
+```{r}
+options(dplyr.width = Inf, width = 85)
+keith = readr::read_csv(file = "~/Documents/github/epsy-8251/data/keith-gpa.csv")
+head(keith)
+```
+
+
+### References
+
+<!-- <p style="padding-left: 50px; text-indent: -50px;"> -->
+

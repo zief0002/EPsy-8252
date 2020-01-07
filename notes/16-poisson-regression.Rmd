@@ -410,7 +410,7 @@ $$
 \frac{140788}{823} = 171
 $$
 
-This is evidnce of sever overdispersion in the data. The are several methods for adjusting for overdispersion. Which you choose will ultimately be based on the residual fit; choose the method that has the best behaved residuals.
+This is evidnce of severe overdispersion in the data. The are several methods for adjusting for overdispersion. Which you choose will ultimately be based on the residual fit; choose the method that has the best behaved residuals.
 
 
 ### Quasilikelihood Methods

@@ -1,0 +1,149 @@
+# Assignments
+
+Below are the due dates for the assignments, as well as links to the RMD and PDF files for each assignment. The due dates may change at the instructor's discretion. Any revised due dates will be announced in class and posted to the website.
+
+<br />
+<!-- <img src="img/update.png" width="20px" height="20px"> -->
+
+<table class="table">
+
+<thead>
+<tr>
+<th style="width:50%;">Assignment</th>
+<th style="width:15%;">Due Date (T/R)</th>
+<th style="width:15%;">Due Date (M/W)</th>
+<th style="width:10%;text-align:center">RMD</th>
+<th style="width:10%;text-align:center">PDF</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Assignment \#1: *Introduction to R Markdown*</td>
+<td>Feb. 04</td>
+<td>Feb. 05</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-01-introduction-to-r-markdown.Rmd">
+    <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-01-introduction-to-r-markdown.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
+
+
+
+<tr>
+<td>Assignment \#2: *Polynomial Regression*</td>
+<td>Feb. 13</td>
+<td>Feb. 17</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-02-polynomial-regression.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-02-polynomial-regression.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
+
+<tr>
+<td>Assignment \#3: *Logarithmic Transformations*</td>
+<td>Feb. 25</td>
+<td>Feb. 26</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-03-logarithmic-transformations.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-03-logarithmic-transformations.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
+
+<!-- <tr> -->
+<!-- <td>Assignment \#4: *Probability Distributions*</td> -->
+<!-- <td>Mar. 05</td> -->
+<!-- <td>Mar. 16</td> -->
+<!-- <td align="center" style="vertical-align:middle;"> -->
+<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-04-probability-distributions.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--   </a> -->
+<!-- </td> -->
+<!-- <td align="center" style="vertical-align:middle;"> -->
+<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-04-probability-distributions.pdf"> -->
+<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--   </a> -->
+<!-- </td> -->
+<!-- </tr> -->
+
+<!-- <tr> -->
+<!-- <td>Assignment \#5: *Evidence and Model Selection*</td> -->
+<!-- <td>Mar. 31</td> -->
+<!-- <td>Apr. 01</td> -->
+<!-- <td align="center" style="vertical-align:middle;"> -->
+<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-05-evidence-and-model-selection.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--   </a> -->
+<!-- </td> -->
+<!-- <td align="center" style="vertical-align:middle;"> -->
+<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-05-evidence-and-model-selection.pdf"> -->
+<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--   </a> -->
+<!-- </td> -->
+<!-- </tr> -->
+
+<!-- <tr> -->
+<!-- <td>Assignment \#6: *Mixed-Effects Regression Models: Cross-Sectional Analysis*</td> -->
+<!-- <td>Apr. 16</td> -->
+<!-- <td>Apr. 20</td> -->
+<!-- <td align="center" style="vertical-align:middle;"> -->
+<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-06-mixed-effects-models.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--   </a> -->
+<!-- </td> -->
+<!-- <td align="center" style="vertical-align:middle;"> -->
+<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-06-mixed-effects-models.pdf"> -->
+<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--   </a> -->
+<!-- </td> -->
+<!-- </tr> -->
+
+<!-- <tr> -->
+<!-- <td>Assignment \#7: *Mixed-Effects Regression Models: Longitudinal Analysis*</td> -->
+<!-- <td>Apr. 28</td> -->
+<!-- <td>Apr. 29</td> -->
+<!-- <td align="center" style="vertical-align:middle;"> -->
+<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-07-longitudinal-models.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--   </a> -->
+<!-- </td> -->
+<!-- <td align="center" style="vertical-align:middle;"> -->
+<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-07-longitudinal-models.pdf"> -->
+<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--   </a> -->
+<!-- </td> -->
+<!-- </tr> -->
+
+
+
+<!-- <tr> -->
+<!-- <td>Assignment \#8: *Logistic Regression*</td> -->
+<!-- <td>May 06</td> -->
+<!-- <td>May 06</td> -->
+<!-- <td align="center" style="vertical-align:middle;"> -->
+<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-08-logistic-regression.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--   </a> -->
+<!-- </td> -->
+<!-- <td align="center" style="vertical-align:middle;"> -->
+<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-08-logistic-regression.pdf"> -->
+<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
+<!--   </a> -->
+<!-- </td> -->
+<!-- </tr> -->
+
+
+</tbody>
+</table>

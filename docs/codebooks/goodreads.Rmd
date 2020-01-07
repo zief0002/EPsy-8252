@@ -1,0 +1,55 @@
+---
+title: "goodreads.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+bibliography: '../../notes/epsy8251.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+Goodreads is a social networking website for bookworms. Users can search the extremely large database of books, annotations, and reviews. Andy has been using Goodreads since late 2010 to catalog the books he has read. This data, stored in [goodreads.csv](https://github.com/zief0002/epsy-8251/raw/master/data/goodreads.csv) includes 13 attributes on 540 entries. The attributes are:
+
+- `title`: Book title
+- `subtitle`: Book subtitle
+- `series`: Book series (and number)
+- `author`: Primary author of the book
+- `my_rating`: Andy's Goodreads rating (on a 5-pt scale)
+- `avg_rating`: Average Goodreads rating (on a 5-pt scale)
+- `publisher`: Publishing company
+- `binding`: Book binding (Hardcover or Paperback)
+- `pages`: Length of the book (in pages)
+- `year_published`: Year the book was published
+- `month_read`: Month Andy finished reading the book
+- `year_read`: Year Andy finished reading the book
+- `bookshelf`: Andy's Goodreads bookshelf (to-read; currently-reading; read; quit-reading)
+
+
+### Preview
+
+```{r}
+options(dplyr.width = Inf, width = 85)
+goodreads = readr::read_csv(file = "~/Documents/github/epsy-8251/data/goodreads.csv")
+head(goodreads)
+```
+
+
+### References

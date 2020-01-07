@@ -1,0 +1,50 @@
+---
+title: "movies.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+bibliography: '../../notes/epsy8251.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+The data in [movies.csv](https://github.com/zief0002/epsy-8251/raw/master/data/movies.csv) includes attributes for $n=292$ movies. These data are a subset of data from the `movies` data object included in the **ggplot2movies** package. The original data contains information on 24 variables collected from 28,819 movies. The attributes in this sample include::
+
+- `title`: Movie's title
+- `budget`: Movie's budget (in millions of U.S. dollars); adjusted to 2018 dollars
+- `year`: Release date of the movie
+- `age`: Age of the movie; Computed by subtracting the movie's release date from 2019
+- `genre`: Movie genre (Action, Comedy, Drama, Other)
+- `length`: Running time of the movie (in minutes)
+
+
+### Preview
+
+```{r}
+movies = readr::read_csv(file = "~/Documents/github/epsy-8252/data/movies.csv")
+head(movies)
+```
+
+
+### References
+
+<p style="padding-left: 30px; text-indent: -30px;">Wickham, H. (2015). *ggplot2movies: Movies data.* R package version 0.0.1.
+  https://CRAN.R-project.org/package=ggplot2movies</p>

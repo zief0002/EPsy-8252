@@ -1,0 +1,124 @@
+---
+title: "Preparation"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks/codebooks.css'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+As part of the course, there are several articles, papers and technical reports that you will need to read during the semester. Most of the articles themselves are accessible through the University of Minnesota library website (http://www.lib.umn.edu). In order to access the full text of some of the articles, you will need to log in using your University x500 username and password. More detailed information, including references or links to specific readings, are given below.
+
+
+# Welcome to EPsy 8252 {#welcome}
+
+**Required**
+
+Download and read through the course syllabus.
+
+- [Course Syllabus](https://github.com/zief0002/epsy-8251/raw/master/s20-8252-syllabus.pdf) [pdf]
+
+
+Download and install R and RStudio:
+
+- Download R from the [R Project website](https://www.r-project.org/) and install it on your computer.
+- Download the free version of RStudio from the [RStudio website](https://www.rstudio.com/) and install it on your computer.
+
+---
+
+# Unit 01: Introduction to RMarkdown {#rmarkdown}
+
+**Required**
+
+- Download the [sample BibTeX file](https://github.com/zief0002/epsy-8252/raw/master/notes/01-r-markdown/myBibliography.bib)
+- Download the CSL style file for the [American Psychological Association 7th edition (single-spaced bibliography)](https://www.zotero.org/styles). Make sure you save this so that it has the *.csl* extension.
+- Install the R package **tinytex**. This package will allow you to compile to PDF. Once you have the package installed run `tinytex::install_tinytex()` in the RStudio Console. You can read more of the [documentation here](https://yihui.name/tinytex/). 
+
+<br />
+
+Read the following:
+
+- [Unit 01: Intorduction to RMarkdown Notes](https://github.com/zief0002/epsy-8252/raw/master/notes/01-r-markdown/01-rmarkdown.pdf)
+
+
+**Additional Resources**
+
+In addition to the notes and what we cover in class, there many other resources for learning about R Markdown. Here are some resources that may be helpful in that endeavor:
+
+- [Rmarkdown (and friends) Tutorial](http://www.flutterbys.com.au/stats/tut/tut17.5.html#h2_1)
+- [Getting Started with RMarkdown](https://ourcodingclub.github.io/2016/11/24/rmarkdown-1.html)
+- [R Markdown documentation:](http://rmarkdown.rstudio.com/) Official R Markdown documentation from RStudio
+- [R Markdown cheatsheet:](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) What it sounds like; a cheatsheet for R Markdown
+- [knitr:](http://yihui.name/knitr/) Document and code chunk options for R Markdown
+- [R Markdown Gallery:](https://rmarkdown.rstudio.com/gallery.html) - Gallery of some R Markdown outputs
+- [Pimp my Rmd:](https://holtzy.github.io/Pimp-my-rmd/) Blog post providing a few tips to improve the appearance of output documents.
+
+
+---
+
+# Unit 02: Polynomial Regression {#polynomial}
+
+**Required**
+
+- Refresh your knowledge about parabolas and quadratic functions by going though the [Khan Academy Parabolas Intro](https://www.khanacademy.org/math/algebra-home/alg-quadratics)
+
+
+**Additional Resources**
+
+In addition to the notes and what we cover in class, there are many other resources for learning about polynomial functions. Here are some resources that may be helpful in that endeavor:
+
+- [Varsity Tutors: Quadratic Function](https://www.varsitytutors.com/hotmath/hotmath_help/topics/quadratic-function)
+- [Math Centre: Polynomial Function](http://www.mathcentre.ac.uk/resources/uploaded/mc-ty-polynomial-2009-1.pdf)
+
+---
+
+# Unit 03: Log-Transforming the Predictor {#logpredictor}
+
+**Required**
+
+- Refresh your knowledge about logarithms by going though the [Khan Academy Intro to Logarithms](https://www.khanacademy.org/math/algebra2/exponential-and-logarithmic-functions/introduction-to-logarithms/v/logarithms) tutorial.
+
+
+**Additional Resources**
+
+In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor:
+
+- [Interpreting Coefficients in Regression with Log-Transformed Variables](https://www.cscu.cornell.edu/news/statnews/stnews83.pdf)
+- [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta)
+
+---
+
+# Unit 04: Log-Transforming the Outcome {#logoutcome}
+
+**Required**
+
+Read the following:
+
+- Osborne, Jason (2002). [Notes on the use of data transformations](https://pareonline.net/getvn.asp?v=8&n=6). *Practical Assessment, Research &amp; Evaluation, 8*(6).
+
+
+<!-- **Additional Resources** -->
+
+<!-- In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor: -->
+
+<!-- - [Interpreting Coefficients in Regression with Log-Transformed Variables](https://www.cscu.cornell.edu/news/statnews/stnews83.pdf) -->
+<!-- - [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta) -->
+
+---
