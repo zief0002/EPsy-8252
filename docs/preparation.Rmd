@@ -33,7 +33,7 @@ As part of the course, there are several articles, papers and technical reports 
 
 Download and read through the course syllabus.
 
-- [Course Syllabus](https://github.com/zief0002/epsy-8251/raw/master/s20-8252-syllabus.pdf) [pdf]
+- [Course Syllabus](https://github.com/zief0002/epsy-8252/raw/master/syllabus/s20-8252-syllabus.pdf) [pdf]
 
 
 Download and install R and RStudio:
@@ -100,7 +100,7 @@ In addition to the notes and what we cover in class, there are many other resour
 
 In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor:
 
-- [Interpreting Coefficients in Regression with Log-Transformed Variables](https://www.cscu.cornell.edu/news/statnews/stnews83.pdf)
+- [UCLA IDRE: Interpreting Log-Transformed Variables in Regression ](https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faqhow-do-i-interpret-a-regression-model-when-some-variables-are-log-transformed/)
 - [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta)
 
 ---
