@@ -7,14 +7,23 @@ output:
     highlight: zenburn
     fig_width: 6
     fig_height: 6
-    includes: 
-      in_header: preamble.tex
-      before_body: doc-prefix.tex
+header-includes: 
+  - \usepackage{graphicx}
+  - \usepackage{rotating}
+  - \usepackage{xcolor}
+  - \definecolor{umn}{HTML}{FF2D21}
+  - \usepackage{caption}
+  - \captionsetup[table]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \captionsetup[figure]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \usepackage{floatrow}
+  - \floatsetup[figure]{capposition=top}
+  - \floatsetup[table]{capposition=top}
+  - \usepackage{xfrac}
 mainfont: "Sabon"
 sansfont: "Futura"
 monofont: Inconsolata    
 urlcolor: "umn"
-bibliography: epsy8251.bib
+bibliography: [epsy8251.bib, epsy8252.bib]
 csl: apa-single-spaced.csl
 ---
 
@@ -52,7 +61,7 @@ mn = read_csv(file = "~/Documents/github/epsy-8252/data/mn-schools.csv")
 
 As always, we begin the analysis by graphing the data.
 
-```{r out.width='3in', fig.cap="Six-year graduation rate as a function of median SAT score. The regression  (blue, dashed line) and the loess (red, solid line) smoothers are also displayed."}
+```{r out.width='3in', fig.cap="Six-Year Graduation Rate as a Function of Median SAT Score"}
 # Scatterplot
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point() +
@@ -63,13 +72,15 @@ ggplot(data = mn, aes(x = sat, y = grad)) +
   ylab("Six-year graduation rate")
 ```
 
+*Note.* The regression  (blue, dashed line) and the loess (red, solid line) smoothers are also displayed.
+
 The loess smoother suggests that the relationship between SAT scores and graduation rate may be non-linear. Nonlinearity implies that a the effect of SAT on graduation rates is not constant across the range of SAT scores; for colleges with lower values of SAT (say SAT $<1100$) the effect of SAT has a rather high, positive effect (steep slope), while for colleges with higher values of SAT ($\geq 1100$) the effect of SAT is positive and moderate (the slope is less steep). Another way of saying this is that for schools with lower SAT scores, a one-unit difference in SAT is associated with a larger change in graduation rates than the same one-unit change for schools with higher SAT values.
 
 ## Residual Plot: Another Way to Spot Nonlinearity
 
 Sometimes, the nonlinear relationship is difficult to detect from the scatterplot of $Y$ versus $X$. Often it helps to fit the linear model and then examine the assumption of linearity in the residuals. It is sometimes easier to detect nonlinearity in the plot of the residuals versus the fitted values.
 
-```{r tidy=FALSE, out.width='3in', fig.cap="Standardized residuals versus the fited values for a model regressing six-year graduation rates on median SAT scores. The line Y=0 (black) and the loess smoother (blue) is also displayed."}
+```{r tidy=FALSE, out.width='3in', fig.cap="Standardized Residuals versus the Fited Values for a Model Regressing Six-Year Graduation Rates on Median SAT Scores"}
 # Fit linear model
 lm.1 = lm(grad ~ 1 + sat, data = mn)
 
@@ -85,6 +96,8 @@ ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
   xlab("Fitted values") +
   ylab("Standardized residuals")
 ```
+
+*Note.* The line $Y=0$ (black) and the loess smoother (blue) are also displayed.
 
 This plot suggests that the assumption of linearity may be violated. This plot suggests that the average residual is not zero at each fitted value. For low fitted values it appears as though the average residual may be less than zero, for moderate fitted values it appears as though the average residual may be more than zero, and for high fitted values it appears as though the average residual may be less than zero.
 
@@ -141,7 +154,7 @@ The linear-effect model explains 79.0\% of the variation in six-year graduation 
 
 More important than whether the $p$-value is small, is whether including the quadratic effect improved the assumption violation we noted earlier. To evaluate this, we will examine a plot of the standardized residuals versus the fitted values for the quadratic model. 
 
-```{r tidy=FALSE, out.width='3in', fig.cap="Standardized residuals versus the fited values for a model regressing six-year graduation rates on linear and quadratic effects of median SAT scores. The line Y=0 (black) and the loess smoother (blue) is also displayed."}
+```{r tidy=FALSE, out.width='3in', fig.cap="Standardized Residuals versus the Fited Values for a Model Regressing Six-Year Graduation Rate on Linear and Quadratic Effects of Median SAT Scores"}
 # Obtain residuals
 out_2 = augment(lm.2)
 
@@ -155,11 +168,13 @@ ggplot(data = out_2, aes(x = .fitted, y = .std.resid)) +
   ylab("Standardized residuals")
 ```
 
+*Note.* The line $Y=0$ (black) and the loess smoother (blue) are also displayed.
+
 Note that the residuals in this plot are far better behaved, indicating much more consistency with the assumption that the average residual is zero at each fitted value. This is the evidence that we would use to justify retaining the quadratic effect in the model. 
 
 We can also examine the assumption of residual normality for the model. We will use the `stat_density_confidence()` function from the **educate** package to create a confidence envelope for a normal reference distribution. The density of the marginal residuals seems consistent with the assumption of normality for this model.
 
-```{r out.width='3in', fig.cap="Density plot of the standardized residuals for a model regressing six-year graduation rates on linear and quadratic effects of median SAT scores. The pointwise confidence envelope for a normal reference distribution (blue shaded area) is also displayed.", echo=FALSE}
+```{r out.width='3in', fig.cap="Density Plot of the Standardized Residuals for a Model Regressing Six-Year Graduation Rate on Linear and Quadratic Effects of Median SAT Scores", echo=FALSE}
 # Examine residuals for normality (linear)
 ggplot(data = out, aes(x = .std.resid)) +
   stat_density_confidence() +
@@ -168,6 +183,8 @@ ggplot(data = out, aes(x = .std.resid)) +
   xlab("Standardized residuals") +
   ylab("Probability density")
 ```
+
+*Note.* The pointwise confidence envelope for a normal reference distribution (blue shaded area) is also displayed.
 
 # Interpretation of a Polynomial Term
 
@@ -183,7 +200,7 @@ Since the quadratic term is an interaction, we can interpret this term as we do 
 
 To plot the fitted equation, we use the `stat_function()` layer to add the fitted curve. (Note that we can no longer use `geom_abline()` since the addition of the polynomial effect implies that a line is no longer suitable.) This layer takes the argument `fun=` which describes a function that will be plotted as a line. To describe a function, use the syntax `function(){...}`. Here we use this syntax to describe the function of `x` (which in the `ggplot()` global layer is mapped to the `sat` variable). The fitted equation is then also written in terms of `x` and placed inside the curly braces. (Note that it is best to be more exact in the coefficient values---don't round---when you create this plot as even minor differences can grossly change the plot.)
 
-```{r out.width='3in', fig.cap="Six-year graduation rate as a function of median SAT score. The fitted curve is also displayed."}
+```{r out.width='3in', fig.cap="Scatterplot of Six-Year Graduation Rate versus Median SAT Score with Prediction Curve"}
 # Scatterplot
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point(alpha = 0.3) +
@@ -279,7 +296,7 @@ $$
 
 We can then plot each fitted curve by including each in a separate `stat_function()` layer.
 
-```{r out.width='3in', fig.cap="Fitted curves for the six-year graduation rates as a function of the linear and quadratic effects of median SAT score.  The fitted curves for private (red, solid line) and public (blue, dashed line) institutions are displayed."}
+```{r out.width='3in', fig.cap="Six-Year Graduation Rate as a Function of Median SAT Score for Private (Red, Solid Line) and Public (Blue, Dashed Line) Institutions"}
 # Plot of the fitted model
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point(alpha = 0) +

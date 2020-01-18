@@ -1,0 +1,383 @@
+---
+title: "Linear Mixed-Effects Models: Longitudinal Analysis II"
+date: "`r Sys.Date()`"
+header-includes:
+   - \usepackage{xcolor}
+   - \usepackage[framemethod=tikz]{mdframed}
+   - \usepackage{graphicx}
+   - \usepackage{rotating}
+   - \usepackage{booktabs}
+   - \usepackage{float}
+   - \usepackage{array}
+   - \definecolor{umn}{RGB}{153, 0, 85}
+   - \definecolor{umn2}{rgb}{0.1843137, 0.4509804, 0.5372549}
+   - \definecolor{myorange}{HTML}{EA6153}
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    highlight: zenburn
+    fig_width: 6
+    fig_height: 6
+mainfont: "Sabon"
+sansfont: "Futura"
+monofont: Inconsolata
+urlcolor: "umn2"
+bibliography: epsy8252.bib
+csl: apa-single-spaced.csl
+always_allow_html: yes
+---
+
+
+```{r setup, include=FALSE}
+options(digits = 3, scipen = 99)
+
+library(knitr)
+knitr::opts_chunk$set(
+  prompt = FALSE,
+  comment = NA,
+  message = FALSE,
+  warning = FALSE,
+  tidy = FALSE,
+  fig.align = 'center',
+  out.width = '3in',
+  echo = TRUE
+  )
+
+#library(printr)
+
+options(kableExtra.latex.load_packages = FALSE)
+library(kableExtra)
+```
+
+\frenchspacing
+
+
+In this set of notes, you will learn how to use the linear mixed-effects model to allow for random-effects of growth (in adition to intercpets) when analyzing longitudinal data.
+
+
+# Dataset and Research Question
+
+In this set of notes, we will use data from the file *vocabulary.csv* (see the [data codebook](https://zief0002.github.io/book-8252/data-codebook.html#vocabulary) here). These data include repeated measurements of scaled vocabulary scores for $n=64$ students.
+
+```{r message=FALSE}
+# Load libraries
+library(AICcmodavg)
+library(broom)
+library(dplyr)
+library(ggplot2)
+library(lme4) #for fitting mixed-effects models
+library(readr)
+library(sm)
+library(tidyr)
+
+# Read in data
+vocabulary = read_csv(file = "~/Documents/github/epsy-8252/data/vocabulary.csv")
+
+# Create lookup table
+lookup_table = data.frame(
+  grade = c("vocab_08", "vocab_09", "vocab_10", "vocab_11"),
+  c_grade = c(0, 1, 2, 3)
+)
+
+# Convert from wide to long structured data and
+# Create centered grade-level
+vocabulary_long = vocabulary %>%
+  gather(key = "grade", value = "vocab_score", vocab_08:vocab_11) %>%
+  arrange(id, grade) %>%
+  left_join(lookup_table, by = "grade")
+
+# View data
+head(vocabulary_long)
+```
+
+We will use these data to continue to explore the change in vocabulary over time (longitudinal variation in the vocabulary scores).
+
+# Variation in Growth Patterns: Including Random-Effects of Linear Change
+
+Recall that in the previous set of notes, we examined a spaghetti plot of the individual growth profiles.
+
+```{r fig.width=6, fig.height=6, fig.cap='Plot showing the change in vocabulary score over time for 64 students. The average growth profile is also displayed.', out.width='3.5in', echo=FALSE, fig.align='center', fig.pos='H'}
+ggplot(data = vocabulary_long, aes(x = grade, y = vocab_score)) +
+  geom_line(aes(group = id), alpha = 0.3) +                        #Add individual profiles
+  stat_summary(fun.y = mean, geom = "line", size = 2, group = 1) + #Add mean profile line
+  stat_summary(fun.y = mean, geom = "point", size = 3) +           #Add mean profile points
+  theme_bw() +
+  scale_x_discrete(
+    name = "Grade-level", 
+    labels = c("8th-grade", "9th-grade", "10th-grade", "11th-grade")
+    ) +
+  ylab("Vocabulary score")
+```
+
+Based on this plot, we claim that:
+
+- The average profile displays change over time that is positive (growth) and linear (or perhaps log-linear).
+- The individual profiles show variation from the average profile in 8th-grade vocabulary scores. 
+- The individual profiles also vary in terms of their rate of linear change from the average profile.
+
+The first bullet point suggest that we include an intercept and effect of grade-level as fixed effects in the model. The second bullet point suggests that we should allow for variation in intercepts in the model (i.e., include a random-effect of intercept). The last bullet point indicates that we should also allow for variation in slopes in the model (i.e., include a random-effect of linear change). The statistical model that includes both a random-effect of intercept and a random-effect of slope can be expressed as:
+
+$$
+\mathrm{Vocabulary~Score}_{ij} = \big[\beta_0 + b_{0j}\big] + \big[\beta_1 + b_{1j}\big](\mathrm{Grade\mbox{-}Level}_{ij}) + \epsilon_{ij}
+$$
+
+If we distrubute the grade-level predictor in this equation, and move all the random-effect terms, we get
+
+$$
+\mathrm{Vocabulary~Score}_{ij} = \beta_0 + \beta_1(\mathrm{Grade\mbox{-}Level}_{ij}) + \big[b_{0j} + b_{1j}(\mathrm{Grade\mbox{-}Level}_{ij}) + \epsilon_{ij}\big]
+$$
+
+Comparing the fixed-effects model, the model that includes a random-effect of intercept, and the model that includes both the random-effect of intercept and slope:
+
+$$
+\begin{split}
+\mathbf{Model~1:}~&\mathrm{Vocabulary~Score}_{ij} = \beta_0 + \beta_1(\mathrm{Grade\mbox{-}Level}_{ij}) + \big[\epsilon_{ij}\big]\\
+\mathbf{Model~2:}~&\mathrm{Vocabulary~Score}_{ij} = \beta_0 + \beta_1(\mathrm{Grade\mbox{-}Level}_{ij}) + \big[b_{0j} +  \epsilon_{ij}\big]\\
+\mathbf{Model~3:}~&\mathrm{Vocabulary~Score}_{ij} = \beta_0 + \beta_1(\mathrm{Grade\mbox{-}Level}_{ij}) + \big[b_{0j} + b_{1j}(\mathrm{Grade\mbox{-}Level}_{ij}) + \epsilon_{ij}\big]
+\end{split}
+$$
+
+The difference in these models is in how the unexplained variation is accounted for. In Model 1 the unexplained variation in vocabulary scores is all within-student variation (i.e., all at Level-1). In Model 2 we are positing that the some of the unexplained variation in vocabulary scores is still within-student variation, but also some of it is between-student variation based on differences in students' vocabulary in 8th-grade (i.e., variation in intercepts). Model 3 posits that the unexplained variation in vocabulary scores is due to within-student variation, between-student variation based on differences in students' vocabulary in 8th-grade (intercepts), and between-student variation due to differences in students' linear growth rates (slopes). 
+
+We can see this more apparently in the multilevel equation for Model 3:
+
+$$
+\begin{split}
+&\mathbf{Level\mbox{-}1:} \\
+&\qquad\mathrm{Vocabulary~Score}_{ij} = \beta_{0j} + \beta_{1j}(\mathrm{Grade\mbox{-}Level}_{ij}) + \epsilon_{ij}\\
+&\mathbf{Level\mbox{-}2:} \\
+&\qquad\beta_{0j} = \beta_0 + b_{0j}\\
+&\qquad\beta_{1j} = \beta_1 + b_{1j}
+\end{split}
+$$
+
+
+
+
+# Fitting Model 3
+
+To fit this model, we include the intercept and time predictor (`grade`) in the random-effects part of the `lmer()` function. We also fit the model that only includes a random-effect of intercept for comparison.
+
+
+```{r}
+# Fit model with random-effect of intercept
+lmer.2 = lmer(vocab_score ~ 1 + c_grade + (1|id), data = vocabulary_long, REML = FALSE)
+
+# Fit model with random-effect of intercept and slope
+lmer.3 = lmer(vocab_score ~ 1 + c_grade + (1 + c_grade|id), data = vocabulary_long, REML = FALSE)
+```
+
+We can evaluate whether we need to include the random-effect of linear growth by examining the model evidence for Model 2 and 3.
+
+```{r}
+# Model-evidence
+aictab(
+  cand.set = list(lmer.2, lmer.3),
+  modnames = c("Intercept RE", "Intercept + Slope RE")
+)
+```
+
+The empirical evidence supports only the inclusion of a random-effect of intercept, and in practice, we would likely drop the random-effect of slope from the model. However, to facilitate understanding of this model, I will interpret the output from Model 3.
+
+# Interpreting the Output from Model 3
+
+```{r}
+summary(lmer.3)
+```
+
+
+The fitted equation is:
+
+$$
+\hat{\mathrm{Vocabulary~Score}_{ij}} = 1.41 + 0.75(\mathrm{Grade\mbox{-}Level}_{ij})
+$$
+
+Interpreting the coefficients,
+
+- The predicted average vocabulary score for 8th-grade students (intercept) is 1.41.
+- Each one-unit difference in grade-level is associated with a 0.75-point difference in vocabulary score, on average.
+
+Looking at the variance components, we see that there are now three variance estimates, associated with each of the three sources of unexplained variation in the model:
+
+- $\hat\sigma^2_{e}=0.90$
+- $\hat\sigma^2_{0}=3.14$
+- $\hat\sigma^2_{e}=0.0001$
+
+Most of the unexplained variation in the model, 77.7\%, is due to differences in intercepts (differences in students' 8th-grade vocabulary scores). There is some unexplained variation within-students, 22.3\%. There is almost no unexplained variation due to differences in linear growth rates, 0.002\%.
+
+It is difficult to compare the reduction in variation to the unconditional random intercepts model, like we did in previous notes, because now we are adding an additional source of unexplained variation. However, any models that continue to include both the random intercepts and slopes as well as other predictors could be compared to THIS model to see if how variation is reduced. In other words, this becomes the new baseline model for other models that also include random intercepts and slopes.
+
+## Examining the Random Effects
+
+To see the random-effects produced, we use the `ranef()` function.
+
+```{r eval=FALSE}
+ranef(lmer.3)
+```
+
+```{r echo=FALSE}
+ranef(lmer.3)$id[1:6, ]
+```
+
+Recall that this shows the estimated random-effects for each of the students (Level-2 units). We can use these and the fixed-effects estimates to compute the estimated fitted equations for each of the students. For example,
+
+$$
+\begin{split}
+&\mathbf{Student~1:}\\
+&\qquad\hat{\mathrm{Vocabulary~Score}_{ij}} = \big[1.41 + 0.384\big] + \big[0.75 + 0.00188\big](\mathrm{Grade\mbox{-}Level}_{ij}) = 1.52 + 0.752(\mathrm{Grade\mbox{-}Level}_{ij}) \\
+&\mathbf{Student~2:}\\
+&\qquad\hat{\mathrm{Vocabulary~Score}_{ij}} = \big[1.41 - 0.207\big] + \big[0.75 - 0.00101\big](\mathrm{Grade\mbox{-}Level}_{ij}) = 0.93 + 0.749(\mathrm{Grade\mbox{-}Level}_{ij}) \\
+\end{split}
+$$
+
+The intercepts of these equation give us the model predicted 8th-grade vocabulary score for each student. The slopes gives us the model predicted rate of change for a one-unit difference in grade-level for each student, respectively. 
+
+
+The model predicted slopes are all quite similar. The summary measures for the 64 model predicted slopes are:
+
+```{r echo=FALSE}
+summary(ranef(lmer.3)$id[, 2] + 0.75)
+```
+
+This is expected given that the variance estimate was quite small...almost no variation in students' slopes! This suggests that all the students seem to have growth patterns that are similar. They vocabulary scores are all increasing by about 0.75-points per grade-level. 
+
+# Adding Sex as a Fixed-Effect
+
+We can also add fixed-effects of sex into the model in the same way we included it for the random-effects of intercept models; either a a main-effect, or as an interaction with time.
+
+```{r}
+# Main-effect of sex
+lmer.4 = lmer(vocab_score ~ 1 + c_grade + female + (1 + c_grade|id), 
+              data = vocabulary_long, REML = FALSE)
+
+# Interaction-effect between sex and time
+lmer.5 = lmer(vocab_score ~ 1 + c_grade + female + female:c_grade + (1 + c_grade|id), 
+              data = vocabulary_long, REML = FALSE)
+
+# Table of model evidence
+aictab(
+  cand.set = list(lmer.3, lmer.4, lmer.5),
+  modnames = c("Unconditional growth (RE for Int and Slope)", 
+               "Main-effect of sex", 
+               "Interaction b/w sex and grade-level")
+)
+```
+
+Here we would adopt the model that includes a main-effect of sex. The mixed-effects model for this is:
+
+$$
+\begin{split}
+\mathrm{Vocabulary~Score}_{ij} &= \big[\beta_0 + b_{0j}\big] + \big[\beta_1 + b_{1j}\big](\mathrm{Grade\mbox{-}Level}_{ij}) + \beta_{2}(\mathrm{Female}_{\bullet j}) + \epsilon_{ij} \\
+&= \beta_0 + \beta_1(\mathrm{Grade\mbox{-}Level}_{ij}) + \beta_{2}(\mathrm{Female}_{\bullet j}) + \big[b_0 + b_1(\mathrm{Grade\mbox{-}Level}_{ij}) + \epsilon_{ij}\big]
+\end{split}
+$$
+
+
+
+And the multilevel model is:
+
+$$
+\begin{split}
+&\mathbf{Level\mbox{-}1:} \\
+&\qquad\mathrm{Vocabulary~Score}_{ij} = \beta_{0j} + \beta_{1j}(\mathrm{Grade\mbox{-}Level}_{ij}) + \epsilon_{ij}\\
+&\mathbf{Level\mbox{-}2:} \\
+&\qquad\beta_{0j} = \beta_0 + \beta_{2}(\mathrm{Female}_{\bullet j}) + b_{0j}\\
+&\qquad\beta_{1j} = \beta_1 + b_{1j}
+\end{split}
+$$
+
+\newpage
+
+```{r}
+summary(lmer.4)
+```
+
+The fitted equation based on the `summary()` output is:
+
+$$
+\hat{\mathrm{Vocabulary~Score}}_{ij} = 0.15 + 0.75(\mathrm{Grade\mbox{-}Level}_{ij}) + 2.69(\mathrm{Female}_{\bullet j})
+$$
+
+We can also write the fitted equations for each one of the students. Obtainingthe random-effect estimates,
+
+```{r eval=FALSE}
+ranef(lmer.4)
+```
+
+```{r echo=FALSE}
+ranef(lmer.4)$id[1:6, ]
+```
+
+We can use these and the fixed-effects estimates to compute the estimated fitted equations for each of the students. For example,
+
+$$
+\begin{split}
+\mathbf{Student~1:}\qquad\qquad& \\
+\hat{\mathrm{Vocabulary~Score}_{ij}} &= \big[0.15 -0.785\big] + \big[0.75 - 0.066\big](\mathrm{Grade\mbox{-}Level}_{ij}) + 2.69(\mathrm{Female}_{\bullet j})\\
+&= -0.635 + 0.684(\mathrm{Grade\mbox{-}Level}_{ij}) + 2.69(\mathrm{Female}_{\bullet j})\\
+\mathbf{Student~2:}\qquad\qquad&\\
+\qquad\hat{\mathrm{Vocabulary~Score}_{ij}} &= \big[0.15 + 0.800\big] + \big[0.75 + 0.067\big](\mathrm{Grade\mbox{-}Level}_{ij}) + 2.69(\mathrm{Female}_{\bullet j})\\
+&= 0.95 + 0.817(\mathrm{Grade\mbox{-}Level}_{ij}) + 2.69(\mathrm{Female}_{\bullet j}) \\
+\end{split}
+$$
+
+To take this one step further, you could also obtain the `female` value for Student 1 (`female` = 1) and substitute that into Student 1's equation.
+
+$$
+\begin{split}
+\hat{\mathrm{Vocabulary~Score}_{ij}} &= -0.635 + 0.684(\mathrm{Grade\mbox{-}Level}_{ij}) + 2.69(1) \\
+&= 2.05 + 0.684(\mathrm{Grade\mbox{-}Level}_{ij})
+\end{split}
+$$
+
+You could find the more precise fitted equation for Student 2 in a similar fashion.
+
+# Examining the Model Assumptions
+
+In the models with random-effects of both intercepts and slopes, we now have three distributional assumptions:
+
+- $\epsilon_{ij} \overset{\mathrm{i.i.d}}{\sim} \mathcal{N}\big(0,\sigma^2_{\epsilon}\big)$
+- $b_{0j} \overset{\mathrm{i.i.d}}{\sim} \mathcal{N}\big(0,\sigma^2_{0}\big)$
+- $b_{1j} \overset{\mathrm{i.i.d}}{\sim} \mathcal{N}\big(0,\sigma^2_{1}\big)$
+
+Thus, we need to now also examine the distribution of the random-effect of slopes in addition to what we did before. Again, in this class, we will only bother checking the normality assumption of the random-effect terms, but in practice there is more to checking these assumptions.
+
+Since we adopted Model 4 (the main-effect of sex) we will evaluate the assumptions based on that fitted model.
+
+
+## Evaluating the Level-1 Residuals
+
+
+```{r out.width='40%', fig.show='hold', fig.cap='Plots of the Level-1 residuals for the model including the main-effects of sex.', fig.pos='H'}
+# Obtain level-1 residuals and fitted values
+out_4 = augment(lmer.4)
+
+# Residuals vs fitted values
+ggplot(data = out_4, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  xlab("Fitted values") +
+  ylab("Level-1 residuals")
+
+sm.density(out_4$.resid, model = "normal", xlab = "Level-1 residuals")
+```
+
+## Evaluate the Level-2 Residuals (Random-Effects)
+
+```{r out.width='40%', fig.show='hold', fig.cap='Plots of the Level-2 residuals (random-effects) for the model including the main-effects of sex.', fig.pos='H'}
+sm.density(ranef(lmer.4)$id[ , 1], model = "normal", xlab = "Random effects of intercept")
+sm.density(ranef(lmer.4)$id[ , 2], model = "normal", xlab = "Random effects of slope")
+```
+
+
+All the assumptions look reasonably satisified for both the level-1 and level-2 residuals.
+
+
+
+<!-- ## Other Resources {-} -->
+
+<!-- In addition to the notes and what we cover in class, there many other resources for learning about using linear mixed-effects models for longitudinal analysis. Here are some resources that may be helpful in that endeavor: -->
+
+<!-- - Long, J. D. (2012). [Longitudinal data analysis for the behavioral sciences using R](http://www.amazon.com/Longitudinal-Analysis-Behavioral-Sciences-Using/dp/1412982685). Thousand Oaks, CA: Sage. -->
+<!-- - Swihart, B. J., Caffo, B., James, B. D., Strand, M., Schwartz, B. S., &amp; Punjabi, N. M. (2010). [Lasagna plots: A saucy alternative to spaghetti plots.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2937254/) *Epidemiology, 21*(5), 621&ndash;625. -->

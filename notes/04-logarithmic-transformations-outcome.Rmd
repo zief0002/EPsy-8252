@@ -7,14 +7,23 @@ output:
     highlight: zenburn
     fig_width: 6
     fig_height: 6
-    includes: 
-      in_header: preamble.tex
-      before_body: doc-prefix.tex
+header-includes: 
+  - \usepackage{graphicx}
+  - \usepackage{rotating}
+  - \usepackage{xcolor}
+  - \definecolor{umn}{HTML}{FF2D21}
+  - \usepackage{caption}
+  - \captionsetup[table]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \captionsetup[figure]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \usepackage{floatrow}
+  - \floatsetup[figure]{capposition=top}
+  - \floatsetup[table]{capposition=top}
+  - \usepackage{xfrac}
 mainfont: "Sabon"
 sansfont: "Futura"
-monofont: Inconsolata    
+monofont: "Inconsolata" 
 urlcolor: "umn"
-bibliography: epsy8251.bib
+bibliography: [epsy8251.bib, epsy8252.bib]
 csl: apa-single-spaced.csl
 ---
 
@@ -55,7 +64,7 @@ head(movies)
 
 To being the analysis, we will examine the marginal distributions of movie running time (predictor) and budget (outcome), as well as a scatterplot between them for our sample data. We place the plots side-by-side using functionality from the **patchwork** package. (See the [documentation for this package here](https://github.com/thomasp85/patchwork).)
 
-```{r fig.width=12, fig.height=4, out.width='6in', fig.cap="Density plot of the distribution of movie budgets (left) and running time (center). The scatterplot (right) shows the relationship between running time and budget. The loess smoother  (blue, dashed line) is also displayed on the scatterplot. All movies that have a budget over 400 million dollars or a running time of at least three hours are also identified."}
+```{r eval=FALSE, fig.width=12, fig.height=4, out.width='6in', fig.cap="Distributions of the Outcome and Predictor"}
 # Marginal distribution of budget (outcome)
 p1 = ggplot(data = movies, aes(x = budget)) +
   stat_density() +
@@ -89,6 +98,40 @@ p1 + p2 + p3
 
 \newpage
 
+```{r echo=FALSE, fig.width=12, fig.height=4, out.width='6in', fig.cap="Distributions of the Outcome and Predictor"}
+# Marginal distribution of budget (outcome)
+p1 = ggplot(data = movies, aes(x = budget)) +
+  stat_density() +
+  theme_bw() +
+  xlab("Movie budget (in millions of dollars)") +
+  ylab("Probability density")
+
+# Marginal distribution of running time (predictor)
+p2 = ggplot(data = movies, aes(x = length)) +
+  stat_density() +
+  theme_bw() +
+  xlab("Running time (in minutes)") +
+  ylab("Probability density")
+
+# Scatterplot
+p3 = ggplot(data = movies, aes(x = length, y = budget)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  xlab("Running time (in minutes)") +
+  ylab("Movie budget (in millions of dollars)") +
+  annotate(geom = "text", x = 90, y = 679, label = "The Time Machine (1960)", size = 3, hjust = 0) +
+  annotate(geom = "text", x = 114, y = 542, label = "Sabrina (1960)", size = 3, hjust = 0) +
+  annotate(geom = "text", x = 108, y = 443, label = "The Nutty Professor (1963)", size = 3, hjust = 0) +
+  annotate(geom = "text", x = 181, y = 23, label = "1776 (1972)", size = 3, hjust = 0) +
+  annotate(geom = "text", x = 187, y = 92, label = "The Green Mile (1999)", size = 3, hjust = 1)
+
+# Place figures side-by-side
+p1 + p2 + p3
+```
+
+*Note.* Density plot of the distribution of movie budgets (left) and running time (center). The scatterplot (right) shows the relationship between running time and budget. The loess smoother  (blue, dashed line) is also displayed on the scatterplot. All movies that have a budget over 400 million dollars or a running time of at least three hours are also identified.
+
 The distribution of movie budgets is severely right-skewed. Although the median budget is around 25 million dollars, the plot shows evidence that several movies have exhorbitant budgets. There is also one movie (*The Time Machine*) that has a budget of close to 680 million dollars; a budget that is over eight standard deviations higher than the median budget. The distribution of running time also appears right-skewed, with most movies clocking in at around 100 minutes. There are two movies in the sample that have a running time near three hours.
 
 The scatterplot suggests a weak, slightly positive relationship between running time of a movie and budget. It also suggests several potential problems with fitting a linear model to the data:
@@ -100,7 +143,7 @@ The scatterplot suggests a weak, slightly positive relationship between running 
 
 We can see these assumption violations much more clearly in the scatterplot of residuals versus fitted values we get from regressing movie budgets on running time. 
 
-```{r fig.cap='Density plot of the standardized residuals (left) and scatterplot of the standarized residuals versus the fitted values (right) from regressing budget on running time. The confidence envelope from assuming a normal distribution is also displayed along with the density plot. In the scatterplot, the loess smoother (solid, blue line) is displayed along with the 95\\% confidence envelope (grey shaded area) and the reference line of Y=0.', fig.width=8, fig.height=4, out.width='6in'}
+```{r}
 # Fit model
 lm.1 = lm(budget ~ 1 + length, data = movies)
 
@@ -114,7 +157,11 @@ p1 = ggplot(data = out_1, aes(x = .std.resid)) +
   theme_bw() +
   xlab("Standardized residuals") +
   ylab("Probability density")
+```
 
+\newpage
+
+```{r fig.cap="Residual Plots from Model 1", fig.width=8, fig.height=4, out.width='6in'}
 # Residuals versus fitted values
 p2 = ggplot(data = out_1, aes(x = .fitted, y = .std.resid)) +
   geom_point() +
@@ -127,6 +174,8 @@ p2 = ggplot(data = out_1, aes(x = .fitted, y = .std.resid)) +
 # Plot the figures side-by-side
 p1 + p2
 ```
+
+*Note.* Density plot of the standardized residuals (left) and scatterplot of the standarized residuals versus the fitted values (right) from regressing budget on running time. The confidence envelope from assuming a normal distribution is also displayed along with the density plot. In the scatterplot, the loess smoother (solid, blue line) is displayed along with the 95\\% confidence envelope (grey shaded area) and the reference line of Y=0.
 
 These plots suggest violations of the normality assumption (the marginal distribution of the residuals is right-skewed) and of the assumption of homoskedasticity. The assumption that the average residual is 0, may be reasonable on the basis of this plot.
 
@@ -170,7 +219,7 @@ $$
 Now we will re-examine the scatterplot using the log-transformed outcome to see how this transformation affects the relationship.
 
 
-```{r fig.cap='Scatterplot between age and log-transformed budget for the sample of movies. The loess smoother  (blue, dashed line) is also displayed.', out.width='4in'}
+```{r fig.cap='Scatterplot between Age and Log-Transformed Budget', out.width='4in'}
 # Scatterplot
 ggplot(data = movies, aes(x = length, y = Lbudget)) +
   geom_point() +
@@ -185,6 +234,8 @@ ggplot(data = movies, aes(x = length, y = Lbudget)) +
   annotate(geom = "text", x = 187, y = 4.51, label = "The Green Mile (1999)", size = 3, hjust = 1)
 ```
 
+*Note.* Movies with extreme running times or budgets are identified. The loess smoother (blue, dashed line) is also displayed.
+
 Log-transforming the outcome has drastically affected the scale for the outcome. The three movies which had extremely high budgets when we examined raw budget, no longer seems like outliers in the transformed data. Has this helped us better meet the assumptions? Again, we should examine the residual plots.
 
 ```{r}
@@ -197,7 +248,7 @@ out_2 = augment(lm.2)
 
 \newpage
 
-```{r fig.cap="Density plot of the standardized residuals (left) and scatterplot of the standarized residuals versus the fitted values (right) from regressing budget on age. The confidence envelope from assuming a normal distribution is also displayed along with the density plot. In the scatterplot, the loess smoother (solid, blue line) is displayed along with the 95\\% confidence envelope (grey shaded area) and the reference line of Y=0.", fig.width=8, fig.height=4, out.width='6in'}
+```{r fig.cap="Residual Plots for Model 2", fig.width=8, fig.height=4, out.width='6in'}
 # Density plot of the residuals
 p1 = ggplot(data = out_2, aes(x = .std.resid)) +
   stat_density_confidence(model = "normal") +
@@ -218,6 +269,8 @@ p2 = ggplot(data = out_2, aes(x = .fitted, y = .std.resid)) +
 # Plot the figures side-by-side
 p1 + p2
 ```
+
+*Note.* Density plot of the standardized residuals (left) and scatterplot of the standarized residuals versus the fitted values (right) from regressing budget on age. The confidence envelope from assuming a normal distribution is also displayed along with the density plot. In the scatterplot, the loess smoother (solid, blue line) is displayed along with the 95\\% confidence envelope (grey shaded area) and the reference line of Y=0.
 
 These plots suggest that after the transformation, there is a great deal of improvement in meeting the assumption of normality, however there looks to still be some violation. The assumption of homoskedasticity now shows only minor violation, having improved over residuals from the non-transformed budget. (The biggest problems seems to be for movies with longer running times for which there are fewer observations; thus it might be a few observations driving this violation.) The assumption that the average residual is 0 now shows some violation, which, again., may be driven by those movies with longer running times. 
 
@@ -341,7 +394,7 @@ $$
 
 This can be added to the `stat_function()` layer of `ggplot()`.
 
-```{r out.width='3in', fig.cap='Plot of the predicted movie budget as a function of its running time.'}
+```{r out.width='3in', fig.cap='Plot of Predicted Budget as a Function of Running Time'}
 # Plot
 ggplot(data = movies, aes(x = length, y = budget)) +
   geom_point(alpha = 0) +
@@ -372,7 +425,7 @@ out_poly = augment(lm_poly)
 
 \newpage
 
-```{r fig.width=8, fig.height=4, out.width="6in", fig.cap="Standardized residuals versus the fitted values for the model using the natural logarithm of running time  (left) and for the model that includes a linear and quadratic effect of running time (right) to predict variation in log-budget. The loess smoother and confidence envelope for the smoother is also included in both plots."}
+```{r fig.width=8, fig.height=4, out.width="6in", fig.cap="Standardized Residuals versus the Fitted Values for Two Competing Nonlinear Models"}
 # Log-log residuals
 p1 = ggplot(data = out_log, aes(x = .fitted, y = .std.resid)) +
   geom_point() +
@@ -397,10 +450,12 @@ p2 = ggplot(data = out_poly, aes(x = .fitted, y = .std.resid)) +
 p1 + p2
 ```
 
+*Note.* Standardized residuals versus the fitted values for the model using the natural logarithm of running time  (left) and for the model that includes a linear and quadratic effect of running time (right) to predict variation in log-budget. The loess smoother and confidence envelope for the smoother is also included in both plots.
+
 Based on the plots, the polynomial model seems to show better fit to the assumption that the average residual is 0 than the log-log model. We can also see this by comparing the fit of each model to the pattern modeled by the loess smoother in the scatterplot of the log-budgets versus the running times. To do this we would need to obtain the coefficient-level output for each fitted model and then use `stat_function()` to include the fitted curve onto the scatterplot.
 
 
-```{r fig.width=8, fig.height=4, fig.cap='Scatterplot between age and log-transformed budget for the sample of movies. The loess smoother (blue, dashed line) is also displayed. The fitted model using the natural logarithm of running time (left) and for the model that includes a linear and quadratic effect of running time (right) to predict variation in log-budget is also included (red, dashed line)', out.width='6in'}
+```{r fig.width=8, fig.height=4, fig.cap='Scatterplot between Age and Log-Transformed budget and Predicted Curve for Two Competing Nonlinear Models', out.width='6in'}
 # Log-log model
 p1 = ggplot(data = movies, aes(x = length, y = Lbudget)) +
   geom_point() +
@@ -425,6 +480,8 @@ p2 = ggplot(data = movies, aes(x = length, y = Lbudget)) +
 # Plot side-by-side
 p1 + p2
 ```
+
+*Note.* Scatterplot between age and log-transformed budget for the sample of movies. The loess smoother (blue, dashed line) is also displayed. The fitted model using the natural logarithm of running time (left) and for the model that includes a linear and quadratic effect of running time (right) to predict variation in log-budget is also included (red, dashed line)
 
 The polynomial model shows better adherance to the pattern captured by the loess smoother than the log-log model. Thus, we will adopt the polynomial model over the log-log model.
 
@@ -467,7 +524,7 @@ $$
 Inputting this into the `stat_function()` layer of our `ggplot()` syntax, we get:
 
 
-```{r out.width='3in', fig.cap='Plot of the predicted movie budget as a function of its running time for the polynomial model.'}
+```{r out.width='3in', fig.cap='Plot of Predicted Budget as a Function of Running Time for the Polynomial Model'}
 # Plot
 ggplot(data = movies, aes(x = length, y = budget)) +
   geom_point(alpha = 0) +
@@ -495,7 +552,7 @@ movies = movies %>%
 
 \newpage
 
-```{r fig.cap='Jittered scatterplot of log-budget versus whether or not the movie is an action movie.', out.width='3in'}
+```{r fig.cap='Jittered Scatterplot of Log-Transformed Budget versus Action Movie', out.width='3in'}
 # Plot the observed data
 ggplot(data = movies, aes(x = action, y = Lbudget)) +
   geom_jitter(alpha = 0.2) +
@@ -689,7 +746,7 @@ $$
 $$
 
 
-```{r out.width='3in', fig.cap='Plot of the predicted movie budget as a function of its running time for the polynomial model. The fitted curves for both action movies (red, solid line) and non-action movies (black, dashed line) are displayed.'}
+```{r out.width='3in', fig.cap='Plot of Predicted Budget as a Function of Running Time for the Polynomial Model'}
 # Plot
 ggplot(data = movies, aes(x = length, y = budget)) +
   geom_point(alpha = 0) +
@@ -701,6 +758,8 @@ ggplot(data = movies, aes(x = length, y = budget)) +
   xlab("Running time (in minutes)") +
   ylab("Predicted budget (in millions of dollars)") 
 ```
+
+*Note.* The fitted curves for both action movies (red, solid line) and non-action movies (black, dashed line) are displayed.
 
 This plot suggests that there is a curvilinear relationship between running time and log-budget for both action and non-action movies. In general, the effect of running time on log-budget increases for both types of movies with longer running times until about 150 minutes (approximate $x$-coordinate of the vertex) then the effect of running time has an increasing negative effect on log-budget. Furthermore, action movies have a higher average budget than non-action movies.
 

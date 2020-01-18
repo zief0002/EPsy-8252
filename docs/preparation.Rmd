@@ -122,3 +122,46 @@ Read the following:
 <!-- - [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta) -->
 
 ---
+
+
+# Unit 05: Probability Distributions {#probdist}
+
+**Required**
+
+Read the following:
+
+- Fox (Section 3.1.1) *Probability Basics* [Required Textbook] 
+- Fox (Sections 3.3.1&ndash;3.3.4)*Continuous Distributions* [Required Textbook]
+- Refresh your knowledge about probability distributions by going though the [Kahn Academy: Random Variables and Probability Distributions](https://www.khanacademy.org/math/probability/random-variables-topic) tutorial.
+
+
+<!-- **Additional Resources** -->
+
+<!-- In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor: -->
+
+<!-- - [Interpreting Coefficients in Regression with Log-Transformed Variables](https://www.cscu.cornell.edu/news/statnews/stnews83.pdf) -->
+<!-- - [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta) -->
+
+---
+
+
+# Unit 06: Maximum Likelihood Estimation {#mle}
+
+**Required**
+
+Read the following:
+
+- Fox (Section 3.1.2) *Random Variables* [Required Textbook] 
+- Myung, J. (2003). [Tutorial on maximum likelihood estimation](http://times.cs.uiuc.edu/course/410/note/mle.pdf). *Journal of Mathematical Psychology, 47*, 90&ndash;100.
+
+
+<!-- **Additional Resources** -->
+
+<!-- In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor: -->
+
+<!-- - [Interpreting Coefficients in Regression with Log-Transformed Variables](https://www.cscu.cornell.edu/news/statnews/stnews83.pdf) -->
+<!-- - [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta) -->
+
+---
+
+

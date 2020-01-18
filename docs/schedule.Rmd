@@ -160,57 +160,64 @@ Below is the tenative schedule for the class. The dates are subject to change at
 <td>Feb. 17</td>
 </tr>
 
-<!-- <tr> -->
-<!-- <td>Feb. 18</td> -->
-<!-- <td>Feb. 19</td> -->
-<!-- <td>Unit 04: Probability Distributions</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://zief0002.github.io/book-8252/probability-distributions.html#preparation-3"> -->
-<!--     <span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://zief0002.github.io/book-8252/probability-distributions.html"> -->
-<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/book-8252/raw/master/06-probability-distributions.Rmd"> -->
-<!--     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/04-probability-distributions.R"> -->
-<!--     <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- </tr> -->
+<!-- Unit 03: Maximum Likelihood Estimation -->
 
-<!-- <tr> -->
-<!-- <td>Feb. 25</td> -->
-<!-- <td>Feb. 26</td> -->
-<!-- <td>Unit 05: Maximum Likelihood Estimation</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://zief0002.github.io/book-8252/maximum-likelihood-estimation.html#preparation-4"> -->
-<!--     <span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://zief0002.github.io/book-8252/maximum-likelihood-estimation.html"> -->
-<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/book-8252/raw/master/07-maximum-likelihood-estimation.Rmd"> -->
-<!--     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/05-maximum-likelihood-estimation.R"> -->
-<!--     <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- </tr> -->
+<tr>
+<td colspan="8"><b>Unit 03: Maximum Likelihood Estimation</b></td>
+</tr>
+
+
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Feb. 18</td>
+<td>Feb. 19</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  <a href="preparation.html#probdist"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+<td style="vertical-align:middle;" rowspan="2">Probability Distributions</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/05-probability-distributions.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/05-probability-distributions.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/05-probability-distributions.R"><span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+</tr>
+
+
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Feb. 20</td>
+<td>Feb. 24</td>
+</tr>
+
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Feb. 25</td>
+<td>Feb. 26</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  <a href="preparation.html#mle"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+<td style="vertical-align:middle;" rowspan="2">Maximum Likelihood Estimation</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/06-maximum-likelihood-estimation.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/06-maximum-likelihood-estimation.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/06-maximum-likelihood-estimation.R"><span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+</tr>
+
+
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Feb. 27</td>
+<td>Mar. 02</td>
+</tr>
 
 <!-- <tr> -->
 <!-- <td>Mar. 04</td> -->

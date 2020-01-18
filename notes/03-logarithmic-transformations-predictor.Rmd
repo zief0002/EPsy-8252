@@ -7,14 +7,23 @@ output:
     highlight: zenburn
     fig_width: 6
     fig_height: 6
-    includes: 
-      in_header: preamble.tex
-      before_body: doc-prefix.tex
+header-includes: 
+  - \usepackage{graphicx}
+  - \usepackage{rotating}
+  - \usepackage{xcolor}
+  - \definecolor{umn}{HTML}{FF2D21}
+  - \usepackage{caption}
+  - \captionsetup[table]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \captionsetup[figure]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \usepackage{floatrow}
+  - \floatsetup[figure]{capposition=top}
+  - \floatsetup[table]{capposition=top}
+  - \usepackage{xfrac}
 mainfont: "Sabon"
 sansfont: "Futura"
 monofont: Inconsolata    
 urlcolor: "umn"
-bibliography: epsy8251.bib
+bibliography: [epsy8251.bib, epsy8252.bib]
 csl: apa-single-spaced.csl
 ---
 
@@ -53,7 +62,7 @@ mn = read_csv(file = "~/Documents/github/epsy-8252/data/mn-schools.csv")
 
 Recall that the scatterplot of SAT scores and graduation rates suggested that the relationship between these variables was curvilinear.
 
-```{r out.width='3in', fig.cap="Six-year graduation rate as a function of median SAT score. The loess smoother  (blue, dashed line) and fitted regression line (red, dashed line) are also displayed.", echo=FALSE}
+```{r out.width='3in', fig.cap="Six-Year Graduation Rate as a Function of Median SAT Score", echo=FALSE}
 # Scatterplot
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point() +
@@ -64,9 +73,11 @@ ggplot(data = mn, aes(x = sat, y = grad)) +
   ylab("Six-year graduation rate")
 ```
 
+*Note.* The loess smoother  (blue, dashed line) and fitted regression line (red, dashed line) are also displayed.
+
 One way to model this nonlinearity was to fit a model that included a polynomial effect (quadratic). Another method of modeling nonlinearity is to transform the predictor (or outcome) using a nonlinear transformation. One commonly used nonlinear transformation is the logarithm. Below is a comparison of the quadratic function to the logarithmic function.
 
-```{r echo=FALSE, fig.width=8, fig.height=4, out.width='6in', fig.cap='Quadratic and logarithmic functions.'}
+```{r echo=FALSE, fig.width=8, fig.height=4, out.width='6in', fig.cap='Quadratic and Logarithmic Functions'}
 fig_01 = data.frame(
   x = seq(from = -5, to = 3, by = 0.1)
   ) %>%
@@ -178,7 +189,7 @@ Logarithmic transformations change the shape, center, and variation of a distrib
 
 What happens when we examine the relationship between graduation rates and the log-transformed SAT scores?
 
-```{r out.width='50%', fig.cap='Scatterplot of the relationship between log-transformed median SAT score (base-2) and six-year graduation rate. The loess smoother (blue, solid line) and fitted regression line (red, dashed line) are also displayed.'}
+```{r out.width='50%', fig.cap='Scatterplot of Six-Year Graduation Rate versus Log-Transformed Median SAT Score (Base-2)'}
 ggplot(data = mn, aes(x = L2sat, y = grad)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, color = "red", linetype = "dashed") +
@@ -187,6 +198,8 @@ ggplot(data = mn, aes(x = L2sat, y = grad)) +
   xlab("Log-transformed SAT score") +
   ylab("Six-year graduation rate")
 ```
+
+*Note.* The loess smoother (blue, solid line) and fitted regression line (red, dashed line) are also displayed.
 
 
 The relationship between graduation rate and the log-transformed SAT scores is MORE linear than the relationship between graduation rates and the untransformed SAT scores. (The loess smoother and fitted regression line are more closely aligned in this plot than in the plot of the untransformed data.) By transforming the variable using a nonlinear transformation (log) we have "linearized" the relationship with graduation rates. As such, we can fit a linear model to predict graduation rates using the Log-transformed SAT scores as a predictor.
@@ -204,7 +217,7 @@ lm.1 = lm(grad ~ 1 + L2sat, data = mn)
 
 Before examining the coefficients, we can scrutinize the residuals to see whether the log-transformation helped us meet the assumption of linearity. We will examine the standardized residuals versus the fitted values for models with both the untransformed and transformed predictor.
 
-```{r echo=FALSE, fig.width=8, fig.height=4, out.width='6in', fig.cap="Standardized residuals versus the fitted values for models with both the untransformed (left) and log-transformed (right; base-2) predictor. In both plots the loess smoother (solid, blue line) is displayed along with the 95\\% confidence envelope (grey shaded area). The reference line of Y=0 is also displayed.", message=FALSE, warning=FALSE}
+```{r echo=FALSE, fig.width=8, fig.height=4, out.width='6in', fig.cap="Residual Plots for Two Competing Models", message=FALSE, warning=FALSE}
 # Obtain residuals for untransformed SAT
 lm_raw = lm(grad ~ 1 + sat, data = mn)
 out_raw = augment(lm_raw)
@@ -230,6 +243,8 @@ p2 = ggplot(data = out_log, aes(x = .fitted, y = .std.resid)) +
 # Plot
 p1 + p2
 ```
+
+*Note.* Standardized residuals versus the fitted values for models with both the untransformed (left) and log-transformed (right; base-2) predictor. In both plots the loess smoother (solid, blue line) is displayed along with the 95\% confidence envelope (grey shaded area). The reference line of Y=0 is also displayed.
 
 While the smoother shows the same overall pattern, the line $Y=0$ is completely encompassed in the confidence envelope for the model using the log-transformed predictor. In the case of the model with the untransformed predictor, the $Y=0$ reference line is not completely encompassed in the confidence envelope. Because of this, we are more satisfied with the tenability of the assumption that the average residual is 0 at each fitted value for the log-transformed model than with the untransformed model. 
 
@@ -392,7 +407,7 @@ $$
 We can implement this into the `stat_function()` layer of our `ggplot()` syntax.
 
 
-```{r out.width='50%', fig.cap='Plot of the predicted graduation rates as a function of median SAT score (in hundreds). The non-linearity in the plot indicates that there is a diminishing positive effect of SAT on graduation rates.'}
+```{r out.width='50%', fig.cap='Plot of Predicted Graduation Rate as a Function of Median SAT Score'}
 # Plot
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point(alpha = 0.3) +
@@ -402,6 +417,7 @@ ggplot(data = mn, aes(x = sat, y = grad)) +
   ylab("Six-year graduation rate")
 ```
 
+*Note.* The non-linearity in the plot indicates that there is a diminishing positive effect of SAT on graduation rates.
 
 # Different Base Values in the Logarithm
 
@@ -466,7 +482,7 @@ The model-level information is all the same. Furthermore, the intercepts (and SE
 
 What if we look at the residual fit?
 
-```{r echo=FALSE, fig.width=8, fig.height=4, out.width='80%', fig.cap='Standardized residuals versus the fitted values for the models fitted with the log-2 predictor (left) and the log-10 predictor (right). In both plots the loess smoother (solid, blue line) is displayed along with the 95\\% confidence envelope (grey shaded area). The reference line of Y=0 is also displayed.'}
+```{r echo=FALSE, fig.width=8, fig.height=4, out.width='80%', fig.cap="Residual Plots for Two Models with Different Logarithmic Bases"}
 p1 = ggplot(data = out_log, aes(x = .fitted, y = .std.resid)) +
   geom_point() +
   geom_smooth() +
@@ -484,6 +500,8 @@ p2 = ggplot(data = out2, aes(x = .fitted, y = .std.resid)) +
 
 p1 + p2
 ```
+
+*Note.* Standardized residuals versus the fitted values for the models fitted with the log-2 predictor (left) and the log-10 predictor (right). In both plots the loess smoother (solid, blue line) is displayed along with the 95\% confidence envelope (grey shaded area). The reference line of Y=0 is also displayed.
 
 The residuals fit EXACTLY the same. Why is this? Let's again use Augsburg as an example. Using the fitted model that employed the base-2 logarithm, we found that Augsburg's predicted graduation rate was,
 
@@ -745,7 +763,7 @@ $$
 
 
 
-```{r out.width='50%', fig.cap='Plot of the predicted graduation rates as a function of median SAT score (in hundreds). This relationship is shown for both public (blue, solid line) and private (red, dashed line) school. '}
+```{r out.width='50%', fig.cap='Plot of Predicted Graduation Rates as a Function of Median SAT Score for Public (Blue, Solid Line) and Private (Red, Dashed Line) Institutions'}
 # Plot
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point(alpha = 0) +
@@ -766,7 +784,7 @@ The inclusion of polynomial effects and the use of a log-transformation was to m
 
 The first consideration is one of theory. The plot below shows the mathematical function for a log-transformed $X$-value (solid, black line) and for a quadratic polynomial of $X$ (dashed, red line).
 
-```{r echo=FALSE, out.width='3in', fig.cap='Comparison of quadratic (blue, dashed) and logarithmic (black, solid) functions of X.'}
+```{r echo=FALSE, out.width='3in', fig.cap='Comparison of Quadratic (Blue, Dashed Line) and Logarithmic (Black, Solid Line) Functions of X'}
 new = data.frame(x = seq(from = 1, to = 15, by = 0.01))
 new$y = log(new$x)
 new$quad =  -0.21717 + 0.48782*new$x  - 0.02453*new$x^2

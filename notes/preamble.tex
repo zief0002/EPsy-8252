@@ -4,14 +4,16 @@
 \usepackage{rotating}
 \usepackage{booktabs}
 \usepackage{float}
+\usepackage{floatrow}
 \usepackage{caption}
 \usepackage{xfrac}
 \usepackage{marginnote}
 
 
 % Set up the table and figure captions
-\captionsetup[table]{textfont={it}, labelfont={}, singlelinecheck=false, labelsep=newline}
-\captionsetup[figure]{textfont={}, labelfont={it}, singlelinecheck=false, labelsep=period} 
+\captionsetup[table]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+\captionsetup[figure]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+\floatsetup[figure]{capposition=top}
 
 
 % Define colors for use in the links and noteboxes
