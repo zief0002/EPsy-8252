@@ -53,7 +53,8 @@ Below are the due dates for the assignments, as well as links to the RMD and PDF
 </tr>
 
 <tr>
-<td>Assignment \#3: *Logarithmic Transformations*</td>
+<td>Assignment \#3: *Logarithmic Transformations*<br />
+  <span style="margin-left:5px; color:#5a067d;font-size:12px;">*[Updated 01-20-2020]*</span></td>
 <td>Feb. 25</td>
 <td>Feb. 26</td>
 <td align="center" style="vertical-align:middle;">
@@ -63,24 +64,24 @@ Below are the due dates for the assignments, as well as links to the RMD and PDF
 <td align="center" style="vertical-align:middle;">
   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-03-logarithmic-transformations.pdf">
     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
-  </a>
+  </a> 
 </td>
 </tr>
 
-<!-- <tr> -->
-<!-- <td>Assignment \#4: *Probability Distributions*</td> -->
-<!-- <td>Mar. 05</td> -->
-<!-- <td>Mar. 16</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-04-probability-distributions.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-04-probability-distributions.pdf"> -->
-<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- </tr> -->
+<tr>
+<td>Assignment \#4: *Probability Distributions*</td>
+<td>Mar. 05</td>
+<td>Mar. 16</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-04-probability-distributions.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-04-probability-distributions.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
 
 <!-- <tr> -->
 <!-- <td>Assignment \#5: *Evidence and Model Selection*</td> -->
