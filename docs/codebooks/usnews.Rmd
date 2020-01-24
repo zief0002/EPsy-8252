@@ -1,0 +1,55 @@
+---
+title: "usnews.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+bibliography: '../../notes/epsy8251.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+The data in [usnews.csv](https://github.com/zief0002/epsy-8251/raw/master/data/usnews.csv) come from @USNWR:2018 and includes 13 attributes collected from the $n=129$ graduate schools of education ranked in the *2018 Best Graduate Schools*. The attributes are:
+
+- `rank`: Rank in USNWR
+- `school`: Graduate program of Education
+- `score`: Overall score given by USNWR
+- `peer`: Peer assessment score (5.0 = highest)
+- `expert_score`: Administrator/expert assessment score (5.0 = highest)
+- `gre_verbal`: Mean GRE verbal score in 2016
+- `gre_quant`: Mean GRE quantitative score in 2016
+- `doc_accept`: Acceptance rate for doctoral students in 2016
+- `student_faculty_ratio`: Ratio of doctoral students to faculty members in 2016
+- `phd_granted_per_faculty`: Doctorates granted per faculty member in 2015–16
+- `funded_research`: Funded research (in millions of dollars)
+- `funded_research_per_faculty`: Funded research per faculty member (in thousands of dollars)
+- `enroll`: Total graduate education enrollment in 2016
+
+
+### Preview
+
+```{r}
+options(dplyr.width = Inf, width = 85)
+usnews = readr::read_csv(file = "~/Documents/github/epsy-8252/data/usnews.csv")
+head(usnews)
+```
+
+
+### References

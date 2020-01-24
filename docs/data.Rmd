@@ -17,19 +17,6 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 
 <tbody>
 
-<!-- <tr> -->
-<!-- <td>ed-schools-2018.csv</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/data/ed-schools-2018.csv"> -->
-<!--     <span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://zief0002.github.io/book-8252/data-codebook.html#ed-schools-2018"> -->
-<!--     <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- </tr> -->
 
 <!-- <tr> -->
 <!-- <td>evaluations.csv</td> -->
@@ -278,6 +265,22 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 <!--   <span class="fas fa-book-open" style="color: #f1f1f1; font-size: 20px;"></span> -->
 <!-- </td> -->
 <!-- </tr> -->
+
+
+<tr>
+<td>usnews.csv</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/data/usnews.csv">
+    <span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="http://zief0002.github.io/epsy-8252/codebooks/usnews.html">
+    <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
+
 
 <!-- <tr> -->
 <!-- <td>vocabulary.csv</td> -->
