@@ -3,11 +3,10 @@
 ##################################################
 
 library(broom)
-library(dplyr)
-library(ggplot2)
+library(educate)
 library(lme4) #for fitting mixed-effects models
-library(readr)
-library(sm)
+library(patchwork)
+library(tidyverse)
 
 
 
@@ -61,16 +60,25 @@ head(out)
 
 
 # Normality
-sm.density(out$.std.resid, model = "normal", xlab = "Standardized residuals")
+p1 = ggplot(data = out, aes(x = .std.resid)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Standardized residuals") +
+  ylab("Probability density")
 
 
 # All other assumptions
-ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
-  geom_point() +
+p2 = ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
+  geom_smooth(se = TRUE) +
   geom_hline(yintercept = 0) +
+  geom_point() +
   theme_bw() +
   xlab("Fitted values") +
   ylab("Standardized residuals")
+
+
+p1 + p2
 
 
 

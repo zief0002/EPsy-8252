@@ -1,0 +1,53 @@
+---
+title: "nels.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+    # includes:
+    #   after_body: doc-suffix.html
+bibliography: '../../notes/epsy8251.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+This data, stored in [nels.csv](https://github.com/zief0002/epsy-8252/raw/master/data/nels.csv) includes three attributes on $n = 744$ 10th-grade students. These data come from @Keith:2015. The attributes are:
+
+- `social10`: 10th-grade standardized achievement score on History/Civics/Georgraphy (Social Studies) test
+- `self_esteem`: Standardized measure of self-esteem; administered in 10th-grade
+- `locus`: Standardized measure of locus-of-control; more positive values indicate higher internal locus-of-control
+- `ses`: Standardized measure of socio-economic status, including parent education level
+- `gpa`: Grade-point average (GPA) from grades6&ndash;8 in all subjects (on a standard 4-point scale)
+- `parent_ed`: Education-level (in years of schooling) for the parent with the highest level of education
+
+
+### Preview
+
+```{r}
+options(dplyr.width = Inf, width = 85)
+nels = readr::read_csv(file = "~/Documents/github/epsy-8252/data/nels.csv")
+head(nels)
+```
+
+
+### References
+
+<!-- <p style="padding-left: 50px; text-indent: -50px;"> -->
+

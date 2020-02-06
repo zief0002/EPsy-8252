@@ -1,52 +1,60 @@
 ---
 title: "Introduction to Mixed-Effects Models"
 date: "`r Sys.Date()`"
-header-includes:
-   - \usepackage{xcolor}
-   - \usepackage[framemethod=tikz]{mdframed}
-   - \usepackage{graphicx}
-   - \usepackage{rotating}
-   - \usepackage{booktabs}
-   - \usepackage{float}
-   - \usepackage{array}
-   - \definecolor{umn}{RGB}{153, 0, 85}
-   - \definecolor{umn2}{rgb}{0.1843137, 0.4509804, 0.5372549}
-   - \definecolor{myorange}{HTML}{EA6153}
 output: 
   pdf_document:
     latex_engine: xelatex
     highlight: zenburn
     fig_width: 6
     fig_height: 6
+header-includes: 
+  - \usepackage{graphicx}
+  - \usepackage{rotating}
+  - \usepackage{xcolor}
+  - \definecolor{umn}{HTML}{FF2D21}
+  - \usepackage{caption}
+  - \captionsetup[table]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \captionsetup[figure]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \usepackage{floatrow}
+  - \floatsetup[figure]{capposition=top}
+  - \floatsetup[table]{capposition=top}
+  - \usepackage{xfrac}
 mainfont: "Sabon"
 sansfont: "Futura"
-monofont: Inconsolata
-urlcolor: "umn2"
-bibliography: epsy8252.bib
+monofont: Inconsolata    
+urlcolor: "umn"
+bibliography: [epsy8251.bib, epsy8252.bib]
 csl: apa-single-spaced.csl
-always_allow_html: yes
 ---
 
+<!-- Set the document spacing -->
+\frenchspacing
 
 ```{r setup, include=FALSE}
-options(digits = 3, scipen = 99)
-
+# Load libraries
 library(knitr)
+library(kableExtra)
+library(rmdformats)
+
+# Set knitr options
 knitr::opts_chunk$set(
   prompt = FALSE,
   comment = NA,
   message = FALSE,
   warning = FALSE,
   tidy = FALSE,
-  fig.align = 'center',
+  fig.align = 'left',
   out.width = '3in',
   echo = TRUE
   )
 
 #library(printr)
-
-options(kableExtra.latex.load_packages = FALSE)
-library(kableExtra)
+# Global options
+options(
+  digits = 3, 
+  scipen = 99,
+  kableExtra.latex.load_packages = FALSE
+  )
 ```
 
 \frenchspacing
@@ -55,23 +63,26 @@ library(kableExtra)
 
 In this set of notes, you will learn the conceptual ideas behind linear mixed-effects models, also called multilevel models or hierarchical linear models.
 
-# Dataset and Research Question
+# Datasets and Research Question
 
 In this set of notes, we will use data from two files, the *netherlands-students.csv* file and the *netherlands-schools.csv* files (see the [data codebook](https://zief0002.github.io/book-8252/data-codebook.html#netherlands) here). These data include student- and school-level attributes, respectively, for 2,287 8th-grade students in the Netherlands.
 
 ```{r message=FALSE}
 # Load libraries
 library(broom)
-library(dplyr)
-library(ggplot2)
+library(educate)
 library(lme4) #for fitting mixed-effects models
-library(readr)
-library(sm)
+library(patchwork)
+library(tidyverse)
 
 # Read in student-level data
 student_data = read_csv(file = "~/Documents/github/epsy-8252/data/netherlands-students.csv")
 head(student_data)
+```
 
+\newpage
+
+```{r message=FALSE}
 # Read in school-level data
 school_data = read_csv(file = "~/Documents/github/epsy-8252/data/netherlands-schools.csv")
 head(school_data)
@@ -82,7 +93,7 @@ We will use these data to explore the question of whether verbal IQ scores predi
 
 ## Join the Student- and Classroom-Level Data
 
-Before analyzing the data, we need to join, or merge, the two datasets together. To do this, we will use the `left_join()` function from the **dplyr** package. **dplyr** includes six different join functions. You can read about several different join functions [here](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html).
+Before analyzing the data, we need to join, or merge, the two datasets together. To do this, we will use the `left_join()` function from the **tidyverse** package. **tidyverser** includes six different join functions. You can read about several different join functions [here](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html).
 
 ```{r}
 joined_data = left_join(student_data, school_data, by = "school_id")
@@ -95,8 +106,13 @@ head(joined_data)
 To examine the research question of whether verbal IQ scores predict variation in post-test language scores, we might regress language scores on the verbal IQ scores using the `lm()` function. The `lm()` function fits a *fixed-effects regression model*.
 
 ```{r}
+# Fit fixed-effects model
 lm.1 = lm(language_post ~ 1 + verbal_iq, data = joined_data)
+```
 
+\newpage
+
+```{r}
 # Model-level output
 glance(lm.1)
 
@@ -104,41 +120,50 @@ glance(lm.1)
 tidy(lm.1)
 ```
 
-\newpage
-
-The model-level summary information suggests that differences in verbal IQ scores explains 37.2\% of the variation in post-test language scores, $F(1,2285)=1352.84$, $p<0.001$. The estimated intercept suggests that the average predicted post-test language scores for students with a mean verbal IQ score (= 0) is 40.93 ($p<.001$). The estimated slope indicates that each one-point difference in verbal IQ score is associated with a difference in post-test language scores of $2.65$, on average ($p<.001$). To have faith in the analytic results from this model, we need to evaluate whether the assumptions are satisfied.
+The model-level summary information suggests that differences in verbal IQ scores explains 37.2\% of the variation in post-test language scores, $F(1,~2285)=1352.84$, $p<0.001$. The estimated intercept suggests that the average predicted post-test language scores for students with a mean verbal IQ score (= 0) is 40.93 ($p<.001$). The estimated slope indicates that each one-point difference in verbal IQ score is associated with a difference in post-test language scores of $2.65$, on average ($p<.001$). To have faith in the analytic results from this model, we need to evaluate whether the assumptions are satisfied.
 
 
 ### Residual Analysis
 
-```{r fig.width=6, fig.height=6, out.width='45%', fig.cap='Density plot of the standardized residuals and scatterplot of the standardized residuals versus the fitted values from the fixed-effects regression model.', fig.show='hold', fig.pos='H', fig.align='center'}
-# Obtain the fortified data frame
+```{r fig.width=8, fig.height=4, out.width='6in', fig.cap='Residual Plots for the Fixed-Effects Regression Model', fig.pos='H'}
+# Obtain the augmented data frame
 out = augment(lm.1)
 head(out)
 
-# Normality
-sm.density(out$.std.resid, model = "normal", xlab = "Standardized residuals")
+# Examine residuals
+p1 = ggplot(data = out, aes(x = .std.resid)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Standardized residuals") +
+  ylab("Probability density")
 
-# All other assumptions
-ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
-	geom_point() +
-	geom_hline(yintercept = 0) +
-	theme_bw() +
+p2 = ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
+  geom_smooth(se = TRUE) +
+  geom_hline(yintercept = 0) +
+  geom_point() +
+  theme_bw() +
   xlab("Fitted values") +
   ylab("Standardized residuals")
+
+p1 + p2
 ```
 
 The assumption that the mean residual is 0 seems reasonably satisfied, however those of normality and homoscedasticity seem less feasible, especially given the large sample size. More importantly, the assumption of independence (which we don't evaluate from the common residual plots) is probably not tenable. Students' post-test language scores (and thus the residuals) are probably correlated within schools---this is a violation of independence which assumes that the correlation between student's residuals is 0. If we have a variable that identifies classroom, we can actually examine this by plotting the residuals separately for each classroom.
 
 In our case, we do have a variable that identifies classroom (`school_id`). We need to mutate this variable into the augmented dataset. This variable has 131 different levels, which means that we would be looking at 131 different residual plots. When we use `facet_wrap()` with that many levels each plot will be too small to see, so we will instead select a random sample of, say, 25 of the classrooms to evaluate.
 
-```{r fig.height=10, fig.width=12, out.width='90%', fig.cap='Scatterplots of the standardized residuals versus the fitted values from the fixed-effects regression model stratified by team.', fig.pos='H', fig.align='center'}
+```{r}
 # Make random sample reproducible
 set.seed(100)
 
 # Draw random sample of 25 schools without replacement
 my_sample = sample(school_data$school_id, size = 25, replace = FALSE)
+```
 
+\newpage
+
+```{r fig.height=10, fig.width=12, out.width='90%', fig.cap='Scatterplots of the Standardized Residuals versus the Fitted Values Stratified by School', fig.pos='H'}
 # Mutate on school ID and draw random sample
 out = out %>%
   mutate(school_id = joined_data$school_id) %>%
@@ -186,7 +211,11 @@ school_models = joined_data %>%
   do(mod = lm(language_post  ~ 1 + verbal_iq, data = .)) %>%
   tidy(mod) %>%
   head(., 10)
+```
 
+\newpage
+
+```{r}
 # View coefficients from fitted models
 school_models
 ```
@@ -202,8 +231,6 @@ Comparing this school-specific model to the global model, we find that School 1'
 $$
 \hat{\mathrm{Language~Score}_i} = \bigg[34.19 + 5.65\bigg] + \bigg[2.04 + 0.20\bigg](\mathrm{Verbal~IQ}_i)
 $$
-
-\newpage
 
 In the language of mixed-effects modeling:
 
@@ -223,6 +250,8 @@ $$
  &= \bigg[34.19 - 6.84\bigg] + \bigg[2.04 - 0.76\bigg](\mathrm{Verbal~IQ}_i).\\
 \end{split}
 $$
+
+\newpage
 
 In this model:
 
@@ -246,8 +275,6 @@ We also have to declare that we want to fit a model for each school. To do this,
 lmer.1 = lmer(language_post ~ 1 + verbal_iq + (1 | school_id), data = joined_data)
 ```
 
-\newpage
-
 To view the fixed-effects, we use the `fixef()` function.
 
 ```{r}
@@ -264,6 +291,8 @@ Note that the notation now includes two subscripts. The *i* subscript still indi
 
 - The predicted average post-test language score for students with a mean verbal IQ score (=0) is 40.61.
 - Each one-point difference in verbal IQ score is associated with a 2.49-point difference in language scores, on average.
+
+\newpage
 
 To view the school-specific random-effects, we use the `ranef()` function (only the first 5 rows are shown).
 
@@ -309,7 +338,11 @@ nba_teams = read_csv(file = "~/Documents/github/epsy-8252/data/nba-team-data.csv
 # Join the datasets together
 nba = nba_players %>%
   left_join(nba_teams, by = "team")
+```
 
+\newpage
+
+```{r}
 head(nba)
 ```
 
@@ -329,8 +362,6 @@ We fit the model using `lmer()` as:
 # Fit model
 lmer.1 = lmer(life_satisfaction ~ 1 + success + (1 | team), data = nba)
 ```
-
-\newpage
 
 We can then extract the fixed-effects estimates using the `fixef()` function.
 
@@ -395,6 +426,8 @@ $$
 
 - The predicted average life satisfaction for Suns players with a success score of 0 (free-throw percentage in the lowest 20\%) is 5.44. This is a score that is 6.13 points below average for all NBA players with a success score of 0.
 - Each one-unit difference in success is associated with a 1.67-point difference in life satisfaction score for Suns players, on average. This is the same rate-of-change as for NBA players in general.
+
+\newpage
 
 Comparing these two team's equations gives us some insight into why the effects are referred to as *fixed-effects* or *random-effects*.
 

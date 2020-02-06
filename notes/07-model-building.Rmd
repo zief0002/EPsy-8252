@@ -492,7 +492,7 @@ educ %>%
 We will need to add one to every value of the `phd_student_faculty_ratio` predictor (so that the minimum value becomes 1) prior to the log-transformation.
 
 ```{r}
-#Create log of the faculty-related predictors
+#Create log of the institution-related predictors
 educ = educ %>%
   mutate(
     Ldoc_accept = log(doc_accept),

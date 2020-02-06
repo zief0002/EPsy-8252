@@ -86,6 +86,7 @@ In addition to the notes and what we cover in class, there are many other resour
 
 - [Varsity Tutors: Quadratic Function](https://www.varsitytutors.com/hotmath/hotmath_help/topics/quadratic-function)
 - [Math Centre: Polynomial Function](http://www.mathcentre.ac.uk/resources/uploaded/mc-ty-polynomial-2009-1.pdf)
+- [Overfitting: A guided tour](https://www.alexpghayes.com/blog/overfitting-a-guided-tour/)
 
 ---
 
@@ -100,8 +101,8 @@ In addition to the notes and what we cover in class, there are many other resour
 
 In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor:
 
-- [UCLA IDRE: Interpreting Log-Transformed Variables in Regression ](https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faqhow-do-i-interpret-a-regression-model-when-some-variables-are-log-transformed/)
-- [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta)
+- [Math with Bad Drawings: ABC Book of e](https://mathwithbaddrawings.com/2018/02/05/the-abc-book-of-e/)
+- 
 
 ---
 
@@ -114,12 +115,12 @@ Read the following:
 - Osborne, Jason (2002). [Notes on the use of data transformations](https://pareonline.net/getvn.asp?v=8&n=6). *Practical Assessment, Research &amp; Evaluation, 8*(6).
 
 
-<!-- **Additional Resources** -->
+**Additional Resources**
 
-<!-- In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor: -->
+In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor:
 
-<!-- - [Interpreting Coefficients in Regression with Log-Transformed Variables](https://www.cscu.cornell.edu/news/statnews/stnews83.pdf) -->
-<!-- - [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta) -->
+- [UCLA IDRE: Interpreting Log-Transformed Variables in Regression ](https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faqhow-do-i-interpret-a-regression-model-when-some-variables-are-log-transformed/)
+- [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta)
 
 ---
 
@@ -135,12 +136,13 @@ Read the following:
 - Refresh your knowledge about probability distributions by going though the [Kahn Academy: Random Variables and Probability Distributions](https://www.khanacademy.org/math/probability/random-variables-topic) tutorial.
 
 
-<!-- **Additional Resources** -->
+**Additional Resources**
 
-<!-- In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor: -->
+In addition to the notes and what we cover in class, there are many other resources for learning about probability distributions. Here are some resources that may be helpful in that endeavor:
 
-<!-- - [Interpreting Coefficients in Regression with Log-Transformed Variables](https://www.cscu.cornell.edu/news/statnews/stnews83.pdf) -->
-<!-- - [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta) -->
+- [Common probability distributions: The data scientist's cribsheet](https://medium.com/@srowen/common-probability-distributions-347e6b945ce4)
+- Leemis, L. M., &amp; McQueston, J. T. (2008). [Univariate distribution relationships.](http://www.stat.rice.edu/~dobelman/courses/texts/leemis.distributions.2008amstat.pdf) *The American Statistician, 62*(1), 45&ndash;53.
+- Leemis, L. M. (n.d.) [Univariate distribution relationships: Interactive website.](http://www.math.wm.edu/~leemis/chart/UDR/UDR.html)
 
 ---
 

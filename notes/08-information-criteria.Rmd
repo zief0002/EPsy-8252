@@ -46,7 +46,7 @@ options(scipen=5)
 
 # Preparation
 
-In this set of notes, you will build a set of candidate models that we wwill ultimately use (in the next set of notes) in model selection. To do so, we will use the *usnews.csv* dataset (see the [data codebook](http://zief0002.github.io/epsy-8252/codebooks/usnews.html)) to examine the factors that underlie the ratings our academic peers give to graduate programs of education.
+In this set of notes, you will use information theoretic approaches (e.g., information criteria) to select a "best" model from a set of candidate models (built in the previous set of notes). To do so, we will use the *usnews.csv* dataset (see the [data codebook](http://zief0002.github.io/epsy-8252/codebooks/usnews.html)) to examine the factors that underlie the ratings our academic peers give to graduate programs of education.
 
 
 ```{r preparation, warning=FALSE, message=FALSE}

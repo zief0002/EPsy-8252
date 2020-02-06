@@ -411,13 +411,30 @@ We can implement this into the `stat_function()` layer of our `ggplot()` syntax.
 # Plot
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point(alpha = 0.3) +
-	stat_function(fun = function(x) {log( 2^-306.7 * x^106.4 , base = 2)} ) +
+	stat_function(
+	  fun = function(x) {log(2^-306.7 * x^106.4 , base = 2)} 
+	  ) +
 	theme_bw() +
   xlab("Estimated median SAT score (in hundreds)") +
   ylab("Six-year graduation rate")
 ```
 
 *Note.* The non-linearity in the plot indicates that there is a diminishing positive effect of SAT on graduation rates.
+
+We can also use the expression given in the fitted equation. The figure (not shown) would be identical.
+
+```{r eval=FALSE}
+# Plot
+ggplot(data = mn, aes(x = sat, y = grad)) +
+	geom_point(alpha = 0.3) +
+	stat_function(
+	  fun = function(x) {-306.7 + 106.4 * log(x, base = 2)} 
+	  ) +
+	theme_bw() +
+  xlab("Estimated median SAT score (in hundreds)") +
+  ylab("Six-year graduation rate")
+```
+
 
 # Different Base Values in the Logarithm
 
@@ -613,8 +630,6 @@ kable(
   kable_styling(latex_options = "HOLD_position")
 ```
 
-\newpage
-
 The difference between each subsequent predicted graduation rate is 1.53.
 
 ```{r}
@@ -709,7 +724,6 @@ The model explains 86.5\% of the variation in graduation rates, $F(2,~30)=96.58$
 tidy(lm.4)
 ```
 
-\newpage
 
 The fitted equation is,
 
@@ -729,7 +743,7 @@ Interpreting each of the coefficients using the raw metric of median SAT value:
 
 To further help interpret these effects, we can plot the fitted curves resulting from this fitted equation. Now we will have two curves one for public schools and one for private schools.
 
-**Public**
+**Private**
 
 $$
 \begin{split}
@@ -738,7 +752,7 @@ $$
 \end{split}
 $$
 
-**Private**
+**Public**
 
 $$
 \begin{split}
@@ -747,28 +761,22 @@ $$
 \end{split}
 $$
 
-We can re-express each of these equations using the re-expression we found earlier so that each can be implemented into a `stat_function()` layer of our `ggplot()` syntax.
-
-**Public**
-
-$$
-\hat{\mathrm{Graduation~Rate}_i} = \log_2\bigg(2^{-286.1} \times \mathrm{SAT}_i^{146.0}\bigg)
-$$
-
-**Private**
-
-$$
-\hat{\mathrm{Graduation~Rate}_i} = \log_2\bigg(2^{-294.6} \times \mathrm{SAT}_i^{146.0}\bigg)
-$$
-
+We can input each of these fitted equations into a `stat_function()` layer of our `ggplot()` syntax.
 
 
 ```{r out.width='50%', fig.cap='Plot of Predicted Graduation Rates as a Function of Median SAT Score for Public (Blue, Solid Line) and Private (Red, Dashed Line) Institutions'}
 # Plot
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point(alpha = 0) +
-	stat_function(fun = function(x) {log(2^-286.1 * x^146.0)}, color = "blue") +
-  stat_function(fun = function(x) {log(2^-294.6 * x^146.0)}, color = "red", linetype = "dashed") +
+	stat_function(
+	  fun = function(x) {-286.1 + 146.0*log(x)}, 
+	  color = "blue"
+	  ) +
+  stat_function(
+    fun = function(x) {-294.6 + 146.0*log(x)}, 
+    color = "red", 
+    linetype = "dashed"
+    ) +
 	theme_bw() +
   xlab("Estimated median SAT score (in hundreds)") +
   ylab("Six-year graduation rate")

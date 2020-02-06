@@ -37,10 +37,13 @@ ggplot(data = mn, aes(x = sat, y = grad)) +
 ### Logarithms
 ##################################################
 
-log(32, base = 2)
+log(8, base = 2)
+
+log(c(8, 32) , base = 2)
+
 
 # Shortcut
-log2(32)
+log2(8)
 
 
 
@@ -73,51 +76,14 @@ ggplot(data = mn, aes(x = L2sat, y = grad)) +
 
 
 ##################################################
-### Use log() function
-##################################################
-
-log(32, base = 2)
-
-
-# Use log2() function
-log2(32)
-
-
-
-##################################################
-### Log-transform the median SAT scores
-##################################################
-
-mn = mn %>%
-  mutate(
-    L2sat = log(sat, base = 2)
-  )
-
-
-# View data
-head(mn)
-
-
-
-##################################################
-### Scatterplot - graduation rates vs. log-transformed SAT scores
-##################################################
-
-ggplot(data = mn, aes(x = L2sat, y = grad)) +
-  geom_point(size = 5) +
-  geom_smooth(se = FALSE) +
-  theme_bw() +
-  xlab("Log-transformed SAT score") +
-  ylab("Six-year graduation rate")
-
-
-
-##################################################
 ### Fit regression model
 ##################################################
 
 lm.1 = lm(grad ~ 1 + L2sat, data = mn)
 
+
+# Also fit model with raw SAT as a comparison
+lm_raw = lm(grad ~ 1 + sat, data = mn)
 
 
 ##################################################
@@ -125,11 +91,12 @@ lm.1 = lm(grad ~ 1 + L2sat, data = mn)
 ##################################################
 
 # Obtain residuals for untransformed SAT
-lm_raw = lm(grad ~ 1 + sat, data = mn)
 out_raw = augment(lm_raw)
+
 
 # Obtain residuals for log-transformed SAT
 out_log = augment(lm.1)
+
 
 # Check linearity assumptions
 p1 = ggplot(data = out_raw, aes(x = .fitted, y = .std.resid)) +
@@ -144,7 +111,8 @@ p2 = ggplot(data = out_log, aes(x = .fitted, y = .std.resid)) +
   geom_smooth() +
   geom_hline(yintercept = 0) +
   theme_bw() +
-  ggtitle("Log-Transformed Predictor")
+  ggtitle("Log-Transformed Predictor (Base 2)")
+
 
 # Plot (requires patchwork package)
 p1 + p2
@@ -155,7 +123,12 @@ p1 + p2
 ### Interpret regression output
 ##################################################
 
+# Raw SAT
+glance(lm_raw) # Model-level output
+tidy(lm_raw)   # Coefficient-level output
 
+
+# Log-transformed SAT
 glance(lm.1) # Model-level output
 tidy(lm.1)   # Coefficient-level output
 
@@ -179,6 +152,18 @@ tidy(lm.1)   # Coefficient-level output
 ggplot(data = mn, aes(x = sat, y = grad)) +
   geom_point(alpha = 0.3) +
   stat_function(fun = function(x) {log( 2^-306.7 * x^106.4 , base = 2)} ) +
+  theme_bw() +
+  xlab("Estimated median SAT score (in hundreds)") +
+  ylab("Six-year graduation rate")
+
+
+# Or directly using the fitted equation
+ggplot(data = mn, aes(x = sat, y = grad)) +
+  geom_point(alpha = 0.3) +
+  stat_function(
+    fun = function(x) {-306.7 +  106.4 * log(x, base = 2)}, 
+    color = "red" 
+    ) +
   theme_bw() +
   xlab("Estimated median SAT score (in hundreds)") +
   ylab("Six-year graduation rate")
@@ -218,6 +203,7 @@ p1 = ggplot(data = out_log, aes(x = .fitted, y = .std.resid)) +
   ggtitle("Log(SAT): Base-2")
 
 out2 = augment(lm.2)
+
 p2 = ggplot(data = out2, aes(x = .fitted, y = .std.resid)) +
   geom_point() +
   geom_smooth() +
@@ -286,8 +272,15 @@ tidy(lm.4)   # Coefficient-level output
 
 ggplot(data = mn, aes(x = sat, y = grad)) +
   geom_point(alpha = 0) +
-  stat_function(fun = function(x) {log(2^-286.1 * x^146.0)}, color = "blue") +
-  stat_function(fun = function(x) {log(2^-294.6 * x^146.0)}, color = "red", linetype = "dashed") +
+  stat_function(
+    fun = function(x) {-286.1 + 146 * log(x)}, 
+    color = "blue"
+    ) +
+  stat_function(
+    fun = function(x) {-294.6 + 146 * log(x)}, 
+    color = "red", 
+    linetype = "solid"
+    ) +
   theme_bw() +
   xlab("Estimated median SAT score (in hundreds)") +
   ylab("Six-year graduation rate")

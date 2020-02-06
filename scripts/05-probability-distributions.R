@@ -3,11 +3,10 @@
 ##################################################
 
 library(broom)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(sm)
-library(tidyr)
+library(corrr)
+library(educate) #Need version 0.1.0.1
+library(patchwork)
+library(tidyverse)
 
 
 
@@ -18,8 +17,9 @@ library(tidyr)
 (1 / (10 * sqrt(2 * pi))) * exp(-(225) / 200)
 
 
-dnorm(x = 50, mean = 50, sd = 10)
-dnorm(x = 30, mean = 50, sd = 10)
+# Shortcut
+dnorm(x = 65, mean = 50, sd = 10)
+
 
 
 ##################################################
@@ -45,6 +45,28 @@ data.frame(
 pnorm(q = 65, mean = 50, sd = 10)
 
 
+# Create dataset
+fig_02 = data.frame(
+  X = seq(from = 10, to = 90, by = 0.01)
+) %>% 
+  rowwise() %>%
+  mutate(
+    Y = dnorm(x = X, mean = 50, sd = 10)
+  )
+
+
+# Filter out X<=65
+shaded = fig_02 %>%
+  filter(X <= 65)
+
+
+# Create plot
+ggplot(data = fig_02, aes(x = X, y = Y)) +
+  geom_line() +
+  theme_bw() +
+  geom_ribbon(data = shaded, ymin = -10, aes(ymax = Y), color = "#bbbbbb", alpha = 0.4)
+
+
 
 ##################################################
 ### p-value for z = 2.5
@@ -53,14 +75,40 @@ pnorm(q = 65, mean = 50, sd = 10)
 2 * pnorm(q = -2.5, mean = 0, sd = 1)
 
 
+# Create data
+fig_03 = data.frame(
+  X = seq(from = -4, to = 4, by = 0.01)
+) %>% 
+  rowwise() %>%
+  mutate(
+    Y = dnorm(x = X, mean = 0, sd = 1)
+  )
+
+
+# Filter data for shading
+shade_01 = fig_03 %>%
+  filter(X >= 2.5)
+
+shade_02 = fig_03 %>%
+  filter(X <= -2.5)
+
+
+# Create plot
+ggplot(data = fig_03, aes(x = X, y = Y)) +
+  geom_line() +
+  theme_bw() +
+  geom_ribbon(data = shade_01, ymin = -10, aes(ymax = Y), color = "#bbbbbb", alpha = 0.4) +
+  geom_ribbon(data = shade_02, ymin = -10, aes(ymax = Y), color = "#bbbbbb", alpha = 0.4)
+
+
 
 ##################################################
 ### Compute quantile
 ##################################################
 
-qnorm(p = 0.93, mean = 50, sd = 10)
+qnorm(p = 0.5, mean = 50, sd = 10)
 
-qnorm(p =.25, mean = 0, sd = 1)
+
 
 ##################################################
 ### Compare probability densities from different distributions

@@ -113,7 +113,8 @@ Below is the tenative schedule for the class. The dates are subject to change at
 <td align="center" style="vertical-align:middle;" rowspan="2">
   <a href="preparation.html#logpredictor"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
-<td style="vertical-align:middle;" rowspan="2">Log-Transforming the Predictor</td>
+<td style="vertical-align:middle;" rowspan="2">Log-Transforming the Predictor<br />
+  <span style="margin-left:5px; color:#5a067d;font-size:12px;">*[Updated script file and notes 02-06-2020]*</span></td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/03-logarithmic-transformations-predictor.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>

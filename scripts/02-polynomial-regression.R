@@ -6,7 +6,7 @@ library(broom)
 library(corrr)
 library(educate) #Need version 0.1.0.1
 library(tidyverse)
-
+library(patchwork)
 
 
 ##################################################
@@ -23,7 +23,7 @@ head(mn)
 ##################################################
 
 ggplot(data = mn, aes(x = sat, y = grad)) +
-  geom_point() +
+  geom_point(size = 4) +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed") +
   geom_smooth(method = "loess", se = FALSE, color = "red") +
   theme_bw() +
@@ -60,7 +60,8 @@ ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
 # Create quadratic term in the data
 mn = mn %>%
   mutate(
-    sat_quadratic = sat * sat
+    sat_quadratic = sat * sat,
+    sat_cubic = sat * sat * sat,
   )
 
 # View data
@@ -68,12 +69,13 @@ head(mn)
 
 # Fit model
 lm.2 = lm(grad ~ 1 + sat + sat_quadratic, data = mn)
+lm.3 = lm(grad ~ 1 + sat + sat_quadratic + sat_cubic, data = mn)
 
 # Model-level output
 glance(lm.2)
 
 # Coefficient-level output
-tidy(lm.2)
+tidy(lm.3)
 
 
 
@@ -82,10 +84,10 @@ tidy(lm.2)
 ##################################################
 
 # Obtain residuals
-out_2 = augment(lm.2)
+out_2 = augment(lm.3)
 
 # Examine residuals for linearity
-ggplot(data = out_2, aes(x = .fitted, y = .std.resid)) +
+p1 = ggplot(data = out_2, aes(x = .fitted, y = .std.resid)) +
   geom_point() +
   geom_hline(yintercept = 0) +
   geom_smooth(se = FALSE) +
@@ -94,22 +96,24 @@ ggplot(data = out_2, aes(x = .fitted, y = .std.resid)) +
   ylab("Standardized residuals")
 
 # Examine residuals for normality (linear)
-ggplot(data = out, aes(x = .std.resid)) +
-  stat_density_confidence() +
+p2 = ggplot(data = out, aes(x = .std.resid)) +
+  #stat_density_confidence() +
   stat_density(geom = "line") +
   theme_bw() +
   xlab("Standardized residuals") +
   ylab("Probability density")
 
-
+p1 + p2
 
 ##################################################
 ### Plot the fitted curve
 ##################################################
 
+quad_predict = function(x) {-366.34 + 62.72*x - 2.15 * x^2}
+
 ggplot(data = mn, aes(x = sat, y = grad)) +
-  geom_point(alpha = 0.3) +
-  stat_function(fun = function(x) {-366.34 + 62.72*x - 2.15 * x^2} ) +
+  geom_point() +
+  stat_function(fun =  quad_predict) +
   theme_bw() +
   xlab("Estimated median SAT score (in hundreds)") +
   ylab("Six-year graduation rate")

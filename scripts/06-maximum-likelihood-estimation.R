@@ -3,11 +3,9 @@
 ##################################################
 
 library(broom)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(sm)
-library(tidyr)
+library(educate) #Need version 0.1.0.1
+library(patchwork)
+library(tidyverse)
 
 
 
@@ -61,7 +59,11 @@ crossing(
 log(.00001829129)
 
 
-# Maximize log-likelihood - grid search
+
+##################################################
+### Maximize log-likelihood (grid search)
+##################################################
+
 crossing(
   mu = seq(from = 10, to =30, by = 0.1),
   sigma = seq(from = 0, to = 10, by = 0.1)
@@ -88,27 +90,21 @@ y = c(53, 56, 37, 55, 50, 36, 22, 75, 37, 42)
 ### Function to compute log-likelihood
 ##################################################
 
-# Use the following x and y values
-x = c(4, 0, 3, 4, 7, 0, 0, 3, 0, 2)
-y = c(53, 56, 37, 55, 50, 36, 22, 75, 37, 42)
-
-
-x = data$x_variable
-
-
-
 log_likelihood = function(b0, b1){
+  # Use the following x and y values
+  x = c(4, 0, 3, 4, 7, 0, 0, 3, 0, 2)
+  y = c(53, 56, 37, 55, 50, 36, 22, 75, 37, 42)
   
   # Compute the yhat and residuals based on the two input values
   yhats = b0 + b1*x
   errors = y - yhats
-
+  
   # Compute the sd of the residuals
   sigma = sd(errors)
-
+  
   # Compute the log-likelihood
   log_lik = sum(dnorm(errors, mean = 0, sd = sigma, log = TRUE))
-
+  
   # Output the log-likelihood
   return(log_lik)
 }
@@ -121,6 +117,7 @@ log_likelihood = function(b0, b1){
 
 log_likelihood(b0 = 10, b1 = 3)
 log_likelihood(b0 = 20, b1 = 10)
+
 
 
 ##################################################
@@ -154,7 +151,11 @@ tidy(lm.1)
 glance(lm.1)
 
 
-# Function to compute negative log-likelihood
+
+##################################################
+### Function to compute negative log-likelihood
+##################################################
+
 regress.ll = function(b0, b1, rmse) {
   # Use the following x and y values
   x = c(4, 0, 3, 4, 7, 0, 0, 3, 0, 2)
@@ -170,9 +171,16 @@ regress.ll = function(b0, b1, rmse) {
 }
 
 
+
+##################################################
+### Use function to compute ML estiates
+##################################################
+
+# Load library
 library(bbmle)
 
-# Use function to compute ML estiates
+
+# Use function 
 mle.results = mle2(
   minuslogl = regress.ll,
   start = list(b0 = 10, b1 = 1, rmse = 10)
