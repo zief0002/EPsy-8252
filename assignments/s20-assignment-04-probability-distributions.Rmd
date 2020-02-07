@@ -23,7 +23,7 @@ always_allow_html: yes
 
 \frenchspacing
 
-This goal of this assignment is to give you experience using probability distributions in a regression analysis. Submit your responses to each of the questions below in a printed document. All graphics should be resized so that they do not take up more room than necessary and also should have an appropriate caption. If you are using Markdown, all syntax should be hidden (i.e., not displayed) unless specifically asked for. Any messages or warnings produced from loading packages should also be hidden. This assignment is worth 10 points. (Each question is worth 1 point unless otherwise noted.)
+The goal of this assignment is to give you experience using probability distributions in a regression analysis. Submit your responses to each of the questions below in a printed document. All graphics should be resized so that they do not take up more room than necessary and also should have an appropriate caption. If you are using Markdown, all syntax should be hidden (i.e., not displayed) unless specifically asked for. Any messages or warnings produced from loading packages should also be hidden. This assignment is worth 10 points. (Each question is worth 1 point unless otherwise noted.)
 
 In this assignment, you will use the data from the file *evaluations.csv* (see the [data codebook](https://zief0002.github.io/book-8252/data-codebook.html#evaluations) to explain variation in students' course ratings. 
 

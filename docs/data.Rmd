@@ -312,19 +312,19 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 <!-- </td> -->
 <!-- </tr> -->
 
-<!-- <tr> -->
-<!-- <td>wine.csv</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/data/wine.csv"> -->
-<!--     <span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://zief0002.github.io/book-8252/data-codebook.html#wine"> -->
-<!--     <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- </tr> -->
+<tr>
+<td>wine.csv</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/data/wine.csv">
+    <span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://zief0002.github.io/book-8252/data-codebook.html#wine">
+    <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
 
 
 
