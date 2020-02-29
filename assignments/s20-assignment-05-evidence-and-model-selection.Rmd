@@ -26,7 +26,7 @@ always_allow_html: yes
 
 The goal of this assignment is to have you build your understanding of using information criteria for model selection. Submit your responses to each of the questions below in a printed document. All graphics should be resized so that they do not take up more room than necessary and also should have an appropriate caption. If you are using Markdown, all syntax should be hidden (i.e., not displayed) unless specifically asked for. Any messages or warnings produced from loading packages should also be hidden. This assignment is worth 13 points. (Each question is worth 1 point unless otherwise noted.)
 
-In this assignment, you will use the data from the file *wine.csv* (see the [data codebook](http://zief0002.github.io/epsy-8252/data-codebook.html#wine) to examine several different predictors of wine rating (a measure of the wine's quality). The literature has suggested that price of wine is quite predictive of a wine's quality. You will be carrying out a replication study (using a different data set) of a study published by Snipes and Taylor (2014). 
+In this assignment, you will use the data from the file *wine.csv* (see the [data codebook](http://zief0002.github.io/epsy-8252/data-codebook.html#wine)) to examine several different predictors of wine rating (a measure of the wine's quality). The literature has suggested that price of wine is quite predictive of a wine's quality. You will be carrying out a replication study (using a different data set) of a study published by Snipes and Taylor (2014). 
 
 
 
@@ -48,7 +48,6 @@ Fit the same nine candidate models that Snipes and Taylor fitted in their analys
     - K
     - AICc
     - $\Delta$AICc
-    - Evidence Ratio
     - Model Probability
 
 Use this table of model evidence to answer Questions 2--5.
@@ -57,7 +56,7 @@ Use this table of model evidence to answer Questions 2--5.
 
 3. Interpret the model probability/AICc weight for the working hypothesis with the most empirical evidence.
 
-4. Interpret the evidence ratio that compares the two working hypotheses with the most empirical evidence.
+4. Compute and interpret the evidence ratio that compares the two working hypotheses with the most empirical evidence.
 
 5. Examine the tenability of the regression assumptions (linearity, independence, normality, homoscedasticity) for the fitted model associated with the working hypothesis with the most empirical evidence. Comment on the tenability of these asumptions and provide any evidence (graphical or numerical) you use in this endeavor.
 
@@ -69,11 +68,11 @@ Use this table of model evidence to answer Questions 7--11.
 
 7. Using the fitted model associated with the working hypothesis that has the most empirical evidence, examine the tenability of the regression assumptions (linearity, independence, normality, homoscedasticity). Comment on the tenability of these asumptions and provide any evidence (graphical or numerical) you use in this endeavor.
 
-8. Based on previous literature, Snipes and Taylor hypothesized that price was an important predictor of wine quality. Based on your analyses, is price an important predictor of wine quality? Justify your response by referring to values reported in the table of model evidence. (Hint: Pay attention to which models include price and which do not.)
+8. Based on previous literature, Snipes and Taylor hypothesized that price was an important predictor of wine quality. Based on your analyses, is price an important predictor of wine quality? Justify your response by referring to the model evidence. (Hint: Pay attention to which models include price and which do not.)
 
-9. Does the empirical evidence support adopting more than one working hypothesis? Justify your response by referring to values reported in the table of model evidence.
+9. Does the empirical evidence support adopting more than one working hypothesis? Justify your response by referring to the model evidence.
 
-10. Does the empirical evidence from the Snipes and Taylor analyses support adopting more than one candidate model? Justify your response by by referring to values reported in their table of model evidence.
+10. Does the empirical evidence from the Snipes and Taylor analyses support adopting more than one candidate model? Justify your response by by referring to the model evidence.
 
 11. Based on your responses to the last two questions, which set of analyses (yours or Snipes and Taylor) has more model selection uncertainty? Explain.
 

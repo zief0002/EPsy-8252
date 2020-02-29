@@ -4,12 +4,9 @@
 
 library(AICcmodavg)
 library(broom)
-library(dplyr)
-library(ggplot2)
+library(educate)
 library(lme4)
-library(readr)
-library(sm)
-library(tidyr)
+library(tidyverse)
 
 
 
@@ -34,11 +31,19 @@ head(joined_data)
 ### Fit the unconditional random intercepts model
 ##################################################
 
+# Fit model
 lmer.0 = lmer(language_post ~ 1 + (1 | school_id), data = joined_data, REML = FALSE)
 
-summary(lmer.0)
 
+# View coefficients and variance components
 tidy(lmer.0)
+
+4.41 ^ 2 #Compute var(b_0)
+8.04 ^ 2 #Compute var(e)
+
+
+# Alternative wayt oview coefficients and variance components
+summary(lmer.0)
 
 
 
@@ -47,13 +52,15 @@ tidy(lmer.0)
 ##################################################
 
 # Total unexplained variance
-19.43 + 64.57
+19.4 + 64.6
+
 
 # Proportion of unexplained variance at the school-level
-19.43 / (19.43 + 64.57)
+19.4 / (19.4 + 64.6)
+
 
 # Proportion of unexplained variance at the student-level
-64.57 / (19.43 + 64.57)
+64.6 / (19.4 + 64.6)
 
 
 
@@ -61,14 +68,21 @@ tidy(lmer.0)
 ### Fit model with verbal IQ as predictor
 ##################################################
 
+# Fit model
 lmer.1 = lmer(language_post ~ 1 + verbal_iq + (1 | school_id), data = joined_data, REML = FALSE)
 
-summary(lmer.1)
+
+
+# View coefficients and variance components
+tidy(lmer.1)
+
+3.08 ^ 2 #Compute var(b_0)
+6.50 ^ 2 #Compute var(e)
 
 
 # Compute difference in variance components
-(64.57 - 42.23) / 64.57 #Student-level
-(19.43 - 9.50) / 19.43 #School-level
+(64.6 - 42.2) / 64.6 #Student-level
+(19.4 - 9.49) / 19.4 #School-level
 
 
 
@@ -78,7 +92,7 @@ summary(lmer.1)
 
 aictab(
   cand.set = list(lmer.0, lmer.1),
-  modnames = c("Model 1", "Model 2")
+  modnames = c("Model A", "Model B")
 )
 
 
@@ -90,11 +104,17 @@ aictab(
 lmer.2 = lmer(language_post ~ 1 + verbal_iq + ses + public + (1 | school_id), 
               data = joined_data, REML = FALSE)
 
-summary(lmer.2)
+
+# View coefficients and variance components
+tidy(lmer.2)
+
+2.93 ^ 2 #Compute var(b_0)
+6.33 ^ 2 #Compute var(e)
+
 
 # Compute difference in variance components
-(64.57 - 40.04) / 64.57 #Student-level
-(19.43 - 8.57) / 19.43 #School-level
+(64.6 - 40.0) / 64.6 #Student-level
+(19.4 - 8.57) / 19.4 #School-level
 
 
 
@@ -104,7 +124,7 @@ summary(lmer.2)
 
 aictab(
   cand.set = list(lmer.0, lmer.1, lmer.2),
-  modnames = c("Model 1", "Model 2", "Model 3")
+  modnames = c("Model A", "Model B", "Model C")
 )
 
 
@@ -120,7 +140,7 @@ stargazer(
   lmer.0, lmer.1, lmer.2,
   type = "text", #Change to type='html' for markdown
   title = "Fixed-Effects Coefficients and Standard Errors for a Taxonomy of Fitted Models to Predict Post-Test Language Scores for 2,287 Students from 131 Schools. All Models Included a Random-Effect of Intercept and were Fitted using Maximum Likelihood.",
-  column.labels = c("Model 1", "Model 2", "Model 3"),
+  column.labels = c("Model A", "Model B", "Model C"),
   colnames = FALSE,
   model.numbers = FALSE,
   dep.var.caption = "Outcome: Post-Test Language Scores",
@@ -145,14 +165,14 @@ library(knitr) #Need for kable() function
 library(kableExtra) #Need for functions to pretty-up the table
 
 data.frame(
-  var_comp = c("$\\sigma^2_{\\epsilon}$", "$\\sigma^2_{0}$"),
-  mod_1 = c(64.57, 19.43),
-  mod_2 = c(42.23, 9.50),
-  mod_3 = c(40.04, 8.57)
+  var_comp = c("$\\sigma^2_{0}$", "$\\sigma^2_{\\epsilon}$"),
+  mod_1 = c(19.43, 64.57),
+  mod_2 = c( 9.50, 42.23),
+  mod_3 = c( 8.57, 40.04)
 ) %>%
   kable(
-    col.names = c("Estimate", "Model 1", "Model 2", "Model 3"),
-    caption = "Variance Estimates from Fitting the Unconditional Random Intercepts Model (Model 1), the Conditional Random Intercepts Model with Verbal IQ as a Fixed-Effect (Model 2), and the Conditional Random Intercepts Model with Verbal IQ, SES, and School Type as a Fixed-Effects (Model 3)",
+    col.names = c("Estimate", "Model A", "Model B", "Model C"),
+    caption = "Variance Estimates from Fitting the Unconditional Random Intercepts Model (Model A), the Conditional Random Intercepts Model with Verbal IQ as a Fixed-Effect (Model B), and the Conditional Random Intercepts Model with Verbal IQ, SES, and School Type as a Fixed-Effects (Model C)",
     format = 'html',
     align = "c"
   )  %>%
@@ -164,29 +184,12 @@ data.frame(
 ### Plot of the fitted final model
 ##################################################
 
-# Set up plotting data for lmer.2
-plot_data = crossing(
-  verbal_iq = seq(from = -7.83, to = 6.17, by = 0.01),
-  ses = 27.81,
-  public = c(0, 1)
-)
-
-
-# Predict life satisfaction and turn school_type into a factor for better plotting
-plot_data = plot_data %>%
-  mutate(
-    yhat = predict(lmer.2, newdata = ., re.form = NA),
-    school_type = factor(public, levels = c(0, 1), labels = c("Private", "Public"))
-  )
-
-
-head(plot_data)
-
-
-ggplot(data = plot_data, aes(x = verbal_iq, y = yhat, color = school_type, linetype = school_type)) +
-  geom_line() +
+ggplot(data = joined_data, aes(x = verbal_iq, y = language_post)) +
+  geom_point(alpha = 0) +
+  geom_abline(intercept = 41.2, slope = 2.25, color = "darkblue", linetype = "dashed") +
+  geom_abline(intercept = 42.7, slope = 2.25, color = "darkred", linetype = "solid") +
   theme_bw() +
   xlab("Verbal IQ score") +
-  ylab("Predicted post-test language score") +
-  ggsci::scale_color_d3(name = "School type") +
-  scale_linetype_discrete(name = "School type")
+  ylab("Predicted post-test language score")
+
+

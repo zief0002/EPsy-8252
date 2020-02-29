@@ -56,7 +56,7 @@ For all of these questions, use the partial effect of `age` from the fitted mode
 
 9. Find the absolute value of the quantile of the $t$-distribution you used in Question \#7 that is associated with the 2.5th percentile.
 
-10. Use the value you computed in Question \#9 to compute the 95\% confidence interval for age. SHow your work.
+10. Use the value you computed in Question \#9 to compute the 95\% confidence interval for age. Show your work.
 
 
 

@@ -1,0 +1,80 @@
+---
+title: "Assignment 05"
+author: "Mixed-Effects Regression Models"
+header-includes:
+   - \usepackage{xcolor}
+   - \definecolor{umn}{HTML}{FF2D21}
+   - \usepackage{caption}
+   - \captionsetup[table]{textfont={it}, labelfont={}, singlelinecheck=false, labelsep=newline}
+   - \captionsetup[figure]{textfont={}, labelfont={it}, singlelinecheck=false, labelsep=period}
+   - \usepackage{xfrac}
+output: 
+  pdf_document:
+    highlight: tango
+    latex_engine: xelatex
+    fig_width: 6
+    fig_height: 6
+mainfont: "Sabon"
+sansfont: "Helvetica Neue UltraLight"
+monofont: Inconsolata
+urlcolor: "umn"
+always_allow_html: yes
+---
+
+\frenchspacing
+
+This assignment is intended to give you experience fitting and interpreting mixed-effects regression models. Submit your responses to each of the questions below in a printed document.  All graphics should be resized so that they do not take up more room than necessary and also should have an appropriate caption. If you are using Markdown, all syntax should be hidden (i.e., not displayed) unless specifically asked for. Any messages or warnings produced from loading packages should also be hidden. This assignment is worth 14 points. (Each question is worth 1 point unless otherwise noted.)
+
+For this assignment, you will use two files *popular-student.csv* and *popular-classroom.csv* (see the [data codebook](http://zief0002.github.io/epsy-8252/data-codebook.html#popular) to examine variation in popularity ratings. Because of the sociometric procedure used to collect the popularity ratings, group effects as apparent from higher level variance components, are rather strong and should be examined using multilevel regression models. This assignment is worth 14 points.
+
+
+## Preparation
+
+To begin the assignment, you will need to merge the two datasets. This should result in a data frame with 2000 rows and 7 variables. 
+
+
+## Unconditional Random Intercepts Model
+
+1. Using variable names, write the equation for the statistical model that specifies the unconditional random intercepts model. (Do not forget about the distributional assumptions!)
+
+Fit the unconditional random intercepts model (henceforth referred to as Model 0). Be sure you fit this model using maximum likelihood estimation. Use the results of fitting this model to answer the questions in this section of the assignment.
+
+2. Use the estimated variance components to determine the proportion of variation unaccounted for at the classroom- and student-level.
+
+
+## Student-Level Fixed Effects
+
+Fit the following three conditional random intercepts models listed below. Again, be sure you are fitting these using maximum likelihood estimation.
+
+- Model 1: Fixed effect of extraversion
+- Model 2: Fixed effect of sex
+- Model 3: Fixed effects of extraversion and sex 
+
+3. Compute and report the AICc value for each of these models and for the unconditional random intercepts model (Model 0). 
+
+4. Using the AICc values you computed in Question \#3, write the fitted equation for the model that has the most empirical support. (For the remainder of this section, this will be referred to as your adopted model.)
+
+5. Based on the coefficient $t$-values for your adopted model, is there evidence to support the inclusion of the fixed effect for extraversion? What about that for sex? Explain.
+
+6. Interpret the fixed effect for extraversion from your adopted model.
+
+7. Interpret the fixed effect for sex from your adopted model.
+
+
+## Classroom-Level Fixed-Effects
+
+8. Fit the conditional random intercepts model that includes all the effects from your adopted model from Question \#4 and the fixed-effect of teacher experience. Write the fitted equation for this model.
+
+
+9. Compute a table of model evidence for the five models fitted in this assignment. This table should include the following information for each of the candidate models. **(2pts.)**
+
+    - Model
+    - Log-likelihood
+    - K
+    - AICc
+    - $\Delta$AICc
+    - Model Probability
+    
+10. Create a table (or tables) that presents the coefficients, standard errors, variance components, and model-level evidence for the five models fitted in this assignment. Be thoughtful about what information is presented and where in the table that information is presented; do not just rely on the default output of a computer program. For example, if the sample size is the same for all of the models, put that in the table caption rather than as a row in the table. (You may want to find a journal article from your field that includes a table of mixed-effects model results to inform your decisions about what should be included or check out Table 7.20 in the 7th edition of the APA Publication Manual.) **(2pts.)**
+
+11. Create a publication quality plot that displays the results for the fixed-effects part of the model that has the most empirical evidence (based on your answer to Question \#9). **(2pts.)**

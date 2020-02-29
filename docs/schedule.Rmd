@@ -283,13 +283,13 @@ Below is the tenative schedule for the class. The dates are subject to change at
 </td>
 <td style="vertical-align:middle;" rowspan="2">Multimodel Inference</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
-  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/08-information-criteria-for-model-selection.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span></a>
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/09-multimodel-inference.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
-  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/08-information-criteria-for-model-selection.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span></a>
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/09-multimodel-inference.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
-  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/08-information-criteria-for-model-selection.R"><span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span></a>
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/09-multimodel-inference.R"><span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
 </tr>
 
@@ -301,31 +301,45 @@ Below is the tenative schedule for the class. The dates are subject to change at
 </tr>
 
 
-<!-- <tr> -->
-<!-- <td>Mar. 13</td> -->
-<!-- <td>Mar. 14</td> -->
-<!-- <td>Unit 08: Introduction to Linear Mixed-Effects Models</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://zief0002.github.io/book-8252/intro-lmer.html#preparation-7"> -->
-<!--     <span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/08-introduction-to-lmer.pdf"> -->
-<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/08-introduction-to-lmer.Rmd"> -->
-<!--     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/08-introduction-to-lmer.R"> -->
-<!--     <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- </tr> -->
+<!-- Unit 05: Linear Mixed-Effects Models -->
+
+<tr>
+<td colspan="8"><b>Unit 05: Linear Mixed-Effects Models</b></td>
+</tr>
+
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Mar. 26</td>
+<td>Mar. 27</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="preparation.html#lmer-intro"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+<td>Introduction to Linear Mixed-Effects Models</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/10-introduction-to-lmer.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/10-introduction-to-lmer.Rmd">
+    <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/10-introduction-to-lmer.R">
+    <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
+
+
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Mar. 30</td>
+<td>Apr. 01</td>
+</tr>
+
+
 
 <!-- <tr> -->
 <!-- <td>Mar. 18</td> -->

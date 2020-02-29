@@ -57,9 +57,6 @@ options(
   )
 ```
 
-\frenchspacing
-
-
 
 In this set of notes, you will learn the conceptual ideas behind linear mixed-effects models, also called multilevel models or hierarchical linear models.
 
