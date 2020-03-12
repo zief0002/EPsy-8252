@@ -26,7 +26,7 @@ always_allow_html: yes
 
 The goal of this assignment is to have you build your understanding of using information criteria for model selection. Submit your responses to each of the questions below in a printed document. All graphics should be resized so that they do not take up more room than necessary and also should have an appropriate caption. If you are using Markdown, all syntax should be hidden (i.e., not displayed) unless specifically asked for. Any messages or warnings produced from loading packages should also be hidden. This assignment is worth 13 points. (Each question is worth 1 point unless otherwise noted.)
 
-In this assignment, you will use the data from the file *wine.csv* (see the [data codebook](http://zief0002.github.io/epsy-8252/data-codebook.html#wine)) to examine several different predictors of wine rating (a measure of the wine's quality). The literature has suggested that price of wine is quite predictive of a wine's quality. You will be carrying out a replication study (using a different data set) of a study published by Snipes and Taylor (2014). 
+In this assignment, you will use the data from the file *wine.csv* (see the [data codebook](http://zief0002.github.io/epsy-8252/codebooks/wine.html)) to examine several different predictors of wine rating (a measure of the wine's quality). The literature has suggested that price of wine is quite predictive of a wine's quality. You will be carrying out a replication study (using a different data set) of a study published by Snipes and Taylor (2014). 
 
 
 

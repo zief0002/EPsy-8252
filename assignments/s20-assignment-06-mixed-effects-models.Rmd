@@ -1,6 +1,6 @@
 ---
-title: "Assignment 05"
-author: "Mixed-Effects Regression Models"
+title: "Assignment 06"
+author: "Mixed-Effects Regression Models: Cross-Sectional Analysis"
 header-includes:
    - \usepackage{xcolor}
    - \definecolor{umn}{HTML}{FF2D21}

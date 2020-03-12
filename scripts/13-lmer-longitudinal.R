@@ -2,14 +2,12 @@
 ### Load libraries
 ##################################################
 
-library(AICcmodavg)
 library(broom)
-library(dplyr)
-library(ggplot2)
+library(educate)
 library(lme4)
-library(readr)
-library(sm)
-library(tidyr)
+library(MuMIn)
+library(patchwork)
+library(tidyverse)
 
 
 
@@ -27,7 +25,11 @@ head(vocabulary)
 ##################################################
 
 vocabulary_long = vocabulary %>%
-  gather(key = "grade", value = "vocab_score", vocab_08:vocab_11) %>%
+  pivot_longer(
+    cols = vocab_08:vocab_11, 
+    names_to = "grade", 
+    values_to = "vocab_score"
+    ) %>%
   arrange(id, grade)
 
 
@@ -42,9 +44,9 @@ head(vocabulary_long, 12)
 ##################################################
 
 ggplot(data = vocabulary_long, aes(x = grade, y = vocab_score)) +
-  geom_line(aes(group = id), alpha = 0.3) +                        #Add individual profiles
-  stat_summary(fun.y = mean, geom = "line", size = 2, group = 1) + #Add mean profile line
-  stat_summary(fun.y = mean, geom = "point", size = 3) +           #Add mean profile points
+  geom_line(aes(group = id), alpha = 0.3) +                      #Add individual profiles
+  stat_summary(fun = mean, geom = "line", size = 2, group = 1) + #Add mean profile line
+  stat_summary(fun = mean, geom = "point", size = 3) +           #Add mean profile points
   theme_bw() +
   scale_x_discrete(
     name = "Grade-level", 
@@ -58,29 +60,35 @@ ggplot(data = vocabulary_long, aes(x = grade, y = vocab_score)) +
 ### Unconditional random intercepts model
 ##################################################
 
+# Fit unconditional random intercepts model
 lmer.0 = lmer(vocab_score ~ 1 + (1|id), data = vocabulary_long, REML = FALSE)
-summary(lmer.0)
+
+
+# Coefficient-level output
+tidy(lmer.0)
+
+
+# Compute variance components
+1.35 ^ 2 #Residual
+1.72 ^ 2 #Intercept
 
 
 
 ##################################################
-### Unconditional growth model
+### Unconditional growth model (categorical grade)
 ##################################################
 
+# Fit unconditional growth model
 lmer.1 = lmer(vocab_score ~ 1 + grade + (1|id), data = vocabulary_long, REML = FALSE)
-summary(lmer.1)
 
 
-
-##################################################
-### Likelihood-based p-values
-##################################################
-
-anova(lmer.0, lmer.1)
+# Coefficient-level output
+tidy(lmer.1)
 
 
-# Compute p-value manually
-1 - pchisq(156.46, df = 3)
+# Compute variance components
+0.899 ^ 2 #Residual
+1.791 ^ 2 #Intercept
 
 
 
@@ -104,8 +112,13 @@ lookup_table
 ### Join data to lookup table
 ##################################################
 
-vocabulary_long_2 = left_join(vocabulary_long, lookup_table, by = "grade")
-head(vocabulary_long_2)
+# Join the data with the lookup table
+vocabulary_long = vocabulary_long %>%
+  left_join(lookup_table, by = "grade")
+
+
+# View joined data
+head(vocabulary_long)
 
 
 
@@ -113,17 +126,35 @@ head(vocabulary_long_2)
 ### Unconditional growth model (quantitative grade-level predictor)
 ##################################################
 
-lmer.2 = lmer(vocab_score ~ 1 + grade_quant + (1|id), data = vocabulary_long_2, REML = FALSE)
-summary(lmer.2)
+# Fit unconditional growth model
+lmer.1_quant = lmer(vocab_score ~ 1 + grade_quant + (1|id), data = vocabulary_long_2, REML = FALSE)
+
+
+# Coefficient-level output
+tidy(lmer.1_quant)
+
+
+# Compute variance components
+0.947 ^ 2 #Residual
+1.784 ^ 2 #Intercept
 
 
 
 ##################################################
-### Centering grade-level
+### Unconditional growth model (quantitative grade-level predictor centered on 8th grade)
 ##################################################
 
-lmer.3 = lmer(vocab_score ~ 1 + grade_quant_center + (1|id), data = vocabulary_long_2, REML = FALSE)
-summary(lmer.3)
+# Fit unconditional growth model with centered grade
+lmer.1_quant_cent = lmer(vocab_score ~ 1 + grade_quant_center + (1|id), data = vocabulary_long_2, REML = FALSE)
+
+
+# Coefficient-level output
+tidy(lmer.1_quant_cent)
+
+
+# Compute variance components
+0.947 ^ 2 #Residual
+1.784 ^ 2 #Intercept
 
 
 
@@ -132,21 +163,13 @@ summary(lmer.3)
 ##################################################
 
 # Quadratic model
-lmer.4 = lmer(vocab_score ~ 1 + grade_quant_center + I(grade_quant_center^2) + (1|id), 
+lmer.quad = lmer(vocab_score ~ 1 + grade_quant_center + I(grade_quant_center^2) + (1|id), 
               data = vocabulary_long_2, REML = FALSE)
 
 
 # Log-linear model
-lmer.5 = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + (1|id), 
+lmer.log = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + (1|id), 
               data = vocabulary_long_2, REML = FALSE)
-
-
-
-# Table of model-evidence
-aictab(
-  cand.set = list(lmer.3, lmer.4, lmer.5),
-  modnames = c("Linear", "Quadratic", "Log-linear")
-)
 
 
 
@@ -154,34 +177,107 @@ aictab(
 ### Evaluate residuals
 ##################################################
 
-out_4 = augment(lmer.4)
-out_5 = augment(lmer.5)
+# Obtain level-1 resduals and fitted values
+mod1_lev1 = augment(lmer.1_quant_cent)
+quad_lev1 = augment(lmer.quad)
+log_lev1 = augment(lmer.log)
 
 
-# Log-linear model
-ggplot(data = out_5, aes(x = .fitted, y = .resid)) +
+# Obtain a data frame of the random-effects (level-2 residuals)
+mod1_lev2 = ranef(lmer.1_quant_cent)$id
+quad_lev2 = ranef(lmer.quad)$id
+log_lev2 = ranef(lmer.log)$id
+
+
+##################### LINEAR MODEL #####################
+
+# Density plot of the level-1 residuals
+p1 = ggplot(data = mod1_lev1, aes(x = .resid)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-1 residuals") +
+  ggtitle("Linear Model")
+
+# Scatterplot of the Level-1 residuals versus the fitted values
+p2 = ggplot(data = mod1_lev1, aes(x = .fitted, y = .resid)) +
   geom_point() +
   geom_hline(yintercept = 0) +
   theme_bw() +
   xlab("Fitted values") +
-  ylab("Level-1 residuals") +
-  ggtitle("Log-linear")
+  ylab("Level-1 residuals")
 
-sm.density(out_5$.resid, model = "normal", main = "Main-Effect", xlab = "Level-1 residuals")
-sm.density(ranef(lmer.5)$id[ , 1], model = "normal", xlab = "Random effects of the intercept")
+# Density plot of the level-2 residuals (RE of intercept)
+p3 = ggplot(data = mod1_lev2, aes(x = `(Intercept)`)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-2 residuals")
 
+##################### NONLINEAR (QUADRATIC) MODEL #####################
 
-# Quadratic model
-ggplot(data = out_4, aes(x = .fitted, y = .resid)) +
+# Density plot of the level-1 residuals
+p4 = ggplot(data = quad_lev1, aes(x = .resid)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-1 residuals") +
+  ggtitle("Nonlinear Model (Quadratic)")
+
+# Scatterplot of the Level-1 residuals versus the fitted values
+p5 = ggplot(data = quad_lev1, aes(x = .fitted, y = .resid)) +
   geom_point() +
   geom_hline(yintercept = 0) +
   theme_bw() +
   xlab("Fitted values") +
-  ylab("Level-1 residuals") +
-  ggtitle("Quadratic")
+  ylab("Level-1 residuals")
 
-sm.density(out_4$.resid, model = "normal", main = "Interaction Effect", xlab = "Level-1 residuals")
-sm.density(ranef(lmer.4)$id[ , 1], model = "normal", xlab = "Random effects of the intercept")
+# Density plot of the level-2 residuals (RE of intercept)
+p6 = ggplot(data = quad_lev2, aes(x = `(Intercept)`)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-2 residuals")
+
+##################### NONLINEAR (LOG) MODEL #####################
+
+# Density plot of the level-1 residuals
+p7 = ggplot(data = log_lev1, aes(x = .resid)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-1 residuals") +
+  ggtitle("Nonlinear Model (Log)")
+
+# Scatterplot of the Level-1 residuals versus the fitted values
+p8 = ggplot(data = log_lev1, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  xlab("Fitted values") +
+  ylab("Level-1 residuals")
+
+# Density plot of the level-2 residuals (RE of intercept)
+p9 = ggplot(data = log_lev2, aes(x = `(Intercept)`)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-2 residuals")
+
+
+# Layoout plots
+(p1 | p2 | p3) / (p4 | p5 | p6) / (p7  | p8 | p9)
+
+
+
+##################################################
+### Table of model-evidence
+##################################################
+
+model.sel(
+  object = list(lmer.1_quant_cent, lmer.quad, lmer.log),
+  rank = "AICc"
+)
 
 
 
@@ -189,34 +285,31 @@ sm.density(ranef(lmer.4)$id[ , 1], model = "normal", xlab = "Random effects of t
 ### Log-linear model
 ##################################################
 
-summary(lmer.5)
+# Coefficient-level output
+tidy(lmer.log)
+
+
+# Compute variance components
+0.907 ^ 2 #Residual
+1.790 ^ 2 #Intercept
 
 
 
 ##################################################
-### Plot model
+### Plot mean profile for adopted unconditional growth model
 ##################################################
 
-# Set up data
-plot_data = crossing(
-  grade_quant_center = seq(from = 0, to = 3, by = 0.01)
-) %>%
-  mutate(
-    yhat = predict(lmer.5, newdata = ., re.form = NA)
-  )
-
-
-head(plot_data)
-
-
-# Create plot
-ggplot(data = plot_data, aes(x = grade_quant_center, y = yhat)) +
-  geom_line() +
+ggplot(data = vocabulary_long, aes(x = grade_quant_center, y = vocab_score)) +
+  geom_point(alpha = 0) +
+  stat_function(
+    fun = function(x) {1.21 + 1.67 * log(x + 1)},
+    color = "blue"
+  ) +
   theme_bw() +
   scale_x_continuous(
-    name = "Grade-level", 
-    breaks = c(0, 1, 2, 3), 
-    labels = c(8, 9, 10, 11)
+    name = "Grade-level",
+    breaks = c(0, 1, 2, 3),
+    labels = c("0\n(8th)", "1\n(9th)", "2\n(10th)", "3\n(11th)")
   ) +
   ylab("Vocabulary score")
 
@@ -226,19 +319,22 @@ ggplot(data = plot_data, aes(x = grade_quant_center, y = yhat)) +
 ### Spaghetti plot by sex
 ##################################################
 
-vocabulary_long_2 %>%
+# Turn female into factor for better plotting
+vocabulary_long %>%
   mutate(
-    Sex = factor(female, levels = c(0, 1), labels = c("Male", "Female"))
+    # Create factor for better plotting
+    Sex = factor(female, levels = c(0, 1), labels = c("Non-female", "Female"))
   ) %>%
   ggplot(aes(x = grade_quant, y = vocab_score, color = Sex)) +
-  geom_line(aes(group = id), alpha = 0.3) +
-  stat_summary(fun.y = mean, geom = "line", size = 2, group = 1) +
-  stat_summary(fun.y = mean, geom = "point", size = 3) +
-  theme_bw() +
-  xlab("Grade-level") +
-  ylab("Vocabulary score") +
-  facet_wrap(~Sex) +
-  ggsci::scale_color_d3()
+    geom_line(aes(group = id), alpha = 0.3) +
+    stat_summary(fun = mean, geom = "line", size = 2, group = 1) +
+    stat_summary(fun = mean, geom = "point", size = 3) +
+    theme_bw() +
+    xlab("Grade-level") +
+    ylab("Vocabulary score") +
+    facet_wrap(~Sex) +
+    ggsci::scale_color_d3() +
+    guides(color = FALSE)
 
 
 
@@ -246,20 +342,21 @@ vocabulary_long_2 %>%
 ### Explore effect of sex
 ##################################################
 
-# Main-effect of sex
-lmer.6 = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + female +
+# Main effects model
+lmer.main  = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + female +
                 (1|id), data = vocabulary_long_2, REML = FALSE)
 
 
-# Interaction-effect between sex and grade-level
-lmer.7 = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + female + log(grade_quant_center + 1):female +
+# Interaction model
+lmer.int = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + female + 
+                  log(grade_quant_center + 1):female +
                 (1|id), data = vocabulary_long_2, REML = FALSE)
 
 
 # Table of model-evidence
-aictab(
-  cand.set = list(lmer.5, lmer.6, lmer.7),
-  modnames = c("Unconditional growth", "Main-effect of sex", "Interaction-effect")
+model.sel(
+  object = list(lmer.log, lmer.main, lmer.int),
+  rank = "AICc"
 )
 
 
@@ -268,78 +365,108 @@ aictab(
 ### Examine residuals
 ##################################################
 
-out_6 = augment(lmer.6)
-out_7 = augment(lmer.7)
+# Obtain the level-1 residuals and fitted values
+main_lev1 = augment(lmer.main)
+int_lev1 = augment(lmer.int)
 
 
-# Main-effect model
-ggplot(data = out_6, aes(x = .fitted, y = .resid)) +
+# Obtain a data frame of the random-effects
+main_lev2 = ranef(lmer.main)$id
+int_lev2 = ranef(lmer.int)$id
+
+
+##################### MAIN EFFECTS MODEL #####################
+
+# Density plot of the level-1 residuals
+p1 = ggplot(data = main_lev1, aes(x = .resid)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-1 residuals") +
+  ggtitle("Main Effects Model")
+
+# Scatterplot of the Level-1 residuals versus the fitted values
+p2 = ggplot(data = main_lev1, aes(x = .fitted, y = .resid)) +
   geom_point() +
   geom_hline(yintercept = 0) +
   theme_bw() +
   xlab("Fitted values") +
-  ylab("Level-1 residuals") +
-  ggtitle("Main-Effect")
+  ylab("Level-1 residuals")
 
-sm.density(out_6$.resid, model = "normal", main = "Main-Effect", xlab = "Level-1 residuals")
-sm.density(ranef(lmer.6)$id[ , 1], model = "normal", xlab = "Random effects of the intercept")
+# Density plot of the level-2 residuals (RE of intercept)
+p3 = ggplot(data = main_lev2, aes(x = `(Intercept)`)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-2 residuals")
 
 
-# Interaction model
-ggplot(data = out_7, aes(x = .fitted, y = .resid)) +
+##################### INTERACTION MODEL #####################
+
+# Density plot of the level-1 residuals
+p4 = ggplot(data = int_lev1, aes(x = .resid)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-1 residuals") +
+  ggtitle("Interaction Model")
+
+# Scatterplot of the Level-1 residuals versus the fitted values
+p5 = ggplot(data = int_lev1, aes(x = .fitted, y = .resid)) +
   geom_point() +
   geom_hline(yintercept = 0) +
   theme_bw() +
   xlab("Fitted values") +
-  ylab("Level-1 residuals") +
-  ggtitle("Interaction Effect")
+  ylab("Level-1 residuals")
 
-sm.density(out_7$.resid, model = "normal", main = "Interaction Effect", xlab = "Level-1 residuals")
-sm.density(ranef(lmer.7)$id[ , 1], model = "normal", xlab = "Random effects of the intercept")
-
-
-
-##################################################
-### Likelihood ratio test
-##################################################
-
-anova(lmer.5, lmer.6, lmer.7)
-
-
-
-##################################################
-### Main-effect of sex
-##################################################
-
-summary(lmer.6)
-
-
-
-##################################################
-### Plot of the main-effects model
-##################################################
-
-# Set up data
-plot_data = crossing(
-  grade_quant_center = seq(from = 0, to = 3, by = 0.01),
-  female = c(0, 1)
-) %>%
-  mutate(
-    yhat = predict(lmer.6, newdata = ., re.form = NA),
-    Sex = factor(female, levels = c(0, 1), labels = c("Male", "Female"))
-  )
-
-
-head(plot_data)
-
-
-# Create plot
-ggplot(data = plot_data, aes(x = grade_quant_center, y = yhat, color = Sex, linetype = Sex)) +
-  geom_line() +
+# Density plot of the level-2 residuals (RE of intercept)
+p6 = ggplot(data = int_lev2, aes(x = `(Intercept)`)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
   theme_bw() +
-  scale_x_continuous(name = "Grade-level", breaks = c(0, 1, 2, 3), labels = c(8, 9, 10, 11)) +
-  ylab("Vocabulary score") +
-  ggsci::scale_color_d3()
+  xlab("Level-2 residuals")
+
+
+# Layout plots
+(p1 | p2 | p3) / (p4 | p5 | p6)
+
+
+
+##################################################
+### Main effects model
+##################################################
+
+tidy(lmer.main)
+
+
+# Compute variance components
+0.907 ^ 2 #Residual
+1.232 ^ 2 #Intercept
+
+
+
+##################################################
+### Plot mean profile from main effects model
+##################################################
+
+ggplot(data = vocabulary_long, aes(x = grade_quant_center, y = vocab_score)) +
+  geom_point(alpha = 0) +
+  stat_function(
+    fun = function(x) {-0.01 + 1.67 * log(x + 1)},
+    color = "blue",
+    linetype = "dashed"
+  ) +
+  stat_function(
+    fun = function(x) {2.59 + 1.67 * log(x + 1)},
+    color = "orange"
+  ) +
+  theme_bw() +
+  scale_x_continuous(
+    name = "Grade-level",
+    breaks = c(0, 1, 2, 3),
+    labels = c("0\n(8th)", "1\n(9th)", "2\n(10th)", "3\n(11th)")
+  ) +
+  ylab("Vocabulary score")
 
 
 
@@ -347,32 +474,36 @@ ggplot(data = plot_data, aes(x = grade_quant_center, y = yhat, color = Sex, line
 ### Interaction model
 ##################################################
 
-summary(lmer.7)
+tidy(lmer.int)
+
+
+# Compute variance components
+0.903 ^ 2 #Residual
+1.233 ^ 2 #Intercept
 
 
 
 ##################################################
-### Plot of the interaction model
+### Plot mean profile from interaction model
 ##################################################
 
-# Set up data
-plot_data_2 = crossing(
-  grade_quant_center = seq(from = 0, to = 3, by = 0.01),
-  female = c(0, 1)
-) %>%
-  mutate(
-    yhat = predict(lmer.7, newdata = ., re.form = NA),
-    Sex = factor(female, levels = c(0, 1), labels = c("Male", "Female"))
-  )
-
-
-head(plot_data_2)
-
-
-# Create plot
-ggplot(data = plot_data_2, aes(x = grade_quant_center, y = yhat, color = Sex, linetype = Sex)) +
-  geom_line() +
+ggplot(data = vocabulary_long, aes(x = grade_quant_center, y = vocab_score)) +
+  geom_point(alpha = 0) +
+  stat_function(
+    fun = function(x) {-0.11 + 1.79 * log(x + 1)},
+    color = "blue",
+    linetype = "dashed"
+  ) +
+  stat_function(
+    fun = function(x) {2.7 + 1.52 * log(x + 1)},
+    color = "orange"
+  ) +
   theme_bw() +
-  scale_x_continuous(name = "Grade-level", breaks = c(0, 1, 2, 3), labels = c(8, 9, 10, 11)) +
-  ylab("Vocabulary score") +
-  ggsci::scale_color_d3()
+  scale_x_continuous(
+    name = "Grade-level",
+    breaks = c(0, 1, 2, 3),
+    labels = c("0\n(8th)", "1\n(9th)", "2\n(10th)", "3\n(11th)")
+  ) +
+  ylab("Vocabulary score")
+
+

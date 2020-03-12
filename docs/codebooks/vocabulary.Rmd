@@ -1,0 +1,52 @@
+---
+title: "vocabulary.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+    # includes:
+    #   after_body: doc-suffix.html
+bibliography: '../../notes/epsy8252.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+The data, adapted from data provided by @Bock:1975, come from the Laboratory School of the University of Chicago and include scaled test scores across four grades from the vocabulary section of the Cooperative Reading Test for $n=64$ students. The attributes in the dataset include:
+
+- `id`: The student ID number
+- `vocab_08`: The scaled vocabulary test score in 8th grade
+- `vocab_09`: The scaled vocabulary test score in 9th grade
+- `vocab_10`: The scaled vocabulary test score in 10th grade
+- `vocab_11`: The scaled vocabulary test score in 11th grade
+- `female`: Dummy coded sex variable (0 = Not female, 1 = Female)
+
+
+### Preview
+
+```{r}
+options(dplyr.width = Inf, width = 85)
+vocab = readr::read_csv(file = "~/Documents/github/epsy-8252/data/vocabulary.csv")
+head(vocab)
+```
+
+
+### References
+
+

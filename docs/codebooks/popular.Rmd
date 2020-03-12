@@ -1,0 +1,72 @@
+---
+title: "popular-classroom.csv and popular-student.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+    # includes:
+    #   after_body: doc-suffix.html
+bibliography: '../../notes/epsy8252.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+The data in *popular-classroom.csv* and *popular-student.csv* includes data on 2000 different students from 100 different classrooms. The data, provided by @Hox:2002, were simulated from data collected as part of a sociological study of student popularity. Student popularity, a rating on a scale of 1&ndash;10, was derived by a sociometric procedure in which all students in a class rate all the other students. Each students' popularity is the average received popularity rating.  
+
+The attributes in *popular-classroom.csv* include:
+
+- `class`: Classroom ID
+- `teacherExp`: Experience level of teacher, in years
+
+The attributes in *popular-student.csv* include:
+
+- `student`: Student ID (within a school)
+- `class`: Classroom ID 
+- `popularity`: Popularity rating of the student (0-10 scale; where 0 = very unpopular and 10 = very popular) based on having all other students in the student's class rate him/her and computing the average of those ratings.
+- `teachPop`: Student's popularity as rated by the teacher. Higher values are indicative of higher popularity
+- `extra`: Extraversion of the student (measured on a 10-point scale)
+- `female`: Sex of the student (Male = 0; Female = 1)
+
+
+### Preview
+
+
+
+**Classroom data**
+
+```{r}
+# options(dplyr.width = Inf, width = 85)
+classroom = readr::read_csv(file = "~/Documents/github/epsy-8252/data/popular-classroom.csv")
+head(classroom)
+```
+
+**Student data**
+
+```{r}
+# options(dplyr.width = Inf, width = 85)
+student = readr::read_csv(file = "~/Documents/github/epsy-8252/data/popular-student.csv")
+head(student)
+```
+
+
+### References
+
+<!-- <p style="padding-left: 50px; text-indent: -50px;"> -->
+

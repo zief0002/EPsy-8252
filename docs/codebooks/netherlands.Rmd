@@ -1,0 +1,78 @@
+---
+title: "netherlands-schools.csv and netherlands-students.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+bibliography: '../../notes/epsy8252.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+The data in *netherlands-students.csv* and *netherlands-schools.csv* include student- and school-level attributes, respectively, for $n_i=2287$ 8th-grade students from $n_j = 131$ schools in the Netherlands provided by @Snijders:2012.
+
+The student-level attributes in *netherlands-students.csv* include:
+
+- `school_id`: The school ID number for each student
+- `language_pre`: Language pre-test score
+- `language_post`: Language post-test score
+- `ses`: Measure of the socio-economic status
+- `verbal_iq`: Student's score on a verbal IQ test. The variable is centered to have a mean of 0. 
+- `female`: Student's sex (0 = male; 1 = female)
+- `minority`: Student's minority status (0 = white; 1 = minority)
+
+The school-level attributes in *netherlands-schools.csv* include:
+
+- `school_id`: The school ID number
+- `school_type`: Indicates whether the school is a public school, a Protestant private school, a Catholic private school, or a non-denominational private school
+- `public`: Indicates whether the school is a public school (1) or a private school (0)
+- `school_ses`: School's average socio-economic status
+- `school_verbal_iq`: School's average verbal IQ score
+- `school_minority`: Percentage of students at the school who are minority students
+
+
+
+
+
+
+### Preview
+
+**Student data**
+
+```{r}
+# Read in student-level data
+student_data = readr::read_csv(file = "~/Documents/github/epsy-8252/data/netherlands-students.csv")
+head(student_data)
+```
+
+**School data**
+
+```{r}
+# Read in school-level data
+school_data = readr::read_csv(file = "~/Documents/github/epsy-8252/data/netherlands-schools.csv")
+head(school_data)
+```
+
+
+
+### References
+
+
+

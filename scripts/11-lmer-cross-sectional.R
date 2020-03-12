@@ -2,10 +2,10 @@
 ### Load libraries
 ##################################################
 
-library(AICcmodavg)
 library(broom)
 library(educate)
 library(lme4)
+library(MuMIn)
 library(tidyverse)
 
 
@@ -90,10 +90,9 @@ tidy(lmer.1)
 ### Table of model evidence
 ##################################################
 
-aictab(
-  cand.set = list(lmer.0, lmer.1),
-  modnames = c("Model A", "Model B")
-)
+model.sel(
+  object = list(lmer.0, lmer.1), rank = "AICc"
+)  
 
 
 
@@ -122,10 +121,9 @@ tidy(lmer.2)
 ### Table of model evidence
 ##################################################
 
-aictab(
-  cand.set = list(lmer.0, lmer.1, lmer.2),
-  modnames = c("Model A", "Model B", "Model C")
-)
+model.sel(
+  object = list(lmer.0, lmer.1, lmer.2), rank = "AICc"
+)  
 
 
 

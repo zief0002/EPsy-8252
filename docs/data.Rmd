@@ -168,7 +168,7 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
   </a>
 </td>
 <td align="center" style="vertical-align:middle;">
-  <a href="https://zief0002.github.io/book-8252/data-codebook.html#netherlands">
+  <a href="http://zief0002.github.io/epsy-8252/codebooks/netherlands.html">
     <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span>
   </a>
 </td>
@@ -182,25 +182,25 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
   </a>
 </td>
 <td align="center" style="vertical-align:middle;">
-  <a href="https://zief0002.github.io/book-8252/data-codebook.html#netherlands">
+  <a href="http://zief0002.github.io/epsy-8252/codebooks/netherlands.html">
     <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span>
   </a>
 </td>
 </tr>
 
-<!-- <tr> -->
-<!-- <td>nhl.csv</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/data/nhl.csv"> -->
-<!--     <span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://zief0002.github.io/book-8252/data-codebook.html#nhl"> -->
-<!--     <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- </tr> -->
+<tr>
+<td>nhl.csv</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/data/nhl.csv">
+    <span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="http://zief0002.github.io/epsy-8252/codebooks/nhl.html">
+    <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
 
 <tr>
 <td>popular-classroom.csv</td>
@@ -210,7 +210,7 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
   </a>
 </td>
 <td align="center" style="vertical-align:middle;">
-  <a href="https://zief0002.github.io/book-8252/data-codebook.html#popular">
+  <a href="http://zief0002.github.io/epsy-8252/codebooks/popular.html">
     <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span>
   </a>
 </td>
@@ -224,7 +224,7 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
   </a>
 </td>
 <td align="center" style="vertical-align:middle;">
-  <a href="https://zief0002.github.io/book-8252/data-codebook.html#popular">
+  <a href="http://zief0002.github.io/epsy-8252/codebooks/popular.html">
     <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span>
   </a>
 </td>
@@ -299,19 +299,19 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 </tr>
 
 
-<!-- <tr> -->
-<!-- <td>vocabulary.csv</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/data/vocabulary.csv"> -->
-<!--     <span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://zief0002.github.io/book-8252/data-codebook.html#vocabulary"> -->
-<!--     <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- </tr> -->
+<tr>
+<td>vocabulary.csv</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/data/vocabulary.csv">
+    <span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="http://zief0002.github.io/epsy-8252/codebooks/vocabulary.html">
+    <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
 
 <tr>
 <td>wine.csv</td>
@@ -321,7 +321,7 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
   </a>
 </td>
 <td align="center" style="vertical-align:middle;">
-  <a href="https://zief0002.github.io/book-8252/data-codebook.html#wine">
+  <a href="http://zief0002.github.io/epsy-8252/codebooks/wine.html">
     <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span>
   </a>
 </td>

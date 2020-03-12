@@ -1,55 +1,61 @@
 ---
 title: "Linear Mixed-Effects Models: Longitudinal Analysis"
 date: "`r Sys.Date()`"
-header-includes:
-   - \usepackage{xcolor}
-   - \usepackage[framemethod=tikz]{mdframed}
-   - \usepackage{graphicx}
-   - \usepackage{rotating}
-   - \usepackage{booktabs}
-   - \usepackage{float}
-   - \usepackage{array}
-   - \definecolor{umn}{RGB}{153, 0, 85}
-   - \definecolor{umn2}{rgb}{0.1843137, 0.4509804, 0.5372549}
-   - \definecolor{myorange}{HTML}{EA6153}
 output: 
   pdf_document:
     latex_engine: xelatex
     highlight: zenburn
     fig_width: 6
     fig_height: 6
+header-includes: 
+  - \usepackage{graphicx}
+  - \usepackage{rotating}
+  - \usepackage{xcolor}
+  - \definecolor{umn}{HTML}{FF2D21}
+  - \usepackage{caption}
+  - \captionsetup[table]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \captionsetup[figure]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \usepackage{floatrow}
+  - \floatsetup[figure]{capposition=top}
+  - \floatsetup[table]{capposition=top}
+  - \usepackage{xfrac}
 mainfont: "Sabon"
 sansfont: "Futura"
-monofont: Inconsolata
-urlcolor: "umn2"
-bibliography: epsy8252.bib
+monofont: Inconsolata    
+urlcolor: "umn"
+bibliography: [epsy8251.bib, epsy8252.bib]
 csl: apa-single-spaced.csl
-always_allow_html: yes
 ---
 
+<!-- Set the document spacing -->
+\frenchspacing
 
 ```{r setup, include=FALSE}
-options(digits = 3, scipen = 99)
-
+# Load libraries
 library(knitr)
+library(kableExtra)
+library(rmdformats)
+
+# Set knitr options
 knitr::opts_chunk$set(
   prompt = FALSE,
   comment = NA,
   message = FALSE,
   warning = FALSE,
   tidy = FALSE,
-  fig.align = 'center',
+  fig.align = 'left',
   out.width = '3in',
   echo = TRUE
   )
 
 #library(printr)
-
-options(kableExtra.latex.load_packages = FALSE)
-library(kableExtra)
+# Global options
+options(
+  digits = 3, 
+  scipen = 99,
+  kableExtra.latex.load_packages = FALSE
+  )
 ```
-
-\frenchspacing
 
 
 In this set of notes, you will learn how to use the linear mixed-effects model to analyze longitudinal data.
@@ -57,25 +63,23 @@ In this set of notes, you will learn how to use the linear mixed-effects model t
 
 # Dataset and Research Question
 
-In this set of notes, we will use data from the file *vocabulary.csv* (see the [data codebook](https://zief0002.github.io/book-8252/data-codebook.html#vocabulary) here). These data include repeated measurements of scaled vocabulary scores for $n=64$ students.
+In this set of notes, we will use data from the file *vocabulary.csv* (see the [data codebook](http://zief0002.github.io/epsy-8252/codebooks/vocabulary.html) here). These data include repeated measurements of scaled vocabulary scores for $n=64$ students.
 
 ```{r message=FALSE}
 # Load libraries
-library(AICcmodavg)
 library(broom)
-library(dplyr)
-library(ggplot2)
+library(educate)
 library(lme4) #for fitting mixed-effects models
-library(readr)
-library(sm)
-library(tidyr)
+library(MuMIn)
+library(patchwork)
+library(tidyverse)
 
 # Read in data
 vocabulary = read_csv(file = "~/Documents/github/epsy-8252/data/vocabulary.csv")
 head(vocabulary)
 ```
 
-We will use these data to explore the change in vocabulary over time (longitudinal variation in the vocabulary scores). We will focus on two primary research questions: (1) What is the growth pattern in the average vocabulary score over time? and (2) Is this growth pattern different for males and females?
+We will use these data to explore the change in vocabulary over time (longitudinal variation in the vocabulary scores). We will focus on two primary research questions: (1) What is the growth pattern in the average vocabulary score over time? and (2) Is this growth pattern different for females and non-females?
 
 \newpage
 
@@ -90,7 +94,7 @@ The vocabulary data is currently structured as wide data; the vocabulary scores 
 
 ```{r echo=FALSE}
 vocabulary %>%
-  gather(key = "grade", value = "vocab_score", vocab_08:vocab_11) %>%
+  pivot_longer(cols = vocab_08:vocab_11, names_to = "grade", values_to = "vocab_score") %>%
   arrange(id, grade) %>%
   head(12) %>%
   kable(
@@ -112,33 +116,33 @@ The tidy/long structure is the structure that is needed for modeling. Thus, if o
 
 ## Switching between the Two Data Structures
 
-The library **tidyr** has two functions, `gather()` (wide $\rightarrow$ tidy/long) and `spread()` (tidy/long $\rightarrow$ wide), that convert data between these two structures. Below, I show the code for going from the wide structured data (`vocabulary`) to the tidy/long structure.
+The library **tidyr** (loaded with **tidyverse**) has two functions, `pivot_longer()` (wide $\rightarrow$ tidy/long) and `pivot_wider()` (tidy/long $\rightarrow$ wide), that convert data between these two structures. Below, I show the code for going from the wide structured data (`vocabulary`) to the tidy/long structure.
 
 ```{r}
 # Convert from wide to long structured data
 vocabulary_long = vocabulary %>%
-  gather(key = "grade", value = "vocab_score", vocab_08:vocab_11) %>%
+  pivot_longer(cols = vocab_08:vocab_11, names_to = "grade", values_to = "vocab_score") %>%
   arrange(id, grade)
 
 # View data
 head(vocabulary_long, 12)
 ```
 
-For more infomation about using these functions, google "tidyr" and read through any number of great tutorials or vignettes; for example [here](http://data.library.virginia.edu/a-tidyr-tutorial/) or [here](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html). You can also read Hadley Wickham's original [paper on tidy data](http://vita.had.co.nz/papers/tidy-data.html).
+For more information about using these functions, Google "tidyr pivot" and read through any number of great tutorials or vignettes; for example [here](https://tidyr.tidyverse.org/articles/pivot.html). You can also read Hadley Wickham's original [paper on tidy data](http://vita.had.co.nz/papers/tidy-data.html).
 
 
 # Exploration: Plot of the Mean and Individual Profiles
 
-There are two plots that are particularly useful in exploring longitudinal data. The first is a plot of the mean value of the outcome at each time point (mean profile plot). This shows the average growth profile and is useful for determining the functional form of the fixed-effects part of the model; is the mean change over time linear? Quadratic? Log-linear? Another plot that is often examined is a spaghetti plot. A spaghetti plot shows the individual growth patterns or profiles and is useful for determining whether there is variation from the average profile. This helps us to consider the set of random-effects to include in the model. Below we examine both the mean profile and individual profiles simulateneously.
+There are two plots that are particularly useful in exploring longitudinal data. The first is a plot of the mean value of the outcome at each time point (mean profile plot). This shows the average growth profile and is useful for determining the functional form of the fixed-effects part of the model; is the mean change over time linear? Quadratic? Log-linear? Another plot that is often examined is a spaghetti plot. A spaghetti plot shows the individual growth patterns or profiles and is useful for determining whether there is variation from the average profile. This helps us to consider the set of random-effects to include in the model. Below we examine both the mean profile and individual profiles simultaneously.
 
-```{r fig.width=6, fig.height=6, fig.cap='Plot showing the change in vocabulary score over time for 64 students. The average growth profile is also displayed.', out.width='3.5in'}
+```{r fig.width=6, fig.height=6, fig.cap='Plot Showing the Change in Vocabulary Score Over Time. The Average Growth Profile is Displayed as a Thicker Line', out.width='3.5in'}
 ggplot(data = vocabulary_long, aes(x = grade, y = vocab_score)) +
-  geom_line(aes(group = id), alpha = 0.3) +                        #Add individual profiles
-  stat_summary(fun.y = mean, geom = "line", size = 2, group = 1) + #Add mean profile line
-  stat_summary(fun.y = mean, geom = "point", size = 3) +           #Add mean profile points
+  geom_line(aes(group = id), alpha = 0.3) +                      #Add individual profiles
+  stat_summary(fun = mean, geom = "line", size = 2, group = 1) + #Add mean profile line
+  stat_summary(fun = mean, geom = "point", size = 3) +           #Add mean profile points
   theme_bw() +
   scale_x_discrete(
-    name = "Grade-level", 
+    name = "Grade-level",
     labels = c("8th-grade", "9th-grade", "10th-grade", "11th-grade")
     ) +
   ylab("Vocabulary score")
@@ -170,8 +174,15 @@ where,
 
 
 ```{r}
+# Fit unconditional random intercepts model
 lmer.0 = lmer(vocab_score ~ 1 + (1|id), data = vocabulary_long, REML = FALSE)
-summary(lmer.0)
+
+# Coefficient-level output
+tidy(lmer.0)
+
+# Compute variance components
+# 1.35^2 #Residual
+# 1.72^2 #Intercept
 ```
 
 Fitting the unconditional means model gives us our baseline comparison model. The variance components suggest that there is unexplained within-student variation ($\hat\sigma^2_{\epsilon}=1.83$) and unexplained between-student variation ($\hat\sigma^2_{\mathrm{ID}}=2.95$). Most of the unexplained variation seems to be between-student variation (61.8\%).
@@ -182,7 +193,7 @@ Fitting the unconditional means model gives us our baseline comparison model. Th
 We can now add the fixed-effect of time (the time predictor) to the model. In this data set, the time predictor is `grade`, which is a categorical predictor. We could create dummy variables, or simply add `grade` into the model and let R choose the reference group alphabetically (`vocab_08` in this example). The statistical model in this example can be expressed as:
 
 $$
-\mathrm{Vocabulary~Score}_{ij} = \big[\beta_0 + b_{0j}\big] + \beta_1(\mathrm{9th\mbox{-}grade}_{ij}) + \beta_2(\mathrm{10th\mbox{-}grade}_{ij}) + \beta_3(\mathrm{11th\mbox{-}grade}_{ij}) + \epsilon_{ij}
+\mathrm{Vocabulary~Score}_{ij} = \big[\beta_0 + b_{0j}\big] + \beta_1(\mathrm{Vocab\_09}_{ij}) + \beta_2(\mathrm{Vocab\_10}_{ij}) + \beta_3(\mathrm{Vocab\_11}_{ij}) + \epsilon_{ij}
 $$
 
 where,
@@ -190,7 +201,7 @@ where,
 - $\mathrm{Vocabulary~Score}_{ij}$ is the vocabulary score at time point $i$ for student $j$;
 - $\beta_0$ is the fixed-effect of intercept;
 - $b_{0j}$ is the random-effect of intercept for student $j$;
-- $\mathrm{9th\mbox{-}grade}_{ij}$, $\mathrm{10th\mbox{-}grade}_{ij}$, and $\mathrm{11th\mbox{-}grade}_{ij}$ are dummy coded variable indicating grade-level,
+- $\mathrm{Vocab\_09}_{ij}$, $\mathrm{Vocab\_10}_{ij}$, and $\mathrm{Vocab\_11}_{ij}$ are dummy coded variable indicating grade-level,
 - $\beta_1$ is the effect of 9th-grade (i.e., mean vocabulary score difference between 8th- and 9th-grade),
 - $\beta_2$ is the effect of 10th-grade (i.e., mean vocabulary score difference between 8th- and 10th-grade),
 - $\beta_3$ is the effect of 11th-grade (i.e., mean vocabulary score difference between 8th- and 11th-grade), and
@@ -200,15 +211,22 @@ where,
 
 Fitting the model:
 
-```{r echo=FALSE}
+```{r}
+# Fit unconditional growth model
 lmer.1 = lmer(vocab_score ~ 1 + grade + (1|id), data = vocabulary_long, REML = FALSE)
-summary(lmer.1)
+
+# Coefficient-level output
+tidy(lmer.1)
+
+# Compute variance components
+# 0.899^2 #Residual
+# 1.791^2 #Intercept
 ```
 
 The fitted equation is:
 
 $$
-\hat{\mathrm{Vocabulary~Score}_{ij}} = 1.13 + 1.41(\mathrm{9th\mbox{-}grade}_{ij}) + 1.86(\mathrm{10th\mbox{-}grade}_{ij}) + 2.34(\mathrm{11th\mbox{-}grade}_{ij})
+\hat{\mathrm{Vocabulary~Score}_{ij}} = 1.13 + 1.41(\mathrm{Vocab\_09}_{ij}) + 1.86(\mathrm{Vocab\_10}_{ij}) + 2.34(\mathrm{Vocab\_11}_{ij})
 $$
 
 Interpreting the coefficients,
@@ -218,71 +236,19 @@ Interpreting the coefficients,
 - On average, 10th-grade students have a vocabulary score that is 1.86-points higher than 8th-grade students.
 - On average, 11th-grade students have a vocabulary score that is 2.34-points higher than 8th-grade students.
 
-Based on the *t*-statistics: 
+<!-- Based on the *t*-statistics: -->
 
-- The average 8th-grade vocabulary score is statistically different than 0 ($t=4.52$).
-- There is a statistical differences between the average 8th-grade vocabulary score and the average 9th-grade vocabulary score ($t=8.87$).
-- There is a statistical differences between the average 8th-grade vocabulary score and the average 10th-grade vocabulary score ($t=11.68$).
-- There is a statistical differences between the average 8th-grade vocabulary score and the average 11th-grade vocabulary score ($t=14.72$).
+<!-- - The average 8th-grade vocabulary score is different than 0. This is likely more than we expect because of chance ($t=4.52$). -->
+<!-- - The difference between the average 8th-grade vocabulary score and the average 9th-grade vocabulary score is likely more than we expect because of chance ($t=8.87$). -->
+<!-- - The difference between the average 8th-grade vocabulary score and the average 10th-grade vocabulary score is likely more than we expect because of chance ($t=11.68$). -->
+<!-- - The difference between the average 8th-grade vocabulary score and the average 11th-grade vocabulary score is likely more than we expect because of chance ($t=14.72$). -->
 
 
-Looking at the variance components:
+Looking at the variance components and comparing them to those from the unconditional random intercepts model:
 
 - The model has explained 55.8\% of the within-student variation. This is because grade is a within-student predictor (it has values that vary within each student).
 - The model has *increased* the variation between-students ($-8.7$\%). This is a mathematical artifact of the estimation process.
 
-
-## Likelihood Ratio Test: p-Values for Mixed-Effects Models
-
-So long as the assumptions of the linear mixed-effects model have been met (see Assumptions notes), we can obtain a $p$-value for the effect of grade. The way we do this is by taking advanatage of the fact that the unconditional random intercepts model is a nested model of the unconditional growth model. If we have nested models, they can be compared using a *Likelihood Ratio Test*. To carry out this test, we use the `anova()` function and input the two mixed-effects models we want to compare. (Note: Both models need to be fitted with ML.)
-
-```{r}
-anova(lmer.0, lmer.1)
-```
-
-The null hypothesis being tested is that the reduced model (`lmer.0`) and the full model (`lmer.1`) fit the data equally well. The way that we measure fit is via the deviance. The deviance of the reduced model is 1009.3 and that for the full model is 852.8. If the two models fit equally well, we would expect the difference in deviances to be zero. The actual difference in deviances is 156.46. (This is often referred to as $\Delta G^2$, for goodness-of-fit, or as $\chi^2$.) This indicates that the fuller model fits the sample data better than the reduced model; the full model has a smaller deviance.
-
-As with any difference, we wonder whether this is within what would be expected because of sampling (chance) variation. To test this, we evaluate $\Delta G^2$ in a $\chi^2$-distribution with $df$ equal to the difference in $K$ between the two models ($K$ is the $df$ for each model). This difference should be the difference in the complexity between the two models; the difference in the estimated number of parameters. Our reduced model has three parameters being estimated ($\hat\beta_0$, $\hat\sigma^2_{\epsilon}$, and $\hat\sigma^2_{0}$), and our full model has six parameters being estimated ($\hat\beta_0$, $\hat\beta_{\mathrm{9th\mbox{-}grade}}$, $\hat\beta_{\mathrm{10th\mbox{-}grade}}$, $\hat\beta_{\mathrm{11th\mbox{-}grade}}$, $\hat\sigma^2_{\epsilon}$, and $\hat\sigma^2_{0}$). The difference in complexity between these models is $6-3 = 3$.
-
-```{r}
-1 - pchisq(156.46, df = 3)
-```
-
-Note that all of these results are given in the `anova()` output. This is typically reported as something like:
-
-> A likelihood ratio test indicated that the model that included the fixed-effects of grade-level fitted the data significantly better that the unconditional random intercepts model, $\chi^2(3) = 156.46$, $p < .001$. This suggests that there is an effect of time on average vocabulary scores.
-
-## Mathematics Behind the Likelihood Ratio Test
-
-Why is this called a *likelihood ratio test*? Remember that the deviance is equal to $-2\mathrm{\ln(\mathcal{L})}$. Thus the difference in deviances can be written as:
-
-$$
-\Delta G^2 = -2 \ln\big[\mathcal{L}(\mathrm{Reduced~Model})\big] - \bigg[-2 \ln\big[\mathcal{L}(\mathrm{Full~Model})\big]\bigg]
-$$
-
-Pulling out the $-2$ we get
-
-$$
-\Delta G^2 = -2 \bigg[\ln\big[\mathcal{L}(\mathrm{Reduced~Model})\big] - \ln\big[\mathcal{L}(\mathrm{Full~Model})\big]\bigg]
-$$
-
-The difference between two logarithms, e.g., $\log(A)-\log(B)$ is the logarithm of the quotient ($\log(\frac{A}{B})$). Thus, we can re-write this as,
-
-$$
-\Delta G^2 = -2 \ln \bigg[\frac{\mathcal{L}(\mathrm{Reduced~Model})}{\mathcal{L}(\mathrm{Full~Model}}\bigg]
-$$
-
-Now it should be a little more apparent why this test is called a likelihood ratio test. Note that if both models fit the data equally well, their likelihood values would be equivalent and thus this equation would reduce to:
-
-$$
-\begin{split}
-\Delta G^2 &= -2 \ln \bigg[1\bigg] \\
-&= -2(0) \\
-&= 0
-\end{split}
-$$
-
-Thus if the difference in the goodness-of-fit between the two models turns out to be zero (or are within chance variation of zero), both models fit the data equally and thus we should adopt the reduced model (Occam's Razor).
 
 
 ## Quantitative Time Predictor: A More Flexible Model for Repeated Measures Data
@@ -292,6 +258,8 @@ One advantage to using the linear mixed-effects model to analyze repeated measur
 $$
 \mathrm{Vocabulary~Score}_{ij} = \big[\beta_0 + b_{0j}\big] + \beta_1(\mathrm{Grade}_{ij}) + \epsilon_{ij}
 $$
+
+\newpage
 
 where,
 
@@ -303,6 +271,14 @@ where,
 - $\epsilon_{ij}$ is the error at time point $i$ for student $j$.
 
 This is still referred to as the *unconditional growth model* since the only predictor is a fixed-effect of time.
+
+We will also look at a model that treats grade as a quantitative predictor, but also centers this predictor on the initial time point. This model is:
+
+$$
+\mathrm{Vocabulary~Score}_{ij} = \big[\beta_0 + b_{0j}\big] + \beta_1(\mathrm{Grade}_{ij}-8) + \epsilon_{ij}
+$$
+
+
 
 
 ## Lookup Table: Mapping Categories to Quantities
@@ -326,19 +302,33 @@ Then, we join the tidy/long data with the lookup table.
 
 
 ```{r message=FALSE, warning=FALSE}
-vocabulary_long_2 = left_join(vocabulary_long, lookup_table, by = "grade")
-head(vocabulary_long_2)
+# Join the data with the lookup table
+vocabulary_long = vocabulary_long %>%
+  left_join(lookup_table, by = "grade")
 ```
 
 \newpage
+
+```{r message=FALSE, warning=FALSE}
+# View data
+head(vocabulary_long)
+```
+
 
 ## Fitting the Unconditional Growth Model with a Quantitative Time Predictor
 
 Below we fit the linear mixed-effects model using the `grade_quant` predictor.
 
 ```{r}
-lmer.2 = lmer(vocab_score ~ 1 + grade_quant + (1|id), data = vocabulary_long_2, REML = FALSE)
-summary(lmer.2)
+# Fit unconditional growth model
+lmer.1_quant = lmer(vocab_score ~ 1 + grade_quant + (1|id), data = vocabulary_long, REML = FALSE)
+
+# Coefficient-level output
+tidy(lmer.1_quant)
+
+# Compute variance components
+# 0.947^2 #Residual
+# 1.784^2 #Intercept
 ```
 
 The fitted equation is:
@@ -354,6 +344,8 @@ Interpreting the coefficients,
 - The predicted average vocabulary score for 0th-grade students (intercept) is -4.55 (extrapolation).
 - Each one-unit difference in grade-level is associated with a 0.75-point difference in vocabulary score, on average.
 
+\newpage
+
 Looking at the variance components and comparing them to the unconditional random intercepts model:
 
 - The unconditional growth model has explained 50.8\% of the within-student variation.
@@ -364,11 +356,18 @@ This is similar to the variance components obtained from the model using the cat
 
 ## Centering the Time Predictor: Better Interpretations of the Intercept
 
-Now, let's fit the model using the centered quantitative predictor. 
+Now, let's fit the model using the quantitative predictor that was centered on the initial time point.
 
 ```{r}
-lmer.3 = lmer(vocab_score ~ 1 + grade_quant_center + (1|id), data = vocabulary_long_2, REML = FALSE)
-summary(lmer.3)
+# Fit unconditional growth model with centered grade
+lmer.1_quant_cent = lmer(vocab_score ~ 1 + grade_quant_center + (1|id), data = vocabulary_long, REML = FALSE)
+
+# Coefficient-level output
+tidy(lmer.1_quant_cent)
+
+# Compute variance components
+# 0.947^2 #Residual
+# 1.784^2 #Intercept
 ```
 
 The fitted equation is:
@@ -376,6 +375,13 @@ The fitted equation is:
 $$
 \hat{\mathrm{Vocabulary~Score}_{ij}} = 1.41 + 0.75(\mathrm{Centered~grade\mbox{-}level}_{ij})
 $$
+
+or,
+
+$$
+\hat{\mathrm{Vocabulary~Score}_{ij}} = 1.41 + 0.75(\mathrm{Grade\mbox{-}level}_{ij}-8)
+$$
+
 
 Interpreting the coefficients,
 
@@ -387,7 +393,7 @@ Interpreting the coefficients,
 We can see why the intercepts are different but the slopes are the same by comparing the plots of the individual growth profiles and the fitted fixed-effects models for the two predictors.
 
 ```{r fig.width=8, fig.height=4, fig.cap='Plot showing the change in vocabulary score over time for 64 students. The average growth profile is also displayed. This is shown for the non-centered (left) and 8th-grade centered (right) grade-level. A large blue point is shown at the intercept value in both plots.', out.width='5.5in', fig.pos='H', echo=FALSE}
-p1 = ggplot(data = vocabulary_long_2, aes(x = grade_quant, y = vocab_score)) +
+p1 = ggplot(data = vocabulary_long, aes(x = grade_quant, y = vocab_score)) +
   geom_line(aes(group = id), alpha = 0.3) +
   geom_abline(intercept = -4.56, slope = 0.75, color = "blue") +
   geom_point(x = 0, y = -4.56, size = 1.5, color = "blue") +
@@ -395,7 +401,7 @@ p1 = ggplot(data = vocabulary_long_2, aes(x = grade_quant, y = vocab_score)) +
   scale_x_continuous(name = "Grade-level", limits = c(0, 11), breaks = c(0, 2, 4, 6, 8, 10)) +
   scale_y_continuous(name = "Vocabulary score", limits = c(-5, 10))
 
-p2 = ggplot(data = vocabulary_long_2, aes(x = grade_quant_center, y = vocab_score)) +
+p2 = ggplot(data = vocabulary_long, aes(x = grade_quant_center, y = vocab_score)) +
   geom_line(aes(group = id), alpha = 0.3) +
   geom_abline(intercept = 1.41, slope = 0.75, color = "blue") +
   geom_point(x = 0, y = 1.41, size = 1.5, color = "blue") +
@@ -403,7 +409,7 @@ p2 = ggplot(data = vocabulary_long_2, aes(x = grade_quant_center, y = vocab_scor
   scale_x_continuous(name = "Centered grade-level (0 = 8th grade)", limits = c(0, 11), breaks = c(0, 2, 4, 6, 8, 10)) +
   scale_y_continuous(name = "Vocabulary score", limits = c(-5, 10))
 
-gridExtra::grid.arrange(p1, p2, nrow = 1)
+p1 + p2
 ```
 
 
@@ -414,85 +420,68 @@ Looking at the variance components and comparing them to the unconditional rando
 
 These values are identical to the variance components obtained from the previous model.
 
+
+
+
+## Comparing the Unconditional Growth Models
+
+The unconditional growth model was fitted using three different methods.
+
+- The first model treated time (grade) as categorical. This, it turns out, is the basis for a longitudinal method called *Repeated Measures ANOVA*, commonly used in the social sciences.
+- The second two models treated time as a continuous variable. 
+
+
+
+Treating time continuously rather than as a categorical predictor has many advantages:
+
+- In the real-world time is continuous.
+- The model is simpler. In the model where time was treated categorically, we had to estimate four regression coefficients and two variance components. In the continuous models, we only had to estimate two regression coefficients and two variance components. If there were additional time points, we would still only need to estimate four parameters for the continuous model, but the number of estimates would increase for the categorical model.
+- It allows us too allow for participants being measured at different times.
+- It allows us to model nonlinear relationships more easily.
+
+In general, **you should always treat time continuously when you have a longitudinal study!** This guidance also implies that you should use linear mixed-effects models rather than RM-ANOVA for the analysis of longitudinal data.
+
+
 > Because of the interpretive value of the intercept when we center the grade-level predictor, we will fit all future models using the 8th-grade centered grade-level.
 
 
 ## Examining the Functional Form of the Growth Model
 
-As in any regression analysis. we need to specify the functional form of the growth model. Below we consider three potential functional forms between grade-level and vocabulary score: (1) a linear relationship (`lmer.3`); (2) a quadratic relatinship; and (3) a log-linear relationship (based on log-transforming grade-level).
+As in any regression analysis. we need to specify the functional form of the growth model. Since the spaghetti plot suggested that the relationship between grade-level and vocabulary score may be nonlinear, below we consider three potential functional forms for our growth model: (1) a linear relationship (`lmer.3`); (2) a quadratic relationship; and (3) a log-linear relationship (based on log-transforming grade-level).
+
+*Note:* Since the centered grade predictor includes values of zero, we need to add one to each value prior to log-transforming this predictor
 
 
 ```{r}
 # Quadratic model
-lmer.4 = lmer(vocab_score ~ 1 + grade_quant_center + I(grade_quant_center^2) + (1|id), 
-              data = vocabulary_long_2, REML = FALSE)
+lmer.quad = lmer(vocab_score ~ 1 + grade_quant_center + I(grade_quant_center^2) + (1|id),
+              data = vocabulary_long, REML = FALSE)
 
 # Log-linear model
-lmer.5 = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + (1|id), 
-              data = vocabulary_long_2, REML = FALSE)
+lmer.log = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + (1|id),
+              data = vocabulary_long, REML = FALSE)
 ```
 
-\newpage
-
-```{r}
-# Model-evidence
-aictab(
-  cand.set = list(lmer.3, lmer.4, lmer.5),
-  modnames = c("Linear", "Quadratic", "Log-linear")
-)
-```
-
-
-Given the data and candidate models, the evidence supports the log-linear model. There is some slight evidence for the quadratic model and almost no evidence for the linear model. This is consistent with the nonlinearity we observed in the mean profile earlier. We should also evaluate the residuals for both models.
-
-```{r out.width='31%', fig.show='hold', fig.cap='Plots of the Level-1 residuals and random-effects for the log-linear model (Row 1) and the quadratic model (Row 2).', fig.pos='H', fig.show='hold'}
-out_4 = augment(lmer.4)
-out_5 = augment(lmer.5)
-
-
-# Log-linear model
-ggplot(data = out_5, aes(x = .fitted, y = .resid)) +
-  geom_point() +
-  geom_hline(yintercept = 0) +
-  theme_bw() +
-  xlab("Fitted values") +
-  ylab("Level-1 residuals") +
-  ggtitle("Log-linear")
-
-sm.density(out_5$.resid, model = "normal", main = "Main-Effect", xlab = "Level-1 residuals")
-sm.density(ranef(lmer.5)$id[ , 1], model = "normal", xlab = "Random effects of the intercept")
-
-
-# Quadratic model
-ggplot(data = out_4, aes(x = .fitted, y = .resid)) +
-  geom_point() +
-  geom_hline(yintercept = 0) +
-  theme_bw() +
-  xlab("Fitted values") +
-  ylab("Level-1 residuals") +
-  ggtitle("Quadratic")
-
-sm.density(out_4$.resid, model = "normal", main = "Interaction Effect", xlab = "Level-1 residuals")
-sm.density(ranef(lmer.4)$id[ , 1], model = "normal", xlab = "Random effects of the intercept")
-```
-
-The residual plots look similar indicating that neither model meets the assumptions better than the other. Given this, the higher evidence for the log-linear model, and the simplicity of the log-linear model relative to the quadratic model, we will adopt the log-linear growth profile.
-
-\newpage
 
 ## Examining the Output for the Log-Linear Fitted Model
 
 
 ```{r}
-summary(lmer.5)
+tidy(lmer.log)
+
+# Compute variance components
+# 0.907^2 #Residual
+# 1.790^2 #Intercept
 ```
 
 
 The fitted equation is:
 
 $$
-\hat{\mathrm{Vocabulary~Score}_{ij}} = 1.21 + 1.66\bigg[\ln(\mathrm{Centered~grade\mbox{-}level}_{ij}+1)\bigg]
+\hat{\mathrm{Vocabulary~Score}_{ij}} = 1.21 + 1.67\bigg[\ln(\mathrm{Centered~grade\mbox{-}level}_{ij}+1)\bigg]
 $$
+
+\newpage
 
 Interpreting the coefficients,
 
@@ -504,212 +493,367 @@ Looking at the variance components:
 - The model has explained 54.9\% of the within-student variation.
 - The model has *increased* the variation between-students ($-8.4$\%). This is a mathematical artifact of the estimation process.
 
-These values are quite similar to the variance components obtained from the previous model.
+These values are quite similar to the variance components obtained from the other unconditional growth models.
+
+## Evaluating the Three Functional Forms
+
+We should begin the evaluation process by examining the residuals from the candidate models.
+
+```{r}
+# Obtain level-1 resduals and fitted values
+mod1_lev1 = augment(lmer.1_quant_cent)
+quad_lev1 = augment(lmer.quad)
+log_lev1 = augment(lmer.log)
+
+# Obtain a data frame of the random-effects (level-2 residuals)
+mod1_lev2 = ranef(lmer.1_quant_cent)$id
+quad_lev2 = ranef(lmer.quad)$id
+log_lev2 = ranef(lmer.log)$id
+```
+
+We will then create the residual plots for the three models
+
+```{r}
+##################### LINEAR MODEL #####################
+
+# Density plot of the level-1 residuals
+p1 = ggplot(data = mod1_lev1, aes(x = .resid)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-1 residuals") +
+  ggtitle("Linear Model")
+
+# Scatterplot of the Level-1 residuals versus the fitted values
+p2 = ggplot(data = mod1_lev1, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  xlab("Fitted values") +
+  ylab("Level-1 residuals")
+
+# Density plot of the level-2 residuals (RE of intercept)
+p3 = ggplot(data = mod1_lev2, aes(x = `(Intercept)`)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-2 residuals")
+```
 
 
+```{r}
+##################### NONLINEAR (QUADRATIC) MODEL #####################
 
-## Plot of the Fixed-Effects Part of the Model
+# Density plot of the level-1 residuals
+p4 = ggplot(data = quad_lev1, aes(x = .resid)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-1 residuals") +
+  ggtitle("Nonlinear Model (Quadratic)")
 
-The *t*-value associated with the fixed-effect of grade-level ($t=15.31$) indicates that the log-linear relationship between grade-level and vocabulary score is statistically important. To better understand this relationship we can plot the fixed-effects part of the unconditional growth model.
+# Scatterplot of the Level-1 residuals versus the fitted values
+p5 = ggplot(data = quad_lev1, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  xlab("Fitted values") +
+  ylab("Level-1 residuals")
 
-```{r fig.width=6, fig.height=6, fig.cap='Predicted change in vocabulary score as a function of grade-level.', fig.pos='H'}
-# Set up data
-plot_data = crossing(
-  grade_quant_center = seq(from = 0, to = 3, by = 0.01)
-) %>%
-  mutate(
-    yhat = predict(lmer.5, newdata = ., re.form = NA)
-  )
+# Density plot of the level-2 residuals (RE of intercept)
+p6 = ggplot(data = quad_lev2, aes(x = `(Intercept)`)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-2 residuals")
+```
 
-head(plot_data)
+```{r}
+##################### NONLINEAR (LOG) MODEL #####################
 
+# Density plot of the level-1 residuals
+p7 = ggplot(data = log_lev1, aes(x = .resid)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-1 residuals") +
+  ggtitle("Nonlinear Model (Log)")
+
+# Scatterplot of the Level-1 residuals versus the fitted values
+p8 = ggplot(data = log_lev1, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme_bw() +
+  xlab("Fitted values") +
+  ylab("Level-1 residuals")
+
+# Density plot of the level-2 residuals (RE of intercept)
+p9 = ggplot(data = log_lev2, aes(x = `(Intercept)`)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-2 residuals")
+```
+
+\newpage
+
+```{r fig.width=9, fig.height=9, out.width='100%', fig.cap='Plots of the Level-1 Residuals and Random-Effects for the Model with a Linear Effect of Grade-Level (Row 1), Linear and Quadratic Effect of Grade-Level (Row 2), and Log-Transformed Effect of Grade-Level (Row 3)', fig.pos='H'}
+# Layout plots
+(p1 | p2 | p3) / (p4 | p5 | p6) / (p7  | p8 | p9)
+```
+
+The residual plots look similar indicating that all the models seem to meet the assumptions equally well. We will turn next to information criteria to evaluate the models.
+
+```{r}
+# Model-evidence
+model.sel(
+  object = list(lmer.1_quant_cent, lmer.quad, lmer.log),
+  rank = "AICc"
+)
+```
+
+Given the data and candidate models, the evidence primarily supports the log-linear model. There is some slight evidence for the quadratic model and almost no evidence for the linear model. This is consistent with the nonlinearity we observed in the mean profile earlier. Given this, the higher evidence for the log-linear model, and the simplicity of the log-linear model relative to the quadratic model, we will adopt the log-linear functional form for our unconditional growth model.
+
+
+## Plot of the Unconditional Growth Model
+
+To better understand the relationship between grade-level and vocabulary score represented in the adopted unconditional growth model, we can plot the predicted mean profile based on the model's fixed-effects.
+
+```{r fig.width=6, fig.height=6, fig.cap='Predicted Change in Vocabulary Score as a Function of Grade-Level', fig.pos='H'}
 # Create plot
-ggplot(data = plot_data, aes(x = grade_quant_center, y = yhat)) +
-  geom_line() +
+ggplot(data = vocabulary_long, aes(x = grade_quant_center, y = vocab_score)) +
+  geom_point(alpha = 0) +
+  stat_function(
+    fun = function(x) {1.21 + 1.67 * log(x + 1)},
+    color = "blue"
+    ) +
   theme_bw() +
   scale_x_continuous(
-    name = "Grade-level", 
-    breaks = c(0, 1, 2, 3), 
-    labels = c(8, 9, 10, 11)
+    name = "Grade-level",
+    breaks = c(0, 1, 2, 3),
+    labels = c("0\n(8th)", "1\n(9th)", "2\n(10th)", "3\n(11th)")
     ) +
   ylab("Vocabulary score")
 ```
 
-Based on this and the coefficient-level output, we can answer the first research question. 
+Based on this plot and the coefficient-level output, we can answer the first research question.
 
 > The growth pattern in vocabulary is log-linear over time. While the change in vocabulary score, on average, is positive, the growth rate somewhat diminishes over time.
 
 
-## Examining the Male and Female Growth Profiles
+# Examining the Second Research Question
 
-To answer the second research question about whether the growth pattern is different for males and females, we again plot the individual and mean growth profiles for females and males.
+To answer the second research question about whether the growth pattern is different for females and non-females, we again start by plotting the individual and mean growth profiles, this time conditioned on sex.
 
-```{r fig.width=8, fig.height=4, fig.cap='Plot showing the change in vocabulary score over time conditioned on sex. The average growth profile is also displayed for each sex.', fig.pos='H', out.width='4.5in'}
+```{r fig.width=8, fig.height=4, fig.cap='Plot Showing the Change in Vocabulary Score Over Time Conditioned on Sex. The Average Growth Profile is also Displayed as a Thicker Line.', fig.pos='H', out.width='4.5in'}
 # Turn female into factor for better plotting
-vocabulary_long_2 %>%
+vocabulary_long %>%
   mutate(
-    Sex = factor(female, levels = c(0, 1), labels = c("Male", "Female"))
+    # Create factor for better plotting
+    Sex = factor(female, levels = c(0, 1), labels = c("Non-female", "Female"))
   ) %>%
 ggplot(aes(x = grade_quant, y = vocab_score, color = Sex)) +
   geom_line(aes(group = id), alpha = 0.3) +
-  stat_summary(fun.y = mean, geom = "line", size = 2, group = 1) +
-  stat_summary(fun.y = mean, geom = "point", size = 3) +
+  stat_summary(fun = mean, geom = "line", size = 2, group = 1) +
+  stat_summary(fun = mean, geom = "point", size = 3) +
   theme_bw() +
   xlab("Grade-level") +
   ylab("Vocabulary score") +
   facet_wrap(~Sex) +
-  ggsci::scale_color_d3()
+  ggsci::scale_color_d3() +
+  guides(color = FALSE)
 ```
 
-Examining the average profiles for males and females in this plot suggests that the females tend to have higher average vocabulary scores than males at each grade level. The sample average growth profiles also show slightly different patterns of growth between males and females. To examine whether this is due to chance, we can fit a set of models that include fixed-effects of sex in addition to the grade-level predictor.
-
-Here we fit a model that includes a main-effect of sex and another that include both the main-effect of sex and the interaction-effect between sex and grade-level.
+Examining the average profiles for females and non-females in this plot suggests that the females tend to have higher average vocabulary scores than non-females at each grade level. The sample average growth profiles also show slightly different patterns of growth between females and non-females. To further examine these potential differences, we can fit a set of candidate models that include fixed-effects of sex in addition to the grade-level predictor, namely: (1) a model that includes main effects of sex and grade-level, and (2) a model that includes main effects of sex and grade-level and the interaction-effect between sex and grade-level.
 
 ```{r}
 # Main-effect of sex
-lmer.6 = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + female +
-                (1|id), data = vocabulary_long_2, REML = FALSE)
+lmer.main = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + female +
+                (1|id), data = vocabulary_long, REML = FALSE)
 
 # Interaction-effect between sex and grade-level
-lmer.7 = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + female + log(grade_quant_center + 1):female +
-                (1|id), data = vocabulary_long_2, REML = FALSE)
+lmer.int = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + female + 
+                  log(grade_quant_center + 1):female +(1|id), 
+                data = vocabulary_long, REML = FALSE)
 ```
 
 These two models allow us to test different hypotheses about the patterns of growth between males and females:
 
-- If there is a main-effect of sex, it will allow us to conclude that the growth pattern is the same, but that the average females vocabulary score is systematically different than that for males at each time point (e.g., always lower or higher by the same amount). 
-- If there is an interaction-effect between sex and grade-level, it will allow us to conclude that the pattern of change over time is different between males and females.
+- If there is a main-effect of sex, it will allow us to conclude that the growth pattern is the same, but that the average females vocabulary score is systematically different than that for non-females at each time point (e.g., always lower or higher by the same amount).
+- If there is an interaction-effect between sex and grade-level, it will allow us to conclude that the pattern of change over time is different between females and non-females.
 
-\newpage
 
-To facilitate model selection we will examine a table of model evidence using the following candidate models: (1) the unconditional growth model, (2) the model that includes main-effects of grade-level and sex, and (3) the model that includes an interaction-effect between grade-level and sex. 
+To facilitate model selection we will examine a table of model evidence using the following candidate models: (1) the adopted unconditional growth model, (2) the model that includes main-effects of grade-level and sex, and (3) the model that includes an interaction-effect between grade-level and sex.
 
 ```{r}
 # Model-evidence
-aictab(
-  cand.set = list(lmer.5, lmer.6, lmer.7),
-  modnames = c("Unconditional growth", "Main-effect of sex", "Interaction-effect")
+model.sel(
+  object = list(lmer.log, lmer.main, lmer.int),
+  rank = "AICc"
 )
 ```
 
 Here the evidence slightly favors the model that includes the main-effect of sex. There is also a fair bit of evidence to support the interaction model. Again, we should probably examine the residuals from both of these models and adopt the model that better meets the assumptions.
 
 
-```{r out.width='31%', fig.show='hold', fig.cap='Plots of the Level-1 residuals and random-effects for the main-effects model (Row 1) and the interaction model (Row 2).', fig.pos='H'}
-out_6 = augment(lmer.6)
-out_7 = augment(lmer.7)
+```{r}
+# Obtain the level-1 residuals and fitted values
+main_lev1 = augment(lmer.main)
+int_lev1 = augment(lmer.int)
 
+# Obtain a data frame of the random-effects
+main_lev2 = ranef(lmer.main)$id
+int_lev2 = ranef(lmer.int)$id
+```
 
-# Main-effect model
-ggplot(data = out_6, aes(x = .fitted, y = .resid)) +
+```{r}
+##################### MAIN EFFECTS MODEL #####################
+
+# Density plot of the level-1 residuals
+p1 = ggplot(data = main_lev1, aes(x = .resid)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-1 residuals") +
+  ggtitle("Main Effects Model")
+
+# Scatterplot of the Level-1 residuals versus the fitted values
+p2 = ggplot(data = main_lev1, aes(x = .fitted, y = .resid)) +
   geom_point() +
   geom_hline(yintercept = 0) +
   theme_bw() +
   xlab("Fitted values") +
-  ylab("Level-1 residuals") +
-  ggtitle("Main-Effect")
+  ylab("Level-1 residuals")
 
-sm.density(out_6$.resid, model = "normal", main = "Main-Effect", xlab = "Level-1 residuals")
-sm.density(ranef(lmer.6)$id[ , 1], model = "normal", xlab = "Random effects of the intercept")
+# Density plot of the level-2 residuals (RE of intercept)
+p3 = ggplot(data = main_lev2, aes(x = `(Intercept)`)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-2 residuals")
+```
 
+\newpage
 
-# Interaction model
-ggplot(data = out_7, aes(x = .fitted, y = .resid)) +
+```{r}
+##################### INTERACTION MODEL #####################
+
+# Density plot of the level-1 residuals
+p4 = ggplot(data = int_lev1, aes(x = .resid)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-1 residuals") +
+  ggtitle("Interaction Model")
+
+# Scatterplot of the Level-1 residuals versus the fitted values
+p5 = ggplot(data = int_lev1, aes(x = .fitted, y = .resid)) +
   geom_point() +
   geom_hline(yintercept = 0) +
   theme_bw() +
   xlab("Fitted values") +
-  ylab("Level-1 residuals") +
-  ggtitle("Interaction Effect")
+  ylab("Level-1 residuals")
 
-sm.density(out_7$.resid, model = "normal", main = "Interaction Effect", xlab = "Level-1 residuals")
-sm.density(ranef(lmer.7)$id[ , 1], model = "normal", xlab = "Random effects of the intercept")
+# Density plot of the level-2 residuals (RE of intercept)
+p6 = ggplot(data = int_lev2, aes(x = `(Intercept)`)) +
+  stat_density_confidence(model = "normal") +
+  stat_density(geom = "line") +
+  theme_bw() +
+  xlab("Level-2 residuals")
+```
+
+```{r fig.width=9, fig.height=6, out.width='100%', fig.cap='Plots of the Level-1 Residuals and Random-Effects for the Main Effects Model (Row 1) and the Interaction Model (Row 2)', fig.pos='H'}
+# Layoout plots
+(p1 | p2 | p3) / (p4 | p5 | p6)
 ```
 
 
-The residuals for both models look fairly reasonable. Neither model shows improved fit based on these plots.
+The residuals for both models look fairly reasonable. Neither model shows improved fit based on these plots. 
 
+Using the results from evaluating the table of model evidence and the residual plots, there is evidence to support both the models that include the main-effects of grade-level and sex, as well as the model that includes the interaction-effect between grade-level and sex. We will interpret the coefficients and variance components from each of these models, and also plot their fixed-effects.
 
-## Testing Hypotheses about Sex Differences in the Growth Profiles
+If you opted to choose the main effects model because of parsimony, it would be prudent to point out that the evidence also showed some support for the interaction model. This would cue researchers to continue to probe whether this effect is supported in future research.
 
-Since the unconditional growth model is nested in the growth model with the main-effect of `female` and that, in turn, is nested inside the interaction model, we could have also used a series of likelihood ratio tests to evaluate these models.
+\newpage
 
-```{r}
-# LRT
-anova(lmer.5, lmer.6, lmer.7)
-```
-
-The first $\chi^2$-test (on the `lmer.6` line) compares the growth model that includes the main-effect of sex to the unconditional growth model (the model on the previous line). This result is statistically significant, $\chi^2(1)=43.62$, $p<0.001$. This suggests that the model that includes the main-effect of sex has significantly less error than the unconditional growth model.
-
-The second $\chi^2$-test (on the `lmer.7` line) compares the growth model that includes the interaction-effect between sex and grade-level to the growth model that includes the main-effect of sex. This result is not statistically significant, $\chi^2(1)=1.49$, $p=0.222$. This suggests that the model that includes the interaction-effect between sex and grade-level does not have significantly less error than the model that includes the main-effect of sex.
-
-This series of tests suggests that of these models, we should adopt the model that includes the main-effect of sex. 
-
-As a reminder, the results from evaluating models using a *p*-value approach and those employing a model evidence approach are not always consistent with each other. This is because they represent two very different philosophical approaches to model selection. As such, the decision about how you will make decisions about model adoption (*p*-value vs. model evidence) should be decided prior to carrying out any data analysis. 
-
-Using the results from evaluating the table of model evidence, there is evidence to support both the models that include the main-effects of grade-level and sex, as well as the model that includes the interaction-effect between grade-level and sex. We will interpret the coefficients and variance components from each of these models, and also plot their fixed-effects.
-
-
-### Main-Effect of Sex
+## Main Effects Model
 
 ```{r}
-summary(lmer.6)
+tidy(lmer.main)
+
+# Compute variance components
+# 0.907^2 #Residual
+# 1.232^2 #Intercept
 ```
 
 The fitted equation is:
 
 $$
-\hat{\mathrm{Vocabulary~Score}_{ij}} = -0.01 + 1.67\bigg[\ln(\mathrm{Centered~grade\mbox{-}level}_{ij}+1)\bigg] + 2.60(\mathrm{Female}_{\boldsymbol{\cdot}j})
+\hat{\mathrm{Vocabulary~Score}_{ij}} = -0.01 + 1.67\bigg[\ln(\mathrm{Grade\mbox{-}level}_{ij}-8+1)\bigg] + 2.60(\mathrm{Female}_{\boldsymbol{\cdot}j})
 $$
+
+<!-- \newpage -->
 
 Interpreting the coefficients,
 
-- The predicted average vocabulary score for male 8th-grade students is $-0.01$.
+- The predicted average vocabulary score for non-female 8th-grade students is $-0.01$.
 - Each one-percent difference in grade-level is associated with a 0.0167-point difference in vocabulary score, on average, controlling for differences in sex.
-- Females have an average vocabulary score that is 2.60-points higher than males, controlling for differences in grade-level.
+- Females have an average vocabulary score that is 2.60-points higher than non-females, controlling for differences in grade-level.
 
-Looking at the variance components:
+Looking at the variance components and comparing to the unconditional random intercepts model:
 
 - The model has explained 54.9\% of the within-student variation.
 - The model has explained 16.8\% of the between-student variation.
 
-We expect the model to explain variation between-students as the `female` predictor we included was a between-students predictor. Plotting this model (see below) we find that the growth pattern in vocabulary is log-linear over time for both females and males. While the change in vocabulary score, on average, is positive for both sexes, the growth rate somewhat diminishes over time. Moreover, while females tend to have a higher vocabulary score at each grade level, the change patterns seem to have the same rate of growth for both sexes.
+We expect the model to explain variation between-students as the `female` predictor we included was a between-students predictor.
 
+Plotting this model we find that the growth pattern in vocabulary is log-linear over time for both females and males. While the change in vocabulary score, on average, is positive for both sexes, the growth rate somewhat diminishes over time. Moreover, while females tend to have a higher vocabulary score at each grade level, the change patterns seem to have the same rate of growth for both sexes.
 
-```{r fig.width=6, fig.height=6, fig.cap='Predicted change in vocabulary score as a function of grade-level and sex.', fig.pos='H'}
-# Set up data
-plot_data = crossing(
-  grade_quant_center = seq(from = 0, to = 3, by = 0.01),
-  female = c(0, 1)
-) %>%
-  mutate(
-    yhat = predict(lmer.6, newdata = ., re.form = NA),
-    Sex = factor(female, levels = c(0, 1), labels = c("Male", "Female"))
-  )
+\newpage
 
-head(plot_data)
-
-# Create plot
-ggplot(data = plot_data, aes(x = grade_quant_center, y = yhat, color = Sex, linetype = Sex)) +
-  geom_line() +
+```{r fig.width=6, fig.height=6, fig.cap='Predicted Change in Vocabulary Score as a Function of Grade-Level for Females (Orange, Solid Line) and Non-Females (Blue, Dashed Line', fig.pos='H'}
+ggplot(data = vocabulary_long, aes(x = grade_quant_center, y = vocab_score)) +
+  geom_point(alpha = 0) +
+  stat_function(
+    fun = function(x) {-0.01 + 1.67 * log(x + 1)},
+    color = "blue",
+    linetype = "dashed"
+    ) +
+  stat_function(
+    fun = function(x) {2.59 + 1.67 * log(x + 1)},
+    color = "orange"
+    ) +
   theme_bw() +
-  scale_x_continuous(name = "Grade-level", breaks = c(0, 1, 2, 3), labels = c(8, 9, 10, 11)) +
-  ylab("Vocabulary score") +
-  ggsci::scale_color_d3()
+  scale_x_continuous(
+    name = "Grade-level",
+    breaks = c(0, 1, 2, 3),
+    labels = c("0\n(8th)", "1\n(9th)", "2\n(10th)", "3\n(11th)")
+    ) +
+  ylab("Vocabulary score")
 ```
 
+\newpage
 
-### Interaction-Effect between Sex and Grade-Level
+## Interaction Model
 
 ```{r}
-summary(lmer.7)
+tidy(lmer.int)
+
+# Compute variance components
+# 0.903^2 #Residual
+# 1.233^2 #Intercept
 ```
 
 The fitted equation is:
 
 $$
-\hat{\mathrm{Vocabulary~Score}_{ij}} = -0.11 + 1.79\bigg[\ln(\mathrm{Centered~grade\mbox{-}level}_{ij}+1)\bigg] + 2.81(\mathrm{Female}_{\boldsymbol{\cdot}j}) - 0.27\bigg[\ln(\mathrm{Centered~grade\mbox{-}level}_{ij}+1)\times(\mathrm{Female}_{\boldsymbol{\cdot}j})\bigg]
+\begin{split}
+\hat{\mathrm{Vocabulary~Score}_{ij}} = &-0.11 + 1.79\bigg[\ln(\mathrm{Grade\mbox{-}level}_{ij}-8+1)\bigg] + 2.81(\mathrm{Female}_{\boldsymbol{\cdot}j}) \\
+& - 0.27\bigg[\ln(\mathrm{Grade\mbox{-}level}_{ij}-8+1)\times(\mathrm{Female}_{\boldsymbol{\cdot}j})\bigg]
+\end{split}
 $$
+
+
 
 Interpreting the coefficients ,
 
@@ -719,6 +863,7 @@ Interpreting the coefficients ,
 - For females, each one-percent difference in grade-level is associated with a 0.0152-point difference in vocabulary score, on average. This is less than the effect for males by 0.0027.
 
 More generally, we might say:
+
 - The effect of grade-level differs by sex.
 - The effect of sex differs by grade-level
 
@@ -727,38 +872,34 @@ Looking at the variance components:
 - The model has explained 55.3\% of the within-student variation.
 - The model has explained 16.7\% of the between-student variation.
 
-Plotting this model (see below; syntax not displayed) we find that the growth pattern in vocabulary is log-linear over time for both females and males. While the change in vocabulary score, on average, is positive for both sexes, the growth rate somewhat diminishes over time. Moreover, while females tend to have a higher vocabulary score at each grade level, the growth rate for females is slightly smaller than that for males.
+Plotting this model we find that:
 
+- The growth pattern in vocabulary is log-linear over time for both females and non-females.
+- While the change in vocabulary score, on average, is positive for females and non-females, the growth rate somewhat diminishes over time.
+- Moreover, while females tend to have a higher vocabulary score at each grade level, the growth rate for females is slightly smaller than that for non-females.
 
-```{r fig.width=6, fig.height=6, fig.cap='Predicted change in vocabulary score as a function of grade-level.', fig.pos='H'}
-# Set up data
-plot_data_2 = crossing(
-  grade_quant_center = seq(from = 0, to = 3, by = 0.01),
-  female = c(0, 1)
-) %>%
-  mutate(
-    yhat = predict(lmer.7, newdata = ., re.form = NA),
-    Sex = factor(female, levels = c(0, 1), labels = c("Male", "Female"))
-  )
+\newpage
 
-head(plot_data_2)
-
-# Create plot
-ggplot(data = plot_data_2, aes(x = grade_quant_center, y = yhat, color = Sex, linetype = Sex)) +
-  geom_line() +
+```{r fig.width=6, fig.height=6, fig.cap='Predicted Change in Vocabulary Score as a Function of Grade-Level for Females (Orange, Solid Line) and Non-Females (Blue, Dashed Line', fig.pos='H'}
+ggplot(data = vocabulary_long, aes(x = grade_quant_center, y = vocab_score)) +
+  geom_point(alpha = 0) +
+  stat_function(
+    fun = function(x) {-0.11 + 1.79 * log(x + 1)},
+    color = "blue",
+    linetype = "dashed"
+    ) +
+  stat_function(
+    fun = function(x) {2.7 + 1.52 * log(x + 1)},
+    color = "orange"
+    ) +
   theme_bw() +
-  scale_x_continuous(name = "Grade-level", breaks = c(0, 1, 2, 3), labels = c(8, 9, 10, 11)) +
-  ylab("Vocabulary score") +
-  ggsci::scale_color_d3()
+  scale_x_continuous(
+    name = "Grade-level",
+    breaks = c(0, 1, 2, 3),
+    labels = c("0\n(8th)", "1\n(9th)", "2\n(10th)", "3\n(11th)")
+    ) +
+  ylab("Vocabulary score")
 ```
 
-The similarity between the predicted values from the two models, and the fact that the residuals from the two models look quite similar might suggest that we should ultimately adopt the model that includes the main-effects of grade-level and sex over the interaction model. 
 
 
-
-## Other Resources {-}
-
-In addition to the notes and what we cover in class, there many other resources for learning about using linear mixed-effects models for longitudinal analysis. Here are some resources that may be helpful in that endeavor:
-
-- Long, J. D. (2012). [Longitudinal data analysis for the behavioral sciences using R](http://www.amazon.com/Longitudinal-Analysis-Behavioral-Sciences-Using/dp/1412982685). Thousand Oaks, CA: Sage.
-- Swihart, B. J., Caffo, B., James, B. D., Strand, M., Schwartz, B. S., &amp; Punjabi, N. M. (2010). [Lasagna plots: A saucy alternative to spaghetti plots.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2937254/) *Epidemiology, 21*(5), 621&ndash;625.

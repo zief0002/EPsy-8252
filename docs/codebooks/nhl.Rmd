@@ -1,0 +1,55 @@
+---
+title: "nhl.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+bibliography: '../../notes/epsy8251.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+Each season, [Team Marketing Report (TMR)](http://www.teammarketing.com/) computes the cost of taking a family of four to a professional sports contest for each of the major sporting leagues. Costs are determined by telephone calls with representatives of the teams, venues and concessionaires. Identical questions were asked in all interviews. Prices for Canadian teams were converted to U.S. dollars and comparison prices were converted using a recent exchange rate.
+
+The data in [nhl.csv](https://github.com/zief0002/epsy-8252/raw/master/data/nhl.csv) includes data on the cost of attending an NHL game over nine seasons for the current 31 NHL teams. The attributes include:
+
+- `team`: NHL team name
+- `fci`: Fan cost index (FCI) for each season. There are no data for 2012, since that year the NHL was locked out. The FCI comprises the prices of four (4) average-price tickets, two (2) small draft beers, four (4) small soft drinks, four (4) regular-size hot dogs, parking for one (1) car, two (2) game programs and two (2) least-expensive, adult-size adjustable caps. Costs were determined by telephone calls with representatives of the teams, venues and  concessionaires. Identical questions were asked in all interviews.
+- `year`: NHL season (e.g., 2002 indicates the 2002--2003 NHL season)
+- `hs_hockey`: An dummy coded variable that indicates whether there is state organized high school hockey in the team's location (0 = no; 1 = yes). This is a proxy for whether there is a hockey tradition in the team's location.
+
+
+
+
+
+
+### Preview
+
+```{r}
+nhl = readr::read_csv(file = "~/Documents/github/epsy-8252/data/nhl.csv")
+head(nhl)
+```
+
+
+<!-- ### References -->
+
+
+
+

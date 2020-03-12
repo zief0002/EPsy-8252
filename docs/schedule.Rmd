@@ -251,7 +251,7 @@ Below is the tenative schedule for the class. The dates are subject to change at
 <tr>
 <td align="center" style="vertical-align:middle;">&nbsp;</td>
 <td>Mar. 05</td>
-<td>Mar. 16</td>
+<td>Mar. 18</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
   <a href="preparation.html#infocrit"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
@@ -270,14 +270,14 @@ Below is the tenative schedule for the class. The dates are subject to change at
 
 <tr>
 <td align="center" style="vertical-align:middle;">&nbsp;</td>
-<td>Mar. 17</td>
-<td>Mar. 18</td>
+<td>Mar. 19</td>
+<td>Mar. 23</td>
 </tr>
 
 <tr>
 <td align="center" style="vertical-align:middle;">&nbsp;</td>
-<td>Mar. 19</td>
-<td>Mar. 23</td>
+<td>Mar. 24</td>
+<td>Mar. 25</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
   <a href="preparation.html#mumin"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
@@ -296,8 +296,8 @@ Below is the tenative schedule for the class. The dates are subject to change at
 
 <tr>
 <td align="center" style="vertical-align:middle;">&nbsp;</td>
-<td>Mar. 24</td>
-<td>Mar. 25</td>
+<td>Mar. 26</td>
+<td>Mar. 30</td>
 </tr>
 
 
@@ -309,12 +309,12 @@ Below is the tenative schedule for the class. The dates are subject to change at
 
 <tr>
 <td align="center" style="vertical-align:middle;">&nbsp;</td>
-<td>Mar. 26</td>
-<td>Mar. 27</td>
+<td>Mar. 31</td>
+<td>Apr. 01</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
   <a href="preparation.html#lmer-intro"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
-<td style="vertical-align:middle;" rowspan="2">Introduction to Linear Mixed-Effects Models</td>
+<td style="vertical-align:middle;" rowspan="2">Introduction to LME Models</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/10-introduction-to-lmer.pdf">
     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
@@ -335,19 +335,19 @@ Below is the tenative schedule for the class. The dates are subject to change at
 
 <tr>
 <td align="center" style="vertical-align:middle;">&nbsp;</td>
-<td>Mar. 30</td>
-<td>Apr. 01</td>
+<td>Apr. 02</td>
+<td>Apr. 06</td>
 </tr>
 
 
 <tr>
 <td align="center" style="vertical-align:middle;">&nbsp;</td>
-<td>Apr. 02</td>
-<td>Apr. 06</td>
+<td>Apr. 07</td>
+<td>Apr. 08</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
   <a href="preparation.html#lmer-cross"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
 </td>
-<td style="vertical-align:middle;" rowspan="2">Linear Mixed-Effects Models: Cross-Sectional Analysis</td>
+<td style="vertical-align:middle;" rowspan="2">Cross-Sectional Analysis</td>
 <td align="center" style="vertical-align:middle;" rowspan="2">
   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/11-lmer-cross-sectional.pdf">
     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
@@ -368,8 +368,120 @@ Below is the tenative schedule for the class. The dates are subject to change at
 
 <tr>
 <td align="center" style="vertical-align:middle;">&nbsp;</td>
-<td>Apr. 07</td>
-<td>Apr. 08</td>
+<td>Apr. 09</td>
+<td>Apr. 13</td>
+</tr>
+
+
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Apr. 14</td>
+<td>Apr. 15</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="preparation.html#lmer-assump"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+<td style="vertical-align:middle;">Model Assumptions</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/12-lmer-assumptions.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/12-lmer-assumptions.Rmd">
+    <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/12-lmer-assumptions.R">
+    <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
+
+
+
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Apr. 16</td>
+<td>Apr. 20</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="preparation.html#lmer-long"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+<td style="vertical-align:middle;">Longitudinal Analysis</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/13-lmer-longitudinal.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/13-lmer-longitudinal.Rmd">
+    <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/13-lmer-longitudinal.R">
+    <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
+
+
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Apr. 21</td>
+<td>Apr. 22</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="preparation.html#lmer-long"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+<td style="vertical-align:middle;">Likelihood Rato Tests</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/14-likelihood-ratio-test.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/14-likelihood-ratio-test.Rmd">
+    <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/14-likelihood-ratio-test.R">
+    <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
+
+
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Apr. 23</td>
+<td>Apr. 27</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  <a href="preparation.html#lmer-long"><span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span></a>
+</td>
+<td style="vertical-align:middle;" rowspan="2">Longitudinal Analysis II</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/15-lmer-longitudinal-ii.pdf">
+    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/15-lmer-longitudinal-ii.Rmd">
+    <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/15-lmer-longitudinal-ii.R">
+    <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
+
+
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Apr. 28</td>
+<td>Apr. 29</td>
 </tr>
 
 
@@ -388,31 +500,7 @@ Below is the tenative schedule for the class. The dates are subject to change at
 
 
 
-<!-- <tr> -->
-<!-- <td>Apr. 01</td> -->
-<!-- <td>Apr. 02</td> -->
-<!-- <td>Unit 10: Linear Mixed-Effects Models: Assumptions</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://zief0002.github.io/book-8252/lmer-assumptions.html#preparation-9"> -->
-<!--     <span class="fa fa-book" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/10-lmer-assumptions.pdf"> -->
-<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/10-lmer-assumptions.Rmd"> -->
-<!--     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/10-lmer-assumptions.R"> -->
-<!--     <span class="fa fa-code" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- </tr> -->
+
 
 
 <!-- <tr> -->

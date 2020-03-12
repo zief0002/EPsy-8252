@@ -34,7 +34,7 @@ usnews %>%
 ##################################################
 
 # Drop rows with missing data
-educ = ed %>%
+educ = usnews %>%
   drop_na()
 
 
@@ -148,17 +148,27 @@ p1 = ggplot(data = educ, aes(x = gre_verbal, y = Lpeer)) +
   geom_point() +
   geom_smooth(se = FALSE) +
   theme_bw() +
-  ylab("Peer rating") +
-  xlab("ln(Mean Verbal GRE score)")
+  ylab("ln(Peer rating)") +
+  xlab("Mean Verbal GRE score")
 
 p2 = ggplot(data = educ, aes(x = gre_quant, y = Lpeer)) +
   geom_point() +
   geom_smooth(se = FALSE) +
   theme_bw() +
-  ylab("Peer rating") +
-  xlab("ln(Mean Quantitative GRE score)")
+  ylab("ln(Peer rating)") +
+  xlab("Mean Quantitative GRE score")
 
 p1 + p2
+
+
+# Log-transform GRE quant?
+ggplot(data = educ, aes(x = log(gre_quant), y = Lpeer)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_bw() +
+  ylab("ln(Peer rating)") +
+  xlab("ln(Mean Quantitative GRE score)")
+
 
 
 # Correlation matrix

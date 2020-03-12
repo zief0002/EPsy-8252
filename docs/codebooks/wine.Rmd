@@ -1,0 +1,47 @@
+---
+title: "wine.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+bibliography: '../../notes/epsy8252.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+The data in *wine.csv* includes data on 200 different wines. These data are a subset of a larger database ($n = 6,613$) from [wine.com](https://www.wine.com/), one of the biggest e-commerce wine retailers in the U.S. It allows customers to buy wine according to any price range, grape variety, country of origin, etc. The data were made available at [http://insightmine.com/](http://insightmine.com/bring-your-own-data-analyzing-wine-market/). The attributes include:
+
+- `wine`: Wine name
+- `vintage`: Year the wine was produced (centered so that 0 = 2008, 1 = 2009, etc.) 
+- `region`: Region of the world where the wine was produced. These data include seven regions (Australia, California, France, Italy, New Zealand, South Africa, South America).
+- `varietal`: Grape varietal These data include nine varietals (Cabernet Sauvignon, Chardonnay, Merlot, Pinot Noir, Sauvignon Blanc, Syrah/Shiraz, Zinfandel, Other Red, Other Whites).
+- `rating`: Wine rating on a 100-pt. scale (these are from sources such as *Wine Spectator*, the *Wine Advocate*, and the *Wine Enthusiast*)
+- `price`: Price in U.S. dollars
+
+
+### Preview
+
+```{r}
+wine = readr::read_csv(file = "~/Documents/github/epsy-8252/data/wine.csv")
+head(wine)
+```
+
+
+<!-- ### References -->

@@ -67,10 +67,10 @@ In this set of notes, we will use data from two files, the *netherlands-students
 
 ```{r message=FALSE, paged.print=FALSE}
 # Load libraries
-library(AICcmodavg)
 library(broom)
 library(educate)
 library(lme4) #for fitting mixed-effects models
+library(MuMIn)
 library(tidyverse)
 
 # Read in student-level data
@@ -329,10 +329,11 @@ We already examined the reduction in unexplained variation; including Verbal IQ 
 The table of model evidence (below) also strongly supports inclusion of the Verbal IQ predictor.
 
 ```{r}
-aictab(
-  cand.set = list(lmer.0, lmer.1),
-  modnames = c("Model A", "Model B")
-)
+#Create table of model evidence
+model.sel(
+  object = list(lmer.0, lmer.1), rank = "AICc"
+)  
+
 ```
 
 Lastly, we can examine the `tidy()` output of the conditional model (Model B) to examine the *t*-value associated with the fixed-effect of Verbal IQ.
@@ -401,10 +402,10 @@ $$
 The model evidence also seems to suggest that this conditional model is more likely given the data than either of the other two candidate model.
 
 ```{r}
-aictab(
-  cand.set = list(lmer.0, lmer.1, lmer.2),
-  modnames = c("Model A", "Model B", "Model C")
-)
+#Create table of model evidence
+model.sel(
+  object = list(lmer.0, lmer.1, lmer.2), rank = "AICc"
+) 
 ```
 
 Both the model evidence and variance explained values point toward the model that includes fixed-effects of verbal IQ, SES, and school type. What these values don't tell us is whether both covariates (SES and school type) are needed or whether we can drop one or the other. The *t*-values for each of the fixed-effects can help us think about this. Since all of the *t*-values in the model are greater than 2, this suggests that each of the predictors seems to be statistically relevant, controlling for the other predictors in the model.
