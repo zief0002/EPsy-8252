@@ -1,4 +1,4 @@
-# Online EPsy 8252
+# Moving Online
 
 
 
@@ -16,17 +16,27 @@ As you probably saw, the University of Minnesota will be [online until at least 
 
 Note the link is the same for both classes. If this is your first time using Zoom, you may need to download the Zoom client before you connect. You will also need to login using your x500 information. You can get more information about using Zoom at https://umn.zoom.us/
 
-The TAs and I will be available during our office hours, but as with classes, they will also be virtual. If you want to meet during regularly scheduled office hours, I am avaivale at the same Zoom link. (I will add links for Mireya and Amani once I have them.)
+<br />
+
+The TAs and I will be available during our office hours, but as with classes, they will also be virtual. If you want to meet during regularly scheduled office hours, I am available at the same Zoom link. (I will add links for Mireya and Amani once I have them.)
 
 - **Andy's Office Hours:** https://umn.zoom.us/j/8227826925
 - **Mireya's Office Hours:** TBA
 - **Amani's Office Hours:** TBA
 
+<br />
+
 If you want to schedule a separate time to meet virtually, please send a Google Calendar invite and enable the video conferencing option (`Add conferencing > Hangouts Meet`). This will create a Google Hangout link in the calendar event that we can connect to.
 
-As we make this (hopefully short-term) transition, I expect there to be some bumps along the way. The TAs and I will be flexible as we all sort out the processes and issues that crop up. Please also be flexible with us as we adapt. I encourage you to communicate with us so that we can help in any way we can. Take care of yourselves and your families. The university has several resources available to you, including [mental health resoucres](http://mentalhealth.umn.edu/).
+<br />
+
+As we make this (hopefully short-term) transition, I expect there to be some bumps along the way. The TAs and I will be flexible as we all sort out the processes and issues that crop up. Please also be flexible with us as we adapt. I encourage you to communicate with us so that we can help in any way we can. Take care of yourselves and your families. The university has several resources available to you, including [mental health resources](http://mentalhealth.umn.edu/).
+
+<br />
 
 Be seeing you in cyberspace soon.
+
+<br />
 
 Andy, Mireya, &amp; Amani
 
