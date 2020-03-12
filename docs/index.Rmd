@@ -121,6 +121,8 @@ For the topics listed, students would be expected to be able to carry out an app
 ```{r child = 'data.Rmd'}
 ```
 
+```{r child = 'covid19.Rmd'}
+```
 
 
 

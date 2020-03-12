@@ -127,7 +127,7 @@ head(vocabulary_long)
 ##################################################
 
 # Fit unconditional growth model
-lmer.1_quant = lmer(vocab_score ~ 1 + grade_quant + (1|id), data = vocabulary_long_2, REML = FALSE)
+lmer.1_quant = lmer(vocab_score ~ 1 + grade_quant + (1|id), data = vocabulary_long, REML = FALSE)
 
 
 # Coefficient-level output
@@ -145,7 +145,7 @@ tidy(lmer.1_quant)
 ##################################################
 
 # Fit unconditional growth model with centered grade
-lmer.1_quant_cent = lmer(vocab_score ~ 1 + grade_quant_center + (1|id), data = vocabulary_long_2, REML = FALSE)
+lmer.1_quant_cent = lmer(vocab_score ~ 1 + grade_quant_center + (1|id), data = vocabulary_long, REML = FALSE)
 
 
 # Coefficient-level output
@@ -164,12 +164,12 @@ tidy(lmer.1_quant_cent)
 
 # Quadratic model
 lmer.quad = lmer(vocab_score ~ 1 + grade_quant_center + I(grade_quant_center^2) + (1|id), 
-              data = vocabulary_long_2, REML = FALSE)
+              data = vocabulary_long, REML = FALSE)
 
 
 # Log-linear model
 lmer.log = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + (1|id), 
-              data = vocabulary_long_2, REML = FALSE)
+              data = vocabulary_long, REML = FALSE)
 
 
 
@@ -344,13 +344,13 @@ vocabulary_long %>%
 
 # Main effects model
 lmer.main  = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + female +
-                (1|id), data = vocabulary_long_2, REML = FALSE)
+                (1|id), data = vocabulary_long, REML = FALSE)
 
 
 # Interaction model
 lmer.int = lmer(vocab_score ~ 1 + log(grade_quant_center + 1) + female + 
                   log(grade_quant_center + 1):female +
-                (1|id), data = vocabulary_long_2, REML = FALSE)
+                (1|id), data = vocabulary_long, REML = FALSE)
 
 
 # Table of model-evidence
