@@ -312,3 +312,25 @@ In addition to the notes and what we cover in class, there many other resources 
 
 
 
+# Logistic Regression Models {#logistic}
+
+**Required**
+
+Before class you will need to read:
+
+- 3Blue1Brown. (2020, March 8). [*Exponential growth and epidemics*](https://www.youtube.com/watch?v=Kas0tIxDvrg) [Video file]
+
+
+
+**Additional Resources**
+
+In addition to the notes and what we cover in class, there many other resources for learning about using linear mixed-effects models for longitudinal analysis. Here are some resources that may be helpful in that endeavor:
+
+- Fox (Section 3.2.1) *The Binomial and Bernoulli Distributions* [Required Textbook]
+- Dunteman, G. H., &amp; Ho, M.-H. R. (2005). *An introduction to generalized linear models.* Sage.
+- Fox, J. (2015). *Applied regression analysis and generalized linear models* (3rd ed.). Sage
+
+
+
+---
+

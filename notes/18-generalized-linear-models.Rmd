@@ -1,55 +1,48 @@
 ---
 title: "Generalized Linear Models"
 date: "`r Sys.Date()`"
-header-includes:
-   - \usepackage{xcolor}
-   - \usepackage[framemethod=tikz]{mdframed}
-   - \usepackage{graphicx}
-   - \usepackage{rotating}
-   - \usepackage{booktabs}
-   - \usepackage{float}
-   - \usepackage{array}
-   - \definecolor{umn}{RGB}{153, 0, 85}
-   - \definecolor{umn2}{rgb}{0.1843137, 0.4509804, 0.5372549}
-   - \definecolor{myorange}{HTML}{EA6153}
 output: 
   pdf_document:
     latex_engine: xelatex
     highlight: zenburn
     fig_width: 6
     fig_height: 6
+header-includes: 
+  - \usepackage{graphicx}
+  - \usepackage{rotating}
+  - \usepackage{xcolor}
+  - \definecolor{umn}{HTML}{FF2D21}
+  - \usepackage{caption}
+  - \captionsetup[table]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \captionsetup[figure]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \usepackage{floatrow}
+  - \floatsetup[figure]{capposition=top}
+  - \floatsetup[table]{capposition=top}
+  - \usepackage{xfrac}
 mainfont: "Sabon"
 sansfont: "Futura"
-monofont: Inconsolata
-urlcolor: "umn2"
-bibliography: epsy8252.bib
+monofont: Inconsolata    
+urlcolor: "umn"
+bibliography: [epsy8251.bib, epsy8252.bib]
 csl: apa-single-spaced.csl
-always_allow_html: yes
 ---
 
-
-```{r setup, include=FALSE}
-options(digits = 3, scipen = 99)
-
-library(knitr)
-knitr::opts_chunk$set(
-  prompt = FALSE,
-  comment = NA,
-  message = FALSE,
-  warning = FALSE,
-  tidy = FALSE,
-  fig.align = 'center',
-  out.width = '3in',
-  echo = TRUE
-  )
-
-#library(printr)
-
-options(kableExtra.latex.load_packages = FALSE)
-library(kableExtra)
-```
-
+<!-- Set the document spacing -->
 \frenchspacing
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+library(rmdformats)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(prompt=FALSE, comment=NA, message=FALSE, warning=FALSE, tidy=FALSE, fig.width=6, fig.height=6,
+               fig.pos='H', fig.align='left')
+opts_knit$set(width=85)
+options(scipen=5)
+```
 
 
 In this set of notes, you will learn about the broader class of models that binomial logistic regression belongs to, generalized linear models.

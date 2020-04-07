@@ -2,14 +2,10 @@
 ### Load libraries
 ##################################################
 
-library(AICcmodavg)
 library(broom)
 library(corrr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(sm)
-library(tidyr)
+library(MuMIn)
+library(tidyverse)
 
 
 
@@ -99,8 +95,8 @@ log(0.17 / 0.83)
 glm.1 = glm(degree ~ 1 + act, data = grad, family = binomial(link = "logit"))
 
 
-# Output
-summary(glm.1)
+# Coefficient-level output
+tidy(glm.1)
 
 
 
@@ -116,30 +112,27 @@ exp(coef(glm.1))
 ### Plot of the fitted model
 ##################################################
 
-# Create the data to plot
-plotData = crossing(
-  act = seq(from = 10, to = 36, by = 1) 
-  ) %>%
-  mutate(
-    pi_hat = predict(glm.1, newdata = ., type = "response") #Predicted probabilities
-    )
-
-
-# Plot the data
-ggplot(data = plotData, aes(x = act, y = pi_hat)) +
-  geom_line() +
+ggplot(data = grad, aes(x = act, y = degree)) +
+  geom_point(alpha = 0) +
+  stat_function(
+    fun = function(x) {exp(-1.611 + 0.108*x) / (1 + exp(-1.611 + 0.108*x))}
+  ) +
   theme_bw() +
   xlab("ACT score") +
-  ylab("Predicted probability of graduating") + 
+  ylab("Predicted probability of graduating") +
   ylim(0, 1)
 
 
 
 ##################################################
-### Residual deviance
+### Model-level summaries
 ##################################################
 
-# Fit intercept-only model
+# Model-level output
+glance(glm.1)
+
+
+# Fit intercept-only model (baseline)
 glm.0 = glm(degree ~ 1, data = grad, family = binomial(link = "logit"))
 
 
@@ -164,10 +157,9 @@ anova(glm.0, glm.1, test = "LRT")
 ### Model evidence
 ##################################################
 
-aictab(
-  cand.set = list(glm.0, glm.1),
-  modnames = c("Intercept-only", "ACT score")
-) 
+model.sel(
+  list(glm.0, glm.1)
+)
 
 
 
@@ -179,8 +171,8 @@ aictab(
 glm.2 = glm(degree ~ 1 + act + firstgen, data = grad, family = binomial(link = "logit"))
 
 
-# Obtain summary output
-summary(glm.2)
+# Obtain coefficient-level output
+tidy(glm.2)
 
 
 # Back-transform coefficients for odds interpretation
@@ -192,26 +184,32 @@ exp(coef(glm.2))
 ### Plot the results from the fitted model
 ##################################################
 
-# Create data to plot
-plotData = crossing(
-  act = seq(from = 10, to = 36, by = 1), 
-  firstgen = c(0, 1)
-  ) %>%
-  mutate(
-    pi_hat = predict(glm.2, newdata = ., type = "response"), 
-    firstgen = factor(firstgen,  
-                      levels = c(0, 1),
-                      labels = c("Non First Generation Students", "First Generation Students")
-                      )
-    )
-
-    
-# Plot the data
-ggplot(data = plotData, aes(x = act, y = pi_hat, color = firstgen)) + 
-  geom_line() +
+ggplot(data = grad, aes(x = act, y = degree)) +
+  geom_point(alpha = 0) +
+  # Non-first generation students
+  stat_function(
+    fun = function(x) {exp(-1.48 + 0.0888*x) / (1 + exp(-1.481 + 0.088*x))},
+    linetype = "dashed",
+    color = "blue"
+  ) +
+  # First generation students
+  stat_function(
+    fun = function(x) {exp(-0.965 + 0.0888*x) / (1 + exp(-0.965 + 0.088*x))},
+    linetype = "solid",
+    color = "red"
+  ) +
   theme_bw() +
   xlab("ACT score") +
-  ylab("Predicted probability of graduating") + 
-  ylim(0, 1) +
-  scale_color_brewer(name = "", palette = "Set1")
+  ylab("Predicted probability of graduating") +
+  ylim(0, 1)
+
+
+
+##################################################
+### Model-level summaries
+##################################################
+
+# Model-level output
+glance(glm.2)
+
 

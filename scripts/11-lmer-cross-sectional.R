@@ -69,7 +69,8 @@ summary(lmer.0)
 ##################################################
 
 # Fit model
-lmer.1 = lmer(language_post ~ 1 + verbal_iq + (1 | school_id), data = joined_data, REML = FALSE)
+lmer.1 = lmer(language_post ~ 1 + verbal_iq + (1 | school_id), 
+              data = joined_data, REML = FALSE)
 
 
 

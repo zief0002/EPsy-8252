@@ -1,0 +1,55 @@
+---
+title: "graduation.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+    # includes:
+    #   after_body: doc-suffix.html
+bibliography: '../../notes/epsy8252.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+The data in [graduation.csv](https://github.com/zief0002/epsy-8252/raw/master/data/graduation.csv) include student-level attributes for $n=2344$ randomly sampled students who were first-year, full-time students from the 2002 cohort at a large, midwestern research university. Any students who transferred to another institution were removed from the data. The source of these data is: @Jones-White:2014. The attributes, collected for these students are:
+
+- `degree`: Dummy-coded variable to indicate whether the student graduateg from the institution (0 = No; 1 = Yes)
+- `act`: Student's ACT score (If the student reported a SAT score, a concordance table was used to transform the score to a comparable ACT score.)
+- `scholarship`: Amount of scholarship offered to student (in thousands of dollars)
+- `ap`: Number of Advanced Placement credits at time of enrollment
+- `firstgen`: Dummy-coded variable to indicate whether the student was a first generation college student? (0 = No; 1 = Yes)
+- `nontrad`: Dummy-coded variable to indicate whether the student was a non-traditional student (older than 19 years old at the time of enrollment)? (0 = No; 1 = Yes)
+
+
+
+### Preview
+
+```{r}
+options(dplyr.width = Inf, width = 85)
+grad = readr::read_csv(file = "~/Documents/github/epsy-8252/data/graduation.csv")
+head(grad)
+```
+
+
+### References
+
+
+
+

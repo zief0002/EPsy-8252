@@ -1,74 +1,61 @@
 ---
 title: "Logistic Regression"
 date: "`r Sys.Date()`"
-header-includes:
-   - \usepackage{xcolor}
-   - \usepackage[framemethod=tikz]{mdframed}
-   - \usepackage{graphicx}
-   - \usepackage{rotating}
-   - \usepackage{booktabs}
-   - \usepackage{float}
-   - \usepackage{array}
-   - \definecolor{umn}{RGB}{153, 0, 85}
-   - \definecolor{umn2}{rgb}{0.1843137, 0.4509804, 0.5372549}
-   - \definecolor{myorange}{HTML}{EA6153}
 output: 
   pdf_document:
     latex_engine: xelatex
     highlight: zenburn
     fig_width: 6
     fig_height: 6
+header-includes: 
+  - \usepackage{graphicx}
+  - \usepackage{rotating}
+  - \usepackage{xcolor}
+  - \definecolor{umn}{HTML}{FF2D21}
+  - \usepackage{caption}
+  - \captionsetup[table]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \captionsetup[figure]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \usepackage{floatrow}
+  - \floatsetup[figure]{capposition=top}
+  - \floatsetup[table]{capposition=top}
+  - \usepackage{xfrac}
 mainfont: "Sabon"
 sansfont: "Futura"
-monofont: Inconsolata
-urlcolor: "umn2"
-bibliography: epsy8252.bib
+monofont: Inconsolata    
+urlcolor: "umn"
+bibliography: [epsy8251.bib, epsy8252.bib]
 csl: apa-single-spaced.csl
-always_allow_html: yes
 ---
 
-
-```{r setup, include=FALSE}
-options(digits = 3, scipen = 99)
-
-library(knitr)
-knitr::opts_chunk$set(
-  prompt = FALSE,
-  comment = NA,
-  message = FALSE,
-  warning = FALSE,
-  tidy = FALSE,
-  fig.align = 'center',
-  out.width = '3in',
-  echo = TRUE
-  )
-
-#library(printr)
-
-options(kableExtra.latex.load_packages = FALSE)
-library(kableExtra)
-```
-
+<!-- Set the document spacing -->
 \frenchspacing
 
 
-In this set of notes, you will learn how logistic regression models can be used to model dichotomous outcome variables.
+```{r knitr_init, echo=FALSE, cache=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+library(rmdformats)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(prompt=FALSE, comment=NA, message=FALSE, warning=FALSE, tidy=FALSE, fig.width=6, fig.height=6,
+               fig.pos='H', fig.align='left')
+opts_knit$set(width=85)
+options(scipen=5)
+```
 
 
-# Dataset and Research Question
+# Preparation
 
-In this set of notes, we will use data from the file *graduation.csv* (see the [data codebook](https://zief0002.github.io/book-8252/data-codebook.html#vocabulary) here). These data include student-level attributes for $n=2344$ randomly sampled students who were first-time, full-time freshman from the 2002 cohort at a large, midwestern research university.
+In this set of notes, you will learn how to use logistic regression models to model dichotomous categorical outcome variables (e.g., dummy coded outcome). We will use data from the file *graduation.csv* (see the [data codebook](http://zief0002.github.io/epsy-8252/codebooks/graduation.html)) to explore predictors of college graduation. 
+
 
 ```{r message=FALSE}
 # Load libraries
-library(AICcmodavg)
 library(broom)
 library(corrr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(sm)
-library(tidyr)
+library(MuMIn)
+library(tidyverse)
 
 # Read in data
 grad = read_csv(file = "~/Documents/github/epsy-8252/data/graduation.csv")
@@ -76,8 +63,6 @@ grad = read_csv(file = "~/Documents/github/epsy-8252/data/graduation.csv")
 # View data
 head(grad)
 ```
-
-We will use these data to explore predictors of college graduation.
 
 In the last set of notes, we saw that using the linear probability model leads to direct violations of the linear model's assumptions. If that isn't problematic enough, it is possible to run into severe issues when we make predictions. For example, given the constant effect of $X$ in these models it is possible to have an $X$ value that results in a predicted proportion that is either greater than 1 or less than 0. This is a problem since proportions are constrained to the range of $\left[0,~1\right]$.
 
@@ -105,7 +90,7 @@ ggplot(data = graduates, aes(x = act, y = Prop)) +
   ylab("Proportion of graduates")
 ```
 
-\newpage
+
 
 # Alternative Models to the Linear Probability Model
 
@@ -253,10 +238,10 @@ For our example,
 glm.1 = glm(degree ~ 1 + act, data = grad, family = binomial(link = "logit"))
 ```
 
-The output of the model can be printed using `summary()`.
+The coefficient-level output of the model can be printed using `tidy()`.
 
 ```{r}
-summary(glm.1)
+tidy(glm.1)
 ```
 
 The fitted equation for the model is
@@ -324,42 +309,62 @@ From these values, we interpret the coefficients in the odds metric as
 
 ## Plotting the Results from the Fitted Model
 
-To even further understand and interpret the fitted model, we can plot the fitted values for a range of ACT scores. Typically the proportion of students graduating ($\hat\pi_i$) is what should be plotted, as that is what we were initially modeling. This process is exactly the same as the process of plotting fitted model results for any of the other models we have worked with. The only difference is that when we use the `predict()` function to get the fitted values, we have to specify that we want the $\hat\pi_i$ values (the default is logits). We do this by including the argument `type="response"`. Below we plot the results from our fitted logistic model.
+To even further understand and interpret the fitted model, we can plot the fitted values for a range of ACT scores. Typically the proportion of students graduating ($\hat\pi_i$) is what should be plotted, as that is what we were initially modeling. This process is exactly the same as the process of plotting fitted model results for any of the other models we have worked with. The one, challenge is that we need to write the equation as:
+
+$$
+\hat{\pi_i} = \mathrm{something}
+$$
+
+The general fitted equation for the logistic regression model is written as:
+
+$$
+\ln\bigg[\frac{\hat\pi_i}{1 - \hat\pi_i}\bigg] = \hat\beta_0 + \hat\beta_1(x_i)
+$$
+
+We need to isolate the $\hat\pi_i$ term on the left-hand side of the equation. To do this, we will use algebra. 
+
+$$
+\begin{split}
+\ln\bigg[\frac{\hat\pi_i}{1 - \hat\pi_i}\bigg] &= \hat\beta_0 + \hat\beta_1(x_i) \\[1em]
+\frac{\hat\pi_i}{1 - \hat\pi_i} &= e^{\hat\beta_0 + \hat\beta_1(x_i)} \\[1em]
+\hat\pi_i &= e^{\hat\beta_0 + \hat\beta_1(x_i)} (1 - \hat\pi_i) \\[1em]
+\hat\pi_i &= e^{\hat\beta_0 + \hat\beta_1(x_i)} - e^{\hat\beta_0 + \hat\beta_1(x_i)}(\hat\pi_i) \\[1em]
+\hat\pi_i + e^{\hat\beta_0 + \hat\beta_1(x_i)}(\hat\pi_i) &= e^{\hat\beta_0 + \hat\beta_1(x_i)} \\[1em]
+\hat\pi_i(1 + e^{\hat\beta_0 + \hat\beta_1(x_i)}) &= e^{\hat\beta_0 + \hat\beta_1(x_i)} \\[1em]
+\hat\pi_i &= \frac{e^{\hat\beta_0 + \hat\beta_1(x_i)}}{1 + e^{\hat\beta_0 + \hat\beta_1(x_i)}}
+\end{split}
+$$
+
+
+We include the right-side of this in the argument `fun=` of the `stat_function()` layer, substituting in the values for $\hat\beta_0$ and $\hat\beta_1$. Below we plot the results from our fitted logistic model.
 
 ```{r out.width='3in', fig.cap='Predicted probability of graduating college as a function of ACT score.', fig.pos='H'}
-# Create the data to plot
-plotData = crossing(
-  act = seq(from = 10, to = 36, by = 1)
-  ) %>%
-  mutate(
-    pi_hat = predict(glm.1, newdata = ., type = "response")
-  )
-
-# Plot the data
-ggplot(data = plotData, aes(x = act, y = pi_hat)) +
-  geom_line() +
+# Plot the fitted equation
+ggplot(data = grad, aes(x = act, y = degree)) +
+  geom_point(alpha = 0) +
+  stat_function(
+    fun = function(x) {exp(-1.611 + 0.108*x) / (1 + exp(-1.611 + 0.108*x))}
+    ) +
   theme_bw() +
   xlab("ACT score") +
   ylab("Predicted probability of graduating") +
   ylim(0, 1)
 ```
 
-The monotonic increase in the curve indicates the positive effect of ACT score on the probability of graduating. (Note that we typically interpret $\pi_i$ as probability rather than proportion when interpreting logistic models.) The magnitude of this effect depends on ACT score. For lower ACT scores there is a larger effect of ACT score on the probability of graduating than for higher ACT scores.
+The monotonic increase in the curve indicates the positive effect of ACT score on the probability of graduating. (Note that we typically interpret $\pi_i$ as probability rather than proportion when interpreting logistic models.) The magnitude of this effect depends on ACT score; the transformed curve is non-linear. For lower ACT scores there is a larger effect of ACT score on the probability of graduating than for higher ACT scores.
 
 
 # Model-Level Summaries
 
-The `summary()` output for the GLM model also included model-level information. For the model we fitted, the model-level information was
+The `glance()` output for the GLM model also included model-level information. For the model we fitted, the model-level output was:
 
-```
-    Null deviance: 2722.5  on 2343  degrees of freedom
-Residual deviance: 2633.2  on 2342  degrees of freedom
-AIC: 2637
-
-Number of Fisher Scoring iterations: 4
+```{r}
+# Model-level output
+glance(glm.1)
 ```
 
-The metric of measuring residual fit is the deviance (remember the deviance was $-2 \times$ log-likelihood). The *null deviance* is the residual deviance from fitting the intercept-only model.
+
+The metric of measuring residual fit is the deviance (remember the deviance was $-2 \times$ log-likelihood). The value in the `null.deviance` column is the residual deviance from fitting the intercept-only model. It acts as a baseline to compare other models.
 
 ```{r}
 # Fit intercept-only model
@@ -370,7 +375,7 @@ glm.0 = glm(degree ~ 1, data = grad, family = binomial(link = "logit"))
 ```
 
 
-The *residual deviance* is the residual deviance from fitting whichever model was fitted, in our case the model that used ACT score as a predictor.
+The value in the `deviance` column is the residual deviance from fitting whichever model was fitted, in our case the model that used ACT score as a predictor.
 
 ```{r}
 -2 * logLik(glm.1)[[1]]
@@ -378,7 +383,7 @@ The *residual deviance* is the residual deviance from fitting whichever model wa
 
 Recall that deviance is akin to the sum of squared residuals (SSE) in conventional linear regression; smaller values indicate less error. In our case, the model that includes ACT score as a predictor has less error than the intercept only model; its deviance is 90 less than the intercept-only model. 
 
-There are two ways to determine whether this decrease in deviance is statistically significant. The first is to examine the significance of the ACT predictor in the fitted model. Since that is the only predictor included above-and-beyond the intercept, the $p$-value associated with it indicates whether the ACT predictor is statistically relevant.
+There are two ways to determine whether this decrease in deviance is statistically significant. The first is to examine the $p$-value associated with the ACT predictor in the fitted model. Since that is the only predictor included above-and-beyond the intercept, the $p$-value associated with it indicates whether the ACT predictor is statistically relevant.
 
 The second method to test the improvement in deviance is a test of nested models. Since the intercept-only model is nested in the model that includes ACT as a predictor, we can use a *Likelihood Ratio Test* to examine this. To do so, we use the `anova()` function with the added argument `test="LRT"`.  
 
@@ -386,17 +391,14 @@ The second method to test the improvement in deviance is a test of nested models
 anova(glm.0, glm.1, test = "LRT")
 ```
 
-The null hypothesis of this test is that there is NO improvement in the deviance. The results of this test, $\chi^2(1)=89.3$, $p<.001$, indicate that we should reject the null hypothesis. The more complex model has significantly less error than the intercept-only model and should be adopted.
+The null hypothesis of this test is that there is NO improvement in the deviance. The results of this test, $\chi^2(1)=89.3$, $p<.001$, indicate that the observed difference of 89.3 is more than we would expect if the null hypothesis was true. In practice, this implies that the more complex model has significantly less error than the intercept-only model and should be adopted.
 
-We could have also used information criteria for making decisions about effects.
+We could have also used model evidence for making decisions about effects.
 
 ```{r}
-myAIC = aictab(
-  cand.set = list(glm.0, glm.1),
-  modnames = c("Intercept-only", "ACT score")
+model.sel(
+  list(glm.0, glm.1)
 )
-
-myAIC
 ```
 
 Here, given the data and the candidate set of models, there is overwhelming evidence to support the model that includes ACT score.
@@ -411,8 +413,8 @@ Including covariates in the logistic model is done the same way as for `lm()` mo
 # Fit model
 glm.2 = glm(degree ~ 1 + act + firstgen, data = grad, family = binomial(link = "logit"))
 
-# Obtain summary output
-summary(glm.2)
+# Coefficient-level output
+tidy(glm.2)
 ```
 
 The fitted equation is
@@ -441,38 +443,58 @@ The interpretations are:
 - Each one-point difference in ACT score is associated with improving the odds of graduating 1.09 times, on average, after controlling for whether o not the students are first generation college students.
 - First generation college students, on average, predicted odds of graduating are 1.67 times that of students who are not first generation students, after controlling for differences in ACT scores.
 
-We can also plot the predicted probability of graduating to aid interpretation.
+We can also plot the predicted probability of graduating to aid interpretation. Algebraically manipulating the fitted equation,
 
+$$
+\hat\pi_i = \frac{e^{-1.48 + 0.088(\mathrm{ACT}_i) + 0.515(\mathrm{First~Generation}_i)}}{1 + e^{-1.48 + 0.088(\mathrm{ACT}_i) + 0.515(\mathrm{First~Generation}_i)}}
+$$
 
-```{r fig.width=8, fig.height=6, fig.width=8, out.width='4.5in', fig.cap='Predicted probability of graduating college as a function of ACT score for first and non-first generation students.', fig.pos='H'}
-# Create data to plot
-plotData = crossing(
-  act = seq(from = 10, to = 36, by = 1),
-  firstgen = c(0, 1)
-  ) %>%
-  mutate(
-    pi_hat = predict(glm.2, newdata = ., type = "response"),
-    firstgen = factor(firstgen, 
-                      levels = c(0, 1), 
-                      labels = c("Non First Generation Students", "First Generation Students")
-                      )
-  )
+We can then produce the fitted equations for non-first generation and first generation students by substituting either 0 or 1, respectively, into the `firstgen` variable. These equations are:
 
+**Non-First Generation Students**
 
-# Plot the data
-ggplot(data = plotData, aes(x = act, y = pi_hat, color = firstgen)) +
-  geom_line() +
+$$
+\begin{split}
+\hat\pi_i &= \frac{e^{-1.48 + 0.088(\mathrm{ACT}_i) + 0.515(0)}}{1 + e^{-1.48 + 0.088(\mathrm{ACT}_i) + 0.515(0)}} \\[1em]
+&= \frac{e^{-1.48 + 0.088(\mathrm{ACT}_i)}}{1 + e^{-1.48 + 0.088(\mathrm{ACT}_i)}} 
+\end{split}
+$$
+
+**First Generation Students**
+
+$$
+\begin{split}
+\hat\pi_i &= \frac{e^{-1.48 + 0.088(\mathrm{ACT}_i) + 0.515(1)}}{1 + e^{-1.48 + 0.088(\mathrm{ACT}_i) + 0.515(1)}} \\[1em]
+&= \frac{e^{-0.965 + 0.088(\mathrm{ACT}_i)}}{1 + e^{-0.965 + 0.088(\mathrm{ACT}_i)}} 
+\end{split}
+$$
+
+We can include each of these in a `stat_function()` layer in our plot.
+
+\newpage
+
+```{r fig.width=8, fig.height=6, out.width='4in', fig.cap='Predicted probability of graduating college as a function of ACT score for first generation (solid, red line) and non-first generation (dashed, blue line) students.', fig.pos='H'}
+# Plot the fitted equations
+ggplot(data = grad, aes(x = act, y = degree)) +
+  geom_point(alpha = 0) +
+  # Non-first generation students
+  stat_function(
+    fun = function(x) {exp(-1.48 + 0.0888*x) / (1 + exp(-1.481 + 0.088*x))},
+    linetype = "dashed",
+    color = "blue"
+    ) +
+  # First generation students
+  stat_function(
+    fun = function(x) {exp(-0.965 + 0.0888*x) / (1 + exp(-0.965 + 0.088*x))},
+    linetype = "solid",
+    color = "red"
+    ) +
   theme_bw() +
   xlab("ACT score") +
   ylab("Predicted probability of graduating") +
-  ylim(0, 1) +
-  scale_color_brewer(name = "", palette = "Set1")
+  ylim(0, 1)
 ```
 
 
-## Other Resources {-}
 
-In addition to the notes and what we cover in class, there many other resources for learning about using binomial logistic regression models for analyzing binary data. Here are some resources that may be helpful in that endeavor:
-
-- Section 3.2.1: *The Binomial and Bernoulli Distributions* in Fox (2009) [Required Textbook]
 

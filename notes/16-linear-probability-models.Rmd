@@ -1,72 +1,63 @@
 ---
 title: "Linear Probability Models"
 date: "`r Sys.Date()`"
-header-includes:
-   - \usepackage{xcolor}
-   - \usepackage[framemethod=tikz]{mdframed}
-   - \usepackage{graphicx}
-   - \usepackage{rotating}
-   - \usepackage{booktabs}
-   - \usepackage{float}
-   - \usepackage{array}
-   - \definecolor{umn}{RGB}{153, 0, 85}
-   - \definecolor{umn2}{rgb}{0.1843137, 0.4509804, 0.5372549}
-   - \definecolor{myorange}{HTML}{EA6153}
 output: 
   pdf_document:
     latex_engine: xelatex
     highlight: zenburn
     fig_width: 6
     fig_height: 6
+header-includes: 
+  - \usepackage{graphicx}
+  - \usepackage{rotating}
+  - \usepackage{xcolor}
+  - \definecolor{umn}{HTML}{FF2D21}
+  - \usepackage{caption}
+  - \captionsetup[table]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \captionsetup[figure]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \usepackage{floatrow}
+  - \floatsetup[figure]{capposition=top}
+  - \floatsetup[table]{capposition=top}
+  - \usepackage{xfrac}
 mainfont: "Sabon"
 sansfont: "Futura"
-monofont: Inconsolata
-urlcolor: "umn2"
-bibliography: epsy8252.bib
+monofont: Inconsolata    
+urlcolor: "umn"
+bibliography: [epsy8251.bib, epsy8252.bib]
 csl: apa-single-spaced.csl
-always_allow_html: yes
 ---
 
-
-```{r setup, include=FALSE}
-options(digits = 3, scipen = 99)
-
-library(knitr)
-knitr::opts_chunk$set(
-  prompt = FALSE,
-  comment = NA,
-  message = FALSE,
-  warning = FALSE,
-  tidy = FALSE,
-  fig.align = 'center',
-  out.width = '3in',
-  echo = TRUE
-  )
-
-#library(printr)
-
-options(kableExtra.latex.load_packages = FALSE)
-library(kableExtra)
-```
-
+<!-- Set the document spacing -->
 \frenchspacing
 
 
-In this set of notes, you will learn how about linear probability models, and why they should not be used when the outcome is a dummy coded categorical variable.
+```{r knitr_init, echo=FALSE, cache=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+library(rmdformats)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(prompt=FALSE, comment=NA, message=FALSE, warning=FALSE, tidy=FALSE, fig.width=6, fig.height=6,
+               fig.pos='H', fig.align='left')
+opts_knit$set(width=85)
+options(scipen=5)
+```
 
 
-# Dataset and Research Question
+# Preparation
 
-In this set of notes, we will use data from the file *graduation.csv* (see the [data codebook](https://zief0002.github.io/book-8252/data-codebook.html#vocabulary) here). These data include student-level attributes for $n=2344$ randomly sampled students who were first-time, full-time freshman from the 2002 cohort at a large, midwestern research university.
+In this set of notes, you will learn how about linear probability models, and why they are not typically used to model dichotomous categorical outcome variables (e.g., dummy coded outcome). We will use data from the file *graduation.csv* (see the [data codebook](http://zief0002.github.io/epsy-8252/codebooks/graduation.html)) to explore predictors of college graduation. 
+
+
 
 ```{r message=FALSE}
 # Load libraries
 library(broom)
 library(corrr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(sm)
+library(educate)
+library(patchwork)
+library(tidyverse)
 
 # Read in data
 grad = read_csv(file = "~/Documents/github/epsy-8252/data/graduation.csv")
@@ -75,13 +66,13 @@ grad = read_csv(file = "~/Documents/github/epsy-8252/data/graduation.csv")
 head(grad)
 ```
 
-We will use these data to explore predictors of college graduation.
+Note that in these analyses the outcome variable (`degree`) is a dichotomous dummy-coded categorical variable indicating whether or not a student graduated.
 
 \newpage
 
 # Data Exploration
 
-To begin the analysis, we will explore the outcome variable `degree`. Since this is a dichotomous variable, we can look at counts/proportions. The analysis suggests that most freshmen who enroll at this institution tend to graduate (73\%). 
+To begin the analysis, we will explore the outcome variable `degree`. Since this is a categorical variable, we can look at counts and proportions. The analysis suggests that most students in the sample tend to graduate (73\%). 
 
 ```{r}
 grad %>% 
@@ -96,8 +87,16 @@ We will also explore the `act` variable, which we will use as a predictor in the
 
 ```{r out.width='3in', fig.cap='Density plot of the ACT scores.', fig.pos='H'}
 # Density plot
-sm.density(grad$act, xlab = "ACT score")
+ggplot(data = grad, aes(x = act)) +
+  geom_density() +
+  theme_bw() +
+  xlab("ACT score") +
+  ylab("Probability density")
+```
 
+\newpage
+
+```{r}
 # Summary measures
 grad %>% 
   summarize( 
@@ -106,26 +105,22 @@ grad %>%
     )
 ```
 
-The distribution is approximately normal and indicates that freshmen at this institution have a mean ACT score near 25. While there is a great deal of variation in ACT scores (scores range from 10 to 36), most students have a score between 21 and 29. 
+The distribution is unimodal and symmetric. It indicates that the sample of students have a mean ACT score near 25. While there is a great deal of variation in ACT scores (scores range from 10 to 36), most students have a score between 21 and 29. 
 
 
 ## Relationship between ACT Score and Graduation
 
-When the outcome variable was continous, we examined relationships graphically via a scatterplot. If we try that when the outcome is dichotomous, we run into problems.
+When the outcome variable was continous, we examined relationships graphically via a scatterplot. If we try that when the outcome is dichotomous, we run into problems. Since there are only two values for the outcome, many of the observations are over-plotted, and it is impossible to tell anything about the relationship between the variables. 
 
-```{r out.width='3in', fig.cap='Scatterplot of whether a student graduated versus ACT score.', fig.pos='H'}
+```{r out.width='45%', fig.cap='Scatterplot of whether a student graduated versus ACT score. In the right-hand plot, the points have been jittered to alleviate over-plotting, and the regression smoother has also been added to the plot.', fig.pos='H', fig.show='hold'}
+# Scatterplot
 ggplot(data = grad, aes(x = act, y = degree)) +
   geom_point() +
   theme_bw() +
   xlab("ACT score") +
   ylab("Graduated")
-```
 
-Since there are only two values for the outcome, many of the observations are over-plotted, and it is impossible to tell anything about the relationship between the variables. One solution to this problem is to add (or subtract) a tiny amount to each student's `degree` value. This is called "jittering" the observations". To do this, use the `jitter()` function. (Note that the amount of jittering can be adjusted by including an additional argument to the `jitter()` function.)
-
-\newpage
-
-```{r out.width='3in', fig.cap='Scatterplot of whether a student graduated versus ACT score. The points have been jittered to alleviate over-plotting, and the regression smoother has also been added to the plot.', fig.pos='H'}
+# Jittered scatterplot
 ggplot(data = grad, aes(x = act, y = jitter(degree))) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -134,7 +129,7 @@ ggplot(data = grad, aes(x = act, y = jitter(degree))) +
   ylab("Graduated")
 ```
 
-This spreads out the observations vertically, so we no longer have the problem of overplotting. But, the relationship is still difficult to discern. Adding the regression smoother helps us see that there is a positive relationship between ACT scores and graduation. 
+One solution to this problem is to add (or subtract) a tiny amount to each student's `degree` value. This is called "jittering" the observations". To do this, use the `jitter()` function. (Note that the amount of jittering can be adjusted by including an additional argument to the `jitter()` function.) This spreads out the observations vertically, so we no longer have the problem of overplotting. But, the relationship is still difficult to see in this scatterplot. Adding the regression smoother helps us see that there is a positive relationship between ACT scores and graduation. 
 
 What does this mean? To understand this, we have to think about what the linear regression is modeling. Remember that the regression model is predicting the average $Y$ at each $X$. Since our $Y$ is dichotomous, the average represents the proportion of students with a 1. In other words, the regression predicts the proportion of students who graduate for a particular ACT score. The positive relationship between ACT score and graduation suggests that higher ACT scores are associated with higher proportions of students who graduate. We can also see this relationship by examining the correlation matrix between the two variables.
 
@@ -158,7 +153,7 @@ lm.1 = lm(degree ~ 1 + act, data = grad)
 glance(lm.1)
 ```
 
-Differences in ACT score account for 3.8\% of the variation in graduation. This is statistically significant, $F(1,~2342)=92.8$, $p<.001$. 
+Differences in ACT score account for 3.8\% of the variation in graduation. This is more than we would expect by chance if the null hypothesis was true, $F(1,~2342)=92.8$, $p<.001$. 
 
 ```{r}
 # Coefficient-level- output
@@ -180,15 +175,25 @@ where $\hat{\pi}_i$ is the predicted proportion of students who graduate. Interp
 
 Let's examine the model assumptions.
 
-```{r out.width='3in', fig.cap='Density plot of the standardized residuals from the linear probability model.', fig.pos='H'}
+```{r}
+# Augment the model
 out = augment(lm.1)
-#head(out)
-
-# Examine normality assumption
-sm.density(out$.std.resid, xlab = "Standardized residuals")
 ```
 
-```{r out.width='3in', fig.cap='Scatterplot of the standardized residuals versus the fitted values from the linear probability model.', fig.pos='H'}
+\newpage
+
+```{r out.width='45%', fig.cap='LEFT: Density plot of the standardized residuals from the linear probability model. RIGHT: Scatterplot of the standardized residuals versus the fitted values from the linear probability model.', fig.pos='H', fig.show='hold'}
+# View augmented data
+head(out)
+
+# Examine normality assumption
+ggplot(data = out, aes(x = .std.resid)) +
+  stat_density_confidence() +
+  geom_density() +
+  theme_bw() +
+  xlab("Standardized residuals") +
+  ylab("Probability density")
+
 # Examine linearity and homoskedasticity
 ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
   geom_point() +
@@ -198,13 +203,14 @@ ggplot(data = out, aes(x = .fitted, y = .std.resid)) +
   ylab("Standardized residuals")
 ```
 
+
 \newpage
 
 It is clear that the assumptions associated with linear regression are violated. First off, the residuals are not normally distributed. They are in fact, bimodal. The scatterplot of the residuals versus the fitted values also indicates violation of the linearity assumption, as the average residual at each fitted value is not zero.
 
 ## Understanding the Residuals from the Linear Probability Model
 
-Look closely at the scatterplot of the residuals vs. the fitted values. At each fitted value, there are only two residual values. Why is this? Recall that residuals are computed as $\epsilon_i=Y_i - \hat{Y}_i$. Now, remember that $Y_i$ can only be one of two values, 0 or 1. Also remember that in the linear probability model $\hat{Y}_i=\hat{\pi}_i$. Thus, for $Y=0$,
+Look closely at the scatterplot of the residuals versus the fitted values. At each fitted value, there are only two residual values. Why is this? Recall that residuals are computed as $\epsilon_i=Y_i - \hat{Y}_i$. Now, remember that $Y_i$ can only be one of two values, 0 or 1. Also remember that in the linear probability model $\hat{Y}_i=\hat{\pi}_i$. Thus, for $Y=0$,
 
 $$
 \begin{split}
@@ -225,9 +231,4 @@ $$
 
 This means that the residual computed using a particular fitted value (or from a particular ACT value given that the fitted values is a function of $X$) can only take on one of two values: $- \hat{\pi}_i$ or $1 - \hat{\pi}_i$. (Plotting the residuals for all fitted values, the marginal distribution of the residuals, results in a bimodal distribution for this same reason.)
 
-<!-- ## Other Resources {-} -->
 
-<!-- In addition to the notes and what we cover in class, there many other resources for learning about using linear mixed-effects models for longitudinal analysis. Here are some resources that may be helpful in that endeavor: -->
-
-<!-- - Long, J. D. (2012). [Longitudinal data analysis for the behavioral sciences using R](http://www.amazon.com/Longitudinal-Analysis-Behavioral-Sciences-Using/dp/1412982685). Thousand Oaks, CA: Sage. -->
-<!-- - Swihart, B. J., Caffo, B., James, B. D., Strand, M., Schwartz, B. S., &amp; Punjabi, N. M. (2010). [Lasagna plots: A saucy alternative to spaghetti plots.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2937254/) *Epidemiology, 21*(5), 621&ndash;625. -->

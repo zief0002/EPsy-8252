@@ -1,0 +1,48 @@
+---
+title: "same-sex-marriage.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+bibliography: '../../notes/epsy8251.bib'
+csl: '../../notes/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+The data in [same-sex-marriage.csv](https://github.com/zief0002/epsy-8251/raw/master/data/same-sex-marriage.csv) were collected from the 2008 American National Election Study, conducted jointly by the University of Michigan and Stanford University. These particular data consist of 1,746 American's responses. The attributes are:
+
+- `support`: Dummy-coded variable indicating whether the respondent supports gay marriage? (1=Yes; 0=No)
+- `attendance`: Frequency the respondent attends religious services (0=Never; 1=Few times a year; 2=Once or twice a month; 3=Almost every week; 4=Every week) 
+- `denomination`: Respondent's religious denomination? (Catholic; Jewish; Protestant; Other)
+- `friends`: Does the respondent have family or friends that are LGBT? (1=Yes; 0=No)
+- `age`: Respondent's age, in years
+- `female`: Dummy-coded variable indicating whether the respondent is female (1=Yes; 0=No)
+
+
+### Preview
+
+```{r}
+options(dplyr.width = Inf, width = 85)
+same_sex = readr::read_csv(file = "~/Documents/github/epsy-8252/data/same-sex-marriage.csv")
+head(same_sex)
+```
+
+
+### References

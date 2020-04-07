@@ -157,8 +157,16 @@ nba_teams = read_csv(file = "~/Documents/github/epsy-8252/data/nba-team-data.csv
 
 
 # Join the datasets together
+nba =  left_join(nba_players, nba_teams, by = "team")
+
+
+# Join using piping
 nba = nba_players %>%
   left_join(nba_teams, by = "team")
+
+
+
+
 
 head(nba)
 

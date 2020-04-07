@@ -4,10 +4,10 @@
 
 library(broom)
 library(corrr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(sm)
+library(educate)
+library(patchwork)
+library(tidyverse)
+
 
 
 
@@ -39,7 +39,11 @@ grad %>%
 ##################################################
 
 # Density plot
-sm.density(grad$act, xlab = "ACT score")
+ggplot(data = grad, aes(x = act)) +
+  geom_density() +
+  theme_bw() +
+  xlab("ACT score") +
+  ylab("Probability density")
 
 
 # Summary measures
@@ -104,7 +108,12 @@ head(out)
 
 
 # Examine normality assumption
-sm.density(out$.std.resid, xlab = "Standardized residuals")
+ggplot(data = out, aes(x = .std.resid)) +
+  stat_density_confidence() +
+  geom_density() +
+  theme_bw() +
+  xlab("Standardized residuals") +
+  ylab("Probability density")
 
 
 # Examine linearity and homoskedasticity
