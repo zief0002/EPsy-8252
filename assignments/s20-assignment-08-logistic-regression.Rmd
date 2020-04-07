@@ -1,5 +1,5 @@
 ---
-title: "Assignment 07"
+title: "Assignment 08 (Optional)"
 author: "Logistic Regression"
 header-includes:
    - \usepackage{xcolor}
