@@ -257,19 +257,19 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 </td>
 </tr>
 
-<!-- <tr> -->
-<!-- <td>same-sex-marriage.csv</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/data/same-sex-marriage.csv"> -->
-<!--     <span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://zief0002.github.io/book-8252/data-codebook.html#same-sex-marriage"> -->
-<!--     <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- </tr> -->
+<tr>
+<td>same-sex-marriage.csv</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="https://github.com/zief0002/epsy-8252/raw/master/data/same-sex-marriage.csv">
+    <span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+<td align="center" style="vertical-align:middle;">
+  <a href="http://zief0002.github.io/epsy-8252/codebooks/same-sex-marriage.html">
+    <span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span>
+  </a>
+</td>
+</tr>
 
 <!-- <tr> -->
 <!-- <td>stop-and-frisk.csv</td> -->
