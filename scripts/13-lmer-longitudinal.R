@@ -24,6 +24,12 @@ head(vocabulary)
 ### Convert from wide to long structured data
 ##################################################
 
+vocabulary %>%
+  pivot_longer(
+    cols = vocab_08:vocab_11
+  )
+
+
 vocabulary_long = vocabulary %>%
   pivot_longer(
     cols = vocab_08:vocab_11, 
@@ -69,17 +75,18 @@ tidy(lmer.0)
 
 
 # Compute variance components
-1.35 ^ 2 #Residual
-1.72 ^ 2 #Intercept
+1.35 ^ 2 #Residual (Level-1: Time point; 38%)
+1.72 ^ 2 #Intercept (Level-2: Students; 62%)
 
-
+1.8225 / (1.8225 + 2.9584)
 
 ##################################################
 ### Unconditional growth model (categorical grade)
 ##################################################
 
-# Fit unconditional growth model
-lmer.1 = lmer(vocab_score ~ 1 + grade + (1|id), data = vocabulary_long, REML = FALSE)
+# Fit unconditional growth model (RM-ANOVA-like results)
+lmer.1 = lmer(vocab_score ~ 1 + grade + (1|id), 
+              data = vocabulary_long, REML = FALSE)
 
 
 # Coefficient-level output
@@ -90,7 +97,8 @@ tidy(lmer.1)
 0.899 ^ 2 #Residual
 1.791 ^ 2 #Intercept
 
-
+(1.35 ^ 2 - 0.899^2) / 1.35 ^ 2
+(1.72 ^ 2 - 1.791 ^ 2) / 1.72 ^ 2
 
 ##################################################
 ### Lookup table
@@ -127,7 +135,8 @@ head(vocabulary_long)
 ##################################################
 
 # Fit unconditional growth model
-lmer.1_quant = lmer(vocab_score ~ 1 + grade_quant + (1|id), data = vocabulary_long, REML = FALSE)
+lmer.1_quant = lmer(vocab_score ~ 1 + grade_quant + (1|id), 
+                    data = vocabulary_long, REML = FALSE)
 
 
 # Coefficient-level output
@@ -145,7 +154,8 @@ tidy(lmer.1_quant)
 ##################################################
 
 # Fit unconditional growth model with centered grade
-lmer.1_quant_cent = lmer(vocab_score ~ 1 + grade_quant_center + (1|id), data = vocabulary_long, REML = FALSE)
+lmer.1_quant_cent = lmer(vocab_score ~ 1 + grade_quant_center + (1|id), 
+                         data = vocabulary_long, REML = FALSE)
 
 
 # Coefficient-level output

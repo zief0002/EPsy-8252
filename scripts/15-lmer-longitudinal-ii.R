@@ -224,6 +224,14 @@ model.sel(
 )
 
 
+# Table of model evidence
+model.sel(
+  object = list(lmer.0, lmer.1, lmer.2, lmer.3, lmer.4),
+  rank = "AICc"
+)
+
+
+
 
 ##################################################
 ### Main Effect Model

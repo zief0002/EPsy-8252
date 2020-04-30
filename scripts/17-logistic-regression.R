@@ -52,7 +52,9 @@ example = data.frame(
   w = seq(from = -4, to = 4, by = 0.01)
   ) %>%
   mutate(
-    Lambda = 1 / (1 + exp(-w))
+    Lambda = 1 / (1 + exp(-w)),
+    Odds = Lambda / (1 - Lambda),
+    Log_odds = log(Odds)
     ) 
 
 

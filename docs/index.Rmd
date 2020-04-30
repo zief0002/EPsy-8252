@@ -119,6 +119,15 @@ Prerequisites include *EPsy 8251: Methods in Data Analysis for Educational Resea
 
 For the topics listed, students would be expected to be able to carry out an appropriate data analysis and properly interpret the results. It is also assumed that everyone enrolled in the course has some familiarity with using R. If you need a refresher on any of these topics, see the [EPsy 8251 course notes](https://zief0002.github.io/epsy-8251/).
 
+### Other QME Courses
+
+If you are wondering what to take after EPsy 8252, there are many advanced courses offered by QME. The "flowchart" below indicates those offerings and also any other prerequisite courses you may need. Blurred out courses are not offered in 2020-21. (I created this from memory since those documents are at school.) 
+
+- [QME Course Offerings](misc/qme-course-map-2020-04-29.pdf)
+
+Advanced statistics courses are also offered in many other departments around campus, most notably in the Statistics Department, and in Public Health (Biostatistics).  
+
+
 
 ```{r child = 'schedule.Rmd'}
 ```
