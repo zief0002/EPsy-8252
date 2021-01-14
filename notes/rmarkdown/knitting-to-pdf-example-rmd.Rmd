@@ -1,0 +1,41 @@
+---
+title: "Untitled"
+author: "Andrew Zieffler"
+date: "1/8/2021"
+output: 
+  pdf_document:
+    highlight: zenburn
+header-includes: 
+  - \usepackage{caption}
+  - \captionsetup[table]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \captionsetup[figure]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
+  - \usepackage{floatrow}
+  - \floatsetup[figure]{capposition=top}
+  - \floatsetup[table]{capposition=top}  
+bibliography: "myBibliography.bib"
+csl: "apa-single-spaced.csl"
+---
+
+# Some R Syntax
+
+```{r summary_cars}
+summary(cars)
+```
+
+
+# Adding Citations
+
+Add multiple references by including multiple citation identifiers separated by a semicolon [e.g., @ross_racial_2020; @carmichael_laziness_1954]
+
+
+# An Equation
+
+The regression equation is:
+
+$$
+Y_i = \beta_0 + \beta_1(X_i) + \epsilon_i
+$$
+
+
+# References
+

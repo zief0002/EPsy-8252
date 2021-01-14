@@ -1,0 +1,44 @@
+---
+title: "Untitled"
+author: "Andrew Zieffler"
+date: "12/30/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Read in data
+city = read_csv(file = "~/Documents/github/epsy-8252/data/riverview.csv")
+head(city)
+
+# Fit regression model
+lm.1 = lm(income ~ 1 + education + seniority, data = city)
+
+# Coefficient-level output
+tidy(lm.1)
+```
+
+
+## Prediction Intervals
+
+The RMSE also is a measure of the prediction uncertainty of the model. For example, if you wanted to estimate the income for a city employee who had 12 years of education and 3 years of seniority, we could use the fitted equation to make a prediction:
+
+$$
+\begin{split}
+\hat{\mathrm{Income}}_i &= 6.77 + 2.25(12) + 0.74(3) \\[1ex]
+&=35.99
+\end{split}
+$$
+
+We would predict such an employee to earn about 36,000 dollars. Using the RMSE to compute a 95% prediction interval, we obtain:
+
+$$
+36 \pm 2(7.65) = \bigg[20.7,~ 51.3\bigg]
+$$
+
+Although on average we expect an employee with 12 years of education and 3 years of seniority to earn \$36,000, given the uncertainty, they may earn as little as \$20,700 or as much as \$51,300. We have a lot of uncertainty in our estimates for individual cases!
+
+A prediction interval is quite different from a confidence interval. In our example, the prediction interval is trying to account for uncertainty in *all individual employee's* salaries who have education level of 12 and seniority of 3 (think of it as trying to predict the range of salaries for those employees; although it only predicts the range for the midddle 95% of those employees), while the confidence interval would be accounting for uncertainty in the *mean salary* for employees who have education level of 12 and seniority of 3.

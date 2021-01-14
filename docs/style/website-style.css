@@ -1,0 +1,56 @@
+.header-panel {
+  background-image: url("../img/blue-texture.jpg");
+  background-color: #9c27b0;
+  min-height: 144px;
+  position: relative;
+  z-index: 3;
+}
+
+.header-panel h1 {
+    color: #FFF;
+    font-size: 28px;
+    padding-left: 35px;
+    padding-bottom: 80px;
+}
+
+
+a:link {
+  color: rgb(0, 102, 119);
+  text-decoration: underline;
+}
+
+a:visited {
+  color: rgb(0, 102, 119);
+}
+
+a:active {
+  color: rgb(0, 102, 119);
+}
+
+a:hover {
+  color: #FF2600;
+}
+
+.pages h1 {
+  color: #333;
+}
+
+table{
+  margin-left: auto; 
+  margin-right:auto; 
+  border-bottom: 1px solid black;
+  font-size: 80%;
+  width: 100%;
+}
+
+
+table thead tr {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+table tbody tr {
+  border-bottom: 1px solid black;
+}
+
+

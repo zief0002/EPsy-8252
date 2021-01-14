@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Markdown - Slides</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Andrew Zieffler" />
+    <script src="xaringan-example_files/header-attrs/header-attrs.js"></script>
+    <link href="xaringan-example_files/remark-css/default.css" rel="stylesheet" />
+    <link href="xaringan-example_files/remark-css/default-fonts.css" rel="stylesheet" />
+    <script src="xaringan-example_files/htmlwidgets/htmlwidgets.js"></script>
+    <script src="xaringan-example_files/jquery/jquery.min.js"></script>
+    <link href="xaringan-example_files/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="xaringan-example_files/datatables-binding/datatables.js"></script>
+    <link href="xaringan-example_files/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="xaringan-example_files/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="xaringan-example_files/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="xaringan-example_files/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="xaringan-example_files/crosstalk/js/crosstalk.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: inverse, center, middle
+background-image: url('figs/title-slide-bg.png')
+background-size: cover
+background-position: left top
+
+
+# More R Markdown
+
+&lt;img src="figs/andy-avatar.png" width="150px"/&gt;
+
+### CREATING SLIDES WITH XARINGAN
+
+Andrew Zieffler | EPsy 8252 | Spring 2021
+
+???
+
+Image credit: Hex stickers from https://github.com/rstudio/hex-stickers
+
+---
+
+layout: true
+
+background-image: url('figs/goldy.png'), url('figs/goldy.png'), url('figs/goldy.png')
+background-position: 95% 95%, 95% 5%, 5% 95%
+background-size: 10%, 20%, 30%
+
+---
+
+# About Me
+
+My name is Andy and I have two rescue dogs. 
+
+---
+
+class: center, middle
+
+# Sadie
+
+Sadie is a 10-year old sprollie; a springer spaniel/border collie mix.
+
+???
+
+Sadie is white with black spots.
+
+---
+
+# Hank
+
+Hank is a three-year old chi-weenie; a chihuahua/long-haired dachshund mix.   
+
+--
+
+&lt;br /&gt;
+
+&lt;img src="https://z.umn.edu/hank" alt="Image of Hank" width="40%" style="display:block; margin-left:auto; margin-right:auto;" /&gt;
+
+--
+
+.right[Hello Hank!]
+
+???
+
+Hank is brown with tan feet and chin.
+
+
+---
+
+# Gardening
+
+.pull-left[
+I like to garden. I have replaced most of the grass in my yard with paths and gardens.
+]
+
+
+.pull-right[
+![Andy's Garden](https://z.umn.edu/andy_garden)
+]
+
+???
+
+This is on the west side of our house.
+
+
+---
+
+# Some R Syntax
+
+
+```r
+# Load library
+library(tidyverse)
+
+# Find mean dist for each speed for speed&lt;10
+cars %&gt;%
+  filter(speed &lt; 10) %&gt;%
+  group_by(speed) %&gt;%
+  summarize(M = mean(dist)) %&gt;%
+  ungroup()
+```
+
+```
+*## # A tibble: 4 x 2
+##   speed     M
+*##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     4     6
+## 2     7    13
+## 3     8    16
+## 4     9    10
+```
+
+---
+
+# A Plot
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="xaringan-example_files/figure-html/unnamed-chunk-2-1.png" alt="Scatterplot of stopping distance versus speed." width="504" /&gt;
+&lt;p class="caption"&gt;Scatterplot of stopping distance versus speed.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Code First; Plot Second
+
+.pull-left[
+
+```r
+# Create plot
+ggplot(data = cars, aes(x = speed, y = dist)) +
+  geom_point() +
+  xlab("Speed") +
+  ylab("Stopping distance") +
+  theme_light()
+```
+]
+
+.pull-right[
+![](xaringan-example_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+
+
+---
+
+# Plot First; Code Second
+
+.pull-left[
+
+![](xaringan-example_files/figure-html/plot-first-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+```r
+# Create plot
+ggplot(data = cars, aes(x = speed, y = dist)) +
+  geom_point() +
+  xlab("Speed") +
+  ylab("Stopping distance") +
+  theme_light()
+```
+]
+
+---
+
+# A Table
+
+
+```{=html}
+&lt;div id="htmlwidget-7bb90c8d6708ab6218d4" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-7bb90c8d6708ab6218d4"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50"],[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17,17,18,18,18,18,19,19,19,20,20,20,20,20,22,23,24,24,24,24,25],[2,10,4,22,16,10,18,26,34,17,28,14,20,24,28,26,34,34,46,26,36,60,80,20,26,54,32,40,32,40,50,42,56,76,84,36,46,68,32,48,52,56,64,66,54,70,92,93,120,85]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;speed&lt;\/th&gt;\n      &lt;th&gt;dist&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+```
+
+---
+
+background-image: url(https://z.umn.edu/mn-flower)
+background-position: center
+background-size: contain
+class: center, middle
+
+# Background Image
+
+Background Size = contain
+
+---
+
+background-image: url(https://z.umn.edu/mn-flower)
+background-position: center
+background-size: cover
+class: center, middle
+
+# Background Image
+
+Background Size = cover
+
+---
+
+background-image: url(https://z.umn.edu/andy_garden)
+background-position: center
+background-size: cover
+class: center, middle, inverse
+
+# Background Image
+
+Inverse enabled
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

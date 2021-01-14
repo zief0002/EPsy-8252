@@ -1,132 +1,40 @@
----
-title: "Preparation"
-output: 
-  rmdformats::html_docco:
-    css: 'codebooks/codebooks.css'
----
-
-
-```{r knitr_init, echo=FALSE, cache=FALSE}
-library(knitr)
-library(rmdformats)
-library(fontawesome)
-
-## Global options
-options(max.print="75")
-opts_chunk$set(echo=FALSE,
-	             cache=TRUE,
-               prompt=FALSE,
-               tidy=TRUE,
-               comment=NA,
-               message=FALSE,
-               warning=FALSE)
-opts_knit$set(width=75)
-```
+# Readings
 
 
 As part of the course, there are several articles, papers and technical reports that you will need to read during the semester. Most of the articles themselves are accessible through the University of Minnesota library website (http://www.lib.umn.edu). In order to access the full text of some of the articles, you will need to log in using your University x500 username and password. More detailed information, including references or links to specific readings, are given below.
 
 
-# Welcome to EPsy 8252 {#welcome}
+## Welcome to EPsy 8252 {#welcome}
 
 **Required**
 
-Download and read through the course syllabus.
-
-- [Course Syllabus](https://github.com/zief0002/epsy-8252/raw/master/syllabus/s20-8252-syllabus.pdf) [pdf]
-
-
-Download and install R and RStudio:
-
-- Download R from the [R Project website](https://www.r-project.org/) and install it on your computer.
-- Download the free version of RStudio from the [RStudio website](https://www.rstudio.com/) and install it on your computer.
+- Download and read through the [course syllabus](https://github.com/zief0002/epsy-8252/raw/master/syllabus/s21-8252-syllabus.pdf)
+- Make sure you have the most recent versions of [R (version 4.0.3; *Bunny-Wunnies Freak Out*)](https://www.r-project.org/) and [RStudio (version 1.3.1093)](https://www.rstudio.com/) installed on your computer. You can update RStudio by "Checking for Updates" within RStudio. To determine which version of R you have installed, type `R.version` in the console. To update R, you will have to download the most current version and install it from the website.
 
 ---
 
 
-# Introduction to RMarkdown {#rmarkdown}
+## Introduction to RMarkdown {#rmarkdown}
 
 **Required**
 
-- Download the [sample BibTeX file](https://github.com/zief0002/epsy-8252/raw/master/notes/01-rmarkdown/myBibliography.bib)
+- Download the [sample BibTeX file](https://github.com/zief0002/epsy-8252/raw/master/notes/rmarkdown/myBibliography.bib)
 - Download the CSL style file for the [American Psychological Association 7th edition (single-spaced bibliography)](https://www.zotero.org/styles). Make sure you save this so that it has the *.csl* extension.
-- Install the R package **tinytex**. This package will allow you to compile to PDF. Once you have the package installed run `tinytex::install_tinytex()` in the RStudio Console. You can read more of the [documentation here](https://yihui.name/tinytex/). 
+
 
 <br />
-
-Read the following:
-
-- [Unit 01: Introduction to RMarkdown Notes](https://github.com/zief0002/epsy-8252/raw/master/notes/01-rmarkdown/01-rmarkdown.pdf)
-
 
 **Additional Resources**
 
 In addition to the notes and what we cover in class, there many other resources for learning about R Markdown. Here are some resources that may be helpful in that endeavor:
 
-- [Rmarkdown (and friends) Tutorial](http://www.flutterbys.com.au/stats/tut/tut17.5.html#h2_1)
-- [Getting Started with RMarkdown](https://ourcodingclub.github.io/2016/11/24/rmarkdown-1.html)
-- [R Markdown documentation:](http://rmarkdown.rstudio.com/) Official R Markdown documentation from RStudio
-- [R Markdown cheatsheet:](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) What it sounds like; a cheatsheet for R Markdown
-- [knitr:](http://yihui.name/knitr/) Document and code chunk options for R Markdown
-- [R Markdown Gallery:](https://rmarkdown.rstudio.com/gallery.html) - Gallery of some R Markdown outputs
-- [Pimp my Rmd:](https://holtzy.github.io/Pimp-my-rmd/) Blog post providing a few tips to improve the appearance of output documents.
+- [<span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span> Knitting to PDF [Notes]](https://github.com/zief0002/epsy-8252/raw/master/notes/rmarkdown/s21-knitting-to-pdf)
+- [<span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span> Slides with xaringan [Notes]](https://github.com/zief0002/epsy-8252/raw/master/notes/rmarkdown/s21-slides-with-xaringan.pdf)
 
 
 ---
 
-# Polynomial Regression {#polynomial}
-
-**Required**
-
-- Refresh your knowledge about parabolas and quadratic functions by going though the [Khan Academy Parabolas Intro](https://www.khanacademy.org/math/algebra-home/alg-quadratics)
-
-
-**Additional Resources**
-
-In addition to the notes and what we cover in class, there are many other resources for learning about polynomial functions. Here are some resources that may be helpful in that endeavor:
-
-- [Varsity Tutors: Quadratic Function](https://www.varsitytutors.com/hotmath/hotmath_help/topics/quadratic-function)
-- [Math Centre: Polynomial Function](http://www.mathcentre.ac.uk/resources/uploaded/mc-ty-polynomial-2009-1.pdf)
-- [Overfitting: A guided tour](https://www.alexpghayes.com/blog/overfitting-a-guided-tour/)
-
----
-
-# Log-Transforming the Predictor {#logpredictor}
-
-**Required**
-
-- Refresh your knowledge about logarithms by going though the [Khan Academy Intro to Logarithms](https://www.khanacademy.org/math/algebra2/exponential-and-logarithmic-functions/introduction-to-logarithms/v/logarithms) tutorial.
-
-
-**Additional Resources**
-
-In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor:
-
-- [Math with Bad Drawings: ABC Book of e](https://mathwithbaddrawings.com/2018/02/05/the-abc-book-of-e/)
-- 
-
----
-
-# Log-Transforming the Outcome {#logoutcome}
-
-**Required**
-
-Read the following:
-
-- Osborne, Jason (2002). [Notes on the use of data transformations](https://pareonline.net/getvn.asp?v=8&n=6). *Practical Assessment, Research &amp; Evaluation, 8*(6).
-
-
-**Additional Resources**
-
-In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor:
-
-- [UCLA IDRE: Interpreting Log-Transformed Variables in Regression ](https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faqhow-do-i-interpret-a-regression-model-when-some-variables-are-log-transformed/)
-- [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta)
-
----
-
-
-# Probability Distributions {#probdist}
+## Working with Probability Distributions {#probdist}
 
 **Required**
 
@@ -136,6 +44,7 @@ Read the following:
 - Fox (Sections 3.3.1&ndash;3.3.4)*Continuous Distributions* [Required Textbook]
 - Refresh your knowledge about probability distributions by going though the [Kahn Academy: Random Variables and Probability Distributions](https://www.khanacademy.org/math/probability/random-variables-topic) tutorial.
 
+<br />
 
 **Additional Resources**
 
@@ -147,137 +56,167 @@ In addition to the notes and what we cover in class, there are many other resour
 
 ---
 
-
-# Maximum Likelihood Estimation {#mle}
+## Likelihood: A Framework of Evidence and Estimation {#likelihood}
 
 **Required**
 
 Read the following:
 
-- Fox (Section 3.1.2) *Random Variables* [Required Textbook] 
+- Johansson, T. (2011). [Hail the impossible: p-values, evidence, and likelihood](https://primo.lib.umn.edu/permalink/f/dkvf4l/TN_cdi_proquest_miscellaneous_857811790). *Scandinavian Journal of Psychology, 52*, 113&ndash;125
+- Refresh your knowledge about logarithms by going though the [Khan Academy Intro to Logarithms](https://www.khanacademy.org/math/algebra2/exponential-and-logarithmic-functions/introduction-to-logarithms/v/logarithms) tutorial.
+
+
+**Additional Resources**
+
+In addition to the notes and what we cover in class, there are many other resources for learning about likelihood. Here are some resources that may be helpful in that endeavor:
+
 - Myung, J. (2003). [Tutorial on maximum likelihood estimation](http://times.cs.uiuc.edu/course/410/note/mle.pdf). *Journal of Mathematical Psychology, 47*, 90&ndash;100.
-
-
-<!-- **Additional Resources** -->
-
-<!-- In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor: -->
-
-<!-- - [Interpreting Coefficients in Regression with Log-Transformed Variables](https://www.cscu.cornell.edu/news/statnews/stnews83.pdf) -->
-<!-- - [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta) -->
+- Royall, R. (1997). *Statistical evidence: A likelihood paradigm.* Chapman &amp; Hall/CRC.
 
 ---
 
-# Building a Set of Candidate Models {#modelbuilding}
+<!--## Polynomial Regression {#polynomial}
+
+**Required**
+
+- Refresh your knowledge about parabolas and quadratic functions by going though the [Khan Academy Parabolas Intro](https://www.khanacademy.org/math/algebra-home/alg-quadratics)
+
+<br />
+
+**Additional Resources**
+
+In addition to the notes and what we cover in class, there are many other resources for learning about polynomial functions. Here are some resources that may be helpful in that endeavor:
+
+- [Varsity Tutors: Quadratic Function](https://www.varsitytutors.com/hotmath/hotmath_help/topics/quadratic-function)
+- [Math Centre: Polynomial Function](http://www.mathcentre.ac.uk/resources/uploaded/mc-ty-polynomial-2009-1.pdf)
+- [Overfitting: A guided tour](https://www.alexpghayes.com/blog/overfitting-a-guided-tour/)
+
+---
+
+## Log-Transforming the Predictor {#logpredictor}
+
+**Required**
+
+
+
+<br />
+
+**Additional Resources**
+
+In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor:
+
+- [Math with Bad Drawings: ABC Book of e](https://mathwithbaddrawings.com/2018/02/05/the-abc-book-of-e/)
+- 
+
+---
+
+## Log-Transforming the Outcome {#logoutcome}
 
 **Required**
 
 Read the following:
 
-- Elliott, L. P., &amp; Brook, B. W. (2007). [Revisiting Chamberlin: Multiple working hypotheses for the 21st century](https://academic.oup.com/bioscience/article/57/7/608/238555). *BioScience, 57*(7), 608&ndash;614.
+- Osborne, Jason (2002). [Notes on the use of data transformations](https://pareonline.net/getvn.asp?v=8&n=6). *Practical Assessment, Research &amp; Evaluation, 8*(6).
+
+<br />
+
+**Additional Resources**
+
+In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor:
+
+- [UCLA IDRE: Interpreting Log-Transformed Variables in Regression ](https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faqhow-do-i-interpret-a-regression-model-when-some-variables-are-log-transformed/)
+- [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta)
+
+---
+
+
+
+
+
+
+
+
+
+<!-- # Building a Set of Candidate Models {#modelbuilding} -->
+
+<!-- **Required** -->
+
+<!-- Read the following: -->
+
+<!-- - Elliott, L. P., &amp; Brook, B. W. (2007). [Revisiting Chamberlin: Multiple working hypotheses for the 21st century](https://academic.oup.com/bioscience/article/57/7/608/238555). *BioScience, 57*(7), 608&ndash;614. -->
+
+
+<!-- <!-- **Additional Resources** --> 
+
+<!-- <!-- In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor: --> 
+
+<!-- <!-- - [Interpreting Coefficients in Regression with Log-Transformed Variables](https://www.cscu.cornell.edu/news/statnews/stnews83.pdf) -->
+<!-- <!-- - [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta) -->
+
+<!-- --- -->
+
+<!-- # Information Criteria for Model Selection {#infcrit} -->
+
+<!-- **Required** -->
+
+<!-- Read up to the *Multimodel Inference* section in the following: -->
+
+<!-- - Burnham, K. P., Anderson, D. R., &amp; Huyvaert, K. P. (2010). [AIC model selection and multimodel inference in behavioral ecology: Some background, observations, and comparisons](https://link-springer-com.ezp3.lib.umn.edu/article/10.1007/s00265-010-1029-6). *Behavioral Ecology and Sociobiology, 65*(1), 23&ndash;35. -->
 
 
 <!-- **Additional Resources** -->
 
-<!-- In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor: -->
+<!-- In addition to the notes and what we cover in class, there are many other resources for learning about information criteria. Here are some resources that may be helpful in that endeavor: -->
 
-<!-- - [Interpreting Coefficients in Regression with Log-Transformed Variables](https://www.cscu.cornell.edu/news/statnews/stnews83.pdf) -->
-<!-- - [Interpret Regression Coefficient Estimates](http://www.cazaar.com/ta/econ113/interpreting-beta) -->
+<!-- - Anderson, David R. (2008). [Model based inference in the life sciences: A primer on evidence](https://link-springer-com.ezp3.lib.umn.edu/book/10.1007%2F978-0-387-74075-1). New York: Springer. -->
+<!-- - Burnham, Kenneth P., &amp; Anderson, David R. (2002). [Model selection and multimodel inference: A practical information-theoretic approach](http://ecologia.ib.usp.br/bie5782/lib/exe/fetch.php?media=bie5782:pdfs:burnham_anderson2002.pdf). New York: Springer. -->
 
----
+<!-- --- -->
 
-# Information Criteria for Model Selection {#infcrit}
+<!-- # Multimodel Inference {#mumin} -->
 
-**Required**
+<!-- **Required** -->
 
-Read up to the *Multimodel Inference* section in the following:
+<!-- Read the *Multimodel Inference* section in the following: -->
 
-- Burnham, K. P., Anderson, D. R., &amp; Huyvaert, K. P. (2010). [AIC model selection and multimodel inference in behavioral ecology: Some background, observations, and comparisons](https://link-springer-com.ezp3.lib.umn.edu/article/10.1007/s00265-010-1029-6). *Behavioral Ecology and Sociobiology, 65*(1), 23&ndash;35.
-
-
-**Additional Resources**
-
-In addition to the notes and what we cover in class, there are many other resources for learning about information criteria. Here are some resources that may be helpful in that endeavor:
-
-- Anderson, David R. (2008). [Model based inference in the life sciences: A primer on evidence](https://link-springer-com.ezp3.lib.umn.edu/book/10.1007%2F978-0-387-74075-1). New York: Springer.
-- Burnham, Kenneth P., &amp; Anderson, David R. (2002). [Model selection and multimodel inference: A practical information-theoretic approach](http://ecologia.ib.usp.br/bie5782/lib/exe/fetch.php?media=bie5782:pdfs:burnham_anderson2002.pdf). New York: Springer.
-
----
-
-# Multimodel Inference {#mumin}
-
-**Required**
-
-Read the *Multimodel Inference* section in the following:
-
-- Burnham, K. P., Anderson, D. R., &amp; Huyvaert, K. P. (2010). [AIC model selection and multimodel inference in behavioral ecology: Some background, observations, and comparisons](https://link-springer-com.ezp3.lib.umn.edu/article/10.1007/s00265-010-1029-6). *Behavioral Ecology and Sociobiology, 65*(1), 23&ndash;35.
-
-
-**Additional Resources**
-
-In addition to the notes and what we cover in class, there are many other resources for learning about multimodel inference. Here are some resources that may be helpful in that endeavor:
-
-- Anderson, David R. (2008). [Model based inference in the life sciences: A primer on evidence](https://link-springer-com.ezp3.lib.umn.edu/book/10.1007%2F978-0-387-74075-1). New York: Springer.
-- Burnham, Kenneth P., &amp; Anderson, David R. (2002). [Model selection and multimodel inference: A practical information-theoretic approach](http://ecologia.ib.usp.br/bie5782/lib/exe/fetch.php?media=bie5782:pdfs:burnham_anderson2002.pdf). New York: Springer.
-
----
-
-# Introduction to Linear Mixed-Effects Models {#lmer-intro}
-
-**Required**
-
-Before class you will need to read:
-
-- Grolemund, G., &amp; Wickham, H. (2017). [Relational data.](https://r4ds.had.co.nz/) In *R for data science: Visualize, model, transform, tidy, and import data.* O’Reilly.
+<!-- - Burnham, K. P., Anderson, D. R., &amp; Huyvaert, K. P. (2010). [AIC model selection and multimodel inference in behavioral ecology: Some background, observations, and comparisons](https://link-springer-com.ezp3.lib.umn.edu/article/10.1007/s00265-010-1029-6). *Behavioral Ecology and Sociobiology, 65*(1), 23&ndash;35. -->
 
 
 <!-- **Additional Resources** -->
 
-<!-- In addition to the notes and what we cover in class, there are many other resources for learning about using linear mixed-effects models for cross-sectional analysis. Here are some resources that may be helpful in that endeavor: -->
+<!-- In addition to the notes and what we cover in class, there are many other resources for learning about multimodel inference. Here are some resources that may be helpful in that endeavor: -->
 
-<!-- - Hofmann, D. A., & Gavin, M. B. (1998). [Centering decisions in hierarchical linear models: Implications for research in organizations](https://primo.lib.umn.edu/primo-explore/fulldisplay?docid=TN_sciversesciencedirect_elsevierS0149-2063(99)80077-4&context=PC&vid=TWINCITIES&search_scope=mncat_discovery&tab=article_discovery&lang=en_US). *Journal of Management, 24*(5), 623&ndash;641. -->
-<!-- - Scherbaum, C. A., & Ferreter, J. M. (2009). [Estimating statistical power and required sample sizes for organizational research using multilevel modeling](https://journals-sagepub-com.ezp2.lib.umn.edu/doi/pdf/10.1177/1094428107308906). *Organizational Research Methods, 12*(2), 347&ndash;367. -->
+<!-- - Anderson, David R. (2008). [Model based inference in the life sciences: A primer on evidence](https://link-springer-com.ezp3.lib.umn.edu/book/10.1007%2F978-0-387-74075-1). New York: Springer. -->
+<!-- - Burnham, Kenneth P., &amp; Anderson, David R. (2002). [Model selection and multimodel inference: A practical information-theoretic approach](http://ecologia.ib.usp.br/bie5782/lib/exe/fetch.php?media=bie5782:pdfs:burnham_anderson2002.pdf). New York: Springer. -->
 
+<!-- --- -->
 
-# Cross-Sectional Linear Mixed-Effects Models {#lmer-cross}
+<!-- # Introduction to Linear Mixed-Effects Models {#lmer-intro} -->
 
-**Required**
+<!-- **Required** -->
 
-Before class you will need to read:
+<!-- Before class you will need to read: -->
 
-- Hayes, A. F. (2006). [A primer on multilevel modeling.](http://onlinelibrary.wiley.com/doi/10.1111/j.1468-2958.2006.00281.x/abstract) *Human Communication Research, 32*(4), 385&ndash;410.
-
-Focus on the information on mutating joins.
-
-
-**Additional Resources**
-
-In addition to the notes and what we cover in class, there are many other resources for learning about using linear mixed-effects models for cross-sectional analysis. Here are some resources that may be helpful in that endeavor:
-
-- Hofmann, D. A., & Gavin, M. B. (1998). [Centering decisions in hierarchical linear models: Implications for research in organizations](https://primo.lib.umn.edu/primo-explore/fulldisplay?docid=TN_sciversesciencedirect_elsevierS0149-2063(99)80077-4&context=PC&vid=TWINCITIES&search_scope=mncat_discovery&tab=article_discovery&lang=en_US). *Journal of Management, 24*(5), 623&ndash;641.
-- Scherbaum, C. A., & Ferreter, J. M. (2009). [Estimating statistical power and required sample sizes for organizational research using multilevel modeling](https://journals-sagepub-com.ezp2.lib.umn.edu/doi/pdf/10.1177/1094428107308906). *Organizational Research Methods, 12*(2), 347&ndash;367.
+<!-- - Grolemund, G., &amp; Wickham, H. (2017). [Relational data.](https://r4ds.had.co.nz/) In *R for data science: Visualize, model, transform, tidy, and import data.* O’Reilly. -->
 
 
-For **table formatting** using R Markdown, check out:
+<!-- <!-- **Additional Resources** --> 
 
-- [Stargazer for lmer Models](http://svmiller.com/blog/2015/02/quasi-automating-the-inclusion-of-random-effects-in-rs-stargazer-package/)
+<!-- <!-- In addition to the notes and what we cover in class, there are many other resources for learning about using linear mixed-effects models for cross-sectional analysis. Here are some resources that may be helpful in that endeavor: -->
 
-
-If you are interested in the estimation of the coefficients, see:
-
-- [Estimation of the Log-Likelihood in lmer](http://stackoverflow.com/questions/20980116/how-does-lmer-from-the-r-package-lme4-compute-log-likelihood)
+<!-- <!-- - Hofmann, D. A., & Gavin, M. B. (1998). [Centering decisions in hierarchical linear models: Implications for research in organizations](https://primo.lib.umn.edu/primo-explore/fulldisplay?docid=TN_sciversesciencedirect_elsevierS0149-2063(99)80077-4&context=PC&vid=TWINCITIES&search_scope=mncat_discovery&tab=article_discovery&lang=en_US). *Journal of Management, 24*(5), 623&ndash;641. -->
+<!-- <!-- - Scherbaum, C. A., & Ferreter, J. M. (2009). [Estimating statistical power and required sample sizes for organizational research using multilevel modeling](https://journals-sagepub-com.ezp2.lib.umn.edu/doi/pdf/10.1177/1094428107308906). *Organizational Research Methods, 12*(2), 347&ndash;367. --> 
 
 
----
+<!-- # Cross-Sectional Linear Mixed-Effects Models {#lmer-cross} -->
 
+<!-- **Required** -->
 
-# Linear Mixed-Effects Models: Model Assumptions {#lmer-assump}
+<!-- Before class you will need to read: -->
 
-**Required**
+<!-- - Hayes, A. F. (2006). [A primer on multilevel modeling.](http://onlinelibrary.wiley.com/doi/10.1111/j.1468-2958.2006.00281.x/abstract) *Human Communication Research, 32*(4), 385&ndash;410. -->
 
-Before class you will need to read the section on **Residual Analysis** in:
-
-- Loy, A. (2014). [HLMdiag: A suite of diagnostics for hierarchical linear models in R.](https://www.jstatsoft.org/article/view/v056i05/v56i05.pdf) *Journal of Statistical Software, 56*(5), 1&ndash;28.
-
+<!-- Focus on the information on mutating joins. -->
 
 
 <!-- **Additional Resources** -->
@@ -287,50 +226,81 @@ Before class you will need to read the section on **Residual Analysis** in:
 <!-- - Hofmann, D. A., & Gavin, M. B. (1998). [Centering decisions in hierarchical linear models: Implications for research in organizations](https://primo.lib.umn.edu/primo-explore/fulldisplay?docid=TN_sciversesciencedirect_elsevierS0149-2063(99)80077-4&context=PC&vid=TWINCITIES&search_scope=mncat_discovery&tab=article_discovery&lang=en_US). *Journal of Management, 24*(5), 623&ndash;641. -->
 <!-- - Scherbaum, C. A., & Ferreter, J. M. (2009). [Estimating statistical power and required sample sizes for organizational research using multilevel modeling](https://journals-sagepub-com.ezp2.lib.umn.edu/doi/pdf/10.1177/1094428107308906). *Organizational Research Methods, 12*(2), 347&ndash;367. -->
 
----
+
+<!-- For **table formatting** using R Markdown, check out: -->
+
+<!-- - [Stargazer for lmer Models](http://svmiller.com/blog/2015/02/quasi-automating-the-inclusion-of-random-effects-in-rs-stargazer-package/) -->
 
 
-# Linear Mixed-Effects Models: Longitudinal Analyses {#lmer-long}
+<!-- If you are interested in the estimation of the coefficients, see: -->
 
-**Required**
-
-Before class you will need to read:
-
-- Uchikoshi, Y. (2005). [Narrative development in bilingual kindergarteners: Can Arthur help?](http://psycnet.apa.org.ezp3.lib.umn.edu/journals/dev/41/3/464) *Developmental Psychology, 41*(3), 464&ndash;478. doi: 10.1037/0012-1649.41.3.464
+<!-- - [Estimation of the Log-Likelihood in lmer](http://stackoverflow.com/questions/20980116/how-does-lmer-from-the-r-package-lme4-compute-log-likelihood) -->
 
 
-
-**Additional Resources**
-
-In addition to the notes and what we cover in class, there many other resources for learning about using linear mixed-effects models for longitudinal analysis. Here are some resources that may be helpful in that endeavor:
-
-- Long, J. D. (2012). [Longitudinal data analysis for the behavioral sciences using R](http://www.amazon.com/Longitudinal-Analysis-Behavioral-Sciences-Using/dp/1412982685). Thousand Oaks, CA: Sage.
-<!-- - Swihart, B. J., Caffo, B., James, B. D., Strand, M., Schwartz, B. S., &amp; Punjabi, N. M. (2010). [Lasagna plots: A saucy alternative to spaghetti plots.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2937254/) *Epidemiology, 21*(5), 621&ndash;625. -->
-- Tierney, N. (2020). [Making better spaghetti (plots): Exploring the individuals in longitudinal data with the brolgar pac.](https://resources.rstudio.com/rstudio-conf-2020/making-better-spaghetti-plots-exploring-the-individuals-in-longitudinal-data-with-the-brolgar-pac-dr-nicholas-tierney) Presentation at RStudio Conf. [video]
-
----
+<!-- --- -->
 
 
+<!-- # Linear Mixed-Effects Models: Model Assumptions {#lmer-assump} -->
 
-# Logistic Regression Models {#logistic}
+<!-- **Required** -->
 
-**Required**
+<!-- Before class you will need to read the section on **Residual Analysis** in: -->
 
-Before class you will need to read:
-
-- 3Blue1Brown. (2020, March 8). [*Exponential growth and epidemics*](https://www.youtube.com/watch?v=Kas0tIxDvrg) [Video file]
+<!-- - Loy, A. (2014). [HLMdiag: A suite of diagnostics for hierarchical linear models in R.](https://www.jstatsoft.org/article/view/v056i05/v56i05.pdf) *Journal of Statistical Software, 56*(5), 1&ndash;28. -->
 
 
 
-**Additional Resources**
+<!-- <!-- **Additional Resources** --> 
 
-In addition to the notes and what we cover in class, there many other resources for learning about using linear mixed-effects models for longitudinal analysis. Here are some resources that may be helpful in that endeavor:
+<!-- <!-- In addition to the notes and what we cover in class, there are many other resources for learning about using linear mixed-effects models for cross-sectional analysis. Here are some resources that may be helpful in that endeavor: --> 
 
-- Fox (Section 3.2.1) *The Binomial and Bernoulli Distributions* [Required Textbook]
-- Dunteman, G. H., &amp; Ho, M.-H. R. (2005). *An introduction to generalized linear models.* Sage.
-- Fox, J. (2015). *Applied regression analysis and generalized linear models* (3rd ed.). Sage
+<!-- <!-- - Hofmann, D. A., & Gavin, M. B. (1998). [Centering decisions in hierarchical linear models: Implications for research in organizations](https://primo.lib.umn.edu/primo-explore/fulldisplay?docid=TN_sciversesciencedirect_elsevierS0149-2063(99)80077-4&context=PC&vid=TWINCITIES&search_scope=mncat_discovery&tab=article_discovery&lang=en_US). *Journal of Management, 24*(5), 623&ndash;641. --> 
+<!-- <!-- - Scherbaum, C. A., & Ferreter, J. M. (2009). [Estimating statistical power and required sample sizes for organizational research using multilevel modeling](https://journals-sagepub-com.ezp2.lib.umn.edu/doi/pdf/10.1177/1094428107308906). *Organizational Research Methods, 12*(2), 347&ndash;367. -->
+
+<!-- --- -->
+
+
+<!-- # Linear Mixed-Effects Models: Longitudinal Analyses {#lmer-long} -->
+
+<!-- **Required** -->
+
+<!-- Before class you will need to read: -->
+
+<!-- - Uchikoshi, Y. (2005). [Narrative development in bilingual kindergarteners: Can Arthur help?](http://psycnet.apa.org.ezp3.lib.umn.edu/journals/dev/41/3/464) *Developmental Psychology, 41*(3), 464&ndash;478. doi: 10.1037/0012-1649.41.3.464 -->
 
 
 
----
+<!-- **Additional Resources** -->
+
+<!-- In addition to the notes and what we cover in class, there many other resources for learning about using linear mixed-effects models for longitudinal analysis. Here are some resources that may be helpful in that endeavor: -->
+
+<!-- - Long, J. D. (2012). [Longitudinal data analysis for the behavioral sciences using R](http://www.amazon.com/Longitudinal-Analysis-Behavioral-Sciences-Using/dp/1412982685). Thousand Oaks, CA: Sage. -->
+<!-- <!-- - Swihart, B. J., Caffo, B., James, B. D., Strand, M., Schwartz, B. S., &amp; Punjabi, N. M. (2010). [Lasagna plots: A saucy alternative to spaghetti plots.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2937254/) *Epidemiology, 21*(5), 621&ndash;625. --> 
+<!-- - Tierney, N. (2020). [Making better spaghetti (plots): Exploring the individuals in longitudinal data with the brolgar pac.](https://resources.rstudio.com/rstudio-conf-2020/making-better-spaghetti-plots-exploring-the-individuals-in-longitudinal-data-with-the-brolgar-pac-dr-nicholas-tierney) Presentation at RStudio Conf. [video] -->
+
+<!-- --- -->
+
+
+
+<!-- # Logistic Regression Models {#logistic} -->
+
+<!-- **Required** -->
+
+<!-- Before class you will need to read: -->
+
+<!-- - 3Blue1Brown. (2020, March 8). [*Exponential growth and epidemics*](https://www.youtube.com/watch?v=Kas0tIxDvrg) [Video file] -->
+
+
+
+<!-- **Additional Resources** -->
+
+<!-- In addition to the notes and what we cover in class, there many other resources for learning about using linear mixed-effects models for longitudinal analysis. Here are some resources that may be helpful in that endeavor: -->
+
+<!-- - Fox (Section 3.2.1) *The Binomial and Bernoulli Distributions* [Required Textbook] -->
+<!-- - Dunteman, G. H., &amp; Ho, M.-H. R. (2005). *An introduction to generalized linear models.* Sage. -->
+<!-- - Fox, J. (2015). *Applied regression analysis and generalized linear models* (3rd ed.). Sage -->
+
+
+
+<!-- --- -->
 

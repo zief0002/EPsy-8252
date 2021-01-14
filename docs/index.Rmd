@@ -3,10 +3,9 @@ title: "EPsy 8252"
 output:
   rmdformats::material:
     highlight: kate
-    css: website-style.css
-    includes:
-      in_header: header.html
+    css: ["style/website-style.css", "style/font-awesome-all.css"]
 ---
+
 
 
 ```{r knitr_init, echo=FALSE, cache=FALSE}
@@ -27,65 +26,69 @@ opts_knit$set(width=75)
 ```
 
 
-# Welcome
+# Welcome to 8252 {-}
 
 
-Welcome to *EPsy 8252: Methods in Data Analysis for Educational Research II*. This is the second course of a two-semester sequence for students in education. 
+Welcome to *EPsy 8252: Methods in Data Analysis for Educational Research II*. This is the second course of a two-semester sequence for students in education. The statistical content for EPsy 8252 includes: (1) likelihood estimation and inference, (2) information criteria for model selection, (3) mixed-effects/multi-level models for analysis of cross-sectional data, (4) mixed-effects/multi-level models for analysis of longitudinal data, and (5) logistic models for analyzing dichotomous outcomes. Time permitting, miscellaneous topics (e.g., design weights, empirical Bayes estimation, semi-parametric models) will also be introduced.
 
 <!-- The materials for the course can be accessed via: -->
 
-<!-- - **Syllabus, assignments, data, and script files:** [github repository](https://github.com/zief0002/epsy-8252) -->
-<!-- - **Course notes and readings:** [website](https://zief0002.github.io/book-8252/) | [github repository](https://github.com/zief0002/book-8252) -->
+<!-- **Syllabus, assignments, data, and script files:** [github repository](https://github.com/zief0002/epsy-8252) -->
+<!-- **Course notes and readings:** [website](https://zief0002.github.io/book-8252/) | [github repository](https://github.com/zief0002/book-8252) -->
 
 
 <br />
 
-### Instructor {-}
+### Meet Your Instructional Team {-}
+
+
+<figure>
+  <img src="img/instructional-team.png" alt="Instructional Team" style="width:60%; display:block; margin-left:auto; margin-right: auto;">
+  <figcaption>Andy (left), Amani (center-left), Hank (center-right), Sadie (right)</figcaption>
+</figure>
+
+<br />
+
+
+### Contact Information {-}
 
 Andrew Zieffler ([zief0002@umn.edu](mailto://zief0002@umn.edu)) <br />
-**Office:** [Education Sciences Building 178](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />
+**Office:** [Zoom](https://umn.zoom.us/my/zieffler)  <br />
+<!-- **Office:** [Education Sciences Building 178](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br /> -->
 **Office Hours:** Tuesday 9:00 AM&ndash;10:00 AM; and by appointment
-
-
-### Teaching Assistants {-}
-
-Mireya Smith ([mart1799@umn.edu](mailto://mart1799@umn.edu))  <br />
-**Office:** [Education Sciences Building 195](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />
-**Office Hours:** Thursday 10:00 AM&ndash;11:00 AM; and by appointment
 
 <br />
 
 Amaniel Mrutu ([apmrutu@umn.edu](mailto://apmrutu@umn.edu))  <br />
-**Office:** [Education Sciences Building 198](https://www.google.com/maps/place/Education+Sciences+Building/@44.9784043,-93.2394586,15z/data=!4m2!3m1!1s0x0:0x45656dac481b9150)  <br />
+**Office:** [Zoom](https://umn.zoom.us/j/95475155331?pwd=UHFJWUQzWVYwMFQ4aFFFUlhnTUJJQT09)  <br />
 **Office Hours:** Wednesday 10:00 AM&ndash;11:00 AM; and by appointment
 
 <br />
 
-### Newly Minted Online Teaching Assistants
+
+### Syllabus {-}
+
+The course syllabus is available  [here](https://github.com/zief0002/epsy-8252/raw/master/syllabus/s21-8252-syllabus.pdf).
+
+<br />
+
+
+### Class Meeting Times and Zoom Links {-}
+
+- Monday/Wednesday (2:30&ndash;3:45): [Zoom]( https://umn.zoom.us/j/99947792857?pwd=c2xJZ0o3dXNMc3paU3pZbStWemFLUT09)  <!--: [Burton Hall 125](http://campusmaps.umn.edu/burton-hall)-->
+- Tuesday/Thursday (11:15&ndash;12:30): [Zoom](https://umn.zoom.us/j/92778236780?pwd=cUZ2eEZESHI3ZXpJUXhRNEl6RzBkdz09)  <!--: [Peik Hall 215](http://campusmaps.umn.edu/peik-hall)-->
+
+Note that the Zoom links are different for each section of the class.
+
+
+<br />
+
+
+### Textbooks {-}
 
 <figure>
-  <img src="img/dog-tas.png" alt="Barking TAs" style="width:80%">
-  <figcaption>Hank (left), Sadie (center), and Chili (right)</figcaption>
-</figure> 
-
-
-### Classroom
-
-- Monday/Wednesday (2:30&ndash;3:45): [Burton Hall 125](http://campusmaps.umn.edu/burton-hall)
-- Tuesday/Thursday (11:15&ndash;12:30): [Peik Hall 215](http://campusmaps.umn.edu/peik-hall)
-
-<br />
-
-
-### Course Content and Syllabus {-}
-
-The statistical content for EPsy 8252 includes: (1) likelihood estimation and inference, (2) information criteria for model selection, (3) mixed-effects/multi-level models for analysis of cross-sectional data, (4) mixed-effects/multi-level models for analysis of longitudinal data, and (5) logistic models for analyzing dichotomous outcomes. Time permitting, miscellaneous topics (e.g., design weights, empirical Bayes estimation, semi-parametric models) will also be introduced.
-
-The course syllabus is available  [here](https://github.com/zief0002/epsy-8252/raw/master/syllabus/s20-8252-syllabus.pdf).
-
-<br />
-
-### Books and Other Reading Materials {-}
+  <img src="img/textbooks.png" alt="textbooks" style="width:30%; display:block; margin-left:auto; margin-right: auto;">
+</figure>
 
 This website will serve as the primary set of course notes. In addition, the following textbook is required:
 
@@ -96,6 +99,7 @@ There is also an optional textbook:
 - Anderson, D. R. (2008). [Model based inference in the life sciences: A primer on evidence.](http://login.ezproxy.lib.umn.edu/login?url=http://link.springer.com/10.1007/978-0-387-74075-1) New York: Springer.
 
 <br />
+
 
 ### Prerequisites {-}
 
@@ -117,15 +121,24 @@ Prerequisites include *EPsy 8251: Methods in Data Analysis for Educational Resea
   + Working with categorical predictors (including adjusting *p*-values for multiple tests)
   + Interaction effects
 
-For the topics listed, students would be expected to be able to carry out an appropriate data analysis and properly interpret the results. It is also assumed that everyone enrolled in the course has some familiarity with using R. If you need a refresher on any of these topics, see the [EPsy 8251 course notes](https://zief0002.github.io/epsy-8251/).
+For the topics listed, students would be expected to be able to carry out an appropriate data analysis and properly interpret the results. It is also assumed that everyone enrolled in the course has some familiarity with using R. 
 
-### Other QME Courses
+<br />
 
-If you are wondering what to take after EPsy 8252, there are many advanced courses offered by QME. The "flowchart" below indicates those offerings and also any other prerequisite courses you may need. Blurred out courses are not offered in 2020-21. (I created this from memory since those documents are at school.) 
+### Miscellaneous Resources {-}
 
-- [QME Course Offerings](misc/qme-course-map-2020-04-29.pdf)
+Here are two resources that might be useful:
 
-Advanced statistics courses are also offered in many other departments around campus, most notably in the Statistics Department, and in Public Health (Biostatistics).  
+- [Computational Toolkit for Educational Scientists](https://zief0002.github.io/toolkit/)
+- [Statistical Modeling and Computation for Educational Scientists](https://zief0002.github.io/modeling/)
+
+<!-- ### Other QME Courses -->
+
+<!-- If you are wondering what to take after EPsy 8252, there are many advanced courses offered by QME. The "flowchart" below indicates those offerings and also any other prerequisite courses you may need. Blurred out courses are not offered in 2020-21. (I created this from memory since those documents are at school.)  -->
+
+<!-- - [QME Course Offerings](misc/qme-course-map-2020-04-29.pdf) -->
+
+<!-- Advanced statistics courses are also offered in many other departments around campus, most notably in the Statistics Department, and in Public Health (Biostatistics).   -->
 
 
 
@@ -138,7 +151,7 @@ Advanced statistics courses are also offered in many other departments around ca
 ```{r child = 'data.Rmd'}
 ```
 
-```{r child = 'covid19.Rmd'}
+```{r child = 'preparation.Rmd'}
 ```
 
 

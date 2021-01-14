@@ -1,0 +1,70 @@
+---
+title: "Untitled"
+author: "Andrew Zieffler"
+date: "1/7/2021"
+output: 
+  html_document:
+    highlight: zenburn
+bibliography: "myBibliography.bib"
+csl: "apa-single-spaced.csl"
+---
+
+The hat notation (e.g., $\hat{Y_{ij}}$) is used to indicate an estimate.
+
+
+
+# Adding Citations
+
+Here is some text and a citation [@carmichael_laziness_1954].
+
+In this example, we have prefixed the citation with the word "see" and added a page number after the citation by including "p. 208". The identifier and the text following the identifier are separated by a comma. [see @carmichael_laziness_1954, p. 208].
+
+@carmichael_laziness_1954 suggest that something is true. 
+
+Add multiple references by including multiple citation identifiers separated by a semicolon [e.g., @ross_racial_2020; @carmichael_laziness_1954]
+
+
+# Syntax
+
+```{r}
+
+```
+
+
+# Table Creation
+
+```{r table_01}
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+
+# Input cell information
+tab_01 = data.frame(
+  scale = c("BAS-T", "SR", "BDI", "ASRM", "M-SRM"),
+  high = c("46.17 (2.87)", "17.94 (1.88)", 
+           "7.11 (6.50)", "6.46 (4.01)", "11.05 (3.36)"),
+  mod = c("37.99 (1.32)", "11.52 (1.84)", 
+          "6.18 (6.09)", "5.63 (3.69)", "11.76 (2.75)"),
+  p = c("<.001", "<.001", ".254", ".109", ".078")
+
+)
+
+# Show output
+tab_01 %>%
+  kable(
+    format = "html",
+    col.names = c("Scale", "High BAS group", "Moderate BAS group", "*p*"),
+    caption = "**Table 1** <br /> *Means and Standard Deviations of Scores on Baseline Measures*",
+    align = c("l", "c", "c", "c"),
+    table.attr = "style='width:40%;'"
+  ) %>%
+  kable_classic(html_font = "\"Helvetica Neue\"") %>%
+  row_spec(row = 0, align = "c") %>%
+  footnote(
+    general = "Standard deviations are presented in parentheses. BAS = Behavioral Activation System; BAS-T = Behavioral Activation System-Total scores from the Behavioral Inhibition System/Behavioral Activation System Scales; SR = Sensitivity to Reward scores from the Sensitivity to Punishment and Sensitivity to Reward Questionnaire; BDI = Beck Depression Inventory scores; ASRM = Altman Self-Rating Mania Scale scores; M-SRM = Modified Social Rhythm Metric Regularity scores.",
+    general_title = "Note.",
+    footnote_as_chunk = TRUE
+    )
+```
+
+# References

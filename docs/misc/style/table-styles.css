@@ -1,0 +1,54 @@
+/** Make the caption italic and black **/
+.table caption{
+  font-style: italic;
+  color: black;
+  font-family: 'Crimson Text', serif;
+  font-size: 14px;
+}
+
+.table caption span{
+  font-style: normal;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+
+
+/** Change border color to black **/
+.table thead tr th {
+  border-color: black;
+  border-width: 1px;
+  font-family: 'Crimson Text', serif;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+
+
+
+/** Add a top border to the table header row **/
+.table thead tr:first-child { 
+  border-top: 1px solid black;
+}
+
+
+/** Format and remove borders within the table body **/
+.table tbody tr td {
+  border: none;
+  font-family: 'Crimson Text', serif;
+  font-size: 14px;
+}
+
+
+/** Add a bottom border to the table body **/
+.table tbody tr:last-child {
+  border-bottom: 1px solid black;
+}
+
+
+/** Format and remove borders within the table footer **/
+.table tfoot {
+  border: none;
+  font-family: 'Crimson Text', serif;
+  font-size: 14px;
+}

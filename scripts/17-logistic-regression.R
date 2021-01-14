@@ -94,6 +94,7 @@ log(0.17 / 0.83)
 ##################################################
 
 # Fit the model
+glm.0 = glm(degree ~ 1,       data = grad, family = binomial(link = "logit"))
 glm.1 = glm(degree ~ 1 + act, data = grad, family = binomial(link = "logit"))
 
 
@@ -171,10 +172,10 @@ model.sel(
 
 # Fit model
 glm.2 = glm(degree ~ 1 + act + firstgen, data = grad, family = binomial(link = "logit"))
-
+glm.3 = glm(degree ~ 1 + act + firstgen + act:firstgen, data = grad, family = binomial(link = "logit"))
 
 # Obtain coefficient-level output
-tidy(glm.2)
+tidy(glm.3)
 
 
 # Back-transform coefficients for odds interpretation

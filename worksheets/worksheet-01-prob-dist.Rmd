@@ -1,0 +1,108 @@
+---
+title: "Worksheet for Prob. Dist."
+author: "Andrew Zieffler"
+date: "1/6/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<!-- ### Comparing Probability Densities -->
+
+<!-- How do the probability densities for a value of $X$ compare across these distributions? Let's examine the $X$ value of 2. -->
+
+
+<!-- ```{r} -->
+<!-- # Standard normal distribution -->
+<!-- pnorm(q = 2, mean = 0, sd = 1) -->
+
+<!-- # t-distribution with 3 df -->
+<!-- pt(q = 2, df = 3) -->
+
+<!-- # t-distribution with 5 df -->
+<!-- pt(q = 2, df = 5) -->
+
+<!-- # t-distribution with 10 df -->
+<!-- pt(q = 2, df = 10) -->
+
+<!-- # t-distribution with 25 df -->
+<!-- pt(q = 2, df = 25) -->
+
+<!-- ``` -->
+
+<!-- We are essentially comparing the height of the distributions at $X=2$. This is visually shown in the following figure. -->
+
+<!-- ```{r out.width='80%', echo=FALSE, fig.width=8, fig.height=6, fig.cap="Plot of several *t*-distributions with differing degrees of freedom. The probability density for $t=2$ is also displayed for each of the distributions."} -->
+<!-- x2 = fig_06 %>% -->
+<!--   filter(X == 2) -->
+
+<!-- ggplot(data = fig_06, aes(x = X, y = Y_t, color = df, linetype = df)) + -->
+<!--   geom_line() + -->
+<!--   geom_point(data = x2) + -->
+<!--   theme_bw() + -->
+<!--   geom_vline(xintercept = 0) + -->
+<!--   ggsci::scale_color_d3() + -->
+<!--   scale_linetype_manual(values = 5:1) -->
+<!-- ``` -->
+
+<!-- <br /> -->
+
+
+<!-- ### Comparing Cumulative Densities -->
+
+<!-- What if we wanted to look at cumulative density? Consider out hypothesis test of whether a population parameter is equal to 0. Also consider that we observed a statistic (that has been standardized) of 2.5 using a sample size of $n=15$. -->
+
+
+<!-- If we can assume that the SAMPLING DISTRIBUTION is normally-distributed then we can use the cumulative density in a normal distribution to compute a *p*-value: -->
+
+<!-- ```{r} -->
+<!-- # p-value for z=2.5 -->
+<!-- 2 * pnorm(q = -2.5, mean = 0, sd = 1) -->
+<!-- ``` -->
+
+<!-- If, however, the SAMPLING DISTRIBUTION is *t*-distributed then we need to use the cumulative density for a *t*-distribution with the appropriate *df* to compute a *p*-value. For example if we use $df=n-1$, the two-tailed *p*-value would be: -->
+
+<!-- ```{r} -->
+<!-- # p-value for t(14)=2.5 -->
+<!-- 2 * pt(q = -2.5, df = 14) -->
+<!-- ``` -->
+
+<!-- The *p*-value using the *t*-distribution is larger than the *p*-value computed based on the standard normal distribution despite using the same value for the statistic, namely 2.5. This is again because of the increased uncertainty we are introducing when we assume the SAMPLING DISTRIBUTION is *t*-distributed. This added uncertainty makes it harder for us to reject a hypothesis. -->
+
+<!-- <br /> -->
+
+
+
+<!-- <br /> -->
+
+
+<!-- ### Testing the Model-Level Null Hypothesis -->
+
+<!-- The sample evidence, $R^2=0.742$, suggests that the model explains variation in city employees' incomes, but it is often worth testing whether the model explains more variation than we would expect because of chance. To do this we test the null hypothesis that $\rho^2 = 0$. -->
+
+<!-- Similar to the tests of the coefficients, we evaluate our test statistic (*F* in this case) in the appropriate test distribution, in this case an *F*-distribution with 2 and 29 degrees of freedom. (The shape of the *F*-distribution is based on two *df* values.) The figure below, shows the $F(2,29)$-distribution as a solid, black line. -->
+
+<!-- ```{r out.width='80%', echo=FALSE, fig.width=8, fig.height=5, fig.cap="Plot of several *F*-distributions with differing degrees of freedom. The $F(2,~29)$-distribution is shown as a solid, black line."} -->
+<!-- fig_07 = data.frame( -->
+<!--   X = seq(from = 0, to = 5, by = 0.01) -->
+<!-- ) %>% -->
+<!--   rowwise() %>% -->
+<!--   mutate( -->
+<!--     Y_1 = df(x = X, df1 = 2, df2 = 29), -->
+<!--     Y_2 = df(x = X, df1 = 4, df2 = 10), -->
+<!--     Y_3 = df(x = X, df1 = 4, df2 = 100) -->
+<!--     ) %>% -->
+<!--   ungroup() -->
+
+<!-- ggplot(data = fig_07, aes(x = X, y = Y_1)) + -->
+<!--   geom_line() + -->
+<!--   geom_line(aes(y = Y_2), color = "red", linetype = "dotted") + -->
+<!--   geom_line(aes(y = Y_3), color = "blue", linetype = "dashed") + -->
+<!--   theme_bw() + -->
+<!--   annotate("text", x = 0.4, y = 0.9, label = "F(2, 29)", size = 3) + -->
+<!--   annotate("text", x = 1, y = 0.7, label = "F(4, 100)", size = 3, color = "blue") + -->
+<!--   annotate("text", x = 1, y = 0.57, label = "F(4, 10)", size = 3, color = "red") + -->
+<!--   ylab("Y") -->
+<!-- ``` -->

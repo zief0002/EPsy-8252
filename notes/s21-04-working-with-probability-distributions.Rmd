@@ -1,0 +1,590 @@
+---
+title: "Working with Probability Distributions"
+author: "Andrew Zieffler"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  html_document:
+    highlight: zenburn
+    css: ['style/style.css', 'style/table-styles.css', 'style/syntax.css', 'style/notes.css']
+bibliography: ['epsy8251.bib', 'epsy8252.bib']
+csl: 'style/apa-single-spaced.csl'
+---
+
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/es5/tex-mml-chtml.js">
+</script>
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+library(rmdformats)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(prompt=FALSE, comment=NA, message=FALSE, warning=FALSE, tidy=FALSE, fig.width=6, fig.height=6,
+               fig.pos='H', fig.align='center', out.width='40%')
+opts_knit$set(width=85)
+options(scipen=5)
+```
+
+## Preparation
+
+In this set of notes, you will learn about common continuous probability distributions. We will not be using a specific dataset in these notes.
+
+
+```{r preparation, warning=FALSE, message=FALSE}
+# Load libraries
+library(tidyverse)
+```
+
+<br />
+
+
+## Normal (Gaussian) Distribution
+
+The probability density function (PDF) of a normal distribution is mathematically defined as:
+
+$$
+p(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left[-\frac{(x-\mu)^2}{2\sigma^2}\right]
+$$
+
+for $-\infty \leq x \leq \infty$. 
+
+To calculate the probability density, we need three pieces of information: (1) the *x*-value for which we want to determine the probability density, (2) the mean ($\mu$) of the normal distribution *x* is a member of, and (3) the standard deviation ($\sigma$) of the normal distribution *x* is a member of. Then, we can compute the probability density ($p(x)$) for a particular $x$ value by using the equation.
+
+As an example, consider a normal distribution with a mean of 50, and a standard deviation of 10. The probability density for $x=65$ can be found using,
+
+$$
+\begin{split}
+p(65) &= \frac{1}{10\sqrt{2\pi}}\exp\left[-\frac{(65-50)^2}{2\times10^2}\right] \\[1ex]
+&= 0.01295176
+\end{split}
+$$
+
+Using R, we can carry out the computation,
+
+```{r}
+# Compute the probability density of x=65 in N(50,10)
+(1 / (10 * sqrt(2 * pi))) * exp(-(225) / 200)
+```
+
+There is also a more direct way to compute this using the `dnorm()` function. This function computes the density of `x` from a normal distribution with a specified `mean` and `sd`.
+
+```{r}
+# Compute the probability density of x=65 in N(50,10)
+dnorm(x = 65, mean = 50, sd = 10)
+```
+
+Symbolically, we might write
+
+$$
+P\bigg(x=65 \mid \mathcal{N}(50,10)\bigg) = 0.01295176
+$$
+
+which is read, "the probability density of $x=65$ GIVEN the normal distribution having a mean of 50 and standard deviation of 10 is equal to 0.013."
+
+Note that the probability density for a value is not only a function of *x*, but also depends on the mean and standard deviation of the normal distribution. For example, the probability density of $x=65$ in the normal distribution having a mean of 30 and standard deviation of 20 is a different value than the probability density we found earlier.
+
+```{r}
+# Compute the probability density of x=65 in N(30,20)
+dnorm(x = 65, mean = 30, sd = 20)
+```
+
+Here, 
+
+$$
+P\bigg(x=65 \mid \mathcal{N}(30,20)\bigg) = 0.004313866
+$$
+
+In general, when we think about the normal distribution, we are thinking about the mapping of each *x*-value from $-\infty$ to $+\infty$ to its associated probability density. Rather than list each of these mappings out, we can create a plot of these mappings. This plot gives us the familiar "bell shape". Theoretically this plot is the graphical depiction of the PDF.
+
+```{r fig.width=8, fig.height=6, fig.cap="Plot of the probability density function (PDF) for a $\\mathcal{N}(50,10)$ distribution (blue, solid line) and for a $\\mathcal{N}(30,20)$ distribution (red, dashed line). The probability density value for $x=65$ is also displayed on both PDFs."}
+# Create dataset
+fig_01 = data.frame(
+  X = seq(from = -40, to = 90, by = 0.01)
+  ) %>% 
+  mutate(
+    Y1 = dnorm(x = X, mean = 50, sd = 10),
+    Y2 = dnorm(x = X, mean = 30, sd = 20)
+    )
+
+# Create plot
+ggplot(data = fig_01, aes(x = X, y = Y1)) +
+  geom_line(color = "#0085af", linetype = "solid") +
+  geom_line(aes(y = Y2), linetype = "dashed", color = "#c62f4b") +
+  xlab("X") +
+  ylab("Probability density") +
+  theme_light() +
+  geom_point(x = 65, y = 0.01295176,  size = 3, color = "#0085af") +
+  geom_point(x = 65, y = 0.004313866, size = 3, color = "#c62f4b")
+```
+
+Of course, the PDF is different for normal distributions with different means ($\mu$) or standard deviations ($\sigma$). This implies that there is not one normal distribution, but rather an infinite number of normal distributions, each with a different mean or standard deviation. (We refer to the normal distribution as a "family" of distributions.)
+
+To completely define the PDF we need to specify the mean and standard deviation we are using to compute the probability densities. Specifying these values is referred to as *parameterizing the distribution*^[Remember, the mean and standard deviations in the population are called "parameters".].
+
+
+<br />
+
+
+## Other Useful R Functions for Working with Normal Probability Distributions
+
+We use `dnorm()` when we want to compute the probability density associated with a particular *x*-value in a given normal distribution. There are three other functions that are quite useful for working with the normal probability distribution:
+
+- `pnorm()` : To compute the probability (area under the PDF)
+- `qnorm()` : To compute the $x$ value given a particular probability
+- `rnorm()` : To draw a random observation from the distribution
+
+Each of these function also requires the arguments `mean=` and `sd=`. Below we will examine how to use each of these additional functions.
+
+<br />
+
+
+## pnorm(): Computing Cumulative Probability Density
+
+The function `pnorm()` computes the area under the PDF curve from $-\infty$ to some *x*-value. (Sometimes this is referred to as the cumulative probability density of *x*.) It is important to note that the PDF is defined such that the entire area under the curve is equal to 1. Because of this, we can also think about using area under the curve as an analog to probability in a continuous distribution.
+
+For example, we might ask about the probability of observing an *x*-value that is less than or equal to 65 given it is from a $\mathcal{N}(50,10)$ distribution. Symbolically, we want to find:
+
+$$
+P\bigg(x \leq 65 \mid \mathcal{N}(50,10)\bigg) 
+$$
+
+This is akin to finding the proportion of the area under the $\mathcal{N}(50,10)$ PDF that is to the left of 65. The figure below shows a graphical depiction of the cumulative probability density for $x=65$.
+
+```{r echo=FALSE, fig.cap="Plot of the probability density function (PDF) for a $\\mathcal{N}(50,10)$ distribution. The area that is shaded grey (relative to the total area under the PDF) represents the cumulative probability density for $x=65$."}
+# Create dataset
+fig_02 = data.frame(
+  X = seq(from = 10, to = 90, by = 0.01)
+  ) %>% 
+  mutate(
+    Y = dnorm(x = X, mean = 50, sd = 10)
+    )
+
+# Filter out X<=65
+shaded = fig_02 %>%
+  filter(X <= 65)
+
+# Create plot
+ggplot(data = fig_02, aes(x = X, y = Y)) +
+  geom_line() +
+  xlab("X") +
+  ylab("Probability density") +
+  theme_light() +
+  geom_ribbon(data = shaded, ymin = -10, aes(ymax = Y), color = "#bbbbbb", alpha = 0.4)
+```
+
+We can compute the cumulative probability density using the `pnorm()` function. The "p" stand for "probability".
+
+```{r}
+# Find P(x<=65 | N(50,10) )
+pnorm(q = 65, mean = 50, sd = 10)
+```
+
+The probability of observing an *x*-value that is less than or equal to 65 (if it is drawn from a normal distribution with a mean of 50 and standard deviation of 10) is 0.933.
+
+In mathematics, the area under a curve is called an *integral*. The grey-shaded area in the previous figure can also be expressed as an integral of the probability density function:
+
+$$
+\int_{-\infty}^{65} p(x) dx
+$$
+
+where $p(x)$ is the PDF for the normal distribution. 
+
+The most common application for finding the cumulative density is to compute a *p*-value. The *p*-value is just the area under the distribution (curve) that is AT LEAST as extreme as some observed value. For example, assume we computed a test statistic of $z=2.5$, and were evaluating whether this was different from 0 (two-tailed test). Graphically, we want to determine the proportion of the area under the PDF that is shaded grey in the figure below.
+
+```{r echo=FALSE, fig.cap="Plot of the probability density function (PDF) for the standard normal distribution ($M=0$, $SD=1$). The cumulative density representing the *p*-value for a two-tailed test evaluating whether $\\mu=0$ using an observed mean of 2.5 is also displayed.",}
+# Create data
+fig_03 = data.frame(
+  X = seq(from = -4, to = 4, by = 0.01)
+  ) %>% 
+  mutate(
+    Y = dnorm(x = X, mean = 0, sd = 1)
+    )
+
+# Filter data for shading
+shade_01 = fig_03 %>%
+  filter(X >= 2.5)
+
+shade_02 = fig_03 %>%
+  filter(X <= -2.5)
+
+# Create plot
+ggplot(data = fig_03, aes(x = X, y = Y)) +
+    geom_line() +
+    xlab("z") +
+    ylab("Probability density") +
+    theme_light() +
+    geom_ribbon(data = shade_01, ymin = -10, aes(ymax = Y), color = "#bbbbbb", alpha = 0.4) +
+    geom_ribbon(data = shade_02, ymin = -10, aes(ymax = Y), color = "#bbbbbb", alpha = 0.4)
+```
+
+
+If the distribution of the test statistic is normally distributed, we can use `pnorm()` to compute the *p*-value. If we assume the test statistic, *z*, has been scaled to use standardized units, the standard deviation we use in `pnorm()` will be `sd=1`. The mean is based on the value being tested in the null hypothesis. In most null hypotheses, we are testing a difference from 0 (e.g., $H_0: \mu=0$, $H_0: \beta=0$), so we would use `mean=0` in the `pnorm()` function. 
+
+Remember, `pnorm()` computes the proportion of the area under the curve TO THE LEFT of a particular value. Here we will compute the area to the left of $-2.5$ and then double it to produce the actual *p*-value. (We can double it because the normal distribution is symmetric so the area to the left of $-2.5$ is the same as the area to the right of $+2.5$.)
+
+```{r}
+# Compute the p-value based on z=2.5
+2 * pnorm(q = -2.5, mean = 0, sd = 1)
+```
+
+The probability of observing a statistic at least as extreme as 2.5, assuming the null hypothesis is true, is 0.012. This is evidence against the null hypothesis since the data are inconsistent with the assumed hypothesis. 
+
+<br />
+
+
+### qnorm(): Computing Quantiles
+
+The `qnorm()` function is essentially the inverse of the `pnorm()` function. The `pnorm()` function computes the cumulative probability GIVEN a particular quantile (*x*-value). The `qnorm()` function computes the quantile GIVEN a cumulative probability. For example, in the $\mathcal{N}(50, 10)$ distribution, half of the area under the PDF is below the *x*-value (quantile) of 50.
+
+To use the `qnorm()` function to give the *x*-value (quantile) that defines the lower 0.5 of the area under the $\mathcal{N}(50, 10)$ PDF, the syntax would be:
+
+```{r}
+# Find the quantile that has a cumulative density of 0.5 in the N(50, 10) distribution
+qnorm(p = 0.5, mean = 50, sd = 10)
+```
+
+
+<br />
+
+
+### rnorm(): Generating Random Observations
+
+The `rnorm()` function can be used to generate random observations drawn from a specified normal distribution. Aside from the `mean=` and `sd=` arguments, we also need to specify the number of observations to generate by including the argument `n=`. For example, to generate 15 observations drawn from a $\mathcal{N}(50,10)$ distribution we would use the following syntax:
+
+```{r}
+# Generate 15 observations from N(50,10)
+set.seed(100)
+rnorm(n = 15, mean = 50, sd = 10)
+```
+
+The `set.seed()` function sets the state of the random number generator used in R so that the results are reproducible. If you don't use `set.seed()` you will get a different set of observations each time you run `rnorm()`. Here we set the starting seed to 100, but you can set this to any integer you want.
+
+<br />
+
+
+## Student's *t*-Distribution
+
+The PDF of Student's *t*-distribution looks similar to the PDF for a standard normal distribution. In the figure below, Student's *t*-distribution is depicted with a solid, black line and the standard normal distribution ($M=0$, $SD=1$) is depicted with a dotted, red line.
+
+```{r echo=FALSE, fig.cap="Plot of the probability density function (PDF) for both the standard normal distribution (dotted, red line) and Student's $t(5)$ distribution (solid, black line)."}
+# Create data
+fig_04 = data.frame(
+  X = seq(from = -4, to = 4, by = 0.01)
+) %>%
+  mutate(
+    Y_t = dt(x = X, df = 5),
+    Y_norm = dnorm(x = X, mean = 0, sd = 1)
+    ) 
+
+# Create plot
+ggplot(data = fig_04, aes(x = X, y = Y_t)) +
+  geom_line() +
+  geom_line(aes(y = Y_norm), color = "red", linetype = "dotted") +
+  xlab("t") +
+  ylab("Probability density") +
+  theme_light() +
+  geom_vline(xintercept = 0)
+```
+
+- Both the standard normal distribution and Student's *t*-distribution are symmetric distributions.
+- Both the standard normal distribution and Student's *t*-distribution have a mean (expected value) of 0. 
+- The standard deviation for Student's *t*-distribution is, however, larger than the standard deviation for the standard normal distribution ($SD>1$). You can see this in the distribution because the tails in Student's *t*-distribution are fatter (more error) than the standard normal distribution.
+
+In practice, we often use Student's *t*-distribution rather than the standard normal distribution in our evaluations of sample data. This is because the increased error (i.e., standard deviation) associated with Student's *t*-distribution better models the additional uncertainty associated with having incomplete information (i.e., a sample rather than the entire population).
+
+Student's *t*-distribution also constitutes a family of distributions; there is not a single *t*-distribution. The specific shape (and thus probability density) is defined by a parameter called the *degrees of freedom* (*df*). The plot below shows the standard normal distribution (purple) and four *t*-distributions with varying *df*-values. The means and standard deviations for each of these distributions is also provided in a table.
+
+```{r out.width='80%', echo=FALSE, fig.width=8, fig.height=6, fig.cap="Plot of several *t*-Distributions with differing degrees of freedom."}
+# Create data for t(3)
+df_03 = data.frame(
+  X = seq(from = -4, to = 4, by = 0.01)
+) %>%
+  mutate(
+    Y = dt(x = X, df = 3),
+    df = "03"
+    ) 
+
+# Create data for t(5)
+df_05 = data.frame(
+  X = seq(from = -4, to = 4, by = 0.01)
+) %>%
+  mutate(
+    Y = dt(x = X, df = 5),
+    df = "05"
+    )
+
+# Create data for t(10)
+df_10 = data.frame(
+  X = seq(from = -4, to = 4, by = 0.01)
+) %>%
+   mutate(
+    Y = dt(x = X, df = 10),
+    df = "10"
+    )
+
+# Create data for t(25)
+df_25 = data.frame(
+  X = seq(from = -4, to = 4, by = 0.01)
+) %>%
+  mutate(
+    Y = dt(x = X, df = 25),
+    df = "25"
+    )
+
+# Create data for standard normal
+z = data.frame(
+  X = seq(from = -4, to = 4, by = 0.01)
+) %>%
+  mutate(
+    Y = dnorm(x = X, mean = 0, sd = 1),
+    df = "Standard normal"
+    )
+
+# Combine all datasets into one
+fig_06 = rbind(df_03, df_05, df_10, df_25, z)
+
+# Create plot
+ggplot(data = fig_06, aes(x = X, y = Y, color = df, linetype = df)) +
+  geom_line() +
+  xlab("t") +
+  ylab("Probability density") +
+  theme_light() +
+  geom_vline(xintercept = 0) +
+  ggsci::scale_color_d3() +
+  scale_linetype_manual(values = 5:1)
+```
+
+
+
+```{r echo=FALSE}
+# Create table
+data.frame(
+  df = c("03", "05", "10", "25", "z"),
+  M = 0.00,
+  SD = c(2, 1.5, 1.22, 1.08, 1.00)
+) %>%
+  kable(
+    caption = "Means and standard deviations for four *t*-Distributions and the standard normal distribution",
+    format = "html",
+    escape = FALSE,
+    align = c("c", "c", "c"),
+    col.names = c("$df$", "$M$", "$SD$"),
+    table.attr = "style='width:50%;'"
+  )  %>%
+  kable_styling() %>%
+  row_spec(row = 0, align = "c")
+```
+
+If we compare the means and standard deviations for these distributions, we find that the mean for all the *t*-distributions is 0, same as the standard normal distribution. All *t*-distributions are unimodal and symmetric around zero. The standard deviation for every *t*-distribution is higher than the standard deviation for the standard normal distribution. Mathematically, the variance for the *t*-distribution is:
+
+$$
+\sigma^2(t) = \frac{\nu}{\nu-2}
+$$
+
+where $\nu$ (the Greek letter nu) is the degrees of freedom. (Note that $\nu \geq 2$.) Examining this formula, we find that Student *t*-distributions with higher *df* values have less variation. When $\nu=+\infty$, the variance approaches 1, which is the same as the standard normal distribution.
+
+
+There are four primary functions for working with Student's $t$-distribution:
+
+- `dt()` : To compute the probability density (point on the curve)
+- `pt()` : To compute the cumulative density (area under the PDF)
+- `qt()` : To compute the quantile value given a particular probability
+- `rt()` : To draw a random observation from the distribution
+
+Each of these requires the argument `df=`. 
+
+<br />
+
+
+## The F-distribution
+
+The *F*-distribution, like the *t*-distribution, constitutes a family of distributions. They are positively skewed and generally have a lower-limit of 0. To parameterize an *F*-distribution we need two parameters, namely $\nu_1$ and $\nu_2$. These are both degrees of freedom. The exact shape of the *F*-distribution s governed by the two degrees of freedom parameters. The figure below shows several *F*-distributions with different degrees of freedom.
+
+```{r out.width='80%', echo=FALSE, fig.width=8, fig.height=6, fig.cap="Plot of several *F*-Distributions with differing degrees of freedom."}
+# Create data for F(1,10)
+f1 = data.frame(
+  X = seq(from = 0, to = 10, by = 0.01)
+) %>%
+  mutate(
+    Y = df(x = X, df1 = 1, df2 = 10),
+    df = "F(1, 10)"
+    ) 
+
+# Create data for F(5,25)
+f2 = data.frame(
+  X = seq(from = 0, to = 10, by = 0.01)
+) %>%
+  mutate(
+    Y = df(x = X, df1 = 5, df2 = 25),
+    df = "F(5, 25)"
+    )
+
+# Create data for F(15,30)
+f3 = data.frame(
+  X = seq(from = 0, to = 10, by = 0.01)
+) %>%
+  mutate(
+    Y = df(x = X, df1 = 15, df2 = 30),
+    df = "F(15, 30)"
+    )
+
+# Create data for F(30,60)
+f4 = data.frame(
+  X = seq(from = 0, to = 10, by = 0.01)
+) %>%
+  mutate(
+    Y = df(x = X, df1 = 30, df2 = 60),
+    df = "F(30, 60)"
+    )
+
+# Combine all datasets into one
+fig_07 = rbind(f1, f2, f3, f4)
+
+# Create plot
+ggplot(data = fig_07, aes(x = X, y = Y, color = df, linetype = df)) +
+  geom_line() +
+  xlab("F") +
+  ylab("Probability density") +
+  theme_light() +
+  ggsci::scale_color_d3(name = "") +
+  scale_linetype_manual(name = "", values = 1:4)
+```
+
+
+The expected value (mean) and standard deviation of the *F*-distribution is:
+
+$$
+\begin{split}
+E(F) &= \frac{\nu_2}{\nu_2 - 2} \\[1ex]
+\sigma^2(F) &= \frac{2\nu_2^2(\nu_1 + \nu_2 - 2)}{\nu_1(\nu_2-2)^2(\nu_2-4)}
+\end{split}
+$$
+
+where $\nu_2 > 2$ for the mean and $\nu_2 > 4$ for the variance.
+
+From these formulas we can see that as $\nu_2 \rightarrow +\infty$ the mean of the *F*-distribution approaches 1. We can also see that the variation in the *F*-distribution is a function of both parameters and the variance decreases as either parameter gets larger.
+
+The means and standard deviations for our four example *F*-distributions are given in the table below.
+
+```{r echo=FALSE}
+# Create table
+data.frame(
+  df1 = c(1, 15, 30, 5),
+  df2 = c(10, 30, 60, 25)
+  ) %>%
+  mutate(       
+    M = df2 / (df2 - 2),
+    SD = sqrt((2*df2^2*(df1 + df2 - 2)) / (df1*(df2-2)^2*(df2-4)))
+  ) %>%
+  kable(
+    caption = "Means and standard deviations for four *F*-distributions.",
+    format = "html",
+    escape = FALSE,
+    align = c("c", "c", "c", "c"),
+    col.names = c("$df_1$", "$df_2$", "$M$", "$SD$"),
+    table.attr = "style='width:50%;'"
+  )  %>%
+  kable_styling() %>%
+  row_spec(row = 0, align = "c")
+```
+
+Because there is no negative side of the distribution, when we use the *F*-distribution to compute a *p*-value, we only compute the cumulative density GREATER THAN OR EQUAL TO the value of the *F*-statistic. For example, the figure below shows the $F(5,25)$-distribution and the shaded area corresponds to the *p*-value for an observed *F*-statistic of 2.
+
+
+```{r echo=FALSE, fig.cap="Plot of the probability density function (PDF) for the $F(5,25)$-distribution. The cumulative density representing the *p*-value associated with an *F*-statistic of 2 is shaded in grey."}
+# Create data for F(5,25)
+fig_08 = data.frame(
+  X = seq(from = 0, to = 10, by = 0.01)
+  ) %>% 
+  mutate(
+    Y = df(x = X, df1 = 5, df2 = 25)
+    )
+
+# Filter data for shading
+shade_01 = fig_08 %>%
+  filter(X >= 2)
+
+# Create plot
+ggplot(data = fig_08, aes(x = X, y = Y)) +
+    geom_line() +
+    xlab("F") +
+    ylab("Probability density") +
+    theme_light() +
+    geom_ribbon(data = shade_01, ymin = 0, aes(ymax = Y), color = "#bbbbbb", alpha = 0.4)
+```
+
+
+Here we can use the `pf()` function to compute the *p*-value. Remember, `pf()` computes the proportion of the area under the curve TO THE LEFT of a particular value. Here we will need to compute the area to the RIGHT of $+2$.
+
+```{r}
+# Compute the p-value based on F(5,25)=2
+1 - pf(q = 2, df1 = 5, df2 = 25)
+```
+
+The probability of observing an *F*-statistic at least as extreme as 2, assuming the null hypothesis is true, is 0.113. This is not evidence against the null hypothesis since the data are consistent with the assumed hypothesis. 
+
+
+
+<br />
+
+
+## Creating a PDF and Adding Shading in a ggplot
+
+One method to create the PDF for a distribution using `ggplot()` is to create a dataset that includes a sequence of *X*-values for which you want to show the PDF and compute the probability density for each of those values. Then you can use `geom_line()` to connect those probability densities.
+
+For example, say we want to create the PDF of the $F(15, 100)$-distribution. Here I will define this for *F*-values from 0 to 10. (These are the *x*-values in my plot.) Then I need to compute the probability densities for each of those values using `pf()`. 
+
+```{r}
+# Create F-value and compute probability densities
+fig_01 = data.frame(
+  X = seq(from = 0, to = 10, by = 0.01)
+  ) %>% 
+  mutate(
+    Y = df(x = X, df1 = 5, df2 = 25)
+    )
+
+# View data
+head(fig_01)
+```
+
+
+Then we can plot the *Y* versus the *X* values and connect them using `geom_line()`.
+
+```{r fig.cap="Plot of the probability density function (PDF) for the $F(5,25)$-distribution."}
+ggplot(data = fig_01, aes(x = X, y = Y)) +
+  geom_line() +
+  xlab("F") +
+  ylab("Probability density") +
+  theme_light() 
+```
+
+To add shading under the curve we need to create a new dataset that only includes the *X* and *Y* values in the shaded region. For example to shade the area under the PDF where $F > 2$, we need to create a new dataset where the *X* values are greater than 2. Below I do this using `filter()` and store the data in an object called `shade_01`.
+
+```{r}
+# Filter data included in the shaded region
+shade_01 = fig_01 %>%
+  filter(X >= 2)
+
+# View data
+head(shade_01)
+```
+
+We re-draw the PDF and then use `geom_ribbon()` to add shading. This layer requires us to define the area we want shaded. Here we want to shade from $Y=0$ to $Y=$ the probability density for each of the *X* values in the shading data. To carry this out we need to define `x=`, `ymin=` and `ymax=`. 
+
+Since the *X* values are in a column called `X` and the probability densities are in a column called `Y` in the shaded dataa frame, we can call `x=X` and `ymax=Y` in the `aes()` of `geom_ribbon()`. The `ymin=` value of 0 is not a column in the data frame, so it is specified OUTSIDE the `aes()` function. We can then also set characteristics like color of the shading (`color=`) and transparency level (`alpha=`). Finally, to ensure that `geom_ribbon()` is shading only the region we want, we set `data=shade_01`.
+
+```{r fig.cap="Plot of the probability density function (PDF) for the $F(5,25)$-distribution. The cumulative density representing the *p*-value associated with an *F*-statistic of 2 is shaded in grey."}
+# Create plot
+ggplot(data = fig_01, aes(x = X, y = Y)) +
+  geom_line() +
+  xlab("F") +
+  ylab("Probability density") +
+  theme_light() +
+  geom_ribbon(data = shade_01, ymin = 0, aes(x = X, ymax = Y), 
+              color = "#bbbbbb", alpha = 0.4)
+```
+
+

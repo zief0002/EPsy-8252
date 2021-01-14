@@ -1,0 +1,37 @@
+/*------------NAVBAR-------------*/
+.navbar-default {
+    background-color: #22222270;
+    border: none;
+}
+
+
+/*-----------TABLE OF CONTENTS-------------*/
+
+/* MN Density Plot Logo */
+#TOC::after {
+  content: "";
+  display: block; /*change from block to none for landing page */
+  height: 150px;
+  margin: 10px 10px 40px 10px;
+  background-image: url("../figs/banner.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#TOC {
+  display:inline;
+}
+
+#TOC li {
+  display: inline-block;
+  border: 0px solid black;
+  margin-right: 20px;
+}
+
+#TOC {
+  border:0px solid black;
+  margin:0 0 0 -1em;
+  background-color:#ddf;
+}
+

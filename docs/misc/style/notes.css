@@ -1,0 +1,50 @@
+/* -----------Blue Tools Note------------- */
+.note {
+  padding: 1em;
+  margin: 1em 0;
+  padding-left: 100px;
+  background-image: url("../figs/tools2.png");
+  background-size: 70px;
+  background-repeat: no-repeat;
+  background-position: 15px center;
+  min-height: 120px;
+  color: #1f5386;
+  background-color: #bed3ec;
+  border: solid 5px #dfedff;
+  }
+  
+
+/* -----------Purple Protip Note------------- */
+
+.protip {
+  padding: 1em;
+  margin: 1em 0;
+  padding-left: 100px;
+  background-image: url("../figs/protip.png");
+  background-size: 70px;
+  background-repeat: no-repeat;
+  background-position: 15px center;
+  min-height: 120px;
+  color: #75658c;
+  background-color: #dbceefab;
+  border: solid 5px #d8c1f7;
+  }
+  
+
+/* -----------Opal FYI Note------------- */
+
+.fyi {
+  padding: 1em;
+  margin: 1em 0;
+  padding-left: 100px;
+  background-image: url("../figs/fyi.png");
+  background-size: 70px;
+  background-repeat: no-repeat;
+  background-position: 15px center;
+  min-height: 120px;
+  color: #326273;
+  background-color: #b7ccccab;
+  border: dashed 5px #82a7a6;
+  }
+  
+  
