@@ -26,6 +26,8 @@ li {
   font-family: 'Crimson Text', serif;
 }
 
+
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Raleway', sans-serif;
   font-style: normal;
@@ -71,7 +73,7 @@ a:active {
 blockquote {
   margin: 0;
   border-left: 5px solid #f02d3a;
-  background-color: #e4e6c3;
+  background-color: #efefef;
 }
 
 blockquote p {
@@ -231,12 +233,14 @@ blockquote p {
   margin-right: auto;
 }
 
-
-
 /* References */
+
 #refs {
-  padding-left: 22px;
-  text-indent: -22px;
+  font-family: 'Crimson Text', serif;
+  font-size: 16px;
+  line-height: 1.5em;
+  margin-bottom: 1.5em;
 }
+
 
 

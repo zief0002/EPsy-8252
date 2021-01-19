@@ -145,18 +145,18 @@ Below is the tentative schedule for the class. The dates are subject to change a
 <td align="center" style="vertical-align:middle;">&nbsp;</td>
 <td>Feb. 04</td>
 <td>Feb. 08</td>
-<td align="center" style="vertical-align:middle;" rowspan="2">
+<td align="center" style="vertical-align:middle;">
   [<span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span>](#readings)
 </td>
-<td style="vertical-align:middle;" rowspan="2">Likelihood: A framework for evidence and estimation</td>
-<td align="center" style="vertical-align:middle;" rowspan="2">
-  <!--<a href="https://zief0002.github.io/epsy-8252/misc/s21-02-polynomial-effects.html"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span></a>-->
+<td style="vertical-align:middle;">Likelihood: A framework for evidence</td>
+<td align="center" style="vertical-align:middle;">
+  [<span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span>](https://zief0002.github.io/epsy-8252/misc/s21-06-likelihood-evidence.html)
 </td>
-<td align="center" style="vertical-align:middle;" rowspan="2">
-  <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/notes/s21-02-polynomial-effects.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span></a>-->
+<td align="center" style="vertical-align:middle;">
+  [<span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/notes/s21-06-likelihood-evidence.Rmd)
 </td>
-<td align="center" style="vertical-align:middle;" rowspan="2">
-  <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/02-polynomial-regression.R"><span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span></a>-->
+<td align="center" style="vertical-align:middle;">
+  [<span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/scripts/s21-06-likelihood-evidence.R)
 </td>
 </tr>
 
@@ -164,6 +164,19 @@ Below is the tentative schedule for the class. The dates are subject to change a
 <td align="center" style="vertical-align:middle;">&nbsp;</td>
 <td>Feb. 09</td>
 <td>Feb. 10</td>
+<td align="center" style="vertical-align:middle;">
+  [<span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span>](#readings)
+</td>
+<td style="vertical-align:middle;">Likelihood: A framework for estimation</td>
+<td align="center" style="vertical-align:middle;">
+  <!-- [<span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span>](https://zief0002.github.io/epsy-8252/misc/s21-06-likelihood-evidence.html) -->
+</td>
+<td align="center" style="vertical-align:middle;">
+  <!-- [<span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/notes/s21-06-likelihood-evidence.Rmd) -->
+</td>
+<td align="center" style="vertical-align:middle;">
+  <!-- [<span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/scripts/s21-06-likelihood-evidence.R) -->
+</td>
 </tr>
 
 
