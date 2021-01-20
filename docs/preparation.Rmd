@@ -28,7 +28,7 @@ As part of the course, there are several articles, papers and technical reports 
 
 In addition to the notes and what we cover in class, there many other resources for learning about R Markdown. Here are some resources that may be helpful in that endeavor:
 
-- [<span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span> Knitting to PDF [Notes]](https://github.com/zief0002/epsy-8252/raw/master/notes/rmarkdown/s21-knitting-to-pdf)
+- [<span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span> Knitting to PDF [Notes]](https://github.com/zief0002/epsy-8252/raw/master/notes/rmarkdown/s21-knitting-to-pdf.pdf)
 - [<span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span> Slides with xaringan [Notes]](https://github.com/zief0002/epsy-8252/raw/master/notes/rmarkdown/s21-slides-with-xaringan.pdf)
 
 
