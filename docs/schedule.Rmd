@@ -150,7 +150,7 @@ Below is the tentative schedule for the class. The dates are subject to change a
 </td>
 <td style="vertical-align:middle;">Likelihood: A framework for evidence</td>
 <td align="center" style="vertical-align:middle;">
-  [<span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span>](https://zief0002.github.io/epsy-8252/misc/s21-06-likelihood-evidence.html)
+  [<span class="fas fa-link" style="color: #ff2600; font-size: 17px;"></span>](https://zief0002.github.io/epsy-8252/misc/s21-06-likelihood-evidence.html)
 </td>
 <td align="center" style="vertical-align:middle;">
   [<span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/notes/s21-06-likelihood-evidence.Rmd)
@@ -169,13 +169,13 @@ Below is the tentative schedule for the class. The dates are subject to change a
 </td>
 <td style="vertical-align:middle;">Likelihood: A framework for estimation</td>
 <td align="center" style="vertical-align:middle;">
-  <!-- [<span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span>](https://zief0002.github.io/epsy-8252/misc/s21-06-likelihood-evidence.html) -->
+  [<span class="fas fa-link" style="color: #ff2600; font-size: 17px;"></span>](https://zief0002.github.io/epsy-8252/misc/s21-07-likelihood-estimation.html)
 </td>
 <td align="center" style="vertical-align:middle;">
-  <!-- [<span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/notes/s21-06-likelihood-evidence.Rmd) -->
+  [<span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/notes/s21-07-likelihood-estimation.Rmd)
 </td>
 <td align="center" style="vertical-align:middle;">
-  <!-- [<span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/scripts/s21-06-likelihood-evidence.R) -->
+  [<span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/scripts/s21-07-likelihood-estimation.R)
 </td>
 </tr>
 
