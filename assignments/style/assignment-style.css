@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&family=Raleway&display=swap');
+
+body {
+  /*background-color: #273043;*/
+  background-color: #273043;
+  font-size: 16px;
+}
+
+.container-fluid {
+  background-color: #fff;
+  border: 1px solid #273043;
+  border-radius: 25px;
+  padding: 25px 60px 25px;
+}
+
+p {
+  font-family: 'Raleway', sans-serif;
+  line-height: 1.5em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+li {
+  font-family: 'Raleway', sans-serif;
+}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Quicksand', sans-serif;
+  font-style: normal;
+  color: #273043;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+ /* unvisited link */
+a:link {
+  color: #8AA1B1;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+/* visited link */
+a:visited {
+  color: #8AA1B1;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+/* mouse over link */
+a:hover {
+  color: #DA2C38;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+/* selected link */
+a:active {
+  color: #8AA1B1;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  text-decoration: underline;
+} 
+
+
+
+/* Style author */
+.author {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    color: #273043;
+    margin: 40px auto 5px auto;
+    line-height: 1;
+}
+
+.author em {
+  font-style: normal;
+}
+
+/* Style date */
+.date {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    color: #273043;
+    margin: 0 auto 100px auto;
+    line-height: 1;
+}
+
+.date em {
+  font-style: normal;
+}
+
+/* Style title */
+.title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 50px;
+    color: #273043;
+    text-align: center;
+    margin-left: auto; 
+    margin-right: auto;
+    line-height: 1;
+}
+
+/* Style title */
+.subtitle {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    color: #273043;
+    text-align: center;
+    margin-left: auto; 
+    margin-right: auto;
+    line-height: 1;
+}
+
+
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* References */
+
+#refs {
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  line-height: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+
+

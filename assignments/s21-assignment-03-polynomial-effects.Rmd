@@ -1,0 +1,90 @@
+---
+title: "Assignment 03"
+subtitle: "POLYNOMIAL EFFECTS"
+author: 
+output: 
+  html_document:
+    highlight: zenburn
+    css: ['style/assignment-style.css', 'style/syntax.css']
+---
+
+The goal of this assignment is to give you experience fitting, interpreting, and evaluating models with polynomial effects. 
+
+In this assignment, you will use the data from the file *fertility.csv* to explain variation in in infant mortality rates. 
+
+- [[CSV]](https://raw.githubusercontent.com/zief0002/epsy-8252/master/data/fertility.csv)
+- [[Data Codebook]](http://zief0002.github.io/epsy-8252/codebooks/fertility.html)
+
+
+```{r echo=FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics("figs/assign-03.png")
+```
+
+
+## Instructions
+
+Submit either an HTML file or, if you are not using R Markdown, a PDF file of your responses to the following questions. Please adhere to the following guidelines for further formatting your assignment:
+
+- All graphics should be resized so that they do not take up more room than necessary and should have an appropriate caption.
+- Any typed mathematics (equations, matrices, vectors, etc.) should be appropriately typeset within the document using Markdown's equation typesetting.
+- All syntax should be hidden (i.e., not displayed) unless specifically asked for.
+- Any messages or warnings produced (e.g., from loading packages) should also be hidden.
+
+This assignment is worth 15 points.
+
+
+<br />
+
+
+## Model 1: Linear Effect of Female Education Level
+
+1. Create a scatterplot showing the relationship between female education level and infant mortality rates.
+
+2. Describe the relationship between female education level and infant mortality rates. Be sure to comment on the structural form, direction and strength of the relationship. Also comment on any potential observations that deviate from following this relationship (unusual observations or clusters of observations).
+
+3. Compute and report the Pearson correlation coefficient between female education level and infant mortality rate. Based on your response to Question 2, explain whether the Pearson correlation coefficient is an appropriate summary measure of the relationship.
+
+4. Regress infant mortality rates on female education level. For this model, posit a linear effect of female education level on infant mortality rate (Model 1). Create the scatterplot of the standardized residuals versus the fitted values from Model 1.
+
+5. Does this plot suggest problems about meeting the assumption that the average residual is zero at each fitted value? Explain.
+
+<br />
+
+## Model 2: Quadratic Effect of Female Education Level
+
+6. Regress infant mortality rates on female education level. For this model, posit a quadratic effect of female education level on infant mortality rate (Model 2). Write the *fitted equation* using Equation Editor (or some other program that correctly types mathematical expressions).
+
+7. Compute, report, and interpret the likelihood ratio between Model 2 and Model 1.
+
+8. Carry out a likelihood ratio test to compare Model 1 and Model 2. Report the results from this test in a nicely formatted table.
+
+
+<br />
+
+## Model 3: Control for Differences in Gross National Income (GNI)
+
+9.  Regress infant mortality rates on female education level. For this model, posit a quadratic effect of female education level on infant mortality rate, and also control for differences in Gross National Income (Model 3). Write the *fitted equation* using Equation Editor (or some other program that correctly types mathematical expressions).
+
+10. Carry out a likelihood ratio test to compare Model 2 and Model 3. Add the results from this test to the table you created in Question \#8.
+
+<br />
+
+## Adopting a Model
+
+11. Based on the results of the two likelihood ratio tests, which model will you adopt? Explain.
+
+12. Create the density plot of the marginal distribution of the standardized residuals for your adopted model, as well as the scatterplot of the standardized residuals versus the fitted values. Place these plots side-by-side in your printed document and, for the purposes of captioning, etc. treat them as two subfigures within a single figure.
+
+13. Based on the plots you created in Question 12, evaluate and comment on the tenability of each of the model assumptions. 
+
+
+
+<br />
+
+## Presenting the Results
+
+14.  Examine the structure and formatting of Table 9 at http://zief0002.github.io/epsy-8251/misc/creating-tables/creating-tables.html. Mimic the format and structure of this table to create a table to present the numerical information from the three models you fitted in this assignment. Make sure the table you create also has an appropriate caption. If the table is too wide, change the page orientation in your word processing program to "Landscape", rather than changing the size of the font. (Note: Only this table should be presented in landscape orientation...not your entire assignment!)
+
+15. Create a publication quality plot that displays the fitted curves from Model 3. Display two separate lines to show the effect of Gross National Income. The two lines should be displayed using different linetypes or colors (or both) so that they can be easily differentiated in the plot.
+
+

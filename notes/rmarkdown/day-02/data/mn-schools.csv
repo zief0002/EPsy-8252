@@ -1,0 +1,34 @@
+id,name,grad,public,sat,tuition
+1,Augsburg College,65.2,0,10.3,39.294
+3,Bethany Lutheran College,52.6,0,10.65,30.48
+4,"Bethel University, Saint Paul, MN",73.3,0,11.45,39.4
+5,Carleton College,92.6,0,14,54.265
+6,College of Saint Benedict,81.1,0,11.85,43.198
+7,Concordia College at Moorhead,69.4,0,11.45,36.59
+8,Concordia University-Saint Paul,47.9,0,9.9,37.795
+9,Crossroads College,26.9,0,9.7,25.345
+10,Crown College,51.3,0,10.3,33.21
+11,Gustavus Adolphus College,81.7,0,12.25,43.8
+12,Hamline University,67.8,0,10.9,41.085
+13,Macalester College,87.2,0,13.55,50.984
+14,Martin Luther College,72.8,0,11.25,19.45
+15,Minneapolis College of Art and Design,69.6,0,11.05,41.42
+18,North Central University,40.4,0,10.1,25.698
+19,"Northwestern College, Saint Paul, MN",63.6,0,11.05,35.4
+20,Oak Hills Christian College,27.3,0,8.9,24.805
+22,Saint Johns University,79.9,0,11.85,41.92
+23,Saint Mary's University of Minnesota,62.4,0,10.7,35.7
+25,St Catherine University,65.4,0,10.5,41.876
+26,St Olaf College,84.9,0,12.85,47.2
+27,The College of Saint Scholastica,63.5,0,10.3,38.756
+32,"University of St Thomas, Saint Paul, MN",74.3,0,11.65,44.63
+2,Bemidji State University,42.3,1,10.1,18.057
+16,Minnesota State University Moorhead,44.7,1,10.3,16.8
+17,Minnesota State University-Mankato,49.6,1,10.3,16.294
+21,Saint Cloud State University,48.5,1,10.1,17.05
+24,Southwest Minnesota State University,39.5,1,10.1,18.102
+28,University of Minnesota-Crookston,46.4,1,10.1,19.897
+29,University of Minnesota-Duluth,54.8,1,11.1,21.404
+30,University of Minnesota-Morris,60.3,1,11.65,21.722
+31,University of Minnesota-Twin Cities,70.2,1,12.45,23.058
+33,Winona State University,54,1,10.7,19.67

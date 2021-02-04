@@ -1,0 +1,44 @@
+/* Style code in text*/
+p code {
+    white-space: inherit;
+    font-size: 70%;
+}
+
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+
+
+/* Style syntax */
+.sourceCode {
+  background-color: #303030;
+  border-color: #303030;
+  color: #cccccc;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+
+/* Style code output */
+pre:not([class]) {
+  background-color: #eff4f6;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+pre:not([class]) code {
+  background-color: #eff4f6;
+}
+
+
+
+.sourceLine {
+    padding-left: 10px;
+}
+
+/* Change line height so descenders show in syntax*/
+a.sourceLine {
+    line-height: 1.7;
+}
+

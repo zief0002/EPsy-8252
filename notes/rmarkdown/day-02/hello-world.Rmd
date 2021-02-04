@@ -1,0 +1,52 @@
+---
+title: "Untitled"
+author: "Andrew Zieffler"
+date: "1/25/2021"
+output: html_document
+bibliography: "style/myBibliography.bib"
+csl: "style/apa-single-spaced.csl"
+---
+
+```{r setup, include=FALSE}
+# Load libraries
+library(tidyverse)
+
+# Set global knitr options
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Here is some text in my introduction.
+
+```{r import_data, echo=FALSE}
+mn = read_csv("data/mn-schools.csv")
+head(mn)
+```
+
+## Review of Literature
+
+Here is some text in this section [@ross_racial_2020; @carmichael_laziness_1954].
+
+
+
+## Results
+
+Here are some results.
+
+```{r plot_01, echo=FALSE, fig.cap="*Figure 1.* Scatterplot of graduation rates versus median SAT scores."}
+ggplot(data = mn, aes(x = sat, y = grad)) +
+  geom_point() +
+  theme_light()
+```
+
+## Discussion
+
+Some discussion.
+
+### Discusion Subsection
+
+
+## References
+
+

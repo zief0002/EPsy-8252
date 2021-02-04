@@ -20,7 +20,7 @@ library(kableExtra)
 library(rmdformats)
 
 ## Global options
-options(max.print="75")
+options(max.print="75", knitr.kable.NA = '')
 opts_chunk$set(prompt=FALSE, comment=NA, message=FALSE, warning=FALSE, tidy=FALSE, fig.width=6, fig.height=6,
                fig.pos='H', fig.align='center', out.width='40%')
 opts_knit$set(width=85)
@@ -35,8 +35,8 @@ In this set of notes, you will learn one method of dealing with nonlinearity. Sp
 ```{r preparation, warning=FALSE, message=FALSE}
 # Load libraries
 library(broom)
-library(corrr)
 library(educate) 
+library(lmtest)
 library(patchwork)
 library(tidyverse)
 
@@ -46,6 +46,8 @@ mn = read_csv(file = "https://raw.githubusercontent.com/zief0002/epsy-8252/maste
 # View data
 head(mn)
 ```
+
+In this analysis, we will take an exploratory approach to the analysis, rather than a confirmatory approach. This means that we will be more open to potential effects, and subsequently will use a more liberal level of evidence to evaluate these effects than if we were doing confirmatory research. In this case, we will adopt effects if the *p*-values from the likelihood ratio tests are $<.1$ (as opposed to the $<.05$ criterion).
 
 ## Examine Relationship between Graduation Rate and SAT Scores
 
@@ -113,31 +115,25 @@ mn = mn %>%
 head(mn)
 ```
 
-After creating the quadratic term in the data, we fit the regression model that includes both the linear and quadratic effects as predictors in the model. We then examine the coefficient-level output for the model.
+After creating the quadratic term in the data, we fit the regression model that includes both the linear and quadratic effects as predictors in the model. We then compare the two models using a likelihood ratio test since the linear model is nested in the quadratic model. 
 
 ```{r}
 # Fit model
 lm.2 = lm(grad ~ 1 + sat + sat_quadratic, data = mn)
 
-# Coefficient-level output
-tidy(lm.2)
+# Likelihood ratio test
+lrtest(lm.1, lm.2)
 ```
 
-Since this is an interaction model, we start by examining the interaction term; the quadratic coefficient. The statistical evidence for this term indicates that the empirical data are inconsistent with the hypothesis of no quadratic effect ($p=.008$). This suggests that the quadratic term explains variation in six-year graduation rates above and beyond the linear term. To see this, we can compare the model-level output from the quadratic model to that of the linear effect model.
+Based on computing the likelihood ratio, the empirical support for the quadratic model is 54.05 times that for the linear model. This is more support than we expect because of sampling error, $\chi^2(1)=7.98$, $p=.005$, and suggests that we should adopt the quadratic model. Once we have adopted a model, we can examine the model-level output from that model to obtain the estimate for the residual standard error and other pertinent summaries (e.g., $R^2$) that we want to report. 
 
-```{r echo=FALSE}
-data.frame(Model = c("Linear", "Quadratic")) %>%
-  cbind(rbind(glance(lm.1), glance(lm.2))) %>%
-  select(Model, R2 = r.squared, df1 = df, df2 = df.residual, F = statistic, p = p.value) %>%
-  kable(
-  caption = "Model-level output for the linear and quadratic models.",
-  table.attr = "style='width:80%;'"
-  )  %>%
-  kable_styling() %>%
-  row_spec(row = 0, align = "c")
+```{r}
+# Model-level output
+glance(lm.2)
 ```
 
-The linear-effect model explains 79.0\% of the variation in six-year graduation rates. When we also include the quadratic effect of SAT to the model, the explained variation increases to 83.5\%. Although the improvement of 4.5\% seems modest, the *p*-value for the quadratic effect from the coefficient-level output ($p=.008$) suggests that this difference in explained variation is more than we expect because of sampling error.
+Model 2 explains 83.5% of the variation in graduation rates. The residual standard error estimate is $\hat\sigma_{\epsilon}=7.79$.
+
 
 <br />
 
@@ -170,7 +166,7 @@ p2 = ggplot(data = out_2, aes(x = .fitted, y = .std.resid)) +
 p1 | p2
 ```
 
-The plot of the standardized residuals versus the fitted values suggests that the residuals for the quadratic model are far better behaved; indicating much more consistency with the assumption that the average residual is zero at each fitted value than the linear model. This is the evidence that we would use to justify retaining the quadratic effect in the model. 
+The plot of the standardized residuals versus the fitted values suggests that the residuals for the quadratic model are far better behaved; indicating much more consistency with the assumption that the average residual is zero at each fitted value than the linear model. This is the evidence that we would use to justify retaining the quadratic effect in the model.
 
 To examine the assumption of residual normality for the model, we used the `stat_density_confidence()` function from the **educate** package to create a confidence envelope for a normal reference distribution. (To install the **educate** package, see the *Installing Packages from GitHub* section in the [Getting Started with R](https://zief0002.github.io/toolkit/getting-started-with-r.html#getting-started-with-r) chapter of *Computational Toolkit for Educational Scientists*.) The empirical density of the residuals seems consistent with the assumption of normality for this model.
 
@@ -196,13 +192,13 @@ Since the quadratic term is an interaction, we can interpret this term as we do 
 
 ### Graphical Interpretation
 
-To plot the fitted equation, we use the `stat_function()` layer to add the fitted curve. (Note that we can no longer use `geom_abline()` since the addition of the polynomial effect implies that a line is no longer suitable.) This layer takes the argument `fun=` which describes a function that will be plotted as a line. To describe a function, use the syntax `function(){...}`. Here we use this syntax to describe the function of `x` (which in the `ggplot()` global layer is mapped to the `sat` variable). The fitted equation is then also written in terms of `x` and placed inside the curly braces. (Note that it is best to be more exact in the coefficient values---don't round---when you create this plot as even minor differences can grossly change the plot.)
+To plot the fitted equation, we use the `geom_function()` layer to add the fitted curve. (Note that we can no longer use `geom_abline()` since the addition of the polynomial effect implies that a line is no longer suitable.) This layer takes the argument `fun=` which describes a function that will be plotted as a line. To describe a function, use the syntax `function(){...}`. Here we use this syntax to describe the function of `x` (which in the `ggplot()` global layer is mapped to the `sat` variable). The fitted equation is then also written in terms of `x` and placed inside the curly braces. (Note that it is best to be more exact in the coefficient values---don't round---when you create this plot as even minor differences can grossly change the plot.)
 
 ```{r fig.cap="Scatterplot of six-year graduation rate versus median SAT score. The fitted curve from the quadratic regression model is also displayed."}
 # Scatterplot
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point(alpha = 0.3) +
-	stat_function(fun = function(x) {-366.34 + 62.72*x - 2.15 * x^2} ) +
+  geom_function(fun = function(x) {-366.34 + 62.72*x - 2.15 * x^2}) +
 	theme_light() +
   xlab("Estimated median SAT score (in hundreds)") +
   ylab("Six-year graduation rate")
@@ -214,10 +210,10 @@ This plot helps us interpret the nature of the relationship between median SAT s
 
 ### Algebraic Interpretation
 
-From algebra, you may remember that the coefficient in front of the quadratic term ($-2.2$) informs us of whether the quadratic is an upward-facing U-shape, or a downward-facing U-shape. Since our term is negative, the U-shape is downward-facing. This is consistent with what we saw in the plot. What the algebra fails to show is that, within the range of SAT scores in our data, we only see part of the entire downward U-shape. 
+From algebra, you may remember that the coefficient in front of the quadratic term ($-2.2$) informs us of whether the quadratic is an upward-facing U-shape, or a downward-facing U-shape. Since our term is negative, the U-shape is downward-facing. This is consistent with what we saw in the plot. What the algebra fails to show is that, within the range of SAT scores in our data, we only see part of the entire downward U-shape.
 
 
-This coefficient also indicates whether the U-shape is skinny or wide. Although "skinny" and "wide" are only useful as relative comparisons. Algebraically, the comparison is typically to a quadratic coefficient of 1, which is generally not useful in our interpretation. The intercept and coefficient for the linear term help us locate the U-shape in the coordinate plane (moving it right, left, up, or down from the origin). You could work all of this out algebraically. You can see how different values of these coefficients affect the curve [on Wikipedia](https://en.wikipedia.org/wiki/Quadratic_equation#/media/File:Quadratic_equation_coefficients.png). 
+This coefficient also indicates whether the U-shape is skinny or wide. Although "skinny" and "wide" are only useful as relative comparisons. Algebraically, the comparison is typically to a quadratic coefficient of 1, which is generally not useful in our interpretation. The intercept and coefficient for the linear term help us locate the U-shape in the coordinate plane (moving it right, left, up, or down from the origin). You could work all of this out algebraically. You can see how different values of these coefficients affect the curve [on Wikipedia](https://en.wikipedia.org/wiki/Quadratic_equation#/media/File:Quadratic_equation_coefficients.png).
 
 What can be useful is to find where the minimum (upward facing U-shape) or maximum (downward facing U-shape) occurs. This point is referred to as the *vertex* of the parabola and can be algebraically determined. To do this we determine the *x*-location of the vertex by
 
@@ -268,10 +264,21 @@ We can also include covariates in a polynomial model (to control for other predi
 # Fit model
 lm.3 = lm(grad ~ 1 + sat + I(sat^2) + public, data = mn)
 
+# Compare Model 2 and Model 3
+lrtest(lm.2, lm.3)
+```
+
+Based on computing the likelihood ratio, the empirical support for Model 3 is 2344.9 times that for the Model 2. This is more support than we expect because of sampling error, $\chi^2(1)=15.51$, $p<.001$, and suggests that we should adopt Model 3.
+
+We can also examine the model-level output from Model 3 to summarize the variance accounted for and the residual standard error. 
+
+```{r}
 # Model-level output
 glance(lm.3)
 ```
-Based on the model-level output, we find the model now explains 89.7\% of the variation in graduation rates, which is more than we expect because of sampling variation, $F(3,29)=84.14$, $p<.001$.
+
+
+Model 3 explains 89.7\% of the variation in graduation rates, an increase of 6.2 percentage points from Model 2. The residual standard error for Model 3, $\hat\sigma_{\epsilon}=7.02$, has also decreased from that for Model 2 indicating that this model has less error than Model 2. Next, we turn to the coefficient-level output. 
 
 ```{r}
 # Coefficient-level output
@@ -283,10 +290,10 @@ Interpreting the coefficient-level output:
 - The predicted average graduation rate for private institutions with a median SAT score of 0 is $-384.2$. This is extrapolation.
 - We will not interpret the linear effect of SAT since we have included a higher-order polynomial effect of SAT. (Lower-order effects of interactions are not interpreted.)
 - The quadratic effect of SAT indicates that the effect of median SAT score on graduation rate varies by median SAT scores, after controlling for differences in sector.
-- Public institutions have a graduation rate that is 9.12 percentage points lower than private institutions, on average, controlling for differences in median SAT scores. 
+- Public institutions have a graduation rate that is 9.12 percentage points lower than private institutions, on average, controlling for differences in median SAT scores.
 
 
-These results indicate that the quadratic effect of SAT on graduation rates seems to persist, even after controlling for differences in sector ($p = 0.0005$). This means that after controlling for differences in sector, the effect of median SAT score on graduation rate depends on the level of the median SAT score. Alternatively, we can interpret this self-interaction as: 
+These results indicate that the quadratic effect of SAT on graduation rates seems to persist, even after controlling for differences in sector ($p = 0.0005$). This means that after controlling for differences in sector, the effect of median SAT score on graduation rate depends on the level of the median SAT score. Alternatively, we can interpret this self-interaction as:
 
 There also seems to be an effect of sector on graduation rate after controlling for the linear and quadratic effects of SAT ($p=0.003$). This effect suggests that, after controlling for the linear and quadratic effects of median SAT score, public schools have a graduation rate that is 9.1 percentage points lower than private schools, on average. Again, we can plot the fitted model to aid interpretation. To do so, we determine the fitted equations for both public and private schools.
 
@@ -308,21 +315,21 @@ $$
 \end{split}
 $$
 
-Note that the coefficients associated with the linear and quadratic effects of median SAT score are identical for both private and public institutions. This implies that the effect of SAT on graduation rates, despite being nonlinear, is the same for both sectors. The difference in intercepts reflects the sector effect on average graduation rates. To visualize these effects, we can plot each fitted curve by including each in a separate `stat_function()` layer.
+Note that the coefficients associated with the linear and quadratic effects of median SAT score are identical for both private and public institutions. This implies that the effect of SAT on graduation rates, despite being nonlinear, is the same for both sectors. The difference in intercepts reflects the sector effect on average graduation rates. To visualize these effects, we can plot each fitted curve by including each in a separate `geom_function()` layer.
 
 ```{r fig.cap="Six-year graduation rate as a function of median SAT score for private (orange, solid line) and public (blue, dashed line) institutions."}
 # Plot of the fitted model
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point(alpha = 0) +
-	stat_function(
-	  fun = function(x) {-384.16 + 67.04*x - 2.37 * x^2}, 
-	  color = "#2ec4b6", 
+	geom_function(
+	  fun = function(x) {-384.16 + 67.04*x - 2.37 * x^2},
+	  color = "#2ec4b6",
 	  linetype = "dashed"
 	  ) +
-  stat_function(
-    fun = function(x) {-393.29 + 67.04*x - 2.37 * x^2}, 
-    color = "#ff9f1c", 
-    linetype = "solid" 
+  geom_function(
+    fun = function(x) {-393.29 + 67.04*x - 2.37 * x^2},
+    color = "#ff9f1c",
+    linetype = "solid"
     ) +
 	theme_light() +
   xlab("Estimated median SAT score (in hundreds)") +
@@ -338,7 +345,7 @@ The curvature (linear and quadratic slopes) of the lines shows the linear and qu
 
 We can also fit interactions between predictors in polynomial models. In this example, an interaction between median SAT score and sector would indicate that the fitted curves for the public and private institutions are not parallel. In other words, the effect of median SAT score on graduation rates does not have the exact same positive, diminishing effect for both public and private institutions.
 
-With polynomial models, there are many ways a potential interaction can play out. In our example, sector can interact with the linear effect of median SAT score or the quadratic effect of median SAT score. Remember that if we include an interaction, we need to include all lower order effects as well. In a polynomial model this means that if we include an interaction with a higher order polynomial term, we also need to include interactions with the lower order polynomial terms. 
+With polynomial models, there are many ways a potential interaction can play out. In our example, sector can interact with the linear effect of median SAT score or the quadratic effect of median SAT score. Remember that if we include an interaction, we need to include all lower order effects as well. In a polynomial model this means that if we include an interaction with a higher order polynomial term, we also need to include interactions with the lower order polynomial terms.
 
 For us this implies that if we want to include an interaction between sector and the quadratic effect of median SAT score, we also need to include the interaction between sector and the linear effect of median SAT score. Because of this there are two potential interaction models we can fit.
 
@@ -353,169 +360,243 @@ lm.5 = lm(grad ~ 1 + sat + I(sat^2) + public + public:sat + public:I(sat^2), dat
 
 We now have three candidate models describing the effects of median SAT scores and sector to graduation rates. In increasing levels of complexity these are:
 
-1. Main effects model
-2. Interaction effect between linear SAT term and sector
-3. Interaction effect between quadratic SAT term and sector AND linear SAT term and sector
+1. Main effects model (Model 3);
+2. Interaction effect between linear SAT term and sector (Model 4); and
+3. Interaction effect between quadratic SAT term and sector AND linear SAT term and sector (Model 5)
 
-Which should we adopt? One exploratory approach to evaluating the potential interaction effects are to start with the model with the most complexity and pare it down by removing higher order terms that do not improve the explanatory power of the model. 
+Since each of these models is nested in the subsequent model, we can compare them using a set of likelihood ratio tests.
 
-The metric we use to evaluate explanatory power of the model (at least so far) is the model-level $R^2$ value. For our three candidate models the $R^2$ values can be obtained from the `glance()` output.
+```{r}
+# Likelihood ratio tests
+lrtest(lm.3, lm.4, lm.5)
+```
+
+Comparing Model 3 to Model 4, we find a modicum of empirical support for including the interaction between sector and the linear effect of SAT; $LR=4.57$, $\chi^2(1)=3.05$, $p=.081$. However, there is not empirical support for also including the interaction between sector and the quadratic effect of SAT; $LR=1.25$, $\chi^2(1)=0.44$, $p=.504$.
+
+Whether you ultimately adopt Model 3 or Model 4 depends on your research approach and the decisions you made about the the level of evidence you would need to adopt one model over another. Here, since we have taken an exploratory approach to the analysis, we will adopt Model 4, but will acknowledge that the there is uncertainty in this model selection.
+
+<br />
+
+
+### Summarizing the Adopted Interaction Model
+
+Again, we will obtain model- and coefficient-level output and use those to summarize the results of the fitted model.
+
+```{r}
+# Model-level output
+glance(lm.4)
+```
+
+Model 4 explains 90.6\% of the variation in graduation rates, an increase of 0.9 percentage points from Model 3. The residual standard error for Model 4, $\hat\sigma_{\epsilon}=5.64$, has also decreased from that for Model 3 indicating that this model has less error than Model 3. 
+
+The coefficient-level output is:
+
+```{r}
+# Coefficient-level output
+tidy(lm.4)
+```
+We can use this to obtain the fitted equation:
+
+$$
+\hat{\mathrm{Graduation~Rate}_i} = -413.80 + 71.65(\mathrm{SAT}_i) - 2.54(\mathrm{SAT}^2_i) + 35.07(\mathrm{Public}_i) - 4.11(\mathrm{SAT}_i)(\mathrm{Public}_i)
+$$
+
+The interaction tells us that the effect of SAT on graduation rate differs for public and private institutions. Rather than parsing this difference by trying to interpret each of the effects, we will again plot the fitted curves for private and public institutions, and use the plot to aid our interpretation.
+
+**Private Institutions**
+
+$$
+\begin{split}
+\hat{\mathrm{Graduation~Rate}_i} &= -413.80 + 71.65(\mathrm{SAT}_i) - 2.54(\mathrm{SAT}^2_i) + 35.07(0) - 4.11(\mathrm{SAT}_i)(0) \\
+&= -413.80 + 71.65(\mathrm{SAT}_i) - 2.54(\mathrm{SAT}^2_i)
+\end{split}
+$$
+
+**Public Institutions**
+
+$$
+\begin{split}
+\hat{\mathrm{Graduation~Rate}_i} &= -413.80 + 71.65(\mathrm{SAT}_i) - 2.54(\mathrm{SAT}^2_i) + 35.07(1) - 4.11(\mathrm{SAT}_i)(1) \\
+&= -378.73 + 67.54(\mathrm{SAT}_i) - 2.54(\mathrm{SAT}^2_i)
+\end{split}
+$$
+Comparing these two fitted equations, we see that not only is the intercept in the two fitted models different (due to the main effect of sector), but now the coefficient for the interaction between sector and the linear effect of SAT also differs; it is lower for public institutions (by 4.11 units) than for private institutions. The quadratic effect of SAT is the same for both public and private institutions. (If we had adopted the model with both interaction terms, the quadratic effect would also be different across sectors.)
+
+To visualize the effect of SAT, we can again plot each fitted curve by including each in a separate `geom_function()` layer.
+
+```{r fig.cap="Six-year graduation rate as a function of median SAT score for private (orange, solid line) and public (blue, dashed line) institutions."}
+# Plot of the fitted model
+ggplot(data = mn, aes(x = sat, y = grad)) +
+	geom_point(alpha = 0) +
+	geom_function(
+	  fun = function(x) {-378.73 + 67.54 * x - 2.54 * x^2},
+	  color = "#2ec4b6",
+	  linetype = "dashed"
+	  ) +
+  geom_function(
+    fun = function(x) {-413.80 + 71.65 * x - 2.54 * x^2},
+    color = "#ff9f1c",
+    linetype = "solid"
+    ) +
+	theme_light() +
+  xlab("Estimated median SAT score (in hundreds)") +
+  ylab("Six-year graduation rate")
+```
+
+The curvature (linear and quadratic slopes) of the lines now looks different for the two sectors because of the interaction term. (Note that interactions with the linear effect of SAT or the quadratic effect of SAT contribute to a change in the curvature.) For both sectors, the effect of median SAT on graduation rates is positive (institutions with higher median SAT scores tend to have higher graduation rates. But, this effect diminishes for institutions with increasingly higher SAT scores. Private schools have higher graduation rates, on average, than public schools for all levels of median SAT score. Moreover, this difference in graduation rates is getting larger at higher levels of SAT (that is the interaction!).
+
+
+<br />
+
+
+# Presenting Results from the Analysis
+
+It is important to indicate the set of candidate models considered in the model adoption process and also present the statistical evidence used to select among them. However, there is no one preferred way to do this. For example, some educational scientists present this in the prose (text), while others may present this information in tables. Here, is one possible method of presenting the models and the evidence from the set of likelihood ratio tests we used in the analysis.
+
+We fitted the following set of five candidate models:
+
+$$
+\begin{split}
+\mathbf{Model~1:~}\mathrm{Graduation~Rate}_i &= \beta_0 + \beta_1(\mathrm{SAT}_i) + \epsilon_i \\[1ex]
+\mathbf{Model~2:~}\mathrm{Graduation~Rate}_i &= \beta_0 + \beta_1(\mathrm{SAT}_i) + \beta_2(\mathrm{SAT}^2_i) + \epsilon_i \\[1ex]
+\mathbf{Model~3:~}\mathrm{Graduation~Rate}_i &= \beta_0 + \beta_1(\mathrm{SAT}_i) + \beta_2(\mathrm{SAT}^2_i) + \beta_3(\mathrm{Public}_i) + \epsilon_i \\[1ex]
+\mathbf{Model~4:~}\mathrm{Graduation~Rate}_i &= \beta_0 + \beta_1(\mathrm{SAT}_i) + \beta_2(\mathrm{SAT}^2_i) + \beta_3(\mathrm{Public}_i) + \beta_4(\mathrm{SAT}_i)(\mathrm{Public}_i) + \epsilon_i \\[1ex]
+\mathbf{Model~5:~}\mathrm{Graduation~Rate}_i &= \beta_0 + \beta_1(\mathrm{SAT}_i) + \beta_2(\mathrm{SAT}^2_i) + \beta_3(\mathrm{Public}_i) + \beta_4(\mathrm{SAT}_i)(\mathrm{Public}_i) + \beta_5(\mathrm{SAT}^2_i)(\mathrm{Public}_i) + \epsilon_i \\[1ex]
+\end{split}
+$$
+
+To evaluate these candidate models, likelihood ratio tests (LRTs) were used to compare each subsequently more complex model to the previous candidate model (e.g., Model 2 was compared to Model 1, Model 3 was compared to Model 2). More complex models were adopted if the *p*-value for the LRT was below a threshold of .10; a more liberal criterion than .05 adopted due to the exploratory nature of the analysis. The results of these tests are presented in the table below.
+
 
 ```{r echo=FALSE}
-data.frame(Model = c("Main effects", "Interaction (SAT x Public)", "Interaction (SAT x Public$^2$)")) %>%
-  cbind(rbind(glance(lm.3), glance(lm.4), glance(lm.5))) %>%
-  select(Model, R2 = r.squared, df1 = df, df2 = df.residual, F = statistic, p = p.value) %>%
-  mutate(p = scales::pvalue(p)) %>%
+data.frame(
+  model = c("Model 1", "Model 2", "Model 3", "Model 4", "Model 5"),
+  df = c(3, 4, 5, 6, 7),
+  log_lik = c(-113.55, -109.56, -101.80, -100.28, -100.06),
+  lr = c(NA, 54.05, 2344.90, 4.57, 1.25),
+  lr_test = c(NA, "$\\chi^2(1)=7.98$, $p=.005$", "$\\chi^2(1)=15.51$, $p<.001$", "$\\chi^2(1)=3.05$, $p=.081$", "$\\chi^2(1)=0.45$, $p=.504$")
+) %>%
   kable(
-  caption = "Model-level output for the linear and quadratic models.",
-  table.attr = "style='width:80%;'"
+    caption = "Results from a set of likelihood ratio tests (LRT) to compare a set of nested candidate models.",
+    col.names = c("Model", "*df*", "Log-likelihood", "*LR*", "*LRT*"),
+    align = c("l", rep("c", 5)),
+    table.attr = "style='width:80%;'"
   )  %>%
-  kable_styling() %>%
-  row_spec(row = 0, align = "c")
+  kable_styling()
 ```
 
-The main effects model explains 89.7\% of the variation in graduation rates. The interaction model that includes an interaction between the linear SAT term and sector explains an additional 0.9\% of the variation, and including an additional interaction between the quadratic SAT term and sector improves this explanation by another 0.1\%.
+You should also include the estimates and any summary measures from the model(s) you adopt. Here we would for sure want to report the estimates and summaries for Model 4. Since the number of candidate models here is small (only five models) I would probably present the estimates and summaries from all five candidate models. This also allows other scientists to see the other results if they do not agree with our more liberal adoption criteria of $p<.10$.
 
-Thus, the most complex model explains the most variation in the sample data. This is always the case so long as the predictors have any amount of correlation with the outcome. The bigger question is whether that improvement we see in the explanation of variability is more than what we would expect because of sampling error. To determine this we need to carry out an inferential analysis of the improvement in explained variation.
+```{r echo=FALSE, message=FALSE, results='asis', eval=FALSE}
+# Load library
+library(stargazer)
+
+# Output the raw html.
+# We copy and paste this below the code chunk to edit it.
+stargazer(
+  lm.1, lm.2, lm.3, lm.4, lm.5,
+  type = "html",
+  title = "Five candidate models predicting variation in six-year graduation rates.",
+  column.labels = c("Model 1", "Model 2", "Model 3", "Model 4", "Model 5"),
+  colnames = FALSE,
+  model.numbers = FALSE,
+  dep.var.caption = " ",
+  dep.var.labels = "",
+  covariate.labels = c("Median SAT score (Linear)", "Median SAT score (Quadratic)", "Public", "Median SAT score (Linear) x Public", "Median SAT score (Quadratic) x Public"),
+  keep.stat = c("rsq", "ser"),
+  notes.align = "l",
+  star.cutoffs = NA
+  )
+```
+
+
+<table class="table">
+<caption>Estimates (SEs) for five candidate models predicting variation in six-year graduation rates.</caption>
+<thead>
+  <tr>
+    <th style="text-align:left;">Predictor</th>
+    <th style="text-align:center;">Model 1</th>
+    <th style="text-align:center;">Model 2</th>
+    <th style="text-align:center;">Model 3</th>
+    <th style="text-align:center;">Model 4</th>
+    <th style="text-align:center;">Model 5</th>
+  </tr>
+</thead>
+<tbody>
+  <tr><td colspan="6" style="text-align:center;font-style: italic;">Coefficient-level estimates</td></tr>
+  <tr>
+    <td style="text-align:left">Median SAT score (Linear)</td>
+    <td style="text-align:center;">13.35<br/>(1.24)</td>
+    <td style="text-align:center;">62.72<br/>(17.27)</td>
+    <td style="text-align:center;">67.04<br/>(13.93)</td>
+    <td style="text-align:center;">71.66<br/>(13.82)</td>
+    <td style="text-align:center;">73.12<br/>(14.19)</td>
+  </tr>
+  <tr>
+    <td style="text-align:left">Median SAT score (Quadratic)</td>
+    <td style="text-align:center;"></td>
+    <td style="text-align:center;">&minus;2.15<br/>(0.75)</td>
+    <td style="text-align:center;">&minus;2.37<br/>(0.61)</td>
+    <td style="text-align:center;">&minus;2.54<br/>(0.60)</td>
+    <td style="text-align:center;">&minus;2.61<br/>(0.61)</td>
+  </tr>
+  <tr>
+    <td style="text-align:left">Public</td>
+    <td style="text-align:center;"></td>
+    <td style="text-align:center;"></td>
+    <td style="text-align:center;">&minus;9.13<br/>(2.19)</td>
+    <td style="text-align:center;">35.07<br/>(26.92)</td>
+    <td style="text-align:center;">304.22<br/>(444.96)</td>
+  </tr>
+  <tr>
+    <td style="text-align:left">Median SAT score (Linear) x Public</td>
+    <td style="text-align:center;"></td>
+    <td style="text-align:center;"></td>
+    <td style="text-align:center;"></td>
+    <td style="text-align:center;">&minus;4.11<br/>(2.50)</td>
+    <td style="text-align:center;">&minus;52.64<br/>(80.12)</td>
+  </tr>
+  <tr>
+    <td style="text-align:left">Median SAT score (Quadratic) x Public</td>
+    <td style="text-align:center;"></td>
+    <td style="text-align:center;"></td>
+    <td style="text-align:center;"></td>
+    <td style="text-align:center;"></td>
+    <td style="text-align:center;">2.17<br/>(3.586)</td>
+  </tr>
+  <tr>
+    <td style="text-align:left">Constant</td>
+    <td style="text-align:center;">&minus;86.08<br/>(13.68)</td>
+    <td style="text-align:center;">&minus;366.34<br/>(98.62)</td>
+    <td style="text-align:center;">&minus;384.16<br/>(79.41)</td>
+    <td style="text-align:center;">&minus;413.80<br/>(79.24)</td>
+    <td style="text-align:center;">&minus;422.16<br/>(81.33)</td>
+  </tr>
+  <tr><td colspan="6" style="border-bottom: 1px solid black"></td></tr>
+  <tr><td colspan="6" style="text-align:center;font-style: italic;">Model-level estimates</td></tr>
+  <tr>
+    <td style="text-align:left">R<sup>2</sup></td>
+    <td style="text-align:center;">0.790</td>
+    <td style="text-align:center;">0.835</td>
+    <td style="text-align:center;">0.897</td>
+    <td style="text-align:center;">0.906</td>
+    <td style="text-align:center;">0.907</td>
+  </tr>
+  <tr>
+    <td style="text-align:left">Residual Standard Error</td>
+    <td style="text-align:center;">7.79</td>
+    <td style="text-align:center;">7.02</td>
+    <td style="text-align:center;">5.64</td>
+    <td style="text-align:center;">5.49</td>
+    <td style="text-align:center;">5.55</td>
+  </tr>
+</tbody>  
+</table>
+
+There are several R packages that can be used to create tables of regression output. One such package is the `{stargazer}` package.^[I used the stargazer package to create the HTML syntax for table presented in the notes. However, I added additional CSS and HTML code to format it for the notes. It is fine to use the default output in your homework; no need to further edit the output.] The official vignette is [here](https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf), but there are many tutorials online that can be found by Google searching "stargazer, R".
 
 <br />
 
-### F-Test for Nested Models
-
-One method of evaluating the interaction terms is to use an *F*-test to test the change in $R^2$. This test requires that of the two models being compared, one is nested within the other. Consider the following two models:
-
-$$
-\begin{split}
-\mathbf{Model~A:~} Y_i&=\beta_0 + \beta_1(X_{1i}) + \beta_2(X_{2i}) + \epsilon_i\\
-\mathbf{Model~B:~} Y_i&=\beta_0 + \beta_1(X_{1i}) + \beta_2(X_{2i}) + \beta_3(X_{1i})(X_{2i}) + \epsilon_i
-\end{split}
-$$
-
-Model A is said to be *nested in* Model B as its terms are a subset of the terms in Model B. In general a model is nested in another model if setting a subset of the coefficients of the more complex model to zero results in the simpler model. In this example, Setting $\beta_3$ in Model B (the more complex model) to 0 results in Model A (the simpler model).
-
-In our graduation rate example, the three candidate models are:
-
-$$
-\begin{split}
-\mathbf{Model~3:~} \mathrm{Graduation~Rate}_i&=\beta_0 + \beta_1(\mathrm{SAT}_{i}) + \beta_2(\mathrm{SAT}^2_{i}) + \beta_3(\mathrm{Public}_i) + \epsilon_i\\
-\mathbf{Model~4:~} \mathrm{Graduation~Rate}_i&=\beta_0 + \beta_1(\mathrm{SAT}_{i}) + \beta_2(\mathrm{SAT}^2_{i}) + \beta_3(\mathrm{Public}_i) + \beta_4(\mathrm{SAT}_{i})(\mathrm{Public}_i) + \epsilon_i\\
-\mathbf{Model~5:~} \mathrm{Graduation~Rate}_i&=\beta_0 + \beta_1(\mathrm{SAT}_{i}) + \beta_2(\mathrm{SAT}^2_{i}) + \beta_3(\mathrm{Public}_i) + \beta_4(\mathrm{SAT}_{i})(\mathrm{Public}_i) + \beta_5(\mathrm{SAT}^2_{i})(\mathrm{Public}_i) + \epsilon_i
-\end{split}
-$$
-
-Here Model 3 is nested within Model 4, which is, in turn, nested in Model 5. Because of this we can use an *F*-test to compare the change in $R^2$ between the different models. Because we are evaluating the *change in* $R^2$, sometimes this test is referred to as the *Delta F-test*, or symbolically, the $\Delta F$-test. 
-
-In general, the null hypothesis that is tested when we compare nested models is:
-
-$$
-H_0: \rho^2_{\mathrm{Complex~Model}} = \rho^2_{\mathrm{Simple~Model}}
-$$
-
-or
-
-$$
-H_0: \rho^2_{\mathrm{Complex~Model}} - \rho^2_{\mathrm{Simple~Model}} = 0
-$$
-
-Recall that
-
-$$
-R^2 = \frac{SS_\mathrm{Total} - SS_\mathrm{Error}}{SS_\mathrm{Total}}
-$$
-
-Recall further that the Sum of Squared Total does not change from model-to-model (so long as we use the same outcome and data to fit the model). Thus if we compare the $R^2$ values for two models, the only thing that would differ in the equation for their resulting $R^2$ values is the SSE. In the actual test, the SSE is what is compared between the two nested models.
-
-To carry out the test in practice, we include both models in the `anova()` function. For example to compare the main effects model (`lm.3`) to the interaction model (linear term; `lm.4`), we use the following syntax.
-
-```{r}
-anova(lm.3, lm.4)
-```
-
-The SSE, or Residual Sum of Squares, for each candidate model is shown in the `RSS` column. Based on these values the interaction model fits better than the main effects model as it has a lower SSE value. How much better is the fit of this model? The difference between these two SSE values is 81.57.
-
-The residual degrees of freedom are a measure of each model's complexity. Smaller values indicate more complexity. Comparing these values for the two candidate models, the interaction model ($df=28$) is more complex than the main effects model ($df=29$). How much more complex is the interaction model than the main effects model? The difference between these two *df* values is 1, which indicates that the interaction model has one additional parameter ($\beta_4$) than the main effects model.
-
-The *F*-test works by initially quantifying the relationship between the relative increase in explanation and the relative increase in complexity. This relative relationship is quantified as an *F*-statistic where,
-
-$$
-F = \frac{\mathrm{SSE}_\mathrm{Simple~Model} - \mathrm{SSE}_\mathrm{Complex~Model}}{\mathrm{SSE}_\mathrm{Complex~Model}} \times \frac{df_\mathrm{Complex~Model}}{df_\mathrm{Simple~Model} - df_\mathrm{Complex~Model}}
-$$
-
-For our example,
-
-$$
-F = \frac{923.80 - 842.23}{842.23} \times \frac{28}{29-28} = 2.71
-$$
-
-
-The *F*-test evaluates this *F*-statistic using an *F*-distribution with numerator *df* equal to the difference in complexity and denominator *df* equal to the *df* in the more complex model.
-
-$$
-F(1,28)=2.71
-$$
-
-In this case, the resulting *p*-value is 0.1108. This suggests that the empirical data are consistent with the null hypothesis that there is no difference in the explained variation in the population of graduation rates between Model 3 and Model 4. In other words, the added complexity of the interaction model does not yield any additional explanation in the population.
-
-We could also compare the main effects model to the model with interaction effects between sector and both the linear and quadratic effects of median SAT score using the *F*-test since Model 3 is also nested within Model 5.
-
-
-```{r}
-# Compare Model 1 to Model 3
-anova(lm.3, lm.5)
-```
-
-The results of this test, $F(2,27)=1.51$, $p=.239$, also suggest that the empirical data are consistent with the null hypothesis that there is no difference in the explained variation in the population of graduation rates between Model 3 and Model 5. In other words, the added complexity of the two interaction terms does not yield any additional explanation in the population.
-
-Based on these sets of results, we would adopt the main effects model as the "best" model of the three candidate models.
-
-<br />
-
-
-# Model Selection Using a Set of Hierarchical Nested Models
-
-The $\Delta F$-test is often used to aid model selection. This is only useful when the candidate models under consideration form a hierarchy of nested models. In our example, we have a natural hierarchy of candidate models we may want to consider:
-
-$$
-\begin{split}
-\mathbf{Model~1:~} \mathrm{Graduation~Rate}_i&=\beta_0 + \beta_1(\mathrm{SAT}_{i}) + \epsilon_i\\
-\mathbf{Model~2:~} \mathrm{Graduation~Rate}_i&=\beta_0 + \beta_1(\mathrm{SAT}_{i}) + \beta_2(\mathrm{SAT}^2_{i}) + \epsilon_i\\
-\mathbf{Model~3:~} \mathrm{Graduation~Rate}_i&=\beta_0 + \beta_1(\mathrm{SAT}_{i}) + \beta_2(\mathrm{SAT}^2_{i}) + \beta_3(\mathrm{Public}_i) + \epsilon_i\\
-\mathbf{Model~4:~} \mathrm{Graduation~Rate}_i&=\beta_0 + \beta_1(\mathrm{SAT}_{i}) + \beta_2(\mathrm{SAT}^2_{i}) + \beta_3(\mathrm{Public}_i) + \beta_4(\mathrm{SAT}_{i})(\mathrm{Public}_i) + \epsilon_i\\
-\mathbf{Model~5:~} \mathrm{Graduation~Rate}_i&=\beta_0 + \beta_1(\mathrm{SAT}_{i}) + \beta_2(\mathrm{SAT}^2_{i}) + \beta_3(\mathrm{Public}_i) + \beta_4(\mathrm{SAT}_{i})(\mathrm{Public}_i) + \beta_5(\mathrm{SAT}^2_{i})(\mathrm{Public}_i) + \epsilon_i
-\end{split}
-$$
-
-Sometimes this comparison of sets of nested models is referred to as *hierarchical regression*. Be careful with this terminology as it is easy to confuse this with *hierarchical linear modeling* (HLM) which is based on an entirely different statistical model. The `anova()` function can be used to compare a hierarchical set of nested models. 
-
-```{r}
-anova(lm.1, lm.2, lm.3, lm.4, lm.5)
-```
-
-When there are more than two models inputted into the `anova()` function, each model is compared to the model in the line previous to it in the output. For example here Model 2 (represented in the second line of output) is compared to Model 1 (represented in the first line of output). These results are provided in the more complex model's line of output. For example, the results of comparing Model 2 to Model 1 are:
-
-$$
-F(1, 30) = 13.14,~p=.001
-$$
-
-The results (*F*- and *p*-values) in the third line compare Model 3 (represented in the third line of output) to Model 2 (represented in the second line of output). These results are:
-
-$$
-F(1, 29) = 18.01,~p=.0002
-$$
-
-There are two methods to select the "best" model from this output. The first method is to start with the simplest model (Model 1) and work forward to compare this with the next most complex model. If the more complex model adds explanation beyond what is expected because of sampling error we adopt it and continue the evaluation process by comparing it to the next most complex model. If not, we adopt the simpler model as the "best" candidate model.
-
-The second method of model selection begins by comparing the most complex model to the the second most complex model (backwards approach). If the most complex model adds explanation beyond what is expected because of sampling error we adopt it as "best" candidate model. If not, we adopt the simpler model and then compare it to the next most complex model. We continue until we have identified the "best" candidate model
-
-Which of these methods you use is up to you, but you need to identify which you will use prior to seeing any fitted results. Here I will illustrate the backwards approach to identifying the "best" candidate model. Comparing Model 5 to Model 4, we adopt Model 4 as the data are consistent with there being no improvement in explanation to accompany the added complexity of Model 5. Because of this, we eliminate (or drop) the parameter associated with the interaction term between the quadratic SAT term and sector.
-
-We would then compare Model 4 to Model 3; adopting Model 3 using the same rationale, again eliminating the interaction term associated with the linear SAT term and sector. When we compare Model 3 to Model 2, however, the small *p*-value suggests that we should adopt Model 3. The additional explanation (relative to the model's increased complexity) is more than we would expect because of sampling variation.
-
-Using this backwards approach, we would again adopt the main effects model as the "best" model of the three candidate models. In this example, using the forward approach we would end up selecting the same model as the "best" candidate model. This does not always happen.
-
-
-<br />
-
-## References
+<!-- ## References -->
 
 
