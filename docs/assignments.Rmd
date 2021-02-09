@@ -52,13 +52,10 @@ Below are the due dates for the assignments, as well as links to the RMD and PDF
 <td>Feb. 27</td>
 <td>Mar. 02</td>
 <td align="center" style="vertical-align:middle;">
-  <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-03-logarithmic-transformations.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
-  </a>-->
+[<span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/assignments/s21-assignment-03-polynomial-effects.Rmd)
 </td>
 <td align="center" style="vertical-align:middle;">
-  <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-03-logarithmic-transformations.pdf">
-    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
-  </a> -->
+[<span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span>](https://zief0002.github.io/epsy-8252/assignments/s21-assignment-03-polynomial-effects.html)
 </td>
 </tr>
 
