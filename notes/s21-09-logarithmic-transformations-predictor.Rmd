@@ -10,9 +10,11 @@ bibliography: ['epsy8251.bib', 'epsy8252.bib']
 csl: 'style/apa-single-spaced.csl'
 ---
 
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+```{=html}
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/es5/tex-mml-chtml.js">
 </script>
+```
 
 ```{r knitr_init, echo=FALSE, cache=FALSE, message=FALSE}
 library(knitr)
@@ -35,8 +37,8 @@ In this set of notes, you will learn another method of dealing with nonlinearity
 ```{r preparation, warning=FALSE, message=FALSE}
 # Load libraries
 library(broom)
-library(corrr)
-library(educate) #Need version 0.1.0.1
+library(educate)
+library(lmtest)
 library(patchwork)
 library(tidyverse)
 
@@ -272,7 +274,7 @@ We can now look at the regression output and interpret the results.
 print(glance(lm.log), width = Inf)
 ```
 
-Examining the model-level output, we see that differences in $\log_2(\mathrm{SAT})$ explain 81.13\% of the variation in graduation rates. Based on the inferential results, $F(1,~31)=133.3$, $p<.001$, the model seems to explain variation in the outcome. Since differences in $\log_2(\mathrm{SAT})$ imply that there are differences in the raw SAT scores, we would typically just say that "differences in SAT scores explain 81.13\% of the variation in graduation rates."
+Examining the model-level output, we see that differences in $\log_2(\mathrm{SAT})$ explain 81.13\% of the variation in graduation rates. Since differences in $\log_2(\mathrm{SAT})$ imply that there are differences in the raw SAT scores, we would typically just say that "differences in SAT scores explain 81.13\% of the variation in graduation rates."
 
 Moving to the coefficient-level output,
 
@@ -361,7 +363,7 @@ This is an increase of 106.4 percentage points from the predicted value of 50.8 
 
 ### Alternative Method of Fitting the Model
 
-Rather that create the log-transformed SAT score as a new column in the data and then using this column in the model, we can use the `log()` function directly on the SAT predictor in the `lm()` computation.
+Rather that create the log-transformed SAT score as a new column in the data and then using this column in the model, we can use the `log()` function directly on the SAT predictor in the `lm()` computation.^[There is also a helper function, `log2()`, which is equivalent to using the `log()` function with the argument `base=2`. The same model could be fitted using this helper function: `lm.log = lm(grad ~ 1 + log2(sat), data = mn)`.]
 
 ```{r }
 lm.log = lm(grad ~ 1 + log(sat, base = 2), data = mn)
@@ -384,14 +386,14 @@ $$
 \hat{\mathrm{Graduation~Rate}_i} = -306.7 + 106.4\bigg[\log_2(\mathrm{SAT}_i)\bigg]
 $$
 
-We can implement this into the `stat_function()` layer of our `ggplot()` syntax.
+We can implement this into the `geom_function()` layer of our `ggplot()` syntax.
 
 
 ```{r fig.cap='Plot of the predicted graduation rate as a function of median SAT score. The non-linearity in the plot indicates that there is a diminishing positive effect of SAT on graduation rates.'}
 # Plot
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point(alpha = 0.3) +
-	stat_function(
+	geom_function(
 	  fun = function(x) {-306.7 + 106.4*log(x, base = 2)}
 	  ) +
 	theme_light() +
@@ -401,9 +403,28 @@ ggplot(data = mn, aes(x = sat, y = grad)) +
 
 <br />
 
+
+
+
 ### Alternative Form of the Fitted Equation
 
-The fitted equation expresses graduation rates as a function of base-2 log-transformed median SAT scores. Alternatively, we can re-write this equation to express graduation rates as a function of raw median SAT scores. To understand how to do this, consider the general mathematical expression of the fitted equation:
+The fitted equation expresses graduation rates as a function of base-2 log-transformed median SAT scores. Alternatively, we can re-write this equation to express graduation rates as a function of raw median SAT scores. Namely,
+
+$$
+\hat{Y}_i = \log_2\bigg(2^{\hat\beta_0} \times X_i^{\hat\beta_1}\bigg)
+$$
+
+Notice that the right-hand side of this expression is a log function; it has the general form of $Y=\log($`r emo::ji("giraffe")`$)$.^[Here `r emo::ji("giraffe")` is simply a placeholder for the expression $2^{\hat\beta_0} \times X_i^{\hat\beta_1}$.] Remember that this is the continuous decay function we were interested in using to model the curvilinearity shown in the data. The important thing is that this non-linear decay function is mathematically the same as using a the log-transformed predictor to model the outcome with linear model. 
+
+$$
+\log_2\bigg(2^{\hat\beta_0} \times X_i^{\hat\beta_1}\bigg) \equiv \beta_0 + \beta_1\bigg[\log_2(X_i)\bigg]
+$$
+
+Practically speaking, this means we can model non-linearity using a linear model. Which means we can use the `lm()` function and all the other ideas you have learned about linear models (e.g., including covariates, adding interaction effects, assumption checking).
+
+
+:::math_note
+To understand how we re-express in this alternative form, consider the general mathematical expression of the fitted equation:
 
 $$
 \hat{Y}_i = \hat\beta_0 + \hat\beta_1\bigg[\log_2(X_i)\bigg]
@@ -431,19 +452,10 @@ $$
 \log_2\bigg(2^{\hat{Y}_i}\bigg) = \log_2\bigg(2^{\hat\beta_0} \times X_i^{\hat\beta_1}\bigg)
 $$
 
-This gives us an expression of the curve that relates the outcome to the predictor. Namely,
+This gives us an expression of the curve that relates the outcome to the predictor. 
+:::
 
-$$
-\hat{Y}_i = \log_2\bigg(2^{\hat\beta_0} \times X_i^{\hat\beta_1}\bigg)
-$$
 
-Notice that the right-hand side of this expression is a log function; it has the general form of $Y=\log($`r emo::ji("giraffe")`$)$.^[Here `r emo::ji("giraffe")` is simply a placeholder for the expression $2^{\hat\beta_0} \times X_i^{\hat\beta_1}$.] Remember that this is the continuous decay function we were interested in using to model the curvilinearity shown in the data. The important thing is that this non-linear decay function is mathematically the same as using a the log-transformed predictor to model the outcome with linear model. 
-
-$$
-\log_2\bigg(2^{\hat\beta_0} \times X_i^{\hat\beta_1}\bigg) \equiv \beta_0 + \beta_1\bigg[\log_2(X_i)\bigg]
-$$
-
-Practically speaking, this means we can model non-linearity using a linear model. Which means we can use the `lm()` function and all the other ideas you have learned about linear models (e.g., including covariates, adding interaction effects, assumption checking).
 
 <br />
 
@@ -457,14 +469,14 @@ $$
 \hat{\mathrm{Graduation~Rate}_i} = \log_2\bigg(2^{-306.7} \times \mathrm{SAT}_i^{106.4}\bigg)
 $$
 
-We can also use this alternative expression in the `stat_function()` layer of our `ggplot()` syntax. 
+We can also use this alternative expression in the `geom_function()` layer of our `ggplot()` syntax. 
 
 
 ```{r fig.cap='Plot of the predicted graduation rate as a function of median SAT score. The non-linearity in the plot indicates that there is a diminishing positive effect of SAT on graduation rates.'}
 # Plot
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point(alpha = 0.3) +
-	stat_function(
+	geom_function(
 	  fun = function(x) {log(2^-306.7 * x^106.4 , base = 2)}
 	  ) +
 	theme_light() +
@@ -475,6 +487,7 @@ ggplot(data = mn, aes(x = sat, y = grad)) +
 <br />
 
 
+
 ## Different Base Values in the Logarithm
 
 The base value we used in the `log()` function in the previous example was base-2. Using a base value of 2 was an arbitrary choice. We can use any base value we want. For example, how do things change if we use base-10?
@@ -482,7 +495,7 @@ The base value we used in the `log()` function in the previous example was base-
 ```{r, paged.print=FALSE}
 mn = mn %>%
   mutate(
-    l10sat = log(mn$sat, base = 10)
+    l10sat = log(sat, base = 10)
   )
 
 # Examine data
@@ -495,7 +508,7 @@ $$
 10^{1.013} = 10.3
 $$
 
-If we fit a model using the base-10 logarithm,
+If we fit a model using the base-10 logarithm^[There is also a helper function, `log10()`, which is equivalent to using the `log()` function with the argument `base=10`. The same model could be fitted using this helper function: `lm.log10 = lm(grad ~ 1 + log10(sat), data = mn)`.],
 
 ```{r}
 lm.log10 = lm(grad ~ 1 + log(sat, base = 10), data = mn)
@@ -504,7 +517,7 @@ lm.log10 = lm(grad ~ 1 + log(sat, base = 10), data = mn)
 print(glance(lm.log10), width = Inf)
 ```
 
-Examining the model-level output, we see that differences in $\log_{10}(\mathrm{SAT})$ explain 81.13\% of the variation in graduation rates. Or simply, that differences in SAT scores explain 81.13\% of the variation in graduation rates, $F(1,~31)=133.3$, $p<.001$. These model-level results are the same as when we used the base-2 logarithm.
+Examining the model-level output, we see that differences in $\log_{10}(\mathrm{SAT})$ explain 81.13\% of the variation in graduation rates. Or simply, that differences in SAT scores explain 81.13\% of the variation in graduation rates. These model-level results are the same as when we used the base-2 logarithm.
 
 ```{r}
 # Coefficient-level output
@@ -542,7 +555,7 @@ To further think about the effect of SAT, if Augsburg improved its median SAT sc
 
 ## Comparing the Output from the Two Bases
 
-The model-level information is all the same. Furthermore, the intercepts (and SE and $p$-value) was the same across both models. The slope estimates and SEs were different in the two models, reflecting the change in scale and interpretation. However, the inferential results ($t$-value and $p$-value) are the same for both transformations.
+The model-level information is all the same. Furthermore, the intercepts (and SE and *p*-value) was the same across both models. The slope estimates and SEs were different in the two models, reflecting the change in scale and interpretation. However, the inferential results (*t*-value and *p*-value) are the same for both transformations.
 
 What if we look at the residual fit?
 
@@ -597,17 +610,17 @@ The only thing that changes when you choose a different base is the interpretati
 <br />
 
 
-## The Natural Logarithm: Base-$e$
+## The Natural Logarithm: Base-*e*
 
 In our example, neither of the bases we examined is satisfactory in terms of interpreting the effect of median SAT score on graduation rate. Two-fold differences in median SAT scores are very unlikely, to say anything of ten-fold differences. 
 
-One base that is commonly used for log-transformations because it offers a reasonable interpretation is base-$e$. $e$ is a mathematical constant (Euler's number) that is approximately equal to 2.71828.^[$e$ also happens to be Andy's favorite number. Google founders might also enjoy $e$, as their IPO indicated they were going to raise $e$-billion dollars (see this [Forbes article](https://www.forbes.com/sites/jayritter/2014/08/07/googles-ipo-10-years-later/?sh=13a7d532e6ca)).] We can obtain this by using the `exp()` function in R. This function takes $e$ to some exponent that is given as the argument. So to obtain the approximation of $e$ we use
+One base that is commonly used for log-transformations because it offers a reasonable interpretation is base-*e*. *e* is a mathematical constant (Euler's number) that is approximately equal to 2.71828.^[Fun Fact: *e* also happens to be Andy's favorite number. Google founders might also enjoy *e*, as their IPO indicated they were going to raise *e*-billion dollars (see this [Forbes article](https://www.forbes.com/sites/jayritter/2014/08/07/googles-ipo-10-years-later/?sh=13a7d532e6ca)).] We can obtain this by using the `exp()` function in R. This function takes *e* to some exponent that is given as the argument. So to obtain the approximation of *e* we use
 
 ```{r}
 exp(1)
 ```
 
-The base-$e$ logarithm for a number, referred to as the *natural logarithm*, can be obtained using the `log()` function with the argument `base=exp(1)`. However, this base is so commonly used that it is the default value for the `base=` argument. So, if we use the `log()` function without defining the `base=` argument, it will automatically use base-$e$. For example, the natural logarithm of Augsburg's median SAT score of 1030 can be computed as
+The base-*e* logarithm for a number, referred to as the *natural logarithm*, can be obtained using the `log()` function with the argument `base=exp(1)`. However, this base is so commonly used that it is the default value for the `base=` argument. So, if we use the `log()` function without defining the `base=` argument, it will automatically use base-*e*. For example, the natural logarithm of Augsburg's median SAT score of 1030 can be computed as
 
 ```{r}
 log(10.3)
@@ -634,7 +647,7 @@ lm.ln = lm(grad ~ 1 + log(sat), data = mn)
 glance(lm.ln)
 ```
 
-As with any base, using base-$e$ results in the same model-level evidence ($R^2=.811$, $F(1,~31)=133.3$, $p<.001$).
+As with any base, using base-*e* results in the same model-level evidence ($R^2=.811$, *F*- and *p*-values).
 
 ```{r}
 # Coefficient-level output
@@ -649,12 +662,12 @@ $$
 
 
 
-The intercept has the same coefficient ($\hat\beta_0=-306.7$), SE, $t$-value, and $p$-value as the intercept from the models using base-2 and base-10 log-transformations of SAT. (This is, again, because $2^0=10^0=e^0=1$.) And, although the coefficient and SE for the effect of SAT is again different (a one-unit change in the three different log-scales does not correspond to the same amount of change in raw SAT for the three models), the inferential results, $t(31)=11.55$, $p<.001$, for this effect, are the same as when we used base-2 and base-10.
+The intercept has the same coefficient ($\hat\beta_0=-306.7$), SE, *t*-value, and *p*-value as the intercept from the models using base-2 and base-10 log-transformations of SAT. (This is, again, because $2^0=10^0=e^0=1$.) And, although the coefficient and SE for the effect of SAT is again different (a one-unit change in the three different log-scales does not correspond to the same amount of change in raw SAT for the three models).
 
 So how can we interpret the model's coefficients?
 
 - The intercept can be interpreted exactly the same as in the previous models in which we used base-2 or base-10; namely that the predicted average graduation rate for colleges/universities with a SAT value of one (median SAT score of 100) is $-306.7$.
-- Interpreting the slope, we could say that an  $e$-fold difference in SAT value is associated with a 153.6-unit difference in graduation rates, on average.
+- Interpreting the slope, we could say that an *e*-fold difference in SAT value is associated with a 153.6-unit difference in graduation rates, on average.
 
 <br />
 
@@ -772,7 +785,7 @@ $$
 $$
 
 
-We could then interpret the effect of SAT by saying a 1\% difference in median SAT score is associated with a 1.53 percentage point difference in predicted graduation rate, on average.
+We could then interpret the effect of SAT by saying a 1% difference in median SAT score is associated with a 1.53 percentage point difference in predicted graduation rate, on average.
 
 <br />
 
@@ -789,7 +802,7 @@ lm.me = lm(grad ~ 1 + public + log(sat), data = mn)
 glance(lm.me)
 ```
 
-The model explains 86.5% of the variation in graduation rates, $F(2,~30)=96.58$, $p<.001$.
+The model explains 86.5% of the variation in graduation rates.
 
 ```{r}
 # Coefficient-level output
@@ -807,8 +820,8 @@ $$
 Interpreting each of the coefficients using the raw metric of median SAT value:
 
 - The intercept value of $-286.1$ is the predicted average graduation rate for all *public* colleges/universities with a SAT value of 1 (extrapolation).
-- Public schools have a predicted graduation rate that is 8.5 percentage points lower, on average, than private schools controlling for differences in median SAT scores ($p=.002$).
-- Each 1% difference in median SAT value is associated with a 1.46 percentage point difference in predicted graduation rate, on average, after controlling for differences in sector ($p<.001$).
+- Public schools have a predicted graduation rate that is 8.5 percentage points lower, on average, than private schools controlling for differences in median SAT scores.
+- Each 1% difference in median SAT value is associated with a 1.46 percentage point difference in predicted graduation rate, on average, after controlling for differences in sector.
 
 <br />
 
@@ -835,19 +848,19 @@ $$
 \end{split}
 $$
 
-We can input each of these fitted equations into a `stat_function()` layer of our `ggplot()` syntax.
+We can input each of these fitted equations into a `geom_function()` layer of our `ggplot()` syntax.
 
 
 ```{r fig.cap='Plot of predicted graduation rate as a function of median SAT score for public (blue, solid line) and private (red, dashed line) institutions.'}
 # Plot
 ggplot(data = mn, aes(x = sat, y = grad)) +
 	geom_point(alpha = 0) +
-	stat_function(
+	geom_function(
 	  fun = function(x) {-286.1 + 146.0*log(x)},
 	  color = "blue",
 	  linetype = "solid"
 	  ) +
-  stat_function(
+  geom_function(
     fun = function(x) {-294.6 + 146.0*log(x)},
     color = "red",
     linetype = "dashed"
@@ -864,11 +877,65 @@ The plot also shows the controlled effect of sector. For schools with the same m
 <br />
 
 
+# Using the Likelihood Ratio Test to Adopt a Model
+
+If you are interested in a more formal test to inform your model selection, we could use the likelihood ratio test to evaluate the evidence among a set of nested models. For example:
+
+$$
+\begin{split}
+\mathbf{Model~1:~}\mathrm{Graduation~Rate}_i &= \beta_0 + \epsilon_i \\[2ex]
+\mathbf{Model~2:~}\mathrm{Graduation~Rate}_i &= \beta_0 + \beta_1\bigg[\ln(\mathrm{SAT}_i)\bigg] + \epsilon_i \\[2ex]
+\mathbf{Model~3:~}\mathrm{Graduation~Rate}_i &= \beta_0 + \beta_1(\mathrm{Public}_i) + \epsilon_i \\[2ex]
+\mathbf{Model~4:~}\mathrm{Graduation~Rate}_i &= \beta_0 + \beta_1\bigg[\ln(\mathrm{SAT}_i)\bigg] + \beta_2(\mathrm{Public}_i) + \epsilon_i 
+\end{split}
+$$
+where each model has the assumptions that $\epsilon_i\overset{i.i.d.}{\sim}\mathcal{N}(0,\sigma^2_{\epsilon})$.
+
+To choose from among thes models, we could evaluate the likelihood ratio tests for the following comparisons:
+
+- Model 1 vs Model 2 (Is a model with SAT more likely to have produced the observed data than one without SAT?)
+- Model 2 vs Model 4 (Is a model with both SAT and sector more likely to have produced the observed data than one with only SAT?)
+- Model 3 vs Model 4 (Is a model with both SAT and sector more likely to have produced the observed data than one with only sector?)
+
+
+You could also fit an interaction model and compare that to Model 4 to evaluate whether the SAT effect on graduation rates differs by sector (although we do not do that here).
+
+```{r}
+# Fit models (use natural log of SAT)
+lm.1 = lm(grad ~ 1,                     data = mn)
+lm.2 = lm(grad ~ 1 + log(sat),          data = mn)
+lm.3 = lm(grad ~ 1 + public, data = mn)
+lm.4 = lm(grad ~ 1 + log(sat) + public, data = mn)
+
+# Likelihood ratio tests
+lrtest(lm.1, lm.2)
+```
+
+Based on the results of the likelihood ratio tests, the empirical evidence overwhelmingly supports Model 2 (effect of median SAT on graduation rates) over Model 1; $LR=8.95\times10^{11}$, $\chi^2(1)=55.04$, $p<.001$. Note that this test can help us evaluate whether there is an effect, but CANNOT tell us whether that effect is nonlinear, nor whether a log function is appropriate to model the effect; for that you are reliant on the residuals! 
+
+```{r}
+lrtest(lm.2, lm.4)
+```
+
+Based on this analysis, the empirical evidence supports Model 4 over Model 2; $LR=268$, $\chi^2(1)=11.18$, $p=.001$. That is, we would adopt the model with effects of median SAT and sector over the model that only included the effect of median SAT.
+
+```{r}
+lrtest(lm.3, lm.4)
+```
+
+The last test allows us to evaluate the model that includes the effects of median SAT and sector to the model that only includes the effect of sector. In this comparison, the empirical evidence overwhelmingly supports Model 4; $LR=1.41\times10^{13}$, $\chi^2(1)=11.18$, $p=.001$.
+
+
+Based on this analyses, we would adopt Model 4 (main effects of median SAT and sector). This model has the most empirical support given the data and candidate models we fitted.
+
+<br />
+
+
 # Polynomial Effects vs. Log-Transformations
 
 The inclusion of polynomial effects and the use of a log-transformation was to model the nonlinearity observed in the relationship between SAT scores and graduation rates. Both methods were successful in this endeavor. While either method could be used in practice to model nonlinearity, there are some considerations when making the choice of which may be more appropriate for a given modeling situation.
 
-The first consideration is one of substantive theory. The plot below shows the mathematical function for a log-transformed $X$ (solid, black line) and for a quadratic polynomial of $X$ (dashed, red line).
+The first consideration is one of substantive theory. The plot below shows the mathematical function for a log-transformed *X* (solid, black line) and for a quadratic polynomial of *X* (dashed, red line).
 
 ```{r echo=FALSE, fig.cap='Comparison of the quadratic polynomial (blue, dashed line) and logarithmic (red, solid line) functions of X.'}
 new = data.frame(x = seq(from = 1, to = 15, by = 0.01))
@@ -878,9 +945,9 @@ plot(y ~ x, data = new, type = "l", lwd = 1.5, col = "red")
 lines(quad ~ x, data = new, col = "blue", lty = "dashed", lwd = 1.5)
 ```
 
-Both functions are nonlinear, however the polynomial function changes direction. For low $x$-values, the function has a large positive effect. This effect diminishes as the values of $X$ gets bigger, and around $x=9$ the effect is zero. For larger values of $X$, the effect is actually negative. For the logarithmic function, the effect is always positive, but it diminishes as $X$ gets larger. (Functions that constantly increase, or constantly decrease, are referred to as *monotonic functions*.) Theoretically, these are very different ideas, and if substantive literature suggests one or the other, you should probably acknowledge that in the underlying statistical model that is fitted.
+Both functions are nonlinear, however the polynomial function changes direction. For low *x*-values, the function has a large positive effect. This effect diminishes as the values of *X* gets bigger, and around $x=9$ the effect is zero. For larger values of *X*, the effect is actually negative. For the logarithmic function, the effect is always positive, but it diminishes as *X* gets larger. (Functions that constantly increase, or constantly decrease, are referred to as *monotonic functions*.) Theoretically, these are very different ideas, and if substantive literature suggests one or the other, you should probably acknowledge that in the underlying statistical model that is fitted.
 
-Empirically, the two functions are very similar especially within certain ranges of $X$. For example, although the predictions from these models would be quite different for really high values of $X$, if we only had data from the range of 2 to 8 ($2\leq X \leq 8$) both functions would produce similar residuals. In this case, the residuals would likely not suggest better fit for either of the two models. In this case, it might be prudent to think about Occam's Razor---if two competing models produce similar predictions, adopt the simpler model. Between these two functions, the **log-transformed model is simpler**; it has one predictor compared to the two predictors in the quadratic model. The mathematical models make this clear:
+Empirically, the two functions are very similar especially within certain ranges of *X*. For example, although the predictions from these models would be quite different for really high values of *X*, if we only had data from the range of 2 to 8 ($2\leq X \leq 8$) both functions would produce similar residuals. In this case, the residuals would likely not suggest better fit for either of the two models. In this case, it might be prudent to think about [Occam's Razor](https://en.wikipedia.org/wiki/Occam%27s_razor)---if two competing models produce similar predictions, adopt the simpler model. Between these two functions, the **log-transformed model is simpler**; it has one predictor compared to the two predictors in the quadratic model. The mathematical models make this clear:
 
 $$
 \begin{split}
@@ -888,6 +955,7 @@ $$
 \mathbf{Log\mbox{-}Transform:~}Y_i &= \beta_0 + \beta_1\bigg[\ln(X_i)\bigg] + \epsilon_i
 \end{split}
 $$
-In the polynomial model, we need to estimate three parameters: an intercept, a slope for the linear term of $X$, and a slope for the quadratic term of $X$.(Remember, the quadratic polynomial model is an interaction model.) While the log model only requires us to estimate two parameters ($\hat\beta_0$ and $\hat\beta_1$). If there is no theory to guide your model's functional form, and the residuals from the polynomial and log-transformed models seem to fit equally well, then the log-transformed model saves you a degree of freedom, and better achieves the goal of parsimony.
 
+In the polynomial model, we need to estimate three parameters: an intercept, a slope for the linear term of *X*, and a slope for the quadratic term of *X*.(Remember, the quadratic polynomial model is an interaction model.) While the log model only requires us to estimate two parameters ($\hat\beta_0$ and $\hat\beta_1$). If there is no theory to guide your model's functional form, and the residuals from the polynomial and log-transformed models seem to fit equally well, then the log-transformed model saves you a degree of freedom, and better achieves the goal of parsimony.
 
+From the two models, it is also possible to see that the these are not nested models; by setting one (or more) of the effects in either model to zero, we do not end up with the other model. This means we CANNOT use the likelihood ratio test to compare whether the quadratic model or the logarithmic model is more appropriate. Again, you must rely on substantive knowledge and evaluate the residuals to make this decision.

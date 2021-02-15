@@ -1,0 +1,48 @@
+---
+title: "mlb-2019.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+bibliography: '../../notes/epsy8251.bib'
+csl: '../../notes/style/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+Each season, [Team Marketing Report (TMR)](http://www.teammarketing.com/) computes the cost of taking a family of four to a professional sports contest for each of the major sporting leagues. Costs are determined by telephone calls with representatives of the teams, venues and concessionaires. Identical questions were asked in all interviews. Prices for Canadian teams were converted to U.S. dollars and comparison prices were converted using a recent exchange rate. Salary data were compiled from data collected by [Spotrac](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwig8rvjz-DmAhWLKs0KHRRMCBEQFjAAegQICBAC&url=http%3A%2F%2Fwww.spotrac.com%2F&usg=AOvVaw1v4lZZ-vBr8wy_SvrzsoYZ).
+
+The data in [mlb-2019.csv](https://github.com/zief0002/epsy-8252/raw/master/data/fci-2019.csv) contains data from the 2019 season for each of the 30 teams that play in Major League Baseball (MLB). The attributes include:
+
+- `team`: Name of professional MLB team
+- `fci`: Fan Cost Index (FCI). The FCI is a summary of what it costs to take a family of four to a game. It comprises the prices of four adult average-price tickets, two small draft beers, four small soft drinks, four regular-size hot dogs, parking for one car, two game programs and two least expensive, adult-size adjustable caps.
+- `payroll`: Team payroll for players on the active roster (in 100 million dollars)
+- `playoffs`: Dummy-coded variable indicating whether the team made the playoffs in the previous season (0 = Non-playoff team in 2018, 1 = Playoff team in 2018)
+- `league`: League the team plays in (AL = American League; NL = National League)
+
+
+### Preview
+
+```{r}
+mlb = readr::read_csv(file = "~/Documents/github/epsy-8252/data/mlb-2019.csv")
+head(mlb)
+```
+
+
+<!-- ### References -->

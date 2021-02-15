@@ -1,0 +1,78 @@
+---
+title: "#protip"
+subtitle: "Formatting Equations"
+author: "Andrew Zieffler"
+date: "2/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Consider the following equation:
+
+$$
+\hat{\mathrm{Graduation~Rate}}_i = -76.1 + 12.7(\mathrm{Median~SAT}_i) - 8.4(\mathrm{Public}_i)
+$$
+
+
+<br /><br />
+
+If you used the following display equation, the formatting is funny looking:
+
+```
+$$
+\hat{Graduation Rate}_i = -76.1 + 12.7(Median SAT_i) - 8.4(Public_i)
+$$
+```
+
+$$
+\hat{Graduation Rate}_i = -76.1 + 12.7(Median SAT_i) - 8.4(Public_i)
+$$
+
+<br /><br />
+
+By default, everything in an equation is typeset in italics. This is good for statistics (e.g., *p*, *df*, *t*) which are supposed to be typeset in italics, but not so good for predictor names (e.g., Public) which are better to typeset in Roman face (regular, non-italicized text). To set part of the equation in Roman face we embed it in `\mathrm{}`.
+
+```
+$$
+\hat{\mathrm{Graduation Rate}}_i = -76.1 + 12.7(\mathrm{Median SAT}_i) - 8.4(\mathrm{Public}_i)
+$$
+```
+
+$$
+\hat{\mathrm{Graduation Rate}}_i = -76.1 + 12.7(\mathrm{Median SAT}_i) - 8.4(\mathrm{Public}_i)
+$$
+
+<br /><br />
+
+Note that the *i* subscript should be italicized, so only the predictor name is embedded in `\mathrm{}`. This is looking better, but there are still some issues, namely that there is no space in our two-word variable names. That is because space is ignored in equations. To include a space use `~` (rather than a space).
+
+```
+$$
+\hat{\mathrm{Graduation~Rate}}_i = -76.1 + 12.7(\mathrm{Median~SAT}_i) - 8.4(\mathrm{Public}_i)
+$$
+```
+
+$$
+\hat{\mathrm{Graduation~Rate}}_i = -76.1 + 12.7(\mathrm{Median~SAT}_i) - 8.4(\mathrm{Public}_i)
+$$
+
+<br /><br />
+
+
+Now the equation is looking quite boss! Here are some other tricks for formatting text in an equation:
+
+- `\mathrm{}` for Roman faced text
+- `\mathit{}` for italics (use this rather than the default italics for variable names you want italicized). Do not use this for things like subscripts, etc.
+- `\mathbf{}` for bold faced text
+- `\mathcal{}` for caligraphied text (e.g., the likelihood)
+
+<br /><br />
+
+
+
+
+

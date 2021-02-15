@@ -13,7 +13,7 @@ Below are the due dates for the assignments, as well as links to the RMD and PDF
 <th style="width:15%;">Due Date (T/R)</th>
 <th style="width:15%;">Due Date (M/W)</th>
 <th style="width:10%;text-align:center">RMD</th>
-<th style="width:10%;text-align:center">PDF</th>
+<th style="width:10%;text-align:center">HTML</th>
 </tr>
 </thead>
 
@@ -64,13 +64,10 @@ Below are the due dates for the assignments, as well as links to the RMD and PDF
 <td>Mar. 11</td>
 <td>Mar. 15</td>
 <td align="center" style="vertical-align:middle;">
-  <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-04-probability-distributions.Rmd">     <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
-  </a>-->
+[<span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/assignments/s21-assignment-04-logarithmic-transformations.Rmd)
 </td>
 <td align="center" style="vertical-align:middle;">
-  <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-04-probability-distributions.pdf">
-    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
-  </a>-->
+[<span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span>](https://zief0002.github.io/epsy-8252/assignments/s21-assignment-04-logarithmic-transformations.html)
 </td>
 </tr>
 

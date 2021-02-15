@@ -1,0 +1,81 @@
+---
+title: "Assignment 04"
+subtitle: "LOGARITHMIC TRANSFORMATIONS"
+author: 
+output: 
+  html_document:
+    highlight: zenburn
+    css: ['style/assignment-style.css', 'style/syntax.css']
+---
+
+The goal of this assignment is to give you experience fitting, interpreting, and evaluating models with logarithmically transformed variables. 
+
+In this assignment, you will use the data from the file *mlb-2019.csv* to explain variation in cost of attending men's professional sporting events. 
+
+- [[CSV]](https://raw.githubusercontent.com/zief0002/epsy-8252/master/data/mlb-2019.csv)
+- [[Data Codebook]](http://zief0002.github.io/epsy-8252/codebooks/mlb-2019.html)
+
+
+```{r echo=FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics("figs/assign-04.png")
+```
+
+
+## Instructions
+
+Submit either an HTML file or, if you are not using R Markdown, a PDF file of your responses to the following questions. Please adhere to the following guidelines for further formatting your assignment:
+
+- All graphics should be resized so that they do not take up more room than necessary and should have an appropriate caption.
+- Any typed mathematics (equations, matrices, vectors, etc.) should be appropriately typeset within the document using Markdown's equation typesetting.
+- All syntax should be hidden (i.e., not displayed) unless specifically asked for.
+- Any messages or warnings produced (e.g., from loading packages) should also be hidden.
+
+This assignment is worth 16 points.
+
+
+<br />
+
+
+## Model 1: Effect of Payroll on FCI
+
+1. Create and examine the scatterplot of the relationship between payroll and FCI. Include the loess smoother in this plot. Does this plot suggest any nonlinearity in the relationship between payroll and FCI that we need to address?
+
+2. Regress the log-transformed FCI variable (using the natural logarithm) on payroll (Model 1). Report and interpret the slope coefficient from the fitted model.
+
+3. Back-transform all the estimated coefficients from Model 1. Report and interpret the back-transformed slope coefficient. 
+
+<br />
+
+## Effect of Payroll and Playoffs on Log-Transformed FCI
+
+4. Fit a model that includes the effects of payroll and whether or not the team made the playoffs in the previous year (Model 2). Also fit an intercept-only model (Model 0). Use the likelihood ratio test to examine which of these models to adopt. Provide the output of these tests, and comment on which model you adopt. **(2pts.)**
+
+5. Fit a model that includes both the payroll and playoffs main effects and the interaction effect (Model 3). Evaluate this model by comparing it to Model 2 using a likelihood ratio test. Report the results of this test in prose (i.e., one or more sentences). Be sure to comment on which model you adopt. **(2pts.)**
+
+<br />
+
+
+## Adopting a "Final" Candidate Model
+
+6 Based on all of the analyses you have done, which of the candidate models will you adopt as your "final" model? Write the fitted equation for the adopted candidate model.
+
+7. Interpret the effect associated with playoffs from this adopted model.
+
+8. Back-transform the effect associated with playoffs from this adopted model. Report and interpret this back-transformed coefficient.
+
+9. Create and report a set of residual plots that allow you to evaluate the adopted model's assumptions. Are the assumptions for the model satisfied? Explain. **(2pts.)**
+
+
+<br />
+
+
+## Presenting the Results
+
+10. Create a publication quality plot that displays the fitted curves from your adopted candidate model. Display separate lines to show the effect of playoffs. These lines should be displayed using different linetypes or colors (or both), or put in different panels, so that they can be easily differentiated in the plot. (Note: Make sure that you back-transform any log-transformed variables when you create this plot.) **(2pts.)**
+
+11. Use the plot to help describe/interpret the effect of payroll on FCI.
+
+12. Re-create the plot of the standardized residuals versus the fitted values for your adopted model. Use the `{ggrepel}` package to include team labels. See [this article](https://ggrepel.slowkow.com/articles/examples.html) for examples. (Hint: If you are using the `augment()` function to create the residuals and fitted values, you will need to add a column that includes the team names.) 
+
+13. Based on your residual plot from Question 12, identify whether the Minnesota Twins are a good value (cheap outing) or bad value (expensive outing) relative to other teams that have the same fitted value (i.e., same payroll and playoff value) based on their residual. Explain.
+

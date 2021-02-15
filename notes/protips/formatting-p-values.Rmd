@@ -1,0 +1,121 @@
+---
+title: "#protip"
+subtitle: "Formatting p-Values that are Below .001 in Tables"
+author: "Andrew Zieffler"
+date: "2/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Import Packages and Data
+
+
+
+```{r import_data, message=FALSE, warning=FALSE}
+# Load libraries
+library(knitr)
+library(kableExtra)
+library(lmtest)
+library(scales)
+library(tidyverse)
+
+# Read in data
+mn = read_csv(file = "https://raw.githubusercontent.com/zief0002/epsy-8252/master/data/mn-schools.csv")
+```
+
+
+<br /><br />
+
+## Likelihood Ratio Test
+
+Here we will fit three models and perform the likelihood ratio test.
+
+```{r}
+# Fit models
+lm.0 = lm(grad ~ 1, data = mn)
+lm.1 = lm(grad ~ 1 + sat, data = mn)
+lm.2 = lm(grad ~ 1 + sat + public, data = mn)
+
+# LRT
+lrtest(lm.0, lm.1, lm.2)
+```
+
+<br /><br />
+
+We can use the `class()` function to understand how the output of the `lrtest()` is formatted.
+
+```{r}
+# Assign output into lrt
+lrt = lrtest(lm.0, lm.1, lm.2)
+
+# Check output class
+class(lrt)
+```
+
+<br /><br />
+
+The `lrtest()` function creates an `anova` object and, more importantly, a `data.frame` object. Since one of the outputs is a data frame, this means we can immediately pipe the `lrtest()` output into a `kable()` function in our RMD document.
+
+```{r}
+# Pipe into kable
+lrt %>%
+  kable()
+```
+
+<br /><br />
+
+# Formatting the Table
+
+The first thing I will do is rename the columns from the `lrtest()` output (before I pipe the results to `kable()`).
+
+```{r}
+# Get column names
+names(lrt)
+
+# Rename columns
+names(lrt) = c("Parameters", "ln(Lik)", "df", "$\\chi^2$", "p")
+
+lrt %>%
+  kable()
+```
+
+<br /><br />
+
+Now that the columns have more reasonable names, we can use the `pvalue()` function from the `{scales}` package to format the `p` column. This function includes a default argument `accuracy = 0.001` that will re-label any *p*-value that is less than .001 to `<.001`. To use it, we recreate the `p` column using `mutate()` to call the `pvalue()` function on the original `p` column.
+
+```{r}
+# Format p-values
+lrt %>%
+  mutate(p = pvalue(p)) %>%
+  kable()
+```
+
+<br /><br />
+
+Now you can use the `kable()` arguments and functions from `{kableExtra}` to spruce up the table.
+
+```{r final_table}
+# Set option so that any cell with 'NA' is left blank in the table
+options(knitr.kable.NA = '')
+
+# Create table
+lrt %>%
+  mutate(p = pvalue(p)) %>%
+  add_column(Model = c("Model 1", "Model 2", "Model 3"), .before = 1) %>% #Include a model column before column 1
+  kable(
+    caption = "Results from a likelihood ratio test comparing three candidate models.",
+    format = "html",
+    escape = FALSE,
+    align = "c",
+    digits = c(NA, 0, 2, 0, 2, NA), #Note that all character columns can't be rounded, thus NA
+    col.names = c("Model", "Parameters", "ln(Lik)", "<i>df</i>", "$\\chi^2$", "<i>p</i>"), #Italicize statistics in columns
+    table.attr = "style='width:60%;'"
+  )  %>%
+  kable_classic() 
+```
+
+
+<br /><br />

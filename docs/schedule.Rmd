@@ -173,7 +173,7 @@ Below is the tentative schedule for the class. The dates are subject to change a
 
 <tr>
 <td align="center" style="vertical-align:middle;">&nbsp;</td>
-<td align="center" colspan="2">*Optional*<br /> *(on your own)*</td>
+<td align="center" colspan="2">*Optional*<br />*(on your own)*</td>
 <td align="center" style="vertical-align:middle;">
   [<span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span>](#readings)
 </td>
