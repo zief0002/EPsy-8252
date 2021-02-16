@@ -10,11 +10,11 @@ bibliography: ['epsy8251.bib', 'epsy8252.bib']
 csl: 'style/apa-single-spaced.csl'
 ---
 
-```{=html}
+
 <script id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/es5/tex-mml-chtml.js">
 </script>
-```
+
 
 ```{r knitr_init, echo=FALSE, cache=FALSE, message=FALSE}
 library(knitr)

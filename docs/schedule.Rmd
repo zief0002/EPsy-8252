@@ -223,31 +223,31 @@ Unit 03: Dealing with Nonlinearity
 </tr>
 
 
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Feb. 18</td> -->
-<!-- <td>Feb. 22</td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   [<span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span>](#readings) -->
-<!-- </td> -->
-<!-- <td style="vertical-align:middle;" rowspan="2">Log-Transforming the Predictor</td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/notes/03-logarithmic-transformations-predictor.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span></a>-->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--  <!-- <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/03-logarithmic-transformations-predictor.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span></a>-->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/03-logarithmic-transformations-predictor.R"><span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span></a>-->
-<!-- </td> -->
-<!-- </tr> -->
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Feb. 23</td>
+<td>Feb. 24</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  [<span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span>](#readings)
+</td>
+<td style="vertical-align:middle;" rowspan="2">Log-Transforming the Predictor</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  [<span class="fas fa-link" style="color: #ff2600; font-size: 17px;"></span>](https://zief0002.github.io/epsy-8252/misc/s21-09-logarithmic-transformations-predictor.html)
+</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  [<span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/notes/s21-09-logarithmic-transformations-predictor.Rmd)
+</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  [<span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/scripts/s21-09-logarithmic-transformations-predictor.R)
+</td>
+</tr>
 
 
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Feb. 23</td> -->
-<!-- <td>Feb. 24</td> -->
-<!-- </tr> -->
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Feb. 25</td>
+<td>Mar. 01</td>
+</tr>
 
 
 
