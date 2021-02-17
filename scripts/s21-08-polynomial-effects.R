@@ -24,7 +24,7 @@ head(mn)
 
 ggplot(data = mn, aes(x = sat, y = grad)) +
   geom_point() +
-  geom_smooth(method = "loess", se = FALSE, color = "red") +
+  #geom_smooth(method = "loess", se = FALSE, color = "red") +
   theme_light() +
   xlab("Estimated median SAT score (in hundreds)") +
   ylab("Six-year graduation rate")

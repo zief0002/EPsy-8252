@@ -75,7 +75,7 @@ In addition to the notes and what we cover in class, there are many other resour
 
 ---
 
-<!--## Polynomial Regression {#polynomial}
+## Polynomial Regression {#polynomial}
 
 **Required**
 
@@ -97,7 +97,7 @@ In addition to the notes and what we cover in class, there are many other resour
 
 **Required**
 
-
+- Refresh your knowledge about logarithms by going though the [Khan Academy Intro to Logarithms](https://www.khanacademy.org/math/algebra2/exponential-and-logarithmic-functions/introduction-to-logarithms/v/logarithms) tutorial.
 
 <br />
 
@@ -106,7 +106,7 @@ In addition to the notes and what we cover in class, there are many other resour
 In addition to the notes and what we cover in class, there are many other resources for learning about log-transformations. Here are some resources that may be helpful in that endeavor:
 
 - [Math with Bad Drawings: ABC Book of e](https://mathwithbaddrawings.com/2018/02/05/the-abc-book-of-e/)
-- 
+
 
 ---
 
