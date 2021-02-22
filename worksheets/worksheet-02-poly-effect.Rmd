@@ -1,0 +1,46 @@
+---
+title: "Worksheet for Polynomial Effects"
+author: "Breakout Group"
+date: "February 22, 2021"
+output:
+  prettydoc::html_pretty:
+    theme: lumen
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Main Effects Model
+
+Use the following main effects model to answer the questions in this section.
+
+```{r eval=FALSE}
+lm.3 = lm(grad ~ 1 + sat + I(sat^2) + public, data = mn)
+```
+
+
+1. Use the likelihood ratio test to determine:
+  + Whether there is a partial effect of sector?
+  + Whether there is a partial quadratic effect of SAT?
+  
+2. Based on your answers to the previous question, should we test whether there is a partial linear effect of SAT?
+  
+*Once you have answers to Questions 1 and 2, call Andy in to your group to explain your responses.*
+
+<br /><br />
+
+3. Create a plot of the fitted equations. Make sure everyone in your group understands how to create this plot.
+
+4. Use the plot you created to interpret (1) the effect of SAT on graduation rate; and (2) the effect of sector on graduation rate.
+
+*Once you have answers to Question 4, call Andy in to your group to explain your response.*
+
+<br /><br />
+
+# Interaction Models
+
+5. Fit one or more models that allow you to determine if there is an interaction effect between sector and SAT on graduation rate. Use the likelihood ratio test to evaluate whether there is an interaction effect.
+
+*Once you have answers to Question 5, call Andy in to your group to explain your response.*

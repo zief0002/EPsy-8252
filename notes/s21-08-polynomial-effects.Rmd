@@ -10,9 +10,8 @@ bibliography: ['epsy8251.bib', 'epsy8252.bib']
 csl: 'style/apa-single-spaced.csl'
 ---
 
-<script id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/es5/tex-mml-chtml.js">
-</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 ```{r knitr_init, echo=FALSE, cache=FALSE, message=FALSE}
 library(knitr)
@@ -218,7 +217,7 @@ This coefficient also indicates whether the U-shape is skinny or wide. Although 
 What can be useful is to find where the minimum (upward facing U-shape) or maximum (downward facing U-shape) occurs. This point is referred to as the *vertex* of the parabola and can be algebraically determined. To do this we determine the *x*-location of the vertex by
 
 $$
-x_\mathrm{Vertex} = -\frac{\hat{\beta_1}}{2 \times \hat\beta_2}
+x_\mathrm{Vertex} = -\frac{\hat{\beta}_1}{2 \times \hat\beta_2}
 $$
 
 where, $\hat{\beta}_1$ is the estimated coefficient for the linear term and $\hat{\beta}_2$ is the estimated coefficient for the quadratic term. The *y* coordinate for the vertex can then be found by substituting the *x*-coordinate into the fitted equation. For our example,
@@ -480,7 +479,8 @@ data.frame(
     caption = "Results from a set of likelihood ratio tests (LRT) to compare a set of nested candidate models.",
     col.names = c("Model", "*df*", "Log-likelihood", "*LR*", "*LRT*"),
     align = c("l", rep("c", 5)),
-    table.attr = "style='width:80%;'"
+    table.attr = "style='width:80%;'",
+    escape = FALSE
   )  %>%
   kable_styling()
 ```
