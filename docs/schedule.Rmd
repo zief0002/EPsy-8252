@@ -271,11 +271,11 @@ Unit 03: Dealing with Nonlinearity
 </tr>
 
 
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Mar. 02</td> -->
-<!-- <td>Mar. 03</td> -->
-<!-- </tr> -->
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Mar. 09</td>
+<td>Mar. 10</td>
+</tr>
 
 <!-- <tr> -->
 <!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->

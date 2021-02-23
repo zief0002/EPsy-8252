@@ -1,0 +1,21 @@
+---
+title: "Untitled"
+author: "Andrew Zieffler"
+date: "2/23/2021"
+output: 
+  html_document:
+    highlight: zenburn
+    css: ['style/test-style.css']
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this set of notes, you will learn another method of dealing with nonlinearity and also for dealing with heterogeneity of variance. Specifically, we will look at log-transforming the predictor in a linear model. To do so, we will use the *movies.csv* dataset (see the [data codebook](http://zief0002.github.io/epsy-8252/codebooks/movies.html)) to explain variation in movie budgets.
+
+$$
+y_i = \beta_0 + \beta_1(x_i)
+$$
+
+In this set of notes, you will learn another method of dealing with nonlinearity and also for dealing with heterogeneity of variance. Specifically, we will look at log-transforming the predictor in a linear model. To do so, we will use the *movies.csv* dataset.
