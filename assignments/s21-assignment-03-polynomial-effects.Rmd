@@ -63,7 +63,7 @@ This assignment is worth 15 points.
 
 ## Model 3: Control for Differences in Gross National Income (GNI)
 
-9.  Regress infant mortality rates on female education level. For this model, posit a quadratic effect of female education level on infant mortality rate, and also control for differences in Gross National Income (Model 3). Write the *fitted equation* using Equation Editor (or some other program that correctly types mathematical expressions).
+9.  Regress infant mortality rates on female education level. For this model, posit a quadratic effect of female education level on infant mortality rate, and also control for differences in Gross National Income (Model 3). (Use all four levels of GNI.) Write the *fitted equation* using Equation Editor (or some other program that correctly types mathematical expressions).
 
 10. Carry out a likelihood ratio test to compare Model 2 and Model 3. Add the results from this test to the table you created in Question \#8.
 
@@ -85,6 +85,6 @@ This assignment is worth 15 points.
 
 14.  Examine the structure and formatting of Table 9 at http://zief0002.github.io/epsy-8251/misc/creating-tables/creating-tables.html. Mimic the format and structure of this table to create a table to present the numerical information from the three models you fitted in this assignment. Make sure the table you create also has an appropriate caption. If the table is too wide, change the page orientation in your word processing program to "Landscape", rather than changing the size of the font. (Note: Only this table should be presented in landscape orientation...not your entire assignment!)
 
-15. Create a publication quality plot that displays the fitted curves from Model 3. Display two separate lines to show the effect of Gross National Income. The two lines should be displayed using different linetypes or colors (or both) so that they can be easily differentiated in the plot.
+15. Create a publication quality plot that displays the fitted curves from Model 3. Display four separate lines to show the effect of Gross National Income. The four lines should be displayed using different linetypes or colors (or both) so that they can be easily differentiated in the plot.
 
 

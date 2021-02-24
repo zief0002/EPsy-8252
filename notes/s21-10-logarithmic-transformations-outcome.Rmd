@@ -5,7 +5,7 @@ date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output: 
   html_document:
     highlight: zenburn
-    css: ['style/style.css', 'style/table-styles.css', 'style/syntax.css', 'style/notes.css']
+    css: ['style/style2.css', 'style/table-styles.css', 'style/syntax.css', 'style/notes.css']
 bibliography: ['epsy8251.bib', 'epsy8252.bib']
 csl: 'style/apa-single-spaced.csl'
 ---
@@ -84,7 +84,7 @@ p3 = ggplot(data = movies, aes(x = length, y = budget)) +
   annotate(geom = "text", x = 187, y = 92, label = "The Green Mile (1999)", size = 3, hjust = 1)
 
 # Place figures side-by-side
-p1 | p2 | p3
+(p1 / p2) |  p3
 ```
 
 
@@ -157,7 +157,11 @@ $$
 
 Remember, in this case, the logarithm answers the mathematical question:
 
-> $e$ to what power is equal to 41.88?
+:::interpret
+##### Interpretation
+
+$e$ to what power is equal to 41.88?
+:::
 
 The answer to this question is:
 
@@ -173,7 +177,7 @@ $$
 Now we will re-examine the scatterplot using the log-transformed outcome to see how this transformation affects the relationship between running time and budget.
 
 
-```{r fig_03, fig.cap='Scatterplot between running time and log-transformed budget. Movies with extreme running times or budgets are identified. The loess smoother (blue, dashed line) is also displayed.', out.width='4in'}
+```{r fig_03, fig.cap='Scatterplot between running time and log-transformed budget. Movies with extreme running times or budgets are identified. The loess smoother (blue, dashed line) is also displayed.', fig.height=6, fig.width=8, out.width='50%'}
 # Scatterplot
 ggplot(data = movies, aes(x = length, y = Lbudget)) +
   geom_point() +
@@ -313,7 +317,11 @@ $$
 
 The predicted budget for a movie that is one minute long is 0.57 million dollars. This is 1.034 TIMES the budget of a movie that is 0 minutes long. Rather than using the language of **TIMES difference** you could also use the language of **fold difference**. In this case the slope coefficient would be interpreted as,
 
-> Each one-minute difference in running time is associated with a 1.034-fold difference in budget, on average.
+:::interpret
+##### Interpretation
+
+Each one-minute difference in running time is associated with a 1.034-fold difference in budget, on average.
+:::
 
 Simply put, when we back-transform from interpretations of log-*Y* to *Y* the interpretations are multiplicatively related to the intercept rather than additively related. We can obtain these multiplicative values (and the back-transformed intercept) by using the `exp()` function to exponentiate the coefficients from the fitted model, which we can obtain using the `coef()` function.
 
@@ -330,7 +338,11 @@ exp(coef(lm.2))
 
 Remember from the previous set of notes, that by using the natural logarithm we can interpret the effects as *percent change*. Rather than saying that each one-minute difference in running time is associated with a 1.034-fold difference in budget, on average, we can directly interpret the slope as the percent change. Thus $\hat{\beta_1}=0.034$ can be interpreted as:
 
-> Each one-minute difference in running time is associated with a 3.4 percent increase in budget, on average.
+:::interpret
+##### Interpretation
+
+Each one-minute difference in running time is associated with a 3.4 percent increase in budget, on average.
+:::
 
 This is an approximation that is often "good enough" for low values of the slope (e.g., $\hat\beta_k < 0.20$).
 
@@ -370,7 +382,7 @@ Based on this plot, we see a non-linear, positive effect of running time on budg
 
 How do we model the non-linearity we observed in the relationship even after we log-transformed the outcome? 
 
-```{r ref.label = 'fig_03', echo = FALSE}
+```{r ref.label = 'fig_03', echo = FALSE, fig.width=8, fig.height=6, out.width='50%'}
 
 ```
 
@@ -469,7 +481,11 @@ $$
 
 Since the quadratic term is an interaction term, we interpret the effect of running time generally as:
 
-> The effect of running time on log-budget varies by running time.
+:::interpret
+##### Interpretation
+
+The effect of running time on log-budget varies by running time.
+:::
 
 To better understand the nature of this relationship we plot the fitted curve (see below). This suggests that there is a curvilinear relationship between running time and log-budget. In general, the effect of running time on log-budget increases for movies with longer running times until about 170 minutes (approximate *x*-coordinate of the vertex) then the effect of running time has an increasing negative effect on log-budget.
 
@@ -632,8 +648,11 @@ coef(lm.3)
 
 If we did interpret the slope directly, the (wrong) interpretation would be:
 
-> Action movies are associated with a 100.2 percent increase in budget, on average, over non-action movies.
+:::interpret
+##### Interpretation
 
+Action movies are associated with a 100.2 percent increase in budget, on average, over non-action movies.
+:::
 
 If you want the specific percent change in budget, compute
 
@@ -648,7 +667,13 @@ This can then be interpreted as a percentage increase or decrease depending on t
 abs(1 - exp(1.002587))
 ```
 
-> Action movies are associated with a 173 percent increase in budget, on average, over non-action movies.
+:::interpret
+##### Interpretation
+
+Action movies are associated with a 173 percent increase in budget, on average, over non-action movies.
+:::
+
+<br />
 
 :::note
 Again, pay attention to the idea of "percent change" versus "percent". In this case action movies have a budget which is 273% of non-action movies budgets, on average. This is different than the 173 percent increase in budget that we just interpreted.
@@ -731,7 +756,7 @@ $$
 $$
 
 
-```{r out.width='3in', fig.cap='The fitted curves from the model with linear and quadratic effects of running time for both action movies (red, solid line) and non-action movies (black, dashed line) are displayed.'}
+```{r fig.cap='The fitted curves from the model with linear and quadratic effects of running time for both action movies (red, solid line) and non-action movies (black, dashed line) are displayed.'}
 # Plot
 ggplot(data = movies, aes(x = length, y = budget)) +
   geom_point(alpha = 0) +
