@@ -5,7 +5,7 @@ date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output: 
   html_document:
     highlight: zenburn
-    css: ['style/style2.css', 'style/table-styles.css', 'style/syntax.css', 'style/notes.css']
+    css: ['style/style.css', 'style/table-styles.css', 'style/syntax.css', 'style/notes.css']
 bibliography: ['epsy8251.bib', 'epsy8252.bib']
 csl: 'style/apa-single-spaced.csl'
 ---

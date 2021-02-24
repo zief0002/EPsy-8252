@@ -47,4 +47,42 @@
   border: dashed 5px #82a7a6;
   }
   
+
+/* -----------Grey Math Note------------- */
+
+.math_note {
+  padding: 1em;
+  margin: 1em 0;
+  padding-left: 100px;
+  background-image: url("../figs/math.png");
+  background-size: 70px;
+  background-repeat: no-repeat;
+  background-position: 15px 15px;
+  min-height: 120px;
+  color: #326273;
+  background-color: #bdc7bfab;
+  border: dashed 5px #869889;
+  }  
+  
+  
+/* -----------Yellow Interpretation Note------------- */
+
+.interpret {
+  padding: 1em;
+  margin: 1em 0;
+  padding-left: 100px;
+  background-image: url("../figs/interpret.png");
+  background-size: 70px;
+  background-repeat: no-repeat;
+  background-position: 15px 50%;
+  min-height: 120px;
+  color: #264653;
+  background-color: #fffeaaab;
+  border: solid 3px #264653;
+  border-radius: 25px;
+  }  
+
+.interpret h5{
+  margin-bottom: -20px;
+}
   

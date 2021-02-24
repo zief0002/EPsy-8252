@@ -1,3 +1,5 @@
+/*Increse Math Jax Size for Firefox Browsers*/
+
 @-moz-document url-prefix() {
   .MathJax {
     font-size: 100%;

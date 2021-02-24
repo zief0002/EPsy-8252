@@ -1,11 +1,16 @@
-@import url('https://fonts.googleapis.com/css?family=Crimson+Text|Open+Sans|Raleway:800&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Sue+Ellen+Francisco&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway:800&display=swap');         /*Headers*/
+@import url('https://fonts.googleapis.com/css?family=Sue+Ellen+Francisco&display=swap'); /*Title*/
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');        /*Body Text*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');    /*Quotes*/
+
 
 body {
   /*background-color: #273043;*/
   background-image: radial-gradient(circle, #FB8500, #FD9E02, #FFB703);
   font-size: 16px;
+  font-family: 'EB Garamond', serif;
+  line-height: 1.5em;
+  
 }
 
 .container-fluid {
@@ -16,16 +21,9 @@ body {
 }
 
 p {
-  font-family: 'Crimson Text', serif;
-  line-height: 1.5em;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
 }
-
-li {
-  font-family: 'Crimson Text', serif;
-}
-
 
 
 h1, h2, h3, h4, h5, h6 {
@@ -39,32 +37,24 @@ h1, h2, h3, h4, h5, h6 {
  /* unvisited link */
 a:link {
   color: #258EA6;
-  font-family: 'Crimson Text', serif;
-  font-size: 16px;
   text-decoration: underline;
 }
 
 /* visited link */
 a:visited {
   color: #258EA6;
-  font-family: 'Crimson Text', serif;
-  font-size: 16px;
   text-decoration: underline;
 }
 
 /* mouse over link */
 a:hover {
   color: #DA2C38;
-  font-family: 'Crimson Text', serif;
-  font-size: 16px;
   text-decoration: underline;
 }
 
 /* selected link */
 a:active {
   color: #258EA6;
-  font-family: 'Crimson Text', serif;
-  font-size: 16px;
   text-decoration: underline;
 } 
 
@@ -79,14 +69,12 @@ blockquote {
 blockquote p {
   color: #353535;
   margin: 8px 0 24px 0;
-  font-family: 'Crimson Text', serif;
-  font-size: 16px;
 }
 
 
 /* Style author */
 .author {
-    font-family: 'Crimson Text', serif;
+    font-family: 'EB Garamond', serif;
     font-weight: normal;
     color: #273043;
     margin: 40px auto 5px auto;
@@ -99,7 +87,7 @@ blockquote p {
 
 /* Style date */
 .date {
-    font-family: 'Crimson Text', serif;
+    font-family: 'EB Garamond', serif;
     font-style: normal;
     font-weight: normal;
     color: #273043;
@@ -124,8 +112,7 @@ blockquote p {
 /* Style figure captions */
 .figure .caption{
   font-style: italic;
-  color: black;
-  font-family: 'Crimson Text', serif;
+  color: #273043;
   font-size: 14px;
   caption-side: top;
   margin-bottom: 20px;
@@ -139,16 +126,6 @@ blockquote p {
   margin-right: auto;
   width: 30%;
 }
-
-/* Style math 
-.MathJax {
-  font-size: 150%;
-}
-
-.math {
-  font-size: 190%;
-}*/
-
 
 
 
@@ -180,12 +157,9 @@ blockquote p {
 }
 
 
-
-
 .chapterquote{
   font-style: italic;
   color: black;
-  font-family: 'Crimson Text', serif;
   text-align: right;
 }
 
@@ -197,35 +171,6 @@ blockquote p {
   float: right;
 }
 
-/* Previous and Next buttons*/
-
-.btn-default {
-  color: #fff;
-  background-color: #20a2a3;
-  border-color: #000;
-}
-
-.btn {
-  display: inline-block;
-  padding: 6px 12px;
-  margin-bottom: 0;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  user-select: none;
-  background-image: none;
-  border: 1px solid;
-  border-radius: 4px;
-}
-
-.btn-default:hover {
-  background-color: #ca054d;
-  color: white;
-}
 
 .center-image {
   display: block;
@@ -236,8 +181,6 @@ blockquote p {
 /* References */
 
 #refs {
-  font-family: 'Crimson Text', serif;
-  font-size: 16px;
   line-height: 1.5em;
   margin-bottom: 1.5em;
 }
