@@ -3,7 +3,7 @@
 Below are the due dates for the assignments, as well as links to the RMD and PDF files for each assignment. The due dates may change at the instructor's discretion. Any revised due dates will be announced in class and posted to the website.
 
 <br />
-<!-- <img src="img/update.png" width="20px" height="20px"> -->
+
 
 <table class="table">
 
@@ -60,7 +60,7 @@ Below are the due dates for the assignments, as well as links to the RMD and PDF
 </tr>
 
 <tr>
-<td>Assignment \#4: *Logarithmic Transformations*</td>
+<td>Assignment \#4: *Logarithmic Transformations* <span style="margin-left:5px; color:#5a067d;font-size:12px;">*[Updated: 03-01-2021]*</span></td>
 <td>Mar. 16</td>
 <td>Mar. 17</td>
 <td align="center" style="vertical-align:middle;">

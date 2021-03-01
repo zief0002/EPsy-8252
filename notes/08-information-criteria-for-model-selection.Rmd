@@ -1,34 +1,19 @@
 ---
-title: "Information Criteria for Model Selection"
-date: "`r Sys.Date()`"
+title: "Information Criteria and Model Selection"
+author: "Andrew Zieffler"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output: 
-  pdf_document:
-    latex_engine: xelatex
+  html_document:
     highlight: zenburn
-    fig_width: 6
-    fig_height: 6
-header-includes: 
-  - \usepackage{graphicx}
-  - \usepackage{rotating}
-  - \usepackage{xcolor}
-  - \definecolor{umn}{HTML}{FF2D21}
-  - \usepackage{caption}
-  - \captionsetup[table]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
-  - \captionsetup[figure]{textfont={it}, labelfont={bf}, singlelinecheck=false, labelsep=newline}
-  - \usepackage{floatrow}
-  - \floatsetup[figure]{capposition=top}
-  - \floatsetup[table]{capposition=top}
-  - \usepackage{xfrac}
-mainfont: "Sabon"
-sansfont: "Futura"
-monofont: Inconsolata    
-urlcolor: "umn"
-bibliography: [epsy8251.bib, epsy8252.bib]
-csl: apa-single-spaced.csl
+    css: ['style/style.css', 'style/table-styles.css', 'style/syntax.css', 'style/notes.css']
+bibliography: ['epsy8251.bib', 'epsy8252.bib']
+csl: 'style/apa-single-spaced.csl'
 ---
 
-<!-- Set the document spacing -->
-\frenchspacing
+
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/es5/tex-mml-chtml.js">
+</script>
 
 
 ```{r knitr_init, echo=FALSE, cache=FALSE, message=FALSE}
@@ -39,359 +24,337 @@ library(rmdformats)
 ## Global options
 options(max.print="75")
 opts_chunk$set(prompt=FALSE, comment=NA, message=FALSE, warning=FALSE, tidy=FALSE, fig.width=6, fig.height=6,
-               fig.pos='H', fig.align='left')
+               fig.pos='H', fig.align='center', out.width='40%')
 opts_knit$set(width=85)
 options(scipen=5)
 ```
 
+
 # Preparation
 
-In this set of notes, you will use information theoretic approaches (e.g., information criteria) to select a "best" model from a set of candidate models (built in the previous set of notes). To do so, we will use the *usnews.csv* dataset (see the [data codebook](http://zief0002.github.io/epsy-8252/codebooks/usnews.html)) to examine the factors that underlie the ratings our academic peers give to graduate programs of education.
+In this set of notes, you will use information theoretic approaches (e.g., information criteria) to select one (or more) empirically supported model from a set of candidate models. To do so, we will use the *mn-schools.csv* dataset (see the [data codebook](http://zief0002.github.io/epsy-8252/codebooks/mn-schools.html)) to examine if (and how) academic "quality" of the student-body (measured by SAT score) is related to institutional graduation rate.
 
 
 ```{r preparation, warning=FALSE, message=FALSE}
 # Load libraries
+library(AICcmodavg)
 library(broom)
-library(educate) #Need version 0.1.0.1
-library(MuMIn)
-library(patchwork)
 library(tidyverse)
 
-# Import data
-usnews = read_csv("~/Documents/github/epsy-8252/data/usnews.csv")
-
-# View data
-head(usnews)
+# Read in data
+mn = read_csv(file = "https://raw.githubusercontent.com/zief0002/epsy-8252/master/data/mn-schools.csv")
 ```
+
+<br />
+
 
 # Working Hypotheses and Candidate Models
 
-Recall previously that we have three **scientific working hypotheses** about how academics perceive and, ultimatley rate, graduate programs:
-
-- **H1:** Student-related factors drive the perceived academic quality of graduate programs in education.
-- **H2:** Faculty-related factors drive the perceived academic quality of graduate programs in education.
-- **H3:** Institution-related factors drive the perceived academic quality of graduate programs in education.
-
-These working hypotheses were translated into the following three statistical models:
-
-**Model 1**
+Over the prior sets of notes, we have considered several models that explain variation in graduation rates. One question we had was which functional form we should adopt (linear, quadratic, log-linear). 
 
 $$
-\mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{GREQ}_i) + \beta_2(\mathrm{GREQ}^2_i) + \beta_3(\mathrm{GREQ}^3_i) + \epsilon_i
+\begin{split}
+\mathbf{Model~1:~} \mathrm{Graduation~Rate}_i &= \beta_0 + \beta_1(\mathrm{SAT}_i) + \epsilon_i \\[1ex]
+\mathbf{Model~2:~} \mathrm{Graduation~Rate}_i &= \beta_0 + \beta_1(\mathrm{SAT}_i) + \beta_2(\mathrm{SAT}^2_i) + \epsilon_i \\[1ex]
+\mathbf{Model~3:~} \mathrm{Graduation~Rate}_i &= \beta_0 + \beta_1\bigg[\ln(\mathrm{SAT}_i)\bigg] + \epsilon_i \\[1ex]
+\end{split}
 $$
 
-**Model 2** 
-
-$$
-\mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{Funded~research}_i) + \beta_2(\mathrm{Funded~research}^2_i) + \beta_3(\mathrm{PhDs~granted}_i) + \beta_4(\mathrm{PhDs~granted}^2_i) + \epsilon_i
-$$
-
-**Model 3** 
-
-$$
-\mathrm{Peer~Rating}_i = \beta_0 + \beta_1(\mathrm{PhD~acceptance~rate}_i) + \beta_2(\mathrm{PhD~student\mbox{-}to\mbox{-}faculty~ratio}_i) + \beta_3(\mathrm{Enrollment}_i) + \epsilon_i
-$$
-
-
-
-
-
-In these models, peer rating, funded research, Ph.D.s granted, Ph.D. acceptance rate, enrollment, and Ph.D. student-to-faculty ratio were all log-transformed.
+where all three models have $\epsilon_i\overset{i.i.d.}{\sim}\mathcal{N}(0,\sigma^2_{\epsilon})$. 
 
 ```{r}
-# Drop rows with missing data
-# Create log-transformed variables
-educ = usnews %>%
-  drop_na() %>%
-  mutate(
-    Lpeer = log(peer),
-    Lfunded_research_per_faculty = log(funded_research_per_faculty),
-    Lphd_granted_per_faculty = log(phd_granted_per_faculty + 1),
-    Ldoc_accept = log(doc_accept),
-    Lphd_student_faculty_ratio = log(phd_student_faculty_ratio + 1),
-    Lenroll = log(enroll)
-    )
-
-# Fit Model 1
-lm.1 = lm(Lpeer ~ 1 + gre_quant + I(gre_quant^2) + I(gre_quant^3), data = educ)
-
-# Fit Model 2
-lm.2 = lm(Lpeer ~ 1 + Lfunded_research_per_faculty + I(Lfunded_research_per_faculty^2) + Lphd_granted_per_faculty  + I(Lphd_granted_per_faculty^2), data = educ)
-
-# Fit Model 3
-lm.3 = lm(Lpeer ~ 1 + Ldoc_accept + Lenroll + Lphd_student_faculty_ratio, data = educ)
+# Fit candidate models
+lm.1 = lm(grad ~ 1 + sat,            data = mn)
+lm.2 = lm(grad ~ 1 + sat + I(sat^2), data = mn)
+lm.3 = lm(grad ~ 1 + log(sat),       data = mn)
 ```
 
 
-# Log-Likelihood
+Each of these models correspond to a different **scientific working hypothesis** about how graduation rates and median SAT scores are related:
 
-Recall that the likelihood gives us the probability of a particular model given a set of data and assumptions about the model, and that the log-likelihood is just a mathematically convenient transformation of the likelihood. Log-likelihood values from different models can be compared, so long as:
+- **H1:** Median SAT scores have a positive relationship with graduation rates that is constant over all levels of SAT.
+- **H2:** Median SAT scores have a positive, diminishing relationship with graduation rates for SAT scores below some level. Above this level, median SAT scores have an increasingly negative relationship with graduation rate.
+- **H3:** Median SAT scores have a positive, diminsihing relationship with graduation rates.
 
-- The exact same data is used to fit the models, 
-- The exact same outcome is used to fit the models, and
-- The assumptions underlying the likelihood (independence, distributional assumptions) are met.
+:::fyi
+These working hypotheses are typically created from the theory and previous empirical work in a substantive area. They need to be translated into a statistical models, which can be quite difficult, especially if there is not a lot of theory to guide this translation.
+:::
 
+While the residuals were helpful in ruling out the linear relationship, it was less clear whether the quadratic or log-linear model produced better residuals. We could make that decision on parsimony (the log-linear model is more parsimonious than the quadratic model), but it might be nice to know which model is more empirically supported.
 
-In all four models we are using the same data set and outcome, and the assumptions seem reasonably tenable for each of the four fitted candidate models. This suggests that the likelihood (or log-likelihood) can provide some evidence as to which of the four candidate models is most probable. Below we compute the log-likelihood values for each of the four candidate models.
+Unfortunately, we cannot use the likelihood ratio test to compare the quadratic and log-linear models, as they are not nested models. Information criteria give us metrics to compare the empirical support for models whether they are nested or not. We will examine several of the more popular information criteria metrics. 
 
-```{r}
-logLik(lm.1)
-logLik(lm.2)
-logLik(lm.3)
-```
-
-Note that the log-likelihood values are also available from the `glance()` function's output (in the `logLik` column).
-
-```{r}
-glance(lm.1)
-```
-
-These values suggest that the model with the highest probability given the data and set of assumptions is Model 3; it has the highest log-likelihood value.
-
-
-# Deviance: An Alternative Fit Value
-
-It is common to multiply the log-likelihood values by $-2$. This is called the *deviance*. Deviance is a measure of model-data error, so when evaluating deviance values, lower is better. (The square brackets in the syntax grab the log-likelihood value from the `logLik()` output.) 
-
-```{r}
--2 * logLik(lm.1)[1] #Model 1
--2 * logLik(lm.2)[1] #Model 2
--2 * logLik(lm.3)[1] #Model 3
-```
-
-
-Here, the model that produces the lowest amount of model-data error is Model 3; it has the lowest deviance value. Since the deviance just multiplies the log-likelihood values by a constant, it produces the same rank ordering of the candidate models. Thus, whether you evaluate using the likelihood, the log-likelihood, or the deviance, you will end up with the same ordering of candidate models. Using deviance, however, has the advantages of having a direct relationship to model error, so it is more interpretable. It is also more closely aligned with other model measures associated with error that we commonly use (e.g., SSE, $R^2$).
+<br />
 
 
 # Akiake's Information Criteria (AIC)
 
-Remember that lower values of deviance indicate the model (as defined via the set of parameters) is more likely (lower model-data error) given the data and set of assumptions. However, in practice we cannot directly compare the deviances since the models include a different number of parameters. It was not coincidence that our most probable candidate model also had the highest number of predictors.
-
-To account for this, we will add a penalty term to the deviance based on the number of parameters estimated in the model. This penalty-adjusted value is called Akiake's Information Criteria (AIC). 
+The AIC metric is calculated by adding a penalty term to the model's deviance ($-2\ln(\mathrm{Likelihood})$). 
 
 $$
-AIC = \mathrm{Deviance} + 2(k)
+\begin{split}
+AIC &= \mathrm{Deviance} + 2k \\[1ex]
+&= -2\ln(\mathcal{L}) + 2k
+\end{split}
 $$
 
-where $k$ is the number of parameters being estimated in the model (including the intercept and RMSE). The AIC adjusts the deviance based on the complexity of the model. Note that the value for $k$ is given as *df* in the `logLik()` output. For our four models, the *df* values are:
+where *k* is the number of parameters being estimated in the model. (Recall that the value for *k* is given as *df* in the `logLik()` output.)
 
-- **M1:** 5 *df* ($\hat\beta_0$, $\hat\beta_1$, $\hat\beta_2$, $\hat\beta_3$, RMSE)
-- **M2:** 6 *df* ($\hat\beta_0$, $\hat\beta_1$, $\hat\beta_2$, $\hat\beta_3$, $\hat\beta_4$, RMSE)
-- **M3:** 5 *df* ($\hat\beta_0$, $\hat\beta_1$, $\hat\beta_2$, $\hat\beta_3$, RMSE)
+Remember that deviance is similar to error (it measures model-data misfit), and so models that have lower values of deviance are more empirically supported. The problem with deviance, however, is that more complex models tend to have smaller deviances and are, therefore, more supported than their simpler counterparts. Unfortunately, these complex models tend not to generalize as well as simpler models (this is called *overfitting*). The AIC metric's penalty term penalizes the deviance more when a more complex model is fitted; it is offsetting the lower degree of model-data misfit in complex models by increasing the 'misfit' based on the number of parameters. 
 
-Just as with the deviance, smaller AIC values indicate a more likely model.
+This penalty-adjusted measure of 'misfit' is called Akiake's Information Criteria (AIC). We compute the AIC for each of the candidate models and the model with the lowest AIC is selected. This model, we say, is the candidate model with the most empirical support. Below we compute the AIC for the model associated with the linear hypothesis.
 
 ```{r}
--2 * logLik(lm.1)[1] + 2*5 #Model 1
--2 * logLik(lm.2)[1] + 2*6 #Model 2
--2 * logLik(lm.3)[1] + 2*5 #Model 3
+# Compute AIC for linear hypothesis
+# logLik(lm.1)
+-2*-113.5472 + 2*3
 ```
 
-
-Arranging these, we find that again Model # (AIC = $-192.8$) is the most likely candidate model given the data and candidate set of models. We can also compute the AIC via the `AIC()` function.
+We could also use the `AIC()` function to compute these values directly.
 
 ```{r}
-# Compute AIC value for Model 1
+# Linear
 AIC(lm.1)
+
+# Quadratic
+AIC(lm.2)
+
+# Log-linear
+AIC(lm.3)
 ```
 
-Lastly, we note that the AIC value is produced as a column in the model-level output. (Note that the `df` column from `glance()` does NOT give the number of model parameters.)
+
+Based on the AIC values, the candidate model with the most empirical evidence is the quadratic model (Model 2); it has the lowest AIC. 
+
+Lastly, we note that the AIC value is produced as a column in the model-level output from the `glance()` function. (Note that the `df` column from `glance()` does NOT give the number of model parameters.)
 
 ```{r}
-# Model-level output for Model 1
-glance(lm.1)
+# Model-level output for linear hypothesis
+print(glance(lm.1), width = Inf)
 ```
 
 
-# Empirical Support for Hypotheses
+<br />
 
-Because the models are proxies for the scientific working hypotheses, the AIC ends up being a measure of empirical support for any particular hypothesis---after all, it takes into account the data (empirical evidence) and model complexity. In practice, we can use the AIC to rank order the models, which results in a rank ordering of the scientific working hypotheses based on the empirical support for each. Ranked in order of empirical support, the three scientific working hypotheses are:
 
-- Peer ratings are attributable to institution-related factors. This hypothesis has the most empirical support of the three working hypotheses, given the data and other candidate models.
-- Peer ratings are attributable to faculty-related factors.
-- Peer ratings are attributable to student-related factors. This hypothesis has the least amount of empirical support of the three working hypotheses, given the data and other candidate models.
+## Empirical Support is for the Working Hypotheses
 
-It is important to remember that the phrase "given the data and other candidate models" is highly important. Using AIC to rank order the models results in a *relative ranking of the models*. It is not able to rank any hypotheses that you didn't consider as part of the candidate set of scientific working hypotheses. Moreover, the AIC is a direct function of the likelihood which is based on the actual model fitted as a proxy for the scientific working hypothesis. If the predictors used in any of the models had been different, it would lead to different likelihood and AIC values, and potentially a different rank ordering of the hypotheses.
+Because the models are proxies for the scientific working hypotheses, the AIC ends up being a measure of empirical support for any particular working hypothesis. Using the AIC, we can rank order the models (and subsequently the working hypotheses) based on their level of empirical support. Ranked in order of empirical support, the three scientific working hypotheses are:
 
+- **H2:** Median SAT scores have a positive, diminishing relationship with graduation rates for SAT scores below some level. Above this level, median SAT scores have an increasingly negative relationship with graduation rate. This hypothesis has the most empirical support of the three working hypotheses, given the data and other candidate models.
+- **H3:** Median SAT scores have a positive, diminsihing relationship with graduation rates. This hypothesis has the second most empirical support of the three working hypotheses, given the data and other candidate models.
+- **H1:** Median SAT scores have a positive relationship with graduation rates that is constant over all levels of SAT. This hypothesis has the least amount of empirical support of the three working hypotheses, given the data and other candidate models.
+
+It is important to remember that the phrase "given the data and other candidate models" is highly important. The ranking of models/working hypotheses is a *relative ranking* of the models' level of empirical support contingent on the candidate models we included in the comparison and the data we used to compute the AIC. 
+
+As such, this method is not able to rank any hypotheses that you didn't consider as part of the candidate set of scientific working hypotheses. Moreover, the AIC is a direct function of the likelihood which is based on the actual model fitted as a proxy for the scientific working hypothesis. If the predictors used in any of the models had been different, it would lead to different likelihood and AIC values, and potentially a different rank ordering of the hypotheses.
+
+The ranking of models is also based on the data we have. Even though the quadratic model may not be what we expect substantively, it is more empirically supported than the log-linear model (or the linear model). Why? Well, we only have data in a certain range of median SAT scores. Within this range of scores, the quadratic model is more empirically supported, even after accounting for the additional complexity of the quadratic model. If we had a broader range of median SAT scores, that evidence might support a different model. This is very important. Model 2 is the most empirically supported candidate model GIVEN the three candidate models we compared and the data we used to compute the AIC metric. 
+
+:::fyi
+The model selection and ranking is contingent on both the set of candidate models you are evaluating, and the data you have. 
+:::
+
+Based on the AIC values for the three candidate models we ranked the hypotheses based on the amount of empirical support:
+
+```{r tab_01, echo=FALSE}
+data.frame(
+  Hypothesis = c(
+    "Quadratic",
+    "Log-linear",
+    "Linear"
+    ),
+  k = c(3, 4, 3),
+  AIC = c(AIC(lm.2), AIC(lm.3), AIC(lm.1))
+) %>%
+  kable(
+    format = "html",
+    booktabs = TRUE,
+    escape = FALSE,
+    caption = "Models rank-ordered by the amount of empirical support as measured by the AIC.",
+    digits = 1,
+    table.attr = "style='width:40%;'"
+    ) %>%
+  kable_classic()
+```
+
+<br />
 
 
 # Corrected AIC (AICc): Adjusting for Model Complexity and Sample Size
 
-Based on the AIC values for the three candidate models we ranked the hypotheses based on the amount of empirical support:
-
-```{r echo=FALSE}
-data.frame(
-  Hypothesis = c(
-    "Institution-related factors", 
-    "Faculty-related factors", 
-    "Student-related factors"
-    ),
-  AIC = c(AIC(lm.3), AIC(lm.2), AIC(lm.1))
-) %>%
-  kable(
-    format = "latex",
-    booktabs = TRUE,
-    escape = FALSE,
-    caption = "Working Hypotheses Rank Ordered by the Amount of Empirical Support as Measured by the AIC", 
-    digits = 1
-    ) %>%
-  kable_styling(latex_options = "HOLD_position")
-```
-
 Although AIC has a penalty correction that should account for model complexity, it turns out that when the number of parameters is large relative to the sample size, AIC is still biased in favor of models that have more parameters. This led @Hurvich:1989 to propose a second-order bias corrected AIC measure (AICc) computed as
 
 $$
-\mathrm{AIC_c} = \mathrm{Deviance} + 2(k)\left( \frac{n}{n - k - 1} \right)
+\mathrm{AIC_c} = \mathrm{Deviance} + 2k\left( \frac{n}{n - k - 1} \right)
 $$
 
-where $k$ is, again, the number of estimated parameters, and $n$ is the sample size used to fit the model. Note that when $n$ is very large (especially relative to $k$) that the last term is essentially 1 and the AICc value would basically reduce to the AIC value. When $n$ is small relative to $k$ this will add more of a penalty to the deviance. **The recommendation is to pretty much always use AICc rather than AIC when selecting models.**
+where *k* is, again, the number of estimated parameters, and *n* is the sample size used to fit the model. Note that when *n* is very large (especially relative to $k$) that the last term is essentially 1 and the AICc value would basically reduce to the AIC value. When *n* is small relative to *k* this will add more of a penalty to the deviance. **The recommendation is to pretty much always use AICc rather than AIC when selecting models.**
 
-Below, we will compute the AICc for the first candidate model. (Note that we use $n=122$ cases for the computation for all the models in this data.)
+Below, we will compute the AICc for the first candidate model. (Note that we use $n=33$ cases for the computation for all the models in this data.)
 
 ```{r}
-n = 122
-k = 5
+n = 33
+k = 3
 
-# Compute AICc for Model 1
--2 * logLik(lm.1)[[1]] + 2 * k * n / (n - k - 1) #Model 1
+# Compute AICc for linear hypothesis
+-2 * logLik(lm.1)[[1]] + 2 * k * n / (n - k - 1)
 ```
 
-In practice, we will use the `AICc()` function from the **MuMIn** package to compute the AICc value directly.
+In practice, we will use the `AICc()` function from the `{MuMIn}` package to compute the AICc value directly.
 
 ```{r message=FALSE}
+# Linear
 AICc(lm.1)
+
+# Quadratic
 AICc(lm.2)
+
+# Log-linear
 AICc(lm.3)
 ```
 
 
-Based on the $\mathrm{AIC_c}$ values, the model with the most empirical support given the data and four candidate models is Model 3. Again, because the models are proxies for the scientific hypotheses, we can rank order the scientific hypotheses based on the empirical support for each.
+Based on the $\mathrm{AIC_c}$ values, the model with the most empirical support given the data and three candidate models is, again, Model 2. Using these results, we can, again, rank order the models/working hypotheses based on the empirical support for each.
 
-
-
-
-```{r echo=FALSE}
+```{r tab_02, echo=FALSE}
 data.frame(
-  H = c(  "Institution-related factors", 
-          "Faculty-related factors", 
-          "Student-related factors"
-          ),
-  AICc = c(AICc(lm.3), AICc(lm.2), AICc(lm.1))
-  #a = c(-193.3285, -192.3311, -183.7639, -181.2357)
+  Hypothesis = c(
+    "Quadratic",
+    "Log-linear",
+    "Linear"
+    ),
+  k = c(3, 4, 3),
+  AICc = c(AICc(lm.2), AICc(lm.3), AICc(lm.1))
 ) %>%
   kable(
-    format = "latex",
+    format = "html",
     booktabs = TRUE,
     escape = FALSE,
-    caption = "Working Hypotheses Rank Ordered by the Amount of Empirical Support", 
+    caption = "Models rank-ordered by the amount of empirical support as measured by the AICc. The sample size used to fit each model was $n=33$.",
     digits = 1,
-    col.names = c("Hypothesis", "AICc")
+    table.attr = "style='width:40%;'"
     ) %>%
-  kable_styling(latex_options = "HOLD_position")
+  kable_classic()
 ```
 
-# Model-Selection Uncertainty
+<br />
+
+
+# Quantifying Model-Selection Uncertainty
 
 When we adopt one model over another, we are introducing some degree of selection uncertainty into the scientific process. It would be nice if we can quantify and report this uncertainty, and this is the real advantage of using information criteria for model selection; it allows us to quantify the uncertainty we have when we select any particular candidate model.
 
 The amount of model selection uncertainty we have depends on the amount of empirical support each of the candidate models has. For example, if one particular candidate model has a lot of empirical support and the rest have very little empirical support we would have less model uncertainty than if all of the candidate models had about the same amount of empirical support.
 
-Since we measure the empirical support each hypothesis has by computing the AICc for the associated candidate model, we can look at how much more empirical support the most supported hypothesis has relative to each of the other working hypotheses by computing the difference in AICc values between the best fitting model and each of the other candidate models. This measure is referred to as # $\Delta$AICc.
+Since we quantify the empirical support each model/working hypothesis by computing the AICc, we can also quantify how much more empirical support the most supported hypothesis has relative to each of the other working hypotheses by computing the difference in AICc values between the model with the mot support and each of the other candidate models. This measure is referred to as $\Delta$AICc.
 
-In our example, the hypothesis with the most empirical support was the institution-related factors model as measured in Model 3.
+In our example, the hypothesis with the most empirical support was the quadratic model (Model 2). The $\Delta$AICc values can then be computed for each candidate model by subtracting the AICc for Model 2 from the AICc for the candidate model.
 
 ```{r}
-# Compute delta values
-AICc(lm.1) - AICc(lm.3) #Student-related factors
-AICc(lm.2) - AICc(lm.3) #Faculty-related factors
-AICc(lm.3) - AICc(lm.3) #Institution-related factors
+# Compute delta AICc value for Model 1
+AICc(lm.1) - AICc(lm.2)
+
+# Compute delta AICc value for Model 2
+AICc(lm.2) - AICc(lm.2)
+
+# Compute delta AICc value for Model 3
+AICc(lm.3) - AICc(lm.2)
 ```
 
-```{r echo=FALSE}
+
+```{r tab_03, echo=FALSE}
 data.frame(
-  H = c(  "Institution-related factors", 
-          "Faculty-related factors", 
-          "Student-related factors"
-          ),
-  AICc = c(AICc(lm.3), AICc(lm.2), AICc(lm.1))
-  ) %>%
+  Hypothesis = c(
+    "Quadratic",
+    "Log-linear",
+    "Linear"
+    ),
+  k = c(3, 4, 3),
+  AICc = c(AICc(lm.2), AICc(lm.3), AICc(lm.1))
+) %>%
   mutate(
-    delta_a = AICc - AICc(lm.3)
-  ) %>% 
-  kable(
-    format = "latex",
-    booktabs = TRUE,
-    escape = FALSE, 
-    caption = "Working Hypotheses Rank Ordered by the Amount of Empirical Support", 
-    digits = 1,
-    col.names = c("Hypothesis", "AICc", "$\\Delta$AICc")
+    delta_a = AICc - AICc(lm.2)
   ) %>%
-  kable_styling(latex_options = "HOLD_position")
+  kable(
+    format = "html",
+    booktabs = TRUE,
+    escape = FALSE,
+    col.names = c("Hypothesis", "k", "AICc", "$\\Delta$AICc"),
+    caption = "Models rank-ordered by the amount of empirical support as measured by the AICc. The sample size used to fit each model was $n=33$.",
+    digits = 1,
+    table.attr = "style='width:50%;'"
+    ) %>%
+  kable_classic()
 ```
 
 @Burnham:2011 [p. 25] give rough guidelines for interpreting $\Delta$AICc values. They suggest that hypotheses with $\Delta$AICc values less than 2 are plausible, those in the range of 4--7 have some empirical support, those in the range of 9--11 have relatively little support, and those greater than 13 have essentially no empirical support. Using these criteria:
 
-- The institution-related factors hypothesis (Model 3) has the most empirical support.
-- The faculty-related factor hypothesis (Model 2) is plausible, although it has relatively little empirical support compared to the institution-related factors hypothesis.
-- The student-related factor hypothesis (Model 1) has essentially no empirical support relative to the institution-related factor hypothesis.
+- The quadratic hypothesis (Model 2) is plausible.
+- The log-linear hypothesis (Model 3) is also plausible.
+- The linear hypothesis (Model 1) is a little less plausible, although it has some empirical support.
+
+This implies that we would have a fair amount of uncertainty actually selecting the quadratic model over the other two models. The empirical evidence has a fair amount of support for all three models, albeit a little less support for the linear hypothesis. This suggests that we adopt more than one model since our empirical evidence can't really differentiate which is 'better'.
+
+<br />
 
 
 # Relative Likelihood and Evidence Ratios
 
-Onw way we mathematically formalize the strength of evidence for each model is to compute the relative likelihood. The relative likelihood provides the likelihood of each of the candidate models, given the set of candidate models and the data. To compute the relative likelihood,
+One way we can mathematically formalize the strength of evidence for each model is to compute the relative likelihood. The relative likelihood provides the likelihood of each of the candidate models, given the set of candidate models and the data. To compute the relative likelihood,
 
 $$
 \mathrm{Relative~Likelihood} = e ^ {−\frac{1}{2} (\Delta AICc)}
 $$
 
-
-
-
 ```{r}
-# Institution-related factors
-exp(-1/2 *  0.00)
+# Linear
+exp(-1/2 * 5.37686)
 
-# Faculty-related factors
-exp(-1/2 *  8.6)
+# Quadratic
+exp(-1/2 * 0)
 
-# Student-related factors
-exp(-1/2 * 11.1)
+# Log-linear
+exp(-1/2 * 1.845128)
 ```
 
-
-```{r echo=FALSE}
+```{r tab_04, echo=FALSE}
 data.frame(
-  H = c(  "Institution-related factors", 
-          "Faculty-related factors", 
-          "Student-related factors"
-          ),
-  AICc = c(AICc(lm.3), AICc(lm.2), AICc(lm.1))
-  ) %>%
+  Hypothesis = c(
+    "Quadratic",
+    "Log-linear",
+    "Linear"
+    ),
+  k = c(3, 4, 3),
+  AICc = c(AICc(lm.2), AICc(lm.3), AICc(lm.1))
+) %>%
   mutate(
-    delta_a = AICc - AICc(lm.3),
+    delta_a = AICc - AICc(lm.2),
     rel_lik = exp(-1/2 * delta_a)
-    ) %>% 
+  ) %>%
   kable(
-    format = "latex",
+    format = "html",
     booktabs = TRUE,
-    escape = FALSE, 
-    caption = "Working Hypotheses Rank Ordered by the Amount of Empirical Support", 
-    digits = c(NA, 1, 1, 3),
-    col.names = c("Hypothesis", "AICc", "$\\Delta$AICc", "Rel. Lik.")
+    escape = FALSE,
+    col.names = c("Hypothesis", "k", "AICc", "$\\Delta$AICc", "Rel($\\mathcal{L}$)"),
+    caption = "Models rank-ordered by the amount of empirical support as measured by the AICc. The sample size used to fit each model was $n=33$.",
+    digits = 1,
+    table.attr = "style='width:50%;'"
     ) %>%
   footnote(
-    general = "Rel. Lik. = Relative Likelihood",
+    general = "Rel($\\mathcal{L}$) = Relative Likelihood",
     general_title = "Note.",
     footnote_as_chunk = TRUE
     ) %>%
-  kable_styling(latex_options = "HOLD_position")
-
+  kable_classic()
 ```
 
-These quantities allow us to compute *evidence ratios*, which are evidentiary statements for comparing any two scientific hypotheses. Evidence ratios quantify how much more empirical support one hypothesis has versus another. To obtain an evidence ratio, we divide the relative likelihood for any two hypotheses. As another example,
+The relative likelihood values allow us to compute *evidence ratios*, which are evidentiary statements for comparing any two scientific hypotheses. Evidence ratios quantify how much more empirical support one hypothesis has versus another. To obtain an evidence ratio, we divide the relative likelihood for any two hypotheses. As another example,
 
-- The empirical support for the institution-related factors hypothesis is 71.4 times that of the empirical support for the faculty-related factors hypothesis. (To obtain this we computed $1/.014=71.4$.)
-- The empirical support for the institution-related factors hypothesis is 250 times that of the empirical support for the student-related factors hypothesis. (To obtain this we computed $1/.004=250$.)
+- The empirical support for the quadratic hypothesis is 2.52 times that of the empirical support for the log-linear hypothesis. (To obtain this we computed $1/.397=2.52$.)
+- The empirical support for the quadratic hypothesis is 14.71 times that of the empirical support for the linear hypothesis. (To obtain this we computed $1/.0068=14.71$.)
+
+<br />
 
 
 # Model Probabilities
@@ -399,181 +362,209 @@ These quantities allow us to compute *evidence ratios*, which are evidentiary st
 Also referred to as an Akaike Weight ($w_i$), a model probability provides a numerical measure of the probability of each model given the data and the candidate set of models. It can be computed as:
 
 $$
-w_i = \frac{\mathrm{Relative~Likelihood~for~Model~J}}{\sum_j \mathrm{Relative~Likelihood}}
+w_i = \frac{\mathrm{Relative~Likelihood~for~Model~J}}{\sum_j \mathrm{All~Relative~Likelihoods}}
 $$
 
 
 
 ```{r}
 # Compute sum of relative likelihoods
-sum_rel = 1.000000000 + 0.01356856 + 0.003887457
+sum_rel = 0.0679876 + 1 + 0.3974985
 
-# Institution-related factors
-1.000000000 / sum_rel 
+# Linear
+0.0679876 / sum_rel
 
-# Faculty-related factors
-0.01356856 / sum_rel 
+# Quadratic
+1 / sum_rel
 
-# Student-related factors
-0.003887457 / sum_rel 
+# Log-linear
+0.3974985 / sum_rel
 ```
 
-Since the models are proxies for the working hypotheses, the model probabilities can be used to provide probabilities of each working hypothesis as a function of the empirical support. Given the data and the candidate set of working hypotheses:
-
-- The probability of the institution-related factors hypothesis is 0.983.
-- The probability of the faculty-related factors hypothesis is 0.013.
-- The probability of the student-related factors hypothesis is 0.004.
-
-This suggests that it is highly probably that the institution-related factors hypothesis is the "best" (closest to truth). There is a tiny probability that the faculty-related factors hypothesis is "best"and almost no probability the student-related factors hypothesis is "best".
-
-
-
-```{r echo=FALSE}
+```{r tab_05, echo=FALSE}
 data.frame(
-  H = c(  "Institution-related factors", 
-          "Faculty-related factors", 
-          "Student-related factors"
-          ),
-  AICc = c(AICc(lm.3), AICc(lm.2), AICc(lm.1))
-  ) %>%
+  Hypothesis = c(
+    "Quadratic",
+    "Log-linear",
+    "Linear"
+    ),
+  k = c(3, 4, 3),
+  AICc = c(AICc(lm.2), AICc(lm.3), AICc(lm.1))
+) %>%
   mutate(
-    delta_a = AICc - AICc(lm.3),
+    delta_a = AICc - AICc(lm.2),
     rel_lik = exp(-1/2 * delta_a),
     model_prob = rel_lik / sum(rel_lik)
-    ) %>%
+  ) %>%
   kable(
-    format = "latex",
+    format = "html",
     booktabs = TRUE,
-    escape = FALSE, 
-    caption = "Working Hypotheses Rank Ordered by the Amount of Empirical Support", 
-    digits = c(1, 1, 1, 3, 3),
-    col.names = c("Hypothesis", "AICc", "$\\Delta$AICc", "Rel. Lik.", "AICc Weight")
+    escape = FALSE,
+    col.names = c("Hypothesis", "k", "AICc", "$\\Delta$AICc", "Rel($\\mathcal{L}$)", "AICc Weight"),
+    caption = "Models rank-ordered by the amount of empirical support as measured by the AICc. The sample size used to fit each model was $n=33$.",
+    digits = 1,
+    table.attr = "style='width:50%;'"
     ) %>%
   footnote(
-    general = "Rel. Lik. = Relative Likelihood",
+    general = "Rel($\\mathcal{L}$) = Relative Likelihood",
     general_title = "Note.",
     footnote_as_chunk = TRUE
     ) %>%
-  kable_styling(latex_options = "HOLD_position")
+  kable_classic()
 ```
 
 
-# Tables of Model Evidence
+Since the models are proxies for the working hypotheses, the model probabilities can be used to provide probabilities of each working hypothesis as a function of the empirical support. Given the data and the candidate set of working hypotheses:
 
-We will use the `model.sel()` function from the **MuMIn** package to compute and create a table of model evidence values directly from the `lm()` fitted models. This function takes a list of models in the candidate set (it actually has to be an R list). The optional argument `rank=` is an optional function that sets the criteria on which to rank the models in the candidate set. (The default if you do not set the `rank=` argument is to use the AICc criterion.)
+- The probability of the quadratic hypothesis is 0.682.
+- The probability of the log-linear hypothesis is 0.271.
+- The probability of the linear hypothesis is 0.046.
 
-```{r}
-#Create table of model evidence
-model_evidence = model.sel(
-  object = list(lm.1, lm.2, lm.3),
-  rank = "AICc"
-  )
-```
+This suggests that the quadratic hypothesis is the most probable. There is also some support for the log-linear hypothesis; it has some non-negligible probability. The linear hypothesis does not have much support; its probability given the candidate models and data is close to zero.
 
-\newpage
-
-```{r}
-# View output
-model_evidence
-```
-
-Note the output includes both the coefficient estimates and the model evidence for each model in the candidate set. The model evidence provided for each model includes the number of parameters (`df`), log-likelihood (`logLik`), AICc value (`AICc`), $\Delta$AICc value (`delta`), and the model probability (`weight`). It also rank orders the models based on the AICc criterion. The models are printed in order from the model with the most empirical evidence (Model 3) to the model with the least amount of empirical evidence (Model 1) based on the AICc.
-
-
-## Pretty Printing Tables of Model Evidence
-
-We can pipe the table of model evidence into the `kable()` function to format the table for pretty-printing in RMarkdown. Here I use **dplyr** functions to select and rename the columns from the `model.sel()` output that correspond to the actual model evidence (omitting the coefficient estimates). One small issue is that the model probabilities have two R classes, so we need to mutate them into numeric values. Finally, we can use functions from the **kableExtra** package (namely `footnote()` and `kable_styling()`) to spruce up the output.
-
-```{r}
-# Load libraries for formatting
-library(knitr)
-library(kableExtra)
-
-# Create data frame to format into table
-tab_01 = model_evidence %>%
-  mutate(
-    Hypothesis = c("H1", "H2", "H3"),
-    weight = as.numeric(weight)
-  ) %>%
-  select(Hypothesis, df, logLik, AICc, delta, weight) %>%
-  rename(
-    # We can include LaTeX math notation in column names
-    # Because \ is a special character we need two \\
-    '$K$' = df,
-    '$LL$' = logLik,
-    '$\\Delta$AICc' = delta,
-    'AICc Wt.' = weight
-  )
-```
-
-\newpage
-
-```{r}
-kable(tab_01,
-    format = "latex",
-    booktabs = TRUE,
-    escape = FALSE,
-    caption = "Table of Model Evidence for Three Working Hypotheses",
-    digits = 3,
-    align = "c",
-    row.names = FALSE
-    ) %>%
-footnote(
-  general = "K = Model df; LL = Log-Likelihood; AIC Wt. = Model Probability",
-  general_title = "Note.",
-  footnote_as_chunk = TRUE
-) %>%
-kable_styling(latex_options = "HOLD_position")
-```
+<br />
 
 
 # Some Final Thoughts
 
 Based on the model evidence given the data for this candidate set of models:
 
-- The institution-related factors hypothesis has the most empirical support.
-- There is very little empirical support for either the faculty-related factor and student-related factors hypotheses relative to the institution-related factors hypothesis.
+- The quadratic hypothesis has the most empirical support.
+- The log-linear hypothesis also has a fair amount of empirical support.
+- There is very little empirical support for the linear hypothesis.
 
-It is important to note that it is ultimately the set of scientific working hypotheses that we are evaluating, using the fit from the associated statistical models to a set of empirical data. If we had a different set of data, we may have a whole new ranking of models or interpretation of empirical support. The empirical support is linked to the data.
+Remember, we are computing all of this evidence to select from among the candidate models. Here the empirical evidence is supporting both the quadratic and log-linear model. The data we have does not make it crystal clear about which hypothesis is really more supported.  
 
-The amount of empirical evidence is also very much relative to the candidate set of models; a different candidate set of models may result in a different rank ordering or interpretation of empirical support. For example, consider if we had not done any exploration of the model's functional form, but instead had just included the linear main-effects for each model.
+Recall that the information criteria are a function of the log-likelihood. Log-likelihood values, and thus information criteria, from different models can be compared, so long as:
 
-\newpage
+- The exact same data is used to fit the models;
+- The exact same outcome is used to fit the models; and
+- The assumptions underlying the likelihood (independence, distributional assumptions) are met.
 
-```{r}
-# Fit models
-lm.1_1 = lm(peer ~ 1 + gre_quant + gre_verbal, data = educ)
-lm.2_1 = lm(peer ~ 1 + funded_research_per_faculty + phd_granted_per_faculty, data = educ)
-lm.3_1 = lm(peer ~ 1 + doc_accept + enroll + phd_student_faculty_ratio, data = educ)
 
-# Compute model evidence
-model.sel(
-  object = list(lm.1_1, lm.2_1, lm.3_1),
-  rank = "AICc"
-  )
+In all three models we are using the same data set and outcome. However, the assumptions only seem reasonably tenable for the quadratic and log-linear model. That means that we should not really include the linear model in our candidate set of models/working hypotheses. Changing the set of candidate models/working hypotheses can result in different measures of evidence.
+
+
+```{r tab_06, echo=FALSE}
+data.frame(
+  Hypothesis = c(
+    "Quadratic",
+    "Log-linear"
+    ),
+  k = c(3, 4),
+  AICc = c(AICc(lm.2), AICc(lm.3))
+) %>%
+  mutate(
+    delta_a = AICc - AICc(lm.2),
+    rel_lik = exp(-1/2 * delta_a),
+    model_prob = rel_lik / sum(rel_lik)
+  ) %>%
+  kable(
+    format = "html",
+    booktabs = TRUE,
+    escape = FALSE,
+    col.names = c("Hypothesis", "k", "AICc", "$\\Delta$AICc", "Rel($\\mathcal{L}$)", "AICc Weight"),
+    caption = "Models rank-ordered by the amount of empirical support as measured by the AICc. The sample size used to fit each model was $n=33$.",
+    digits = 1,
+    table.attr = "style='width:50%;'"
+    ) %>%
+  footnote(
+    general = "Rel($\\mathcal{L}$) = Relative Likelihood",
+    general_title = "Note.",
+    footnote_as_chunk = TRUE
+    ) %>%
+  kable_classic()
 ```
 
-In this example, the rank-ordering of hypotheses ended up being the same, but the evaluation of the empirical support is much different.
+Here since we only removed a model from the candidate set, the only thing that changed is the model probabilities (the Akiake weights). Changing the predictors in the candidate models, or adding other models to the candidate set can impact the amount of empirical support and the rank-ordering of hypotheses. If we had a different set of data, we may also have a whole new ranking of models or interpretation of empirical support. The empirical support is linked to the data. The empirical support is very much relative to the candidate set of models and the data we have.
 
-- There is about the same amount of empirical support for the institution-related factors hypothesis and the faculty-related factors hypothesis.
-- There is still virtually no support for the student-related factors hypothesis.
+Lastly, it is important to note that although information criteria can tell you about the empirical support among a candidate set of models, it cannot say whether that is actually a "good" model. For that you need to look at the assumptions and other measures (e.g., $R^2$). You still need to do all of the work associated with model-building (e.g., selecting predictors from the substantive literature, exploring functional forms to meet the assumptions).
 
-
-It is important to note that although information criteria can tell you about the empirical support among a candidate set of models, it cannot say whether that is actually a "good" model. For that you need to look at the assumptions and other measures (e.g., $R^2$). You still need to do all of the work associated with model-building (e.g., selecting predictors from the substantive literature, exploring functional forms to meet the assumptions).
+<br />
 
 
 # Statistical Inference and Information Criteria
 
-Finally, it is important to mention that philosophically, information-criteria and statistical inference  are two very different ways of measuring statistical evidence. When we use statistical inference for variable selection, the evidence, the $p$-values, is a measure of how rare an observed statistic (e.g., $\hat\beta_k$, $t$-value) is under the null hypothesis. The AIC, on the other hand, is a measure of the model-data compatibility accounting for the complexity of the model.
+Finally, it is important to mention that philosophically, information-criteria and statistical inference are two very different ways of evaluating statistical evidence. When we use statistical inference for variable selection, the evidence, the *p*-values, is a measure of how rare an observed statistic (e.g., $\hat\beta_k$, $t$-value) is under the null hypothesis. The AIC, on the other hand, is a measure of the model-data compatibility accounting for the complexity of the model.
 
-In general, the use of $p$-values is **not compatible** with the use of information criteria-based model selection methods; see @Anderson:2008 for more detail. Because of this, it is typical to not even report $p$-values when using information criteria for model selection. When using information criteria, however, the standard errors are reported, especially for any "best" model(s). This gives information about the statistical uncertainty that arises because of sampling error.
+In general, the use of *p*-values is **not compatible** with the use of information criteria-based model selection methods; see @Anderson:2008 for more detail. Because of this, it is typical to not even report *p*-values when using information criteria for model selection. When using information criteria, however, the standard errors are reported, especially for any "best" model(s). This gives information about the statistical uncertainty that arises because of sampling error.
 
-It is important that you decide how you will be evaluating evidence and making decisions about variable and model selection prior to actually examining the data. Mixing and matching is not cool! 
+It is important that you decide how you will be evaluating evidence and making decisions about variable and model selection prior to actually examining the data. Mixing and matching is not cool!
 
+<br />
+
+
+# Using R to Create a Table of Model Evidence
+
+We will use the `aictab()` function from the `{AICcmodavg}` package to compute and create a table of model evidence values directly from the `lm()` fitted models. This function takes a list of models in the candidate set (it actually has to be an R list). The argument `modnames=` is an optional argument to provide model names that will be used in the output.
+
+```{r}
+#Create table of model evidence
+model_evidence = aictab(
+  cand.set = list(lm.1, lm.2, lm.3), 
+  modnames = c("Linear", "Quadratic", "Log-linear")
+  )
+
+# View output
+model_evidence
+```
+
+The model evidence provided for each model includes the number of parameters (`K`), AICc value (`AICc`), $\Delta$AICc value (`Delta_AICc`), the Akiake weight/model probability (`AICcWt`), cumulative weight (`Cum.Wt`), and log-likelihood (`LL`). The output also rank orders the models based on the AICc criterion. The models are printed in order from the model with the most empirical evidence (Quadratic) to the working hypothesis with the least amount of empirical evidence (Linear) based on the AICc.
+
+
+## Pretty Printing Tables of Model Evidence for R Markdown Documents
+
+We can format the output from `aictab()` to be used in the `kable()` function. Because there are multiple classes associated with the output from the `aictab()` function, we first pipe `model_evidence` into the `data.frame()` function. Viewing this, we see that the data frame, also includes an additional column that gives the relative likelihoods (`ModelLik`).
+
+```{r}
+# Create data frame to format into table
+tab_01 = model_evidence %>%
+  data.frame() 
+
+# View table
+tab_01
+```
+
+Then we can use the `select()` function to drop the `LL` and `Cum.Wt` columns from the data frame. The log-likelihood is redundant to the information in the `AICc` column, since AICc is a function of log-likelihood and the other information in the table. The cumulative weight can also easily be computed from the information in the `AICcWt` column.
+
+```{r}
+# Drop columns
+tab_01 = tab_01 %>%
+  select(-LL, -Cum.Wt)
+
+# View table
+tab_01
+```
+
+We can then pipe the `tab_01` data frame into the `kable()` function to format the table for pretty-printing in RMarkdown. I use the `footnote()` and `kable_classic()` functions from the `{kableExtra}` package to add a footnote to the table and also to format the table in our outputted HTML file.
+
+```{r}
+# Create knitted table
+tab_01 %>%
+  kable(
+    format = "html",
+    booktabs = TRUE,
+    escape = FALSE,
+    col.names = c("Hypothesis", "k", "AICc", "$\\Delta$AICc", "Rel($\\mathcal{L}$)", "AICc Weight"),
+    caption = "Models rank-ordered by the amount of empirical support as measured by the AICc. The sample size used to fit each model was $n=33$.",
+    digits = 1,
+    table.attr = "style='width:50%;'"
+    ) %>%
+  footnote(
+    general = "Rel($\\mathcal{L}$) = Relative Likelihood",
+    general_title = "Note.",
+    footnote_as_chunk = TRUE
+    ) %>%
+  kable_classic()
+```
+
+
+
+
+
+<br />
 
 
 # References
 
-\noindent
-\leftskip 0.2in
-\parindent -0.2in
+

@@ -202,15 +202,15 @@ summary {
 <h2>Model 1: Effect of Payroll on FCI</h2>
 <ol style="list-style-type: decimal">
 <li><p>Create and examine the scatterplot of the relationship between payroll and FCI. Include the loess smoother in this plot. Does this plot suggest any nonlinearity in the relationship between payroll and FCI that we need to address?</p></li>
-<li><p>Regress the log-transformed FCI variable (using the natural logarithm) on payroll (Model 1). Report and interpret the slope coefficient from the fitted model.</p></li>
-<li><p>Back-transform all the estimated coefficients from Model 1. Report and interpret the back-transformed slope coefficient.</p></li>
+<li><p>Regress the log-transformed FCI variable (using the natural logarithm) on payroll (Model 1). Report and interpret the slope coefficient (using the log-metric) from the fitted model.</p></li>
+<li><p>Report and interpret the back-transformed slope coefficient from Model 1.</p></li>
 </ol>
 <p><br /></p>
 </div>
 <div id="effect-of-payroll-and-playoffs-on-log-transformed-fci" class="section level2">
 <h2>Effect of Payroll and Playoffs on Log-Transformed FCI</h2>
 <ol start="4" style="list-style-type: decimal">
-<li><p>Fit a model that includes the effects of payroll and whether or not the team made the playoffs in the previous year (Model 2). Also fit an intercept-only model (Model 0). Use the likelihood ratio test to examine which of these models to adopt. Provide the output of these tests, and comment on which model you adopt. <strong>(2pts.)</strong></p></li>
+<li><p>Fit a model that includes the effects of payroll and whether or not the team made the playoffs in the previous year (Model 2). Use a set of likelihood ratio test to examine the partial effects of payroll and playoffs in this model. Provide the output of these tests, and comment on whether both partial effects should be retained or whether the model can be reduced. <strong>(2pts.)</strong></p></li>
 <li><p>Fit a model that includes both the payroll and playoffs main effects and the interaction effect (Model 3). Evaluate this model by comparing it to Model 2 using a likelihood ratio test. Report the results of this test in prose (i.e., one or more sentences). Be sure to comment on which model you adopt. <strong>(2pts.)</strong></p></li>
 </ol>
 <p><br /></p>
@@ -219,8 +219,8 @@ summary {
 <h2>Adopting a “Final” Candidate Model</h2>
 <p>6 Based on all of the analyses you have done, which of the candidate models will you adopt as your “final” model? Write the fitted equation for the adopted candidate model.</p>
 <ol start="7" style="list-style-type: decimal">
-<li><p>Interpret the effect associated with playoffs from this adopted model.</p></li>
-<li><p>Back-transform the effect associated with playoffs from this adopted model. Report and interpret this back-transformed coefficient.</p></li>
+<li><p>Interpret the effect associated with playoffs (using the log-metric) from this adopted model.</p></li>
+<li><p>Report and interpret the back-transformed coefficient associated with playoffs from this adopted model.</p></li>
 <li><p>Create and report a set of residual plots that allow you to evaluate the adopted model’s assumptions. Are the assumptions for the model satisfied? Explain. <strong>(2pts.)</strong></p></li>
 </ol>
 <p><br /></p>
