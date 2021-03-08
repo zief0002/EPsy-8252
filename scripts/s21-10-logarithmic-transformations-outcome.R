@@ -225,7 +225,7 @@ p1 | p2
 ### Relationship between log-budget and running time for both models
 ##################################################
 
-Log-log model
+#Log-log model
 p1 = ggplot(data = movies, aes(x = length, y = Lbudget)) +
   geom_point() +
   geom_smooth(se = FALSE) +
