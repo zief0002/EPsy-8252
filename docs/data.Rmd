@@ -77,6 +77,16 @@ Below are the links to the data sets and data codebooks used in the notes, scrip
 </tr>
 
 <tr>
+<td>mammals.csv</td>
+<td align="center" style="vertical-align:middle;">
+  [<span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/data/mammals.csv)
+</td>
+<td align="center" style="vertical-align:middle;">
+  <!--[<span class="fas fa-book-open" style="color: #ff2600; font-size: 20px;"></span>](http://zief0002.github.io/epsy-8252/codebooks/mlb-2019.html)-->
+</td>
+</tr>
+
+<tr>
 <td>mlb-2019.csv</td>
 <td align="center" style="vertical-align:middle;">
   [<span class="fas fa-file-csv" style="color: #ff2600; font-size: 20px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/data/mlb-2019.csv)
