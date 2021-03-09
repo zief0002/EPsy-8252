@@ -297,7 +297,7 @@ Unit 03: Dealing with Nonlinearity
 <td align="center" style="vertical-align:middle;">
   <!--[<span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span>](#readings)-->
 </td>
-<td style="vertical-align:middle;">Mental Health Day&mdash;NO CLASS"</td>
+<td style="vertical-align:middle;">Mental Health Day &mdash; NO CLASS</td>
 <td align="center" style="vertical-align:middle;">
   <!--[<span class="fas fa-link" style="color: #ff2600; font-size: 17px;"></span>](https://zief0002.github.io/epsy-8252/misc/s21-10-logarithmic-transformations-outcome.html)-->
 </td>
