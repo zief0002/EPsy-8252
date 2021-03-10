@@ -1,0 +1,71 @@
+---
+title: "nba-team-data.csv and nba-player-data.csv"
+output: 
+  rmdformats::html_docco:
+    css: 'codebooks.css'
+    # includes:
+    #   after_body: doc-suffix.html
+bibliography: '../../notes/epsy8252.bib'
+csl: '../../notes/style/apa-single-spaced.csl'
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+library(fontawesome)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+The data in *nba-team-data.csv* and *nba-player-data.csv*, inspired by @Woltman:2012, include player-level attributes for 300 NBA players, and team-level attributes for 30 different teams, respectively. 
+
+The player-level attributes in *nba-player-data.csv* include:
+
+- `player:` Name of the NBA player
+- `team:` Name of the NBA team for each player
+- `success:` A proxy for player quality/success. This is the quantile for the player based on the player's free-throw percentage - relative to the other players in the league. Higher values indicate a more successful player (e.g., 0 = lowest 20%; 4 = highest - 20%).
+- `life_satisfaction:` Score on a survey of life satisfaction. Scores range from 5 to 25, with higher scores indicating more life satisfaction.
+
+The team-level attributes in nba-team-data.csv include:
+
+- `team:` Name of the NBA team
+- `coach:` Name of the team's current coach
+- `coach_experience:` This is the tercile for the coach based on years of coaching experience in the NBA (e.g., 0 = lowest third; 2 = highest third).
+
+
+### Preview
+
+
+
+**NBA team data**
+
+```{r}
+# options(dplyr.width = Inf, width = 85)
+nba_team = readr::read_csv(file = "~/Documents/github/epsy-8252/data/nba-team-data.csv")
+head(nba_team)
+```
+
+*NBA players data**
+
+```{r}
+# options(dplyr.width = Inf, width = 85)
+nba_player = readr::read_csv(file = "~/Documents/github/epsy-8252/data/nba-player-data.csv")
+head(nba_player)
+```
+
+
+### References
+
+<!-- <p style="padding-left: 50px; text-indent: -50px;"> -->
+

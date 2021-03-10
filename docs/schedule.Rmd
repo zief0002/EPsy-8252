@@ -331,195 +331,39 @@ Unit 03: Dealing with Nonlinearity
 
 
 
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Feb. 16</td> -->
-<!-- <td>Feb. 17</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="preparation.html#bulge"><span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td style="vertical-align:middle;">Rule of "the bulge" &mdash; An example</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/notes/04-logarithmic-transformations-outcome.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span></a>-->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/notes/04-logarithmic-transformations-outcome.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span></a>-->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/04-logarithmic-transformations-outcome.R"><span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span></a>-->
-<!-- </td> -->
-<!-- </tr> -->
-
-<!-- Unit 04: Information Criteria for Model Selection -->
-
-<!-- <tr> -->
-<!-- <td colspan="8"><b>Unit 03: Maximum Likelihood Estimation</b></td> -->
-<!-- </tr> -->
-
-
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Feb. 18</td> -->
-<!-- <td>Feb. 19</td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="preparation.html#probdist"><span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td style="vertical-align:middle;" rowspan="2">Probability Distributions</td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/05-probability-distributions.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/05-probability-distributions.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/05-probability-distributions.R"><span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- </tr> -->
-
-
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Feb. 20</td> -->
-<!-- <td>Feb. 24</td> -->
-<!-- </tr> -->
-
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Feb. 25</td> -->
-<!-- <td>Feb. 26</td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="preparation.html#mle"><span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td style="vertical-align:middle;" rowspan="2">Maximum Likelihood Estimation</td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/06-maximum-likelihood-estimation.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/06-maximum-likelihood-estimation.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/06-maximum-likelihood-estimation.R"><span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- </tr> -->
-
-
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Feb. 27</td> -->
-<!-- <td>Mar. 02</td> -->
-<!-- </tr> -->
-
-
-<!-- Unit 04: Model Selection and Multimodel Inference -->
-
-<!-- <tr> -->
-<!-- <td colspan="8"><b>Unit 04: Model Selection and Multimodel Inference</b></td> -->
-<!-- </tr> -->
-
-
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Mar. 03</td> -->
-<!-- <td>Mar. 04</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="preparation.html#modelbuilding"><span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td style="vertical-align:middle;">Building a Set of Candidate Models</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/07-building-a-set-of-candidate-models.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/07-building-a-set-of-candidate-models.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/07-building-a-set-of-candidate-models.R"><span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- </tr> -->
-
-
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Mar. 05</td> -->
-<!-- <td>Mar. 18</td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="preparation.html#infocrit"><span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td style="vertical-align:middle;" rowspan="2">Information Criteria for Model Selection</td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/08-information-criteria-for-model-selection.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/08-information-criteria-for-model-selection.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/08-information-criteria-for-model-selection.R"><span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- </tr> -->
-
-
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Mar. 19</td> -->
-<!-- <td>Mar. 23</td> -->
-<!-- </tr> -->
-
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td colspan="2">OPTIONAL</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="preparation.html#mumin"><span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td style="vertical-align:middle;">Multimodel Inference</td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/09-multimodel-inference.pdf"><span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/09-multimodel-inference.Rmd"><span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/09-multimodel-inference.R"><span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- </tr> -->
-
 
 
 <!-- Unit 05: Linear Mixed-Effects Models -->
 
-<!-- <tr> -->
-<!-- <td colspan="8"><b>Unit 05: Linear Mixed-Effects Models</b></td> -->
-<!-- </tr> -->
+<tr>
+<td colspan="8"><b>Unit 05: Linear Mixed-Effects Models</b></td>
+</tr>
 
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Mar. 24</td> -->
-<!-- <td>Mar. 25</td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="preparation.html#lmer-intro"><span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span></a> -->
-<!-- </td> -->
-<!-- <td style="vertical-align:middle;" rowspan="2">Introduction to LME Models</td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/10-introduction-to-lmer.pdf"> -->
-<!--     <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 17px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/notes/10-introduction-to-lmer.Rmd"> -->
-<!--     <span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- <td align="center" style="vertical-align:middle;" rowspan="2"> -->
-<!--   <a href="https://github.com/zief0002/epsy-8252/raw/master/scripts/10-introduction-to-lmer.R"> -->
-<!--     <span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span> -->
-<!--   </a> -->
-<!-- </td> -->
-<!-- </tr> -->
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Mar. 18</td>
+<td>Mar. 22</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  [<span class="fa fa-book" style="color: #ff2600; font-size: 17px;"></span>](#readings)
+</td>
+<td style="vertical-align:middle;" rowspan="2">Introduction to Mixed-Effects Models</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  [<span class="fas fa-link" style="color: #ff2600; font-size: 17px;"></span>](https://zief0002.github.io/epsy-8252/misc/s21-13-introduction-to-mixed-effects-models.html)
+</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  [<span class="fab fa-markdown" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/notes/s21-13-introduction-to-mixed-effects-models.Rmd)
+</td>
+<td align="center" style="vertical-align:middle;" rowspan="2">
+  [<span class="fa fa-code" style="color: #ff2600; font-size: 17px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/scripts/s21-13-introduction-to-mixed-effects-models.R)
+</td>
+</tr>
 
 
-<!-- <tr> -->
-<!-- <td align="center" style="vertical-align:middle;">&nbsp;</td> -->
-<!-- <td>Mar. 26</td> -->
-<!-- <td>Mar. 30</td> -->
-<!-- </tr> -->
+<tr>
+<td align="center" style="vertical-align:middle;">&nbsp;</td>
+<td>Mar. 23</td>
+<td>Mar. 34</td>
+</tr>
 
 
 <!-- <tr> -->

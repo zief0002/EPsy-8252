@@ -72,7 +72,7 @@ Below are the due dates for the assignments, as well as links to the RMD and PDF
 </tr>
 
 <tr>
-<td>Assignment \#5: *Information Criteria and Model Selection*</td>
+<td>Assignment \#5: *Information Criteria and Model Selection*<span style="margin-left:5px; color:#5a067d;font-size:12px;">*[Updated: 03-10-2021]*</span></td>
 <td>Mar. 25</td>
 <td>Mar. 29</td>
 <td align="center" style="vertical-align:middle;">

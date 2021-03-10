@@ -43,7 +43,7 @@ Read the article [Model selection and Akaike Information Criteria: An example fr
 
 ## Model Selection 1
 
-Fit the same nine candidate models that Snipes and Taylor fitted in their analysis, but use the *wine.csv* data. In these models use wine rating (`rating`) as the outcome. The point is not to replicate their exact data, but to use the same set of predictors---even though in our dataset the predictors have different levels (e.g., our data includes more regions than Snipes and Taylor's data). By using a different set of data we can more vigorously evaluate the underlying working hypotheses.
+Fit the same nine candidate models that Snipes and Taylor fitted in their analysis, using the *wine.csv* data. In these models use wine rating (`rating`) as the outcome. The point is not to replicate their exact data, but to use the same set of predictors---even though in our dataset the predictors have different levels (e.g., our data includes more regions than Snipes and Taylor's data, and we will treat year as a continuous variable; don't categorize it). By using a different set of data we can more vigorously evaluate the underlying working hypotheses.
 
 1. Create a table of model evidence that includes the following information for each of the nine candidate models. **(2pts.)**
 

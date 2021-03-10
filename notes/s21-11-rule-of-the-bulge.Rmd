@@ -1,0 +1,152 @@
+---
+title: "Rule of the Bulge---An Example"
+author: "Andrew Zieffler"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  prettydoc::html_pretty:
+    theme: leonids
+    highlight: zenburn
+    toc: true
+---
+
+
+Our goal is to use brain weight to predict variation in body weight for mammals.
+
+```{r message=FALSE}
+# Load libraries
+library(broom)
+library(tidyverse)
+
+# Import data
+mammal = read_csv("https://raw.githubusercontent.com/zief0002/epsy-8252/master/data/mammal.csv")
+head(mammal)
+
+# Examine relationship
+ggplot(data = mammal, aes(x = brain_weight, y = body_weight)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_light()
+```
+
+The relationship is non-linear, and shows an exponential growth curve. Use the Rule of the Bulge mnemonic, we identify this curve in the lower right-hand quadrant. To help straighten this curve we can either:
+
+- Transform *X* using an upward transformation; or
+- Transform *Y* using a downward transformation
+
+Since there is only a single predictor, transforming *Y* is low-cost (it doesn't affect the relationship between *Y* and other predictors), whereas transforming *X* with an upward transformation means we would have to include more than one effect in the model (e.g., $X$ and $X^2$). 
+
+Because of this I will transform *Y* using the log-transformation. Looking at the relationship between ln(body weight) and brain weight, we will see if this "straightened" the relationship.
+
+```{r}
+ggplot(data = mammal, aes(x = brain_weight, y = log(body_weight))) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_light()
+```
+
+The relationship is non-linear, and shows a decay version of the exponential growth curve. Use the Rule of the Bulge mnemonic, we identify this curve in the upper left-hand quadrant. To help straighten this curve we can either:
+
+- Transform *X* using an downward transformation; or
+- Transform *Y* using an upward transformation
+
+Since we just used a downward transformation on *Y* to fix the last relationship, using an upward transformation now would just re-introduce the initial problem. Because of this I will transform *X* using the log-transformation. Looking at the relationship between ln(body weight) and ln(brain weight), we will see if this "straightened" the relationship.
+
+```{r}
+ggplot(data = mammal, aes(x = log(brain_weight), y = log(body_weight))) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme_light()
+```
+
+This relationship looks linear! So we can fit a linear model that uses ln(brain weight) to predict variation in ln(body weight). We can then use back-transformations and a plot of the fitted equation to interpret the coefficients in the model.
+
+<br />
+
+## Fit Linear Model
+
+Fitting the linear model and looking at it's output:
+
+```{r}
+# Fit model
+lm.1 = lm(log(body_weight) ~ 1 + log(brain_weight), data = mammal)
+
+# Model-level output
+glance(lm.1)
+
+# Coefficient-level output
+tidy(lm.1)
+```
+
+Interpreting this output:
+
+- Differences in mammals' brain weight explain 92.1% of the variation in body weight.
+
+The fitted equation is:
+
+$$
+\hat{\ln(\mathrm{Body~Weight})}_i = -2.51 + 1.22\bigg[\ln(\mathrm{Brain~Weight}_i)\bigg]
+$$
+
+- Mammals with a log(brain weight) of 0 have a predicted log(body weight) of $-2.51$, on average.
+- Each one-unit change in log(brain weight) is associated with a change in log(body weight) of 1.22-units, on average.
+
+We can also back-transform these log entities to get a better interpretation of the coefficients. For the intercept, when log(brain weight) is 0, actual brain weight = 1. Thus, mammals with a 1-gram brain weight have a predicted log(body weight) of $-2.51$, on average. Exponentiating this ($e^{-2.51}=0.081$), so we can interpret the intercept as:
+
+- Mammals with a brain weight of 1 gram have a predicted body weight of 0.081 kg, on average.
+
+To consider the interpretation of the slope, we utilize the fact that log-transforming *X* (using the natural logarithm) results in an interpretation that can be interpreted as a 1% change in *X*. As such, we choose a series of brain weights that differ by 1% and plug them into our fitted equation to get predicted log(body weights):
+
+```{r}
+# Choose brain weights that differ by 1%
+body = c(100, 101, 102.01)
+
+# Get predicted ln(body weight) values
+-2.51 + 1.22 * log(body)
+```
+
+The interpretation is:
+
+- Each 1% difference in brain weight is associated with a difference of 0.012 in log(body weight), on average.
+
+Here 0.012 is the slope coefficient divided by 100. Now let's transform the log(body weight) values to raw body weights. To do this, we exponentiate these predicted values:
+
+```{r}
+# Exponentiate the predicted values
+exp(-2.51 + 1.22 * log(body))
+```
+
+This results in a constant multiplicative difference of 1.0122, Namely,
+
+- Each 1% difference in brain weight is associated with a 1.012-fold difference in body weight, on average.
+
+Or, interpreting this as a percent change:
+
+- Each 1% difference in brain weight is associated with a 1.22% difference in body weight, on average.
+
+This 1.22% change is essentially the slope coefficient from the fitted equation. Thus when we log-transfomr both *X* and *Y* using the natural logarithm, we can interpret both the change in *X* and change in *Y* as a percent change. In general:
+
+- Each 1% difference in *X* is associated with a $\hat\beta_1$% difference in *Y*, on average.
+
+We can also plot the fitted curve to facilitate a graphical interpretation.
+
+```{r}
+# Plot fitted curve
+ggplot(data = mammal, aes(x = brain_weight, y = body_weight)) +
+  geom_point(alpha = 0.2) +
+  geom_function(fun = function(x){exp(-2.509 + 1.225*log(x))}) +
+  theme_light()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
