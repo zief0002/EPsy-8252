@@ -88,14 +88,10 @@ Below are the due dates for the assignments, as well as links to the RMD and PDF
 <td>Apr. 15</td>
 <td>Apr. 19</td>
 <td align="center" style="vertical-align:middle;">
-  <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-06-mixed-effects-models.Rmd">     
-  <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
-  </a>-->
+[<span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/assignments/s21-assignment-06-lmer-models-cross-sectional.Rmd)
 </td>
 <td align="center" style="vertical-align:middle;">
-  <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-06-mixed-effects-models.pdf">
-    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
-  </a>-->
+[<span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span>](https://zief0002.github.io/epsy-8252/assignments/s21-assignment-06-lmer-models-cross-sectional.html)
 </td>
 </tr>
 
@@ -104,14 +100,10 @@ Below are the due dates for the assignments, as well as links to the RMD and PDF
 <td>Apr. 27</td>
 <td>Apr. 28</td>
 <td align="center" style="vertical-align:middle;">
-  <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-07-longitudinal-models.Rmd">     
-  <span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>
-  </a>-->
+[<span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/assignments/s21-assignment-07-lmer-models-longitudinal.Rmd)
 </td>
 <td align="center" style="vertical-align:middle;">
-  <!--<a href="https://github.com/zief0002/epsy-8252/raw/master/assignments/s20-assignment-07-longitudinal-models.pdf">
-    <span class="fa fa-file-pdf" style="color: #ff2600; font-size: 20px;"></span>
-  </a>-->
+[<span class="fas fa-link" style="color: #ff2600; font-size: 20px;"></span>](https://zief0002.github.io/epsy-8252/assignments/s21-assignment-07-lmer-models-longitudinal.html)
 </td>
 </tr>
 

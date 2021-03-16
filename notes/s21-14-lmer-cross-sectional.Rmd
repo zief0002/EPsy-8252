@@ -1,0 +1,572 @@
+---
+title: "Linear Mixed-Effects Models: Cross-Sectional Analysis"
+author: "Andrew Zieffler"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  html_document:
+    highlight: zenburn
+    css: ['style/style.css', 'style/table-styles.css', 'style/syntax.css', 'style/notes.css']
+bibliography: ['epsy8251.bib', 'epsy8252.bib']
+csl: 'style/apa-single-spaced.csl'
+---
+
+
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/es5/tex-mml-chtml.js">
+</script>
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+library(rmdformats)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(prompt=FALSE, comment=NA, message=FALSE, warning=FALSE, tidy=FALSE, fig.width=6, fig.height=6,
+               fig.pos='H', fig.align='center', out.width='40%')
+opts_knit$set(width=85)
+options(scipen=5)
+```
+
+# Preparation
+
+
+In this set of notes, you will learn about several of the common linear mixed-effects models fitted in an analysis of cross-sectional data. To do so, we will use data from two files, the *netherlands-students.csv* file and the *netherlands-schools.csv* file (see the [data codebook](https://zief0002.github.io/book-8252/data-codebook.html#netherlands) here). These data include student- and school-level attributes, respectively, for $n_i=2287$ 8th-grade students in the Netherlands.
+
+```{r message=FALSE}
+# Load libraries
+library(AICcmodavg)
+library(broom.mixed) #tidy() and glance() for lmer models
+library(educate)
+library(lme4) #for fitting mixed-effects models
+library(tidyverse)
+
+# Read in student-level data
+student_data = read_csv(file = "~/Documents/github/epsy-8252/data/netherlands-students.csv")
+
+# Read in school-level data
+school_data = read_csv(file = "~/Documents/github/epsy-8252/data/netherlands-schools.csv")
+
+# Join the two datasets together
+joined_data = left_join(student_data, school_data, by = "school_id")
+
+# View data
+head(joined_data)
+```
+
+We will use these data to explore the question of whether verbal IQ scores predict variation in post-test language scores.
+
+<br />
+
+
+# Unconditional Random Intercepts Model
+
+As in a conventional fixed-effects regression analysis we begin a mixed-effects analysis by fitting the intercept-only model. This model is referred to as the *unconditional random intercepts model* or the *unconditional means model*. This model includes a fixed-effect of intercept and a random-effect of intercept, and no other predictors. This is the simplest model we can fit while still accounting fo the dependence in the data (e.g., including a random-effect). The statistical model in this example can be expressed as:
+
+$$
+\mathrm{Language~Score}_{ij} = \big[\beta_0 + b_{0j}\big] + \epsilon_{ij}
+$$
+
+where,
+
+- $\mathrm{Language~Score}_{ij}$ is the post-test language score for student $i$ in school $j$;
+- $\beta_0$ is the fixed-effect of intercept, $b_{0j}$ is the random-effect of intercept for school $j$; and
+- $\epsilon_{ij}$ is the error for student $i$ in school $j$. 
+
+As always, the full specification of a model also includes a mathematical description of the distributional assumptions. Mixed-effects models have distributional assumptions on the errors ($\epsilon_{ij}$) and on each set of random-effects included in the model ($b_{0j}$ in our model). The assumptions on the errors are:
+
+- Independence;
+- Conditional normality;
+- Conditional means are 0; and
+- Homoskedasticity of the conditional variances $\sigma^2_{\epsilon}$.
+
+Note that the independence assumption does not assume independence in the original data, but is on the errors which are produced after we account for the dependence in the data by including a random-effect in the model.
+
+The assumptions on each set of random-effects are:
+
+- Independence;
+- Normality;
+- Mean of 0; and
+- There is some variance, $\sigma^2_{b_0}$ (often just denoted $\sigma^2_0$)
+
+In mathematical notation the assumptions for the unconditional random intercepts model can be written as:
+
+$$
+\begin{split}
+\epsilon_{ij} &\overset{i.i.d}{\sim} \mathcal{N}\big( 0, \sigma^2_{\epsilon}\big) \\[1em]
+b_{0j} &\overset{i.i.d}{\sim} \mathcal{N}\big(0, \sigma^2_0  \big)
+\end{split}
+$$
+
+<br />
+
+
+## Fitting and Interpreting the Model
+
+We fit the  model and display the output below. We include the argument `REML=FALSE` to force the `lmer()` function to produce maximum likelihood estimates (rather than restricted maximum likelihood estimates). In practice, we will generally want to fit these models using ML estimation.
+
+```{r}
+# Fit model
+lmer.a = lmer(language_post ~ 1 + (1 | school_id), data = joined_data, REML = FALSE)
+
+# Coefficient-level output and variance components
+tidy(lmer.a)
+```
+
+The `tidy()` function displays the fitted coefficients for the fixed-effects, and the standard deviation estimates for the errors ($\hat\sigma_{\epsilon}$) and the random-effect of intercept ($\hat\sigma_0$). Using the fixed-effects estimates, the fitted equation for the fixed-effects model is:
+
+$$
+\hat{\mathrm{Language~Score}_{ij}} = 40.36
+$$
+
+We interpret coefficients from the fixed-effects model the same way we interpret coefficients produced from the `lm()` output. For example,
+
+- The predicted average post-test language score for all students in all schools is 40.36.
+
+The variance estimates are:
+
+- $\hat\sigma^2_0 = 4.41^2 = 19.4$
+- $\hat\sigma^2_{\epsilon} = 8.04^2 = 64.6$
+
+These are the estimates for the unknowns in the mathematical description of the distributional assumptions.  
+
+We can also use the `summary()` function to obtain these estimates.
+
+```{r eval=FALSE}
+# Output not shown
+summary(lmer.a)
+```
+
+<br />
+
+
+## Partitioning Unexplained Variation
+
+To understand how the mixed-effect model allows for a better understanding of the explained variation, let's consider the **intercept-only fixed-effects regression model** (no random-effect term):
+
+$$
+\mathrm{Language~Score}_{i} = \beta_0 + \epsilon_{i}
+$$
+
+In this model, the fixed-effect for intercept represents the global average post-test language score and the error term represents the deviation between Student *i*'s post-test language score and the global average post-test language score. Recall that the error component of the model symbolizes the unexplained variation in language scores. Since the error term, which encompasses all the unexplained variation in the model, is a deviation to the student score, this implies that the *unexplained variation in the fixed-effects model is all at the student-level*. To explain additional variation we would need to include student-level predictors (i.e., predictors that vary between students).
+
+The **random-intercepts regression** model is expressed as (with no parentheses):
+
+$$
+\mathrm{Language~Score}_{ij} = \beta_0 + b_{0j} + \epsilon_{ij},
+$$
+
+In this model, the fixed-effect for intercept still represents the global average post-test language score, but now Student $i$'s deviation is composed of two separate components: (1) the random-effect represents the deviation from School $j$'s average post-test language score from the global average post-test language score, and (2) the error term represents the deviation between Student $i$'s post-test language score and her school's average post-test language score.
+
+Another way to think about this model is that it has taken the fixed-effects model from earlier and separated the error term from that model into two components school-level deviations ($b_{0j}$) and student-level deviations ($\epsilon_{ij}$).
+
+$$
+\mathrm{Language~Score}_{ij} = \beta_0 + \overbrace{\big[b_{0j} + \epsilon_{ij}\big]}^{\epsilon_i},
+$$
+
+In other words, the mixed-effects model partitions the unexplained variation into two parts: (1) school-level variation, and (2) student-level variation. Some statisticians may refer to these as *between-school* variation and *within-school* variation, respectively.
+
+The variance estimates are the quantification of this partitioning. Together the two variance estimates represent variation that is unexplained for by the model (they are errors/deviations after all). Since one mathematical property of variances is that they are additive, we can compute the total unexplained variation by summing the variance estimates:
+
+$$
+\begin{split}
+\sigma^2_{\mathrm{Total~Unexplained}} &= \hat\sigma^2_0 + \hat\sigma^2_{\epsilon}\\[1em]
+&= 19.4 + 64.6 \\[1em]
+&= 84
+\end{split}
+$$
+
+We can now use this total value to compute the proportion of unexplained variation at both the school- and student-levels. The proportion of **unexplained variation at the school-level** is:
+
+$$
+\frac{19.4}{84} = 0.231
+$$
+
+The proportion of **unexplained variation at the student-level** is:
+
+$$
+\frac{64.6}{84} = 0.769
+$$
+
+Interpreting these,
+
+- 23.1% of the unexplained variation is at the school-level (between-school variation).
+- 76.9% of the unexplained variation is at the student-level (within-school variation).
+
+Based on this partitioning from the unconditional random intercepts model we have evidence that it may be fortuitous to include both student-level and school-level predictors; there is unaccounted for variation at both levels. To explain the unaccounted for variation at the student-level, include student-level predictors in the model. To explain the unaccounted for variation at the school-level, include school-level predictors in the model. Since more of the unaccounted for variation is at the student-level than the school-level, we may want to focus on the inclusion of student-level predictors rather than school-level predictors.
+
+:::fyi
+This partitioning of variation should be done in every analysis, and ALWAYS is done using the unconditional random intercepts model. The unconditional random intercepts model will serve as our *baseline* model. As we add predictors, we can compare the unexplained variation at each level in the predictor models to the baseline unaccounted for variation in the unconditional means model. This is one way of measuring how effective predictors are at further explaining variation in the model.
+:::
+
+<br />
+
+
+# Including Predictors
+
+As we begin to include predictors in the model, those predictors might be at the student-level or the school-level. Student-level predictors, as you might expect, would explain variation at the student-level (i.e., within-school variation), and school-level predictors will explain variation at the school-level (i.e., between-school variation). In this analysis, we will examine two student-level predictors, `verbal_iq` (focal predictor) and `ses` (covariate), as well as one school-level predictor, `public` (covariate).
+
+We begin by including the fixed-effect of our focal predictor, `verbal_iq`, into the random intercepts model. The statistical model for this can be expressed as:
+
+$$
+\mathrm{Language~Score}_{ij} = \big[\beta_0 + b_{0j}\big] + \beta_1(\mathrm{Verbal~IQ}_{ij}) + \epsilon_{ij}
+$$
+
+In this model,
+
+- $\beta_0$ is the fixed-effect of intercept;
+- $b_{0j}$ is the random-effect of intercept for School $j$ (school deviation);
+- $\beta_1$ is the fixed-effect of verbal IQ; and
+- $\epsilon_{ij}$ is the error for Student $i$ in School $j$ (student deviation)
+
+Fitting this model using the `lmer()` function:
+
+```{r}
+# Fit model
+lmer.b = lmer(language_post ~ 1 + verbal_iq + (1 | school_id), data = joined_data, REML = FALSE)
+
+# Coefficient-level output and variance components
+tidy(lmer.b)
+```
+
+Using the fixed-effects estimates, the fitted equation is:
+
+$$
+\hat{\mathrm{Language~Score}_{ij}} = 40.61 + 2.49(\mathrm{Verbal~IQ}_{ij})
+$$
+
+Interpreting these coefficients,
+
+- The predicted average post-test language score for students with a mean verbal IQ score (=0) is 40.61.
+- Each one-point difference in verbal IQ score is associated with a 2.49-point difference in language scores, on average.
+
+The variance estimates are:
+
+- $\hat\sigma^2_0 = 3.08^2 = 9.49$
+- $\hat\sigma^2_{\epsilon} = 6.50^2 = 42.2$
+
+
+First note that by including a student-level predictor we REDUCED the unexplained variation at the student-level and at the school-level. Reducing the unexplained student-level variation was intentional (we included a student-level predictor). Reducing the unexplained school-level variation was a mathematical artifact of the estimation process when we included the student-level predictor (Bonus!).
+
+```{r echo=FALSE}
+data.frame(
+  level = c("School", "Student"),
+  var_comp = c("$\\sigma^2_{0}$", "$\\sigma^2_{\\epsilon}$"),
+  mod_1 = c(19.4, 64.6),
+  mod_2 = c(9.49, 42.2)
+) %>%
+  kable(
+    col.names = c("Level", "Estimate", "Model A", "Model B"),
+    caption = "Variance estimates from fitting the unconditional random intercepts model (Model A) and the conditional random intercepts model with verbal IQ as a fixed-effect (Model B).",
+    format = "html",
+    escape = FALSE,
+    align = c("l", "c", "c", "c")
+    )  %>%
+  kable_classic()
+```
+
+To determine how much we reduced the unexplained variance, we compute the **proportion of reduction relative to the unconditional random intercepts model**.
+
+$$
+\begin{split}
+\mathrm{Student\mbox{-}Level:~} \frac{64.6 - 42.2}{64.6} = 0.347 \\[1em]
+\mathrm{School\mbox{-}Level:~} \frac{19.4 - 9.49}{19.4} = 0.511 \\
+\end{split}
+$$
+
+- Verbal IQ accounted for 34.7% of the unexplained variation at the student-level.
+- Verbal IQ also accounted for 51.1% of the unexplained variation at the school-level.
+
+Another way that applied researchers write this is to use the language of "explained variation". For example,
+
+- Verbal IQ explains 34.6% of the variation at the student-level.
+- Verbal IQ also explained 51.1% of the variation at the school-level.
+
+Including the student-level predictor also CHANGED the amount of unaccounted for variation at the school-level. In this case it happened to reduce this variation, but other times, you will see that the variation stays about the same, or increases! (Increased variation is a mathematical artifact of the estimation.) In a more practical sense, we would not really be too interested in the school-level variation at this point. We are only adding student-level predictors to the model, so that is the variation that we expect to impact.
+
+<br />
+
+
+## Evaluating Predictors
+
+As we include predictors in the model, we want to evaluate their overall worth to determine whether they should be retained or omitted from the model. Unlike the fixed-effects models we fitted in EPsy 8251, we cannot use the *p*-value for the coefficients for evidence of predictor importance as there is no *p*-value provided in either the `summary()` nor `tidy()` output. Subsequently, we need to look at other evidence.
+
+Typically we compare the model that includes the predictor to the same model without the predictor and evaluate differences between them. There are three pieces of evidence that are commonly evaluated when making this comparison: (1) reduction in unexplained variation; (2) AICc and model evidence; and (3) *t*-values of the fixed-effect.
+
+In our example, we are comparing the models:
+
+$$
+\begin{split}
+\mathbf{Model~A:~}\mathrm{Language~Score}_{ij} &= \big[\beta_0 + b_{0j}\big] + \epsilon_{ij} \\
+\mathbf{Model~B:~}\mathrm{Language~Score}_{ij} &= \big[\beta_0 + b_{0j}\big] + \beta_1(\mathrm{Verbal~IQ}_{ij}) + \epsilon_{ij}
+\end{split}
+$$
+
+We already examined the reduction in unexplained variation; including Verbal IQ explained roughly 35% of the unexplained variation at the student-level and 50% of the unexplained variation at the school-level. This is evidence to include Verbal IQ in the model.
+
+The empirical evidence (shown in the table of model evidence, below) also strongly supports inclusion of the Verbal IQ predictor.
+
+```{r}
+#Create table of model evidence
+aictab(
+  cand.set = list(lmer.a, lmer.b),
+  modnames = c("Model A", "Model B")
+)
+```
+
+Lastly, we can examine the `tidy()` output of the conditional model (Model B) to examine the *t*-value associated with the fixed-effect of Verbal IQ.
+
+```{r echo=FALSE}
+tidy(lmer.b)
+```
+
+
+A rule-of-thumb is that *t*-values greater than 2 support inclusion of the predictor. Here the *t*-value associated with Verbal IQ is $t=35.5$. This is evidence for including Verbal IQ in the model.
+
+In our example, all three pieces of evidence (explained variation, AICc, *t*-value) supported the inclusion of the predictor in the model. This does not always happen. Sometimes the evidence is not congruent in its support. Because of this, it is good to have a plan about which set of evidence you will use to make decisions.
+
+<br />
+
+
+# Including the Covariates
+
+Now, we may want to determine whether Verbal IQ is still an important predictor of variation in post-test language scores after we control for differences in SES and whether the school the student attends is a public school. To examine this, we will fit an additional model that includes the fixed-effects of Verbal IQ, SES, and school type. We also continue to include a random-effect of intercept to account for the dependency of post-test scores within schools.
+
+```{r}
+# Fit model
+lmer.c = lmer(language_post ~ 1 + verbal_iq + ses + public + (1 | school_id),
+              data = joined_data, REML = FALSE)
+
+# Coefficient-level output and variance components
+tidy(lmer.c)
+```
+
+Table 2 shows the variance estimates for all three models fitted thus far.
+
+
+```{r echo=FALSE}
+data.frame(
+  level = c("School", "Student"),
+  var_comp = c("$\\sigma^2_{0}$", "$\\sigma^2_{\\epsilon}$"),
+  mod_1 = c(19.43, 64.57),
+  mod_2 = c( 9.50, 42.20),
+  mod_3 = c( 8.57, 40.00)
+) %>%
+  kable(
+    col.names = c("Level", "Estimate", "Model A", "Model B", "Model C"),
+    caption = "Variance estimates from fitting the unconditional random intercepts model (Model A), the conditional random intercepts model with verbal IQ as a fixed-effect (Model B), and the conditional random intercepts model with verbal IQ, SES, and school type as fixed-effects (Model C).",
+    format = 'html',
+    escape = FALSE,
+    booktabs = TRUE,
+    align = c("l", "c", "c", "c", "c")
+    )  %>%
+  kable_classic()
+```
+
+Including both student-level and school-level predictors in the model has explained variation at both the student- and school-levels. As expected, the unexplained variance at the student-level was reduced by including SES in the model. Similarly, the unexplained variance at the school-level was also reduced by including school type. To quantify the amount of reduction we compare to the unconditional model.
+
+$$
+\begin{split}
+\mathrm{Student\mbox{-}Level:~} \frac{64.6 - 40.0}{64.6} = 0.381 \\[1em]
+\mathrm{School\mbox{-}Level:~} \frac{19.4 - 8.57}{19.4} = 0.558 \\
+\end{split}
+$$
+
+
+
+- The model (verbal IQ, SES, and public) explains 38.1% of the variation at the student-level.
+- The model (verbal IQ, SES, and public) explains 55.8% of the variation at the school-level.
+
+The model evidence also seems to suggest that this conditional model is more empirically supported, given the data and candidate set of models, than either of the other two candidate models.
+
+```{r}
+#Create table of model evidence
+#Create table of model evidence
+aictab(
+  cand.set = list(lmer.a, lmer.b, lmer.c),
+  modnames = c("Model A", "Model B", "Model C")
+)
+```
+
+Both the model evidence and variance explained values point toward the model that includes fixed-effects of verbal IQ, SES, and school type. What these values don't tell us is whether both covariates (SES and school type) are needed or whether we can drop one or the other. The *t*-values for each of the fixed-effects can help us think about this. Since all of the *t*-values in the model are greater than 2, this suggests that each of the predictors seems to be statistically relevant, controlling for the other predictors in the model.
+
+Now that we have adopted a model, we should interpret the fixed-effects. The fitted equation for Model C is:
+
+$$
+\mathrm{Language~Score}_{ij} = 36.52 + 2.25(\mathrm{Verbal~IQ}_{ij}) + 0.17(\mathrm{SES}_{ij}) - 1.42(\mathrm{Public}_{\bullet j})
+$$
+
+Notice that the Public variable has a ${\bullet j}$ subscript. Recall that `public` is a school-level predictor. As such it does not vary for students within a school; it only varies between schools. The lack of an *i* in the subscript indicates that it does not vary across individuals within a school. Language scores, verbal IQ scores, and SES are all student-level predictors, so they get both an *i* and a *j* subscript.
+
+Interpreting the effect associated with verbal IQ, our focal predictor:
+
+- Each one-unit difference in verbal IQ score is associated with a 2.25-point difference in post-test language scores, on average, controlling for differences in SES and school type.
+
+We probably wouldn't bother interpreting the effects of the intercept nor the non-focal covariates, but for pedagogical purposes:
+
+- **Intercept:** The predicted average post-test language score for students with a mean verbal IQ score (=0), a SES value of 0, and enrolled in a private school (reference group) is 36.52. (This is extrapolation as in the data, the lowest SES value is 10.)
+- **SES:** Each one-unit difference in SES score is associated with a 0.17-point difference in post-test language scores, on average, controlling for differences in verbal IQ score and school type.
+- **Public:** Students enrolled in public school, have a post-test language score that is 1.42-points lower, on average, than students enrolled in a private school, controlling for differences in verbal IQ and SES.
+
+<br />
+
+
+# Displaying the Results of the Fitted Models
+
+It is common to display the results of the fitted models in a table or plot. Typically we would use the table to show the results of a subset of fitted models and display the adopted "final" model(s) in a plot. For this example, I would display in a table the results of three different fitted models: (1) the unconditional random intercepts model; (2) the conditional random intercepts model that includes the fixed-effect of verbal IQ (our focal predictor); and (3) the conditional random intercepts model that includes the fixed-effect of verbal IQ and all adopted covariates (SES and school type).
+
+<br />
+
+## Table of Fitted Models
+
+In displaying the results from fitted mixed-effects models, we typically provide (1) fixed-effects estimates; (2) variance component estimates; and (3) model-level evidence (e.g., LL, AIC). If you are using Markdown, there are several packages that can be used to obtain syntax for these types of tables. Below I use the `stargazer()` function from the **stargazer** package to display the fixed-effects estimates and model-level evidence for each of the three fitted models. If you are using R Markdown, don't forget to set the chunk options for `results='asis'`.
+
+By default the `stargazer()` function shows stars/*p*-values for the coefficients. In mixed-effects models the coefficient-level *p*-values are quite controversial, and may be mis-leading. As such, I removed them from the table of regression results using the argument `star.cutoffs = NA`.
+
+
+```{r message=FALSE, results='asis'}
+library(stargazer)
+
+stargazer(
+  lmer.a, lmer.b, lmer.c,
+  type = "html",
+  title = "Fixed-effects coefficients and standard errors for a taxonomy of models fitted to predict post-test language scores for 2,287 students from 131 Schools. All models included a random-effect of intercept and were fitted using maximum likelihood.",
+  column.labels = c("Model A", "Model B", "Model C"),
+  colnames = FALSE,
+  model.numbers = FALSE,
+  dep.var.caption = "Outcome: Post-Test Language Scores",
+  dep.var.labels.include = FALSE,
+  covariate.labels = c("Verbal IQ scores", "SES", "School type"),
+  #eep.stat = c("ll"),
+  notes.align = "l",
+  add.lines = list(
+    c("Corrected AIC", 
+      round(AICc(lmer.a), 1), 
+      round(AICc(lmer.b), 1),
+      round(AICc(lmer.c), 1)
+      )
+    ),
+  star.cutoffs = NA, # Omit stars
+  omit.table.layout = "n", #Don't show table notes
+  header = FALSE #Suppress message
+  )
+```
+
+
+The variance component estimates should also be provided for each of the models displayed. These can be displayed in the same table as the fixed-effects (generally below the fixed-effects, but prior to the model-level summaries; see Table 7.20 in the APA7 manual), or in a separate table. Below, I manually enter these in a data frame and use the `kable()` function and functions from the `{kableExtra}` package to format the table.
+
+```{r}
+data.frame(
+  level = c("School", "Student"),
+  var_comp = c("$\\sigma^2_{0}$", "$\\sigma^2_{\\epsilon}$"),
+  mod_1 = c(19.40, 64.60),
+  mod_2 = c( 9.49, 42.20),
+  mod_3 = c( 8.57, 40.00)
+) %>%
+  kable(
+    col.names = c("Level", "Estimate", "Model A", "Model B", "Model C"),
+    caption = "Variance estimates from fitting the unconditional random intercepts model (Model A), the conditional random intercepts model with verbal IQ as a fixed-effect (Model B), and the conditional random intercepts model with verbal IQ, SES, and school type as fixed-effects (Model C).",
+    format = 'html',
+    escape = FALSE,
+    booktabs = TRUE,
+    align = c("l", "c", "c", "c", "c")
+    )  %>%
+  kable_classic()
+```
+
+<br />
+
+
+### Plot of the Adopted Fitted Equation
+
+If you plot the results from the "final" adopted model(s), it is typical to plot only the fixed-effects part of the model. We do this exactly the same way we do for plotting the results from `lm()`. Here I display verbal IQ scores (focal predictor) on the *x*-axis, and control for the effects of SES (set it to its mean value of 27.8), and show different lines for each school type.
+
+The fitted equations are then:
+
+**Private Schools**
+
+$$
+\begin{split}
+\hat{\mathrm{Language~Score}}_{ij} &= 36.52 + 2.25(\mathrm{Verbal~IQ}_{ij}) + 0.17(27.8) - 1.42(0) \\
+&= 41.2 + 2.25(\mathrm{Verbal~IQ}_{ij})
+\end{split}
+$$
+
+**Public Schools**
+
+$$
+\begin{split}
+\hat{\mathrm{Language~Score}}_{ij} &= 36.52 + 2.25(\mathrm{Verbal~IQ}_{ij}) + 0.17(27.8) - 1.42(1) \\
+&= 42.7 + 2.25(\mathrm{Verbal~IQ}_{ij})
+\end{split}
+$$
+
+
+```{r fig.width=8, fig.height=6, out.width='60%', fig.cap="Plot of the model predicted post-test language scores as a function of verbal IQ acores for private (blue, dashed line) and public (red, solid line) schools. SES was controlled in the model by setting it to its unconditional mean value.", fig.align='center'}
+ggplot(data = joined_data, aes(x = verbal_iq, y = language_post)) +
+  geom_point(alpha = 0) +
+  geom_abline(intercept = 41.2, slope = 2.25, color = "darkblue", linetype = "dashed") +
+  geom_abline(intercept = 42.7, slope = 2.25, color = "darkred", linetype = "solid") +
+  theme_bw() +
+  xlab("Verbal IQ score") +
+  ylab("Predicted post-test language score")
+```
+
+<br />
+
+
+# Appendix: My Advisor/Reviewers are Demanding *p*-Values
+
+So long as the random-effects structure is exactly the same across models, we can obtain *p*-values for the fixed-effects using a likelihood ratio test. This test requires testing nested models. To illustrate this I will compute a likelihood-based *p*-value for the effect of Verbal IQ by comparing Model A (the unconditional model) to Model B (the conditional model including verbal IQ).
+
+
+$$
+\begin{split}
+\mathbf{Model~A:~}\mathrm{Language~Score}_{ij} &= \big[\beta_0 + b_{0j}\big] + \epsilon_{ij} \\
+\mathbf{Model~B:~}\mathrm{Language~Score}_{ij} &= \big[\beta_0 + b_{0j}\big] + \beta_1(\mathrm{Verbal~IQ}_{ij}) + \epsilon_{ij}
+\end{split}
+$$
+
+These models have the exact same random-effects structure (random-effect of intercept only) and Model 1 is nested in Model 2. To carry out the likelihood ratio test in R, we can use the `lrtest()` function from the `{lmtest}` package. Similar to carrying out a LRT for linear models, we provide this function with the two fitted mixed-effects models as input.
+
+```{r}
+# Use the lrtest function from the lmtest package
+lmtest::lrtest(lmer.a, lmer.b)
+```
+
+The results of the likelihood ratio test suggest that the model that includes verbal IQ has a smaller deviance (better model--data fit) than Model A, and this difference in deviances is more than we would expect because of chance; $\chi^2(1)=169.92$, $p<.001$.
+
+To compute the likelihood-based *p*-value for verbal IQ in Model C, we would need to compare Model C to a reduced model that has verbal IQ removed from the model; the exact same set of predictors (except for verbal IQ) and the random-effects structure as Model C.
+
+$$
+\begin{split}
+\mathbf{Reduced~Model:~}\mathrm{Language~Score}_{ij} &= \big[\beta_0 + b_{0j}\big] + \beta_1(\mathrm{SES}_{ij}) +  \beta_1(\mathrm{Public}_{j}) + \epsilon_{ij} \\
+\mathbf{Model~C:~}\mathrm{Language~Score}_{ij} &= \big[\beta_0 + b_{0j}\big] + \beta_1(\mathrm{SES}_{ij}) +  \beta_1(\mathrm{Public}_{j}) +  \beta_1(\mathrm{Verbal~IQ}_{ij}) + \epsilon_{ij}
+\end{split}
+$$
+
+<!-- Essentially comparing the model with all predictors except verbal IQ to the model that includes those predictors and also includes verbal IQ. -->
+
+```{r}
+# Fit models
+lmer.reduced = lmer(language_post ~ 1 + ses + public + (1 | school_id),
+              data = joined_data, REML = FALSE)
+
+
+# Carry out LRT
+lmtest::lrtest(lmer.reduced, lmer.c)
+```
+
+The results of the likelihood ratio test suggest that there is evidence to include the effect of verbal IQ, above and beyond the effects of SES and sector; $\chi^2(1)=824.03$, $p<.001$. 
+
+
+If you evaluate predictors using the likelihood ratio test, they results can be reported in prose (as above), or presented in tables, either by presenting the *p*-value or via the star system. If you are using `stargazer()`, you may need to manually include the *p*-values and stars as the default is based on the Wald tests (i.e., *t*-test) and not on the LRT. Be sure to include a table note, or text in the caption to indicate the *p*-values were based on the LRT.
+
+
+
+
+
+
+
+

@@ -172,36 +172,34 @@ In addition to the notes and what we cover in class, there are many other resour
 
 ---
 
-<!-- # Cross-Sectional Linear Mixed-Effects Models {#lmer-cross} -->
+## Linear Mixed-Effects Models (Cross-Sectional) {#lmer-cross}
 
-<!-- **Required** -->
+**Required**
 
-<!-- Before class you will need to read: -->
+Before class you will need to read:
 
-<!-- - Hayes, A. F. (2006). [A primer on multilevel modeling.](http://onlinelibrary.wiley.com/doi/10.1111/j.1468-2958.2006.00281.x/abstract) *Human Communication Research, 32*(4), 385&ndash;410. -->
-
-<!-- Focus on the information on mutating joins. -->
+- Hayes, A. F. (2006). [A primer on multilevel modeling.](http://onlinelibrary.wiley.com/doi/10.1111/j.1468-2958.2006.00281.x/abstract) *Human Communication Research, 32*(4), 385&ndash;410.
 
 
-<!-- **Additional Resources** -->
+**Additional Resources**
 
-<!-- In addition to the notes and what we cover in class, there are many other resources for learning about using linear mixed-effects models for cross-sectional analysis. Here are some resources that may be helpful in that endeavor: -->
+In addition to the notes and what we cover in class, there are many other resources for learning about using linear mixed-effects models for cross-sectional analysis. Here are some resources that may be helpful in that endeavor:
 
-<!-- - Hofmann, D. A., & Gavin, M. B. (1998). [Centering decisions in hierarchical linear models: Implications for research in organizations](https://primo.lib.umn.edu/primo-explore/fulldisplay?docid=TN_sciversesciencedirect_elsevierS0149-2063(99)80077-4&context=PC&vid=TWINCITIES&search_scope=mncat_discovery&tab=article_discovery&lang=en_US). *Journal of Management, 24*(5), 623&ndash;641. -->
-<!-- - Scherbaum, C. A., & Ferreter, J. M. (2009). [Estimating statistical power and required sample sizes for organizational research using multilevel modeling](https://journals-sagepub-com.ezp2.lib.umn.edu/doi/pdf/10.1177/1094428107308906). *Organizational Research Methods, 12*(2), 347&ndash;367. -->
-
-
-<!-- For **table formatting** using R Markdown, check out: -->
-
-<!-- - [Stargazer for lmer Models](http://svmiller.com/blog/2015/02/quasi-automating-the-inclusion-of-random-effects-in-rs-stargazer-package/) -->
+- Hofmann, D. A., & Gavin, M. B. (1998). [Centering decisions in hierarchical linear models: Implications for research in organizations](https://primo.lib.umn.edu/primo-explore/fulldisplay?docid=TN_sciversesciencedirect_elsevierS0149-2063(99)80077-4&context=PC&vid=TWINCITIES&search_scope=mncat_discovery&tab=article_discovery&lang=en_US). *Journal of Management, 24*(5), 623&ndash;641.
+- Scherbaum, C. A., & Ferreter, J. M. (2009). [Estimating statistical power and required sample sizes for organizational research using multilevel modeling](https://journals-sagepub-com.ezp2.lib.umn.edu/doi/pdf/10.1177/1094428107308906). *Organizational Research Methods, 12*(2), 347&ndash;367.
 
 
-<!-- If you are interested in the estimation of the coefficients, see: -->
+For **table formatting** using R Markdown, check out:
 
-<!-- - [Estimation of the Log-Likelihood in lmer](http://stackoverflow.com/questions/20980116/how-does-lmer-from-the-r-package-lme4-compute-log-likelihood) -->
+- [Stargazer for lmer Models](http://svmiller.com/blog/2015/02/quasi-automating-the-inclusion-of-random-effects-in-rs-stargazer-package/)
 
 
-<!-- --- -->
+If you are interested in the **estimation of the coefficients**, see:
+
+- [Estimation of the Log-Likelihood in lmer](http://stackoverflow.com/questions/20980116/how-does-lmer-from-the-r-package-lme4-compute-log-likelihood)
+
+
+---
 
 
 <!-- # Linear Mixed-Effects Models: Model Assumptions {#lmer-assump} -->
