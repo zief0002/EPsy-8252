@@ -47,6 +47,12 @@ tidy(lmer.a)
 # Alternative way to view coefficients and variance components
 summary(lmer.a)
 
+texreg::screenreg(
+  list(lmer.a), 
+  stars = NULL, 
+  custom.model.names = c("Model A")
+  )
+
 
 
 ##################################################
@@ -83,6 +89,14 @@ tidy(lmer.b)
 6.50 ^ 2 #Compute var(e)
 
 
+texreg::screenreg(
+  list(lmer.a, lmer.b), 
+  stars = NULL, 
+  custom.model.names = c("Model A", "Model B")
+  )
+
+
+
 # Compute difference in variance components
 (64.6 - 42.2) / 64.6 #Student-level
 (19.4 - 9.49) / 19.4 #School-level
@@ -107,6 +121,8 @@ aictab(
 lmer.c = lmer(language_post ~ 1 + verbal_iq + ses + public + (1 | school_id), 
               data = joined_data, REML = FALSE)
 
+#joined_data %>% filter(school_id == 2)   %>% select(language_post, verbal_iq, ses, public)
+#joined_data %>% filter(school_id == 10)  %>% select(language_post, verbal_iq, ses, public)
 
 # View coefficients and variance components
 tidy(lmer.c)
@@ -114,6 +130,12 @@ tidy(lmer.c)
 2.93 ^ 2 #Compute var(b_0)
 6.33 ^ 2 #Compute var(e)
 
+
+texreg::screenreg(
+  list(lmer.a, lmer.b, lmer.c), 
+  stars = NULL, 
+  custom.model.names = c("Model A", "Model B", "Model C")
+)
 
 # Compute difference in variance components
 (64.6 - 40.0) / 64.6 #Student-level

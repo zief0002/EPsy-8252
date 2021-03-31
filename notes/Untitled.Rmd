@@ -1,26 +1,131 @@
 ---
 title: "Untitled"
 author: "Andrew Zieffler"
-date: "2/23/2021"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output: 
   html_document:
     highlight: zenburn
-    css: ['style/style2.css', 'style/notes.css']
+    css: ['style/style.css', 'style/table-styles.css', 'style/syntax.css', 'style/notes.css']
+bibliography: ['epsy8251.bib', 'epsy8252.bib']
+csl: 'style/apa-single-spaced.csl'
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/es5/tex-mml-chtml.js">
+</script>
+
+
+Testing a table
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+library(AICcmodavg)
+library(broom)
+library(tidyverse)
+library(texreg)
+
+mn = read_csv(file = "https://raw.githubusercontent.com/zief0002/epsy-8252/master/data/mn-schools.csv")
+
+
+lm.1 = lm(grad ~ 1 + sat,            data = mn)
+lm.2 = lm(grad ~ 1 + sat + I(sat^2), data = mn)
+lm.3 = lm(grad ~ 1 + public,            data = mn)
+lm.4 = lm(grad ~ 1 + public * sat,            data = mn)
 ```
 
-In this set of notes, you will learn another method of dealing with nonlinearity and also for dealing with heterogeneity of variance. Specifically, we will look at log-transforming the predictor in a linear model. To do so, we will use the *movies.csv* dataset (see the [data codebook](http://zief0002.github.io/epsy-8252/codebooks/movies.html)) to explain variation in movie budgets.
 
-$$
-y_i = \beta_0 + \beta_1(x_i)
-$$
+And here is a test:
 
-:::interpret
-##### Interpretation
+```{r results='asis'}
+# extract(
+#   model,
+#   include.rsquared = TRUE,
+#   include.adjrs = TRUE,
+#   include.nobs = TRUE,
+#   include.fstatistic = FALSE,
+#   include.rmse = FALSE,
+#   ...
+# )
 
-$e$ to what power is equal to 41.88?
-:::
+
+htmlreg(
+  l = list(lm.1, lm.2, lm.3, lm.4),
+  stars = numeric(0),    #No p-value stars
+  padding = 20,          #Add space around columns (you may need to adjust this via trial-and-error)
+  include.adjrs = FALSE, #Omit Adjusted R^2
+  include.nobs = FALSE,  #Omit sample size
+  include.rmse = TRUE,   #Include RMSE
+  custom.coef.names = c("Intercept", "SAT", "SAT$^2$", "Public$^\\dagger$", "SAT x Public"),
+  reorder.coef = c(2:5, 1), #Put intercept at bottom of table
+  caption = "Coefficients (standard errors) for the predictors from a taxomomy of models fitted to the Minnesota college data to predict variation in six-year graduation rates.",
+  caption.above = TRUE, #Move caption above table
+  custom.note = "$^\\dagger$Public is a dummy-coded indicator of sector (0 = private; 1 = public)",
+  custom.gof.rows = list(AICc = c(AICc(lm.1), AICc(lm.2), AICc(lm.3), AICc(lm.4))), #Add AICc values
+  #groups = list("Coefficient-level output" = 1:5)
+  inner.rules = 1,
+  outer.rules = 1
+  )
+```
+
+<br />
+
+# LMER TABLES
+
+```{r message=FALSE, warning=FALSE}
+library(lme4)
+
+# Read in and join student-level and school-level data
+student_data = read_csv(file = "~/Documents/github/epsy-8252/data/netherlands-students.csv")
+school_data = read_csv(file = "~/Documents/github/epsy-8252/data/netherlands-schools.csv")
+joined_data = left_join(student_data, school_data, by = "school_id")
+
+lmer.a = lmer(language_post ~ 1 + (1 | school_id), data = joined_data, REML = FALSE)
+lmer.b = lmer(language_post ~ 1 + verbal_iq + (1 | school_id), data = joined_data, REML = FALSE)
+lmer.c = lmer(language_post ~ 1 + verbal_iq + ses + public + (1 | school_id),
+              data = joined_data, REML = FALSE)
+```
+
+
+```{r results='asis'}
+htmlreg(
+  l = list(lmer.a, lmer.b, lmer.c),
+  stars = numeric(0),    #No p-value stars
+  padding = 20,          #Add space around columns (you may need to adjust this via trial-and-error)
+  #include.adjrs = FALSE, #Omit Adjusted R^2
+  include.nobs = FALSE,  #Omit level-1 sample size
+  include.groups = FALSE, #Omit level-2 sample size
+  include.aic = FALSE,   #Omit AIC
+  include.bic = FALSE,   #Omit BIC
+  include.loglik = FALSE, # Omit log-likelihood
+  inner.rules = 1, #Set inside horizontal rules to size 1
+  outer.rules = 1, #Set outer horizontal rules to size 1 (default=2)
+  custom.model.names = c("Model A", "Model B", "Model C"),
+  custom.coef.names = c("Intercept", "Verbal IQ", "SES", "Public$^\\dagger$"),
+  reorder.coef = c(2:4, 1), #Put intercept at bottom of table
+  caption = "Coefficients (standard errors) for the predictors from a taxomomy of linear mixed-effects models fitted to the Netherlands data to predict variation in post-test language scores.",
+  caption.above = TRUE, #Move caption above table
+  custom.note = "$^\\dagger$Public is a dummy-coded indicator of sector (0 = private; 1 = public)",
+  custom.gof.rows = list(AICc = c(AICc(lmer.a), AICc(lmer.b), AICc(lmer.c))), #Add AICc values
+  custom.gof.names = c("$\\hat{\\sigma}_0$", "$\\hat{\\sigma}_{\\epsilon}$"), #Rename variance components
+  reorder.gof = c(2, 3, 1) #Move variance components before AICc
+  )
+```
+
+
+# TEST NEW FUNCTION
+
+```{r echo=FALSE, results='asis'}
+source("~/Desktop/mod_tab.R")
+
+mod_tab(models = list(lm.1, lm.2, lm.3, lm.4)) %>%
+  knitr::kable()
+```
+
+
+```{r echo=FALSE, results='asis'}
+mod_tab(models = list(lm.1, lm.2, lm.3, lm.4), se.below = FALSE) %>%
+  knitr::kable()
+```
+
 

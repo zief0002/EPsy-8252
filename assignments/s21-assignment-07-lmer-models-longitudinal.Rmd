@@ -8,7 +8,7 @@ output:
     css: ['style/assignment-style.css', 'style/syntax.css']
 ---
 
-\frenchspacing
+
 
 This goal of this assignment is to give you experience working with mixed-effects regression models to analyze longitudinal data. In this assignment, you will use the data from the file *nhl.csv* to examine longitudinal variation in cost of attending an NHL game.
 
