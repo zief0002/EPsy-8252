@@ -202,13 +202,13 @@ If you are interested in the **estimation of the coefficients**, see:
 ---
 
 
-<!-- # Linear Mixed-Effects Models: Model Assumptions {#lmer-assump} -->
+## Linear Mixed-Effects Models: Model Assumptions {#lmer-assump}
 
-<!-- **Required** -->
+**Required**
 
-<!-- Before class you will need to read the section on **Residual Analysis** in: -->
+Read the section on **Residual Analysis** in:
 
-<!-- - Loy, A. (2014). [HLMdiag: A suite of diagnostics for hierarchical linear models in R.](https://www.jstatsoft.org/article/view/v056i05/v56i05.pdf) *Journal of Statistical Software, 56*(5), 1&ndash;28. -->
+- Loy, A. (2014). [HLMdiag: A suite of diagnostics for hierarchical linear models in R.](https://www.jstatsoft.org/article/view/v056i05/v56i05.pdf) *Journal of Statistical Software, 56*(5), 1&ndash;28.
 
 
 
@@ -219,50 +219,45 @@ If you are interested in the **estimation of the coefficients**, see:
 <!-- <!-- - Hofmann, D. A., & Gavin, M. B. (1998). [Centering decisions in hierarchical linear models: Implications for research in organizations](https://primo.lib.umn.edu/primo-explore/fulldisplay?docid=TN_sciversesciencedirect_elsevierS0149-2063(99)80077-4&context=PC&vid=TWINCITIES&search_scope=mncat_discovery&tab=article_discovery&lang=en_US). *Journal of Management, 24*(5), 623&ndash;641. --> 
 <!-- <!-- - Scherbaum, C. A., & Ferreter, J. M. (2009). [Estimating statistical power and required sample sizes for organizational research using multilevel modeling](https://journals-sagepub-com.ezp2.lib.umn.edu/doi/pdf/10.1177/1094428107308906). *Organizational Research Methods, 12*(2), 347&ndash;367. -->
 
-<!-- --- -->
+---
 
 
-<!-- # Linear Mixed-Effects Models: Longitudinal Analyses {#lmer-long} -->
+## Linear Mixed-Effects Models: Longitudinal Analyses {#lmer-long}
 
-<!-- **Required** -->
+**Required**
 
-<!-- Before class you will need to read: -->
+Read:
 
-<!-- - Uchikoshi, Y. (2005). [Narrative development in bilingual kindergarteners: Can Arthur help?](http://psycnet.apa.org.ezp3.lib.umn.edu/journals/dev/41/3/464) *Developmental Psychology, 41*(3), 464&ndash;478. doi: 10.1037/0012-1649.41.3.464 -->
-
-
-
-<!-- **Additional Resources** -->
-
-<!-- In addition to the notes and what we cover in class, there many other resources for learning about using linear mixed-effects models for longitudinal analysis. Here are some resources that may be helpful in that endeavor: -->
-
-<!-- - Long, J. D. (2012). [Longitudinal data analysis for the behavioral sciences using R](http://www.amazon.com/Longitudinal-Analysis-Behavioral-Sciences-Using/dp/1412982685). Thousand Oaks, CA: Sage. -->
-<!-- <!-- - Swihart, B. J., Caffo, B., James, B. D., Strand, M., Schwartz, B. S., &amp; Punjabi, N. M. (2010). [Lasagna plots: A saucy alternative to spaghetti plots.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2937254/) *Epidemiology, 21*(5), 621&ndash;625. --> 
-<!-- - Tierney, N. (2020). [Making better spaghetti (plots): Exploring the individuals in longitudinal data with the brolgar pac.](https://resources.rstudio.com/rstudio-conf-2020/making-better-spaghetti-plots-exploring-the-individuals-in-longitudinal-data-with-the-brolgar-pac-dr-nicholas-tierney) Presentation at RStudio Conf. [video] -->
-
-<!-- --- -->
+- Uchikoshi, Y. (2005). [Narrative development in bilingual kindergarteners: Can Arthur help?](http://psycnet.apa.org.ezp3.lib.umn.edu/journals/dev/41/3/464) *Developmental Psychology, 41*(3), 464&ndash;478. doi: 10.1037/0012-1649.41.3.464
 
 
 
-<!-- # Logistic Regression Models {#logistic} -->
+**Additional Resources**
 
-<!-- **Required** -->
+In addition to the notes and what we cover in class, there many other resources for learning about using linear mixed-effects models for longitudinal analysis. Here are some resources that may be helpful in that endeavor:
 
-<!-- Before class you will need to read: -->
+- Long, J. D. (2012). [Longitudinal data analysis for the behavioral sciences using R](http://www.amazon.com/Longitudinal-Analysis-Behavioral-Sciences-Using/dp/1412982685). Thousand Oaks, CA: Sage.
 
-<!-- - 3Blue1Brown. (2020, March 8). [*Exponential growth and epidemics*](https://www.youtube.com/watch?v=Kas0tIxDvrg) [Video file] -->
-
-
-
-<!-- **Additional Resources** -->
-
-<!-- In addition to the notes and what we cover in class, there many other resources for learning about using linear mixed-effects models for longitudinal analysis. Here are some resources that may be helpful in that endeavor: -->
-
-<!-- - Fox (Section 3.2.1) *The Binomial and Bernoulli Distributions* [Required Textbook] -->
-<!-- - Dunteman, G. H., &amp; Ho, M.-H. R. (2005). *An introduction to generalized linear models.* Sage. -->
-<!-- - Fox, J. (2015). *Applied regression analysis and generalized linear models* (3rd ed.). Sage -->
+---
 
 
+## Logistic Regression Models {#logistic}
 
-<!-- --- -->
+**Required**
+
+Before class you will need to watch:
+
+- 3Blue1Brown. (2020, March 8). [*Exponential growth and epidemics*](https://www.youtube.com/watch?v=Kas0tIxDvrg) [Video file]
+
+
+
+**Additional Resources**
+
+In addition to the notes and what we cover in class, there many other resources for learning about using logistic regression models. Here are some resources that may be helpful in that endeavor:
+
+- Fox (Section 3.2.1) *The Binomial and Bernoulli Distributions* [Required Textbook]
+- Dunteman, G. H., &amp; Ho, M.-H. R. (2005). *An introduction to generalized linear models.* Sage.
+- Fox, J. (2015). *Applied regression analysis and generalized linear models* (3rd ed.). Sage
+
+
 
