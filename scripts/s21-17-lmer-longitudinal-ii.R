@@ -69,6 +69,8 @@ ggplot(data = vocabulary_long, aes(x = grade, y = vocab_score)) +
 ##################################################
 
 # Fit model
+lmer.0 = lmer(vocab_score ~ 1 + (1|id), data = vocabulary_long, REML = FALSE)
+lmer.1 = lmer(vocab_score ~ 1 + c_grade + (1|id), data = vocabulary_long, REML = FALSE)
 lmer.2 = lmer(vocab_score ~ 1 + c_grade + (1 + c_grade|id), data = vocabulary_long, REML = FALSE)
 
 
@@ -127,16 +129,13 @@ vocabulary_long = vocabulary_long %>%
 head(vocabulary_long)
 
 
-# Fit unconditional random intercepts model
 lmer.0 = lmer(vocab_score ~ 1 + (1|id), data = vocabulary_long, REML = FALSE)
 
+lmer.1 = lmer(vocab_score ~ 1 + c_grade + (1|id), data = vocabulary_long, REML = FALSE)
+lmer.2 = lmer(vocab_score ~ 1 + c_grade + (1 + c_grade|id), data = vocabulary_long, REML = FALSE)
 
-# Fit unconditional growth model (intercept random-effects)
-lmer.1 = lmer(vocab_score ~ 1 + Lgrade + (1|id), data = vocabulary_long, REML = FALSE)
-
-
-# Fit unconditional growth model (intercept and slope random-effects)
-lmer.2 = lmer(vocab_score ~ 1 + Lgrade + (1 + Lgrade|id), data = vocabulary_long, REML = FALSE)
+lmer.3 = lmer(vocab_score ~ 1 + Lgrade + (1|id), data = vocabulary_long, REML = FALSE)
+lmer.4 = lmer(vocab_score ~ 1 + Lgrade + (1 + Lgrade|id), data = vocabulary_long, REML = FALSE)
 
 
 
@@ -146,8 +145,10 @@ lmer.2 = lmer(vocab_score ~ 1 + Lgrade + (1 + Lgrade|id), data = vocabulary_long
 
 
 aictab(
-  cand.set = list(lmer.0, lmer.1, lmer.2),
-  modnames = c("Unconditional Random Intercepts", "Unconditional Growth (b_0j)", "Unconditional Growth (b_0j and b_1j)")
+  cand.set = list(lmer.0, lmer.1, lmer.2, lmer.3, lmer.4),
+  modnames = c("Unconditional Random Intercepts", "Linear Unconditional Growth (b_0j)", 
+               "Linear Unconditional Growth (b_0j and b_1j)", "Log-linear Unconditional Growth (b_0j)", 
+               "Log-linear Unconditional Growth (b_0j and b_1j)")
 )
 
 
@@ -157,15 +158,15 @@ aictab(
 ##################################################
 
 # Coefficient-level output
-tidy(lmer.2)
+tidy(lmer.4)
 
 
 # Random-effects
-ranef(lmer.2)
+ranef(lmer.4)
 
 
 # Random-effects for Student 08 and 10
-ranef(lmer.2)$id[c(8, 10), ]
+ranef(lmer.3)$id[c(8, 10), ]
 
 
 
@@ -208,18 +209,18 @@ ggplot(data = vocabulary_long, aes(x = c_grade, y = vocab_score)) +
 ##################################################
 
 # Main-effects model
-lmer.3 = lmer(vocab_score ~ 1 + Lgrade + female + (1 + Lgrade|id),
+lmer.5 = lmer(vocab_score ~ 1 + Lgrade + female + (1 + Lgrade|id),
               data = vocabulary_long, REML = FALSE)
 
 
 # Interaction model
-lmer.4 = lmer(vocab_score ~ 1 + Lgrade + female + female:Lgrade + (1 + Lgrade|id),
+lmer.6 = lmer(vocab_score ~ 1 + Lgrade + female + female:Lgrade + (1 + Lgrade|id),
               data = vocabulary_long, REML = FALSE)
 
 
 # Table of model evidence
 aictab(
-  cand.set = list(lmer.2, lmer.3, lmer.4),
+  cand.set = list(lmer.4, lmer.5, lmer.6),
   modnames = c("Unconditional Growth", "Sex Main Effect", "Sex Interaction")
 )
 
@@ -243,11 +244,11 @@ aictab(
 ##################################################
 
 # Coefficient-level output
-tidy(lmer.3)
+tidy(lmer.5)
 
 
 # Random-effects
-ranef(lmer.3)
+ranef(lmer.5)
 
 
 
@@ -256,7 +257,7 @@ ranef(lmer.3)
 ##################################################
 
 # Coefficient-level output
-tidy(lmer.4)
+tidy(lmer.6)
 
 
 # Random-effects
@@ -374,4 +375,9 @@ p8 = ggplot(data = int_lev2, aes(x = Lgrade)) +
 
 # Layout plots
 (p5 | p6) / (p7 | p8)
+
+
+
+stargazer::stargazer(lmer.4, lmer.5, lmer.6, type="html")
+
 

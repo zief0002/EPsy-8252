@@ -111,7 +111,7 @@ Below are the due dates for the assignments, as well as links to the RMD and PDF
 
 <tr>
 <td>Assignment \#8 *Logistic Regression* **(Optional)**</td>
-<td colspan="2" align="center" style="vertical-align:middle;">May 06<br />(due at 12:00pm)</td>
+<td colspan="2" align="center" style="vertical-align:middle;">May 11<br />(due at 12:00pm)</td>
 <td align="center" style="vertical-align:middle;">
 [<span class="fab fa-markdown" style="color: #ff2600; font-size: 20px;"></span>](https://github.com/zief0002/epsy-8252/raw/master/assignments/s21-assignment-08-logistic-regression.Rmd)
 </td>

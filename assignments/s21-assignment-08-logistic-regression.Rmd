@@ -81,7 +81,7 @@ Now you will examine three potential covariates (`friends`, `age`, and `female`)
 
 8. To help think about which covariates should be included in your model, create a correlation matrix of the outcome, and all three covariates. By referring to this matrix, clearly indicate the order in which you will add covariates into the model.
 
-Fit three logistic models based on the order of importance of the three covariates that also include the effects of religious attendance, and denomination. For example, the first of these three models would include the effects of religious attendance, denomination, and the most important covariate you identifed in Question 8. The second model would include the effects of religious attendance, denomination, and the two most important covariate you identifed. Finally, the third model would include the effects of religious attendance, denomination, and all three covariates.
+Fit three logistic models based on the order of importance of the three covariates that also include the effects of religious attendance, and denomination. For example, the first of these three models would include the effects of religious attendance, denomination, and the most important covariate you identifed in Question 8. The second model would include the effects of religious attendance, denomination, and the two most important covariates you identified. Finally, the third model would include the effects of religious attendance, denomination, and all three covariates.
 
 9. Which of these three models should be adopted as you final model (or set of models)? Justify your response by providing any statistical evidence you used in reaching your decision. **(2pts.)**
 
